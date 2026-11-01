@@ -1,0 +1,53 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+    branches: [dev, main]
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # Frontend: runs once frontend/pnpm-lock.yaml exists
+      - uses: pnpm/action-setup@v4
+        if: ${{ hashFiles('frontend/pnpm-lock.yaml') != '' }}
+        with:
+          package_json_file: frontend/package.json
+
+      - uses: actions/setup-node@v4
+        if: ${{ hashFiles('frontend/pnpm-lock.yaml') != '' }}
+        with:
+          node-version: '22'
+          cache: pnpm
+          cache-dependency-path: frontend/pnpm-lock.yaml
+
+      - name: Frontend typecheck, lint, build
+        if: ${{ hashFiles('frontend/pnpm-lock.yaml') != '' }}
+        working-directory: frontend
+        run: |
+          pnpm install --frozen-lockfile
+          pnpm run typecheck
+          pnpm run lint
+          pnpm run build
+
+      # Backend: runs once backend/requirements.txt exists
+      - uses: actions/setup-python@v5
+        if: ${{ hashFiles('backend/requirements.txt') != '' }}
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: backend/requirements.txt
+
+      - name: Backend lint and tests
+        if: ${{ hashFiles('backend/requirements.txt') != '' }}
+        working-directory: backend
+        run: |
+          pip install -r requirements.txt ruff pytest
+          ruff check .
+          pytest -q || [ $? -eq 5 ]   # 5 = no tests yet
