@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import json
 import urllib.error
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 from pathlib import Path
 from unittest.mock import patch
 
@@ -223,7 +223,7 @@ def test_cache_persistence_and_expiry(tmp_path: Path):
     assert is_cache_fresh(cache_file, ttl_seconds=3600) is True
 
     # Simulate expired cache
-    expired_time = (datetime.now(timezone.utc) - timedelta(days=10)).isoformat()
+    expired_time = (datetime.now(UTC) - timedelta(days=10)).isoformat()
     raw = json.loads(cache_file.read_text(encoding="utf-8"))
     raw["fetched_at"] = expired_time
     cache_file.write_text(json.dumps(raw), encoding="utf-8")

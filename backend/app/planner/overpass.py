@@ -9,7 +9,7 @@ import os
 import urllib.error
 import urllib.parse
 import urllib.request
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
@@ -186,7 +186,7 @@ def is_cache_fresh(cache_path: Path, ttl_seconds: int = DEFAULT_TTL_SECONDS) -> 
         # Strip trailing Z if present for python fromisoformat
         clean_ts = fetched_at_str.replace("Z", "+00:00")
         fetched_at = datetime.fromisoformat(clean_ts)
-        age = (datetime.now(timezone.utc) - fetched_at).total_seconds()
+        age = (datetime.now(UTC) - fetched_at).total_seconds()
         return age < ttl_seconds
     except (OSError, ValueError, KeyError) as exc:
         logger.warning("Failed to check cache freshness for %s: %s", cache_path, exc)
@@ -204,7 +204,7 @@ def save_overpass_cache(
     cache_path.parent.mkdir(parents=True, exist_ok=True)
     payload = {
         "version": 1,
-        "fetched_at": datetime.now(timezone.utc).isoformat(),
+        "fetched_at": datetime.now(UTC).isoformat(),
         "ttl_seconds": ttl_seconds,
         "radius_m": radius_m,
         "monuments_count": monuments_count,
@@ -240,7 +240,7 @@ def load_overpass_cache(
         clean_ts = fetched_at_str.replace("Z", "+00:00")
         try:
             fetched_at = datetime.fromisoformat(clean_ts)
-            age = (datetime.now(timezone.utc) - fetched_at).total_seconds()
+            age = (datetime.now(UTC) - fetched_at).total_seconds()
             if age >= ttl_seconds:
                 raise OverpassError(f"Cache expired (age {age:.0f}s >= TTL {ttl_seconds}s)")
         except (ValueError, TypeError) as exc:

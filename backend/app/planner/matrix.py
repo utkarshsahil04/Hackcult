@@ -7,7 +7,7 @@ import logging
 import os
 import urllib.error
 import urllib.request
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
@@ -195,7 +195,7 @@ def fetch_ors_matrix(
         locations=locations,
         durations=durations,
         distances=distances,
-        created_at=datetime.now(timezone.utc).isoformat(),
+        created_at=datetime.now(UTC).isoformat(),
         source="openrouteservice",
     )
     matrix.validate()
