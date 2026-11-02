@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """Standalone structural check for seed_data/. NOT your pipeline's validator:
 it re-implements the README rules so a reviewer can run them anywhere.
 Usage: python tools/validate_seed.py [seed_data_dir] [--baseline OLD_DIR]
