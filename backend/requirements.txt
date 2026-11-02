@@ -1,3 +1,4 @@
 # Backend dependencies. The DB layer uses only the standard library (sqlite3).
 # FastAPI and friends are added by the API issues.
 pytest>=8.0
+ortools>=9.11.0

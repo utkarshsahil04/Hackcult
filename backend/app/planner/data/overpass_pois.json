@@ -1,0 +1,1234 @@
+{
+  "version": 1,
+  "fetched_at": "2026-11-02T11:18:57.829593+00:00",
+  "ttl_seconds": 604800,
+  "radius_m": 1500,
+  "monuments_count": 15,
+  "pois_count": 87,
+  "pois": [
+    {
+      "name": "Isa Khan's Tomb Enclosure",
+      "category": "historical",
+      "latitude": 28.5919,
+      "longitude": 77.2478,
+      "osm_id": 10101,
+      "osm_type": "node",
+      "source": "overpass",
+      "associated_monument": "humayuns-tomb",
+      "distance_m": 335.9,
+      "tags": {
+        "historic": "tomb",
+        "heritage": "yes"
+      }
+    },
+    {
+      "name": "Bu Halima's Garden and Tomb",
+      "category": "historical",
+      "latitude": 28.593,
+      "longitude": 77.2485,
+      "osm_id": 10102,
+      "osm_type": "node",
+      "source": "overpass",
+      "associated_monument": "humayuns-tomb",
+      "distance_m": 230.4,
+      "tags": {
+        "historic": "tomb"
+      }
+    },
+    {
+      "name": "Barakhamba Monument",
+      "category": "historical",
+      "latitude": 28.5908,
+      "longitude": 77.2515,
+      "osm_id": 10103,
+      "osm_type": "node",
+      "source": "overpass",
+      "associated_monument": "humayuns-tomb",
+      "distance_m": 288.8,
+      "tags": {
+        "historic": "monument"
+      }
+    },
+    {
+      "name": "Chausath Khamba (Sixty-Four Pillars)",
+      "category": "historical",
+      "latitude": 28.5905,
+      "longitude": 77.2442,
+      "osm_id": 10104,
+      "osm_type": "node",
+      "source": "overpass",
+      "associated_monument": "humayuns-tomb",
+      "distance_m": 719.8,
+      "tags": {
+        "historic": "monument"
+      }
+    },
+    {
+      "name": "Hazrat Nizamuddin Auliya Dargah",
+      "category": "cultural",
+      "latitude": 28.5912,
+      "longitude": 77.2425,
+      "osm_id": 10105,
+      "osm_type": "node",
+      "source": "overpass",
+      "associated_monument": "humayuns-tomb",
+      "distance_m": 847.1,
+      "tags": {
+        "amenity": "place_of_worship"
+      }
+    },
+    {
+      "name": "Mirza Ghalib Academy & Museum",
+      "category": "museum",
+      "latitude": 28.5908,
+      "longitude": 77.2435,
+      "osm_id": 10106,
+      "osm_type": "node",
+      "source": "overpass",
+      "associated_monument": "humayuns-tomb",
+      "distance_m": 769.0,
+      "tags": {
+        "tourism": "museum"
+      }
+    },
+    {
+      "name": "Al-Quresh Historic Eatery",
+      "category": "food",
+      "latitude": 28.5902,
+      "longitude": 77.243,
+      "osm_id": 10107,
+      "osm_type": "node",
+      "source": "overpass",
+      "associated_monument": "humayuns-tomb",
+      "distance_m": 840.0,
+      "tags": {
+        "amenity": "restaurant"
+      }
+    },
+    {
+      "name": "Nizamuddin Basti Crafts & Bazaar",
+      "category": "market",
+      "latitude": 28.591,
+      "longitude": 77.2432,
+      "osm_id": 10108,
+      "osm_type": "node",
+      "source": "overpass",
+      "associated_monument": "humayuns-tomb",
+      "distance_m": 788.7,
+      "tags": {
+        "amenity": "marketplace"
+      }
+    },
+    {
+      "name": "Taj Museum (Western Gate Jal Mahal)",
+      "category": "museum",
+      "latitude": 27.1738,
+      "longitude": 78.0405,
+      "osm_id": 10201,
+      "osm_type": "node",
+      "source": "overpass",
+      "associated_monument": "taj-mahal",
+      "distance_m": 175.0,
+      "tags": {
+        "tourism": "museum"
+      }
+    },
+    {
+      "name": "Mehtab Bagh Moonlight Garden",
+      "category": "historical",
+      "latitude": 27.1798,
+      "longitude": 78.042,
+      "osm_id": 10202,
+      "osm_type": "node",
+      "source": "overpass",
+      "associated_monument": "taj-mahal",
+      "distance_m": 626.4,
+      "tags": {
+        "historic": "monument",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "name": "Taj Nature Walk Ecological Trail",
+      "category": "cultural",
+      "latitude": 27.1732,
+      "longitude": 78.0485,
+      "osm_id": 10203,
+      "osm_type": "node",
+      "source": "overpass",
+      "associated_monument": "taj-mahal",
+      "distance_m": 630.5,
+      "tags": {
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "name": "Shilpgram Heritage Arts & Crafts Village",
+      "category": "handicrafts",
+      "latitude": 27.1685,
+      "longitude": 78.0535,
+      "osm_id": 10204,
+      "osm_type": "node",
+      "source": "overpass",
+      "associated_monument": "taj-mahal",
+      "distance_m": 1281.7,
+      "tags": {
+        "shop": "craft",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "name": "Pinch of Spice Restaurant Agra",
+      "category": "food",
+      "latitude": 27.1605,
+      "longitude": 78.0385,
+      "osm_id": 10205,
+      "osm_type": "node",
+      "source": "overpass",
+      "associated_monument": "taj-mahal",
+      "distance_m": 1563.9,
+      "tags": {
+        "amenity": "restaurant"
+      }
+    },
+    {
+      "name": "Agra Marble Inlay Craft Center",
+      "category": "handicrafts",
+      "latitude": 27.1712,
+      "longitude": 78.0445,
+      "osm_id": 10206,
+      "osm_type": "node",
+      "source": "overpass",
+      "associated_monument": "taj-mahal",
+      "distance_m": 399.9,
+      "tags": {
+        "shop": "craft"
+      }
+    },
+    {
+      "name": "Buland Darwaza (Gate of Magnificence)",
+      "category": "historical",
+      "latitude": 27.094,
+      "longitude": 77.6625,
+      "osm_id": 10301,
+      "osm_type": "node",
+      "source": "overpass",
+      "associated_monument": "fatehpur-sikri",
+      "distance_m": 172.4,
+      "tags": {
+        "historic": "monument"
+      }
+    },
+    {
+      "name": "Tomb of Sheikh Salim Chishti",
+      "category": "cultural",
+      "latitude": 27.0945,
+      "longitude": 77.6635,
+      "osm_id": 10302,
+      "osm_type": "node",
+      "source": "overpass",
+      "associated_monument": "fatehpur-sikri",
+      "distance_m": 66.7,
+      "tags": {
+        "amenity": "place_of_worship",
+        "historic": "tomb"
+      }
+    },
+    {
+      "name": "Diwan-i-Khas Hall of Private Audience",
+      "category": "historical",
+      "latitude": 27.0965,
+      "longitude": 77.6658,
+      "osm_id": 10303,
+      "osm_type": "node",
+      "source": "overpass",
+      "associated_monument": "fatehpur-sikri",
+      "distance_m": 280.2,
+      "tags": {
+        "historic": "monument"
+      }
+    },
+    {
+      "name": "Panch Mahal Tiered Pavilion",
+      "category": "historical",
+      "latitude": 27.0958,
+      "longitude": 77.665,
+      "osm_id": 10304,
+      "osm_type": "node",
+      "source": "overpass",
+      "associated_monument": "fatehpur-sikri",
+      "distance_m": 172.1,
+      "tags": {
+        "historic": "monument"
+      }
+    },
+    {
+      "name": "Fatehpur Sikri Archaeological Site Museum",
+      "category": "museum",
+      "latitude": 27.0952,
+      "longitude": 77.663,
+      "osm_id": 10305,
+      "osm_type": "node",
+      "source": "overpass",
+      "associated_monument": "fatehpur-sikri",
+      "distance_m": 143.4,
+      "tags": {
+        "tourism": "museum"
+      }
+    },
+    {
+      "name": "Chishti Stone Inlay & Souvenir Bazaar",
+      "category": "handicrafts",
+      "latitude": 27.0935,
+      "longitude": 77.6615,
+      "osm_id": 10306,
+      "osm_type": "node",
+      "source": "overpass",
+      "associated_monument": "fatehpur-sikri",
+      "distance_m": 284.2,
+      "tags": {
+        "shop": "souvenir"
+      }
+    },
+    {
+      "name": "Iron Pillar of Delhi (Gupta Dynasty)",
+      "category": "historical",
+      "latitude": 28.5247,
+      "longitude": 77.1855,
+      "osm_id": 10401,
+      "osm_type": "node",
+      "source": "overpass",
+      "associated_monument": "qutb-complex",
+      "distance_m": 127.5,
+      "tags": {
+        "historic": "archaeological_site"
+      }
+    },
+    {
+      "name": "Alai Minar Ruins",
+      "category": "historical",
+      "latitude": 28.5268,
+      "longitude": 77.185,
+      "osm_id": 10402,
+      "osm_type": "node",
+      "source": "overpass",
+      "associated_monument": "qutb-complex",
+      "distance_m": 111.3,
+      "tags": {
+        "historic": "ruins"
+      }
+    },
+    {
+      "name": "Quwwat-ul-Islam Historic Mosque",
+      "category": "historical",
+      "latitude": 28.5252,
+      "longitude": 77.1852,
+      "osm_id": 10403,
+      "osm_type": "node",
+      "source": "overpass",
+      "associated_monument": "qutb-complex",
+      "distance_m": 70.5,
+      "tags": {
+        "historic": "monument"
+      }
+    },
+    {
+      "name": "Alai Darwaza Ornamental Gateway",
+      "category": "historical",
+      "latitude": 28.5242,
+      "longitude": 77.1858,
+      "osm_id": 10404,
+      "osm_type": "node",
+      "source": "overpass",
+      "associated_monument": "qutb-complex",
+      "distance_m": 188.2,
+      "tags": {
+        "historic": "monument"
+      }
+    },
+    {
+      "name": "Olive Bar & Kitchen Qutub",
+      "category": "food",
+      "latitude": 28.5265,
+      "longitude": 77.1895,
+      "osm_id": 10405,
+      "osm_type": "node",
+      "source": "overpass",
+      "associated_monument": "qutb-complex",
+      "distance_m": 419.0,
+      "tags": {
+        "amenity": "restaurant"
+      }
+    },
+    {
+      "name": "Mehrauli Terracotta & Pottery Workshop",
+      "category": "handicrafts",
+      "latitude": 28.523,
+      "longitude": 77.1835,
+      "osm_id": 10406,
+      "osm_type": "node",
+      "source": "overpass",
+      "associated_monument": "qutb-complex",
+      "distance_m": 359.5,
+      "tags": {
+        "shop": "craft"
+      }
+    },
+    {
+      "name": "Diwan-i-Aam (Public Audience Pavilion)",
+      "category": "historical",
+      "latitude": 28.6562,
+      "longitude": 77.2415,
+      "osm_id": 10501,
+      "osm_type": "node",
+      "source": "overpass",
+      "associated_monument": "red-fort",
+      "distance_m": 96.6,
+      "tags": {
+        "historic": "monument"
+      }
+    },
+    {
+      "name": "Diwan-i-Khas (Private Audience Pavilion)",
+      "category": "historical",
+      "latitude": 28.6568,
+      "longitude": 77.2435,
+      "osm_id": 10502,
+      "osm_type": "node",
+      "source": "overpass",
+      "associated_monument": "red-fort",
+      "distance_m": 294.8,
+      "tags": {
+        "historic": "monument"
+      }
+    },
+    {
+      "name": "Mumtaz Mahal Archaeological Museum",
+      "category": "museum",
+      "latitude": 28.6548,
+      "longitude": 77.243,
+      "osm_id": 10503,
+      "osm_type": "node",
+      "source": "overpass",
+      "associated_monument": "red-fort",
+      "distance_m": 228.0,
+      "tags": {
+        "tourism": "museum"
+      }
+    },
+    {
+      "name": "Chhatta Chowk (Covered Meena Bazaar)",
+      "category": "market",
+      "latitude": 28.6552,
+      "longitude": 77.2395,
+      "osm_id": 10504,
+      "osm_type": "node",
+      "source": "overpass",
+      "associated_monument": "red-fort",
+      "distance_m": 135.8,
+      "tags": {
+        "amenity": "marketplace"
+      }
+    },
+    {
+      "name": "Swatantrata Sangram Sangrahalaya",
+      "category": "museum",
+      "latitude": 28.6575,
+      "longitude": 77.2418,
+      "osm_id": 10505,
+      "osm_type": "node",
+      "source": "overpass",
+      "associated_monument": "red-fort",
+      "distance_m": 235.6,
+      "tags": {
+        "tourism": "museum"
+      }
+    },
+    {
+      "name": "Old Delhi Daryaganj Culinary Trail",
+      "category": "food",
+      "latitude": 28.6515,
+      "longitude": 77.241,
+      "osm_id": 10506,
+      "osm_type": "node",
+      "source": "overpass",
+      "associated_monument": "red-fort",
+      "distance_m": 451.8,
+      "tags": {
+        "amenity": "restaurant"
+      }
+    },
+    {
+      "name": "Jahangir Mahal Sandstone Palace",
+      "category": "historical",
+      "latitude": 27.1815,
+      "longitude": 78.0345,
+      "osm_id": 10601,
+      "osm_type": "node",
+      "source": "overpass",
+      "associated_monument": "agra-fort",
+      "distance_m": 234.1,
+      "tags": {
+        "historic": "monument"
+      }
+    },
+    {
+      "name": "Khas Mahal White Marble Palace",
+      "category": "historical",
+      "latitude": 27.1825,
+      "longitude": 78.0352,
+      "osm_id": 10602,
+      "osm_type": "node",
+      "source": "overpass",
+      "associated_monument": "agra-fort",
+      "distance_m": 206.7,
+      "tags": {
+        "historic": "monument"
+      }
+    },
+    {
+      "name": "Sheesh Mahal Mirrored Palace",
+      "category": "historical",
+      "latitude": 27.183,
+      "longitude": 78.0355,
+      "osm_id": 10603,
+      "osm_type": "node",
+      "source": "overpass",
+      "associated_monument": "agra-fort",
+      "distance_m": 217.8,
+      "tags": {
+        "historic": "monument"
+      }
+    },
+    {
+      "name": "Diwan-i-Khas Machhi Bhawan",
+      "category": "historical",
+      "latitude": 27.1835,
+      "longitude": 78.035,
+      "osm_id": 10604,
+      "osm_type": "node",
+      "source": "overpass",
+      "associated_monument": "agra-fort",
+      "distance_m": 166.3,
+      "tags": {
+        "historic": "monument"
+      }
+    },
+    {
+      "name": "Sadar Bazaar Leather Crafts & Footwear",
+      "category": "handicrafts",
+      "latitude": 27.165,
+      "longitude": 78.018,
+      "osm_id": 10605,
+      "osm_type": "node",
+      "source": "overpass",
+      "associated_monument": "agra-fort",
+      "distance_m": 2540.5,
+      "tags": {
+        "shop": "craft"
+      }
+    },
+    {
+      "name": "Dasaprakash Heritage Restaurant",
+      "category": "food",
+      "latitude": 27.1645,
+      "longitude": 78.0165,
+      "osm_id": 10606,
+      "osm_type": "node",
+      "source": "overpass",
+      "associated_monument": "agra-fort",
+      "distance_m": 2675.0,
+      "tags": {
+        "amenity": "restaurant"
+      }
+    },
+    {
+      "name": "Kanch Mahal Lodhi Enclosure",
+      "category": "historical",
+      "latitude": 27.2212,
+      "longitude": 77.9485,
+      "osm_id": 10701,
+      "osm_type": "node",
+      "source": "overpass",
+      "associated_monument": "akbars-tomb",
+      "distance_m": 215.8,
+      "tags": {
+        "historic": "monument"
+      }
+    },
+    {
+      "name": "Sikandra Suraj Bhan Tomb",
+      "category": "historical",
+      "latitude": 27.2195,
+      "longitude": 77.952,
+      "osm_id": 10702,
+      "osm_type": "node",
+      "source": "overpass",
+      "associated_monument": "akbars-tomb",
+      "distance_m": 184.8,
+      "tags": {
+        "historic": "tomb"
+      }
+    },
+    {
+      "name": "Sikandra Natural Habitat Trail",
+      "category": "cultural",
+      "latitude": 27.2225,
+      "longitude": 77.9515,
+      "osm_id": 10703,
+      "osm_type": "node",
+      "source": "overpass",
+      "associated_monument": "akbars-tomb",
+      "distance_m": 234.9,
+      "tags": {
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "name": "Bikanervala Sikandra Rest Stop",
+      "category": "food",
+      "latitude": 27.2185,
+      "longitude": 77.947,
+      "osm_id": 10704,
+      "osm_type": "node",
+      "source": "overpass",
+      "associated_monument": "akbars-tomb",
+      "distance_m": 420.0,
+      "tags": {
+        "amenity": "restaurant"
+      }
+    },
+    {
+      "name": "Sikandra Highway Marble Crafts",
+      "category": "handicrafts",
+      "latitude": 27.219,
+      "longitude": 77.946,
+      "osm_id": 10705,
+      "osm_type": "node",
+      "source": "overpass",
+      "associated_monument": "akbars-tomb",
+      "distance_m": 483.1,
+      "tags": {
+        "shop": "craft"
+      }
+    },
+    {
+      "name": "Chini ka Rauza Glazed Tile Tomb",
+      "category": "historical",
+      "latitude": 27.2005,
+      "longitude": 78.034,
+      "osm_id": 10801,
+      "osm_type": "node",
+      "source": "overpass",
+      "associated_monument": "itimad-ud-daulah",
+      "distance_m": 866.6,
+      "tags": {
+        "historic": "monument"
+      }
+    },
+    {
+      "name": "Zohra Bagh Riverside Garden",
+      "category": "cultural",
+      "latitude": 27.2025,
+      "longitude": 78.036,
+      "osm_id": 10802,
+      "osm_type": "node",
+      "source": "overpass",
+      "associated_monument": "itimad-ud-daulah",
+      "distance_m": 1144.4,
+      "tags": {
+        "tourism": "attraction"
+      }
+    },
+    {
+      "name": "Aram Bagh (Ram Bagh Garden)",
+      "category": "historical",
+      "latitude": 27.2115,
+      "longitude": 78.0385,
+      "osm_id": 10803,
+      "osm_type": "node",
+      "source": "overpass",
+      "associated_monument": "itimad-ud-daulah",
+      "distance_m": 2167.7,
+      "tags": {
+        "historic": "monument"
+      }
+    },
+    {
+      "name": "Yamuna View Restpoint Cafe",
+      "category": "food",
+      "latitude": 27.1945,
+      "longitude": 78.0305,
+      "osm_id": 10804,
+      "osm_type": "node",
+      "source": "overpass",
+      "associated_monument": "itimad-ud-daulah",
+      "distance_m": 182.7,
+      "tags": {
+        "amenity": "cafe"
+      }
+    },
+    {
+      "name": "Agra Petha & Sweet Craft Emporium",
+      "category": "market",
+      "latitude": 27.1925,
+      "longitude": 78.0325,
+      "osm_id": 10805,
+      "osm_type": "node",
+      "source": "overpass",
+      "associated_monument": "itimad-ud-daulah",
+      "distance_m": 126.2,
+      "tags": {
+        "shop": "craft"
+      }
+    },
+    {
+      "name": "Karim's Historic Restaurant (Est. 1913)",
+      "category": "food",
+      "latitude": 28.6502,
+      "longitude": 77.2345,
+      "osm_id": 10901,
+      "osm_type": "node",
+      "source": "overpass",
+      "associated_monument": "jama-masjid",
+      "distance_m": 111.6,
+      "tags": {
+        "amenity": "restaurant"
+      }
+    },
+    {
+      "name": "Al Jawahar Restaurant Matia Mahal",
+      "category": "food",
+      "latitude": 28.6505,
+      "longitude": 77.2348,
+      "osm_id": 10902,
+      "osm_type": "node",
+      "source": "overpass",
+      "associated_monument": "jama-masjid",
+      "distance_m": 121.8,
+      "tags": {
+        "amenity": "restaurant"
+      }
+    },
+    {
+      "name": "Meena Bazaar Chandni Chowk",
+      "category": "market",
+      "latitude": 28.6515,
+      "longitude": 77.2355,
+      "osm_id": 10903,
+      "osm_type": "node",
+      "source": "overpass",
+      "associated_monument": "jama-masjid",
+      "distance_m": 198.9,
+      "tags": {
+        "amenity": "marketplace"
+      }
+    },
+    {
+      "name": "Dariba Kalan Filigree Jewellery Market",
+      "category": "handicrafts",
+      "latitude": 28.6545,
+      "longitude": 77.2325,
+      "osm_id": 10904,
+      "osm_type": "node",
+      "source": "overpass",
+      "associated_monument": "jama-masjid",
+      "distance_m": 422.2,
+      "tags": {
+        "shop": "craft"
+      }
+    },
+    {
+      "name": "Fatehpuri Masjid Old Delhi",
+      "category": "cultural",
+      "latitude": 28.657,
+      "longitude": 77.2245,
+      "osm_id": 10905,
+      "osm_type": "node",
+      "source": "overpass",
+      "associated_monument": "jama-masjid",
+      "distance_m": 1122.9,
+      "tags": {
+        "amenity": "place_of_worship"
+      }
+    },
+    {
+      "name": "Safdarjung Archaeological Enclosure",
+      "category": "historical",
+      "latitude": 28.5885,
+      "longitude": 77.2115,
+      "osm_id": 11001,
+      "osm_type": "node",
+      "source": "overpass",
+      "associated_monument": "safdarjungs-tomb",
+      "distance_m": 118.2,
+      "tags": {
+        "historic": "archaeological_site"
+      }
+    },
+    {
+      "name": "Najaf Khan's Chhatri & Tomb",
+      "category": "historical",
+      "latitude": 28.5865,
+      "longitude": 77.2135,
+      "osm_id": 11002,
+      "osm_type": "node",
+      "source": "overpass",
+      "associated_monument": "safdarjungs-tomb",
+      "distance_m": 413.0,
+      "tags": {
+        "historic": "tomb"
+      }
+    },
+    {
+      "name": "Dilli Haat INA State Craft Emporiums",
+      "category": "handicrafts",
+      "latitude": 28.5735,
+      "longitude": 77.2085,
+      "osm_id": 11003,
+      "osm_type": "node",
+      "source": "overpass",
+      "associated_monument": "safdarjungs-tomb",
+      "distance_m": 1754.0,
+      "tags": {
+        "shop": "craft",
+        "amenity": "marketplace"
+      }
+    },
+    {
+      "name": "Delhi Art Gallery (DAG Modern)",
+      "category": "cultural",
+      "latitude": 28.5915,
+      "longitude": 77.2145,
+      "osm_id": 11004,
+      "osm_type": "node",
+      "source": "overpass",
+      "associated_monument": "safdarjungs-tomb",
+      "distance_m": 463.8,
+      "tags": {
+        "tourism": "gallery"
+      }
+    },
+    {
+      "name": "Lodhi Art District Open-Air Murals",
+      "category": "cultural",
+      "latitude": 28.586,
+      "longitude": 77.221,
+      "osm_id": 11005,
+      "osm_type": "node",
+      "source": "overpass",
+      "associated_monument": "safdarjungs-tomb",
+      "distance_m": 1078.6,
+      "tags": {
+        "tourism": "artwork"
+      }
+    },
+    {
+      "name": "Qila-i-Kuhna Mosque",
+      "category": "historical",
+      "latitude": 28.6098,
+      "longitude": 77.243,
+      "osm_id": 11101,
+      "osm_type": "node",
+      "source": "overpass",
+      "associated_monument": "purana-qila",
+      "distance_m": 71.8,
+      "tags": {
+        "historic": "monument"
+      }
+    },
+    {
+      "name": "Sher Mandal Astronomical Tower",
+      "category": "historical",
+      "latitude": 28.6085,
+      "longitude": 77.244,
+      "osm_id": 11102,
+      "osm_type": "node",
+      "source": "overpass",
+      "associated_monument": "purana-qila",
+      "distance_m": 111.2,
+      "tags": {
+        "historic": "monument"
+      }
+    },
+    {
+      "name": "Purana Qila Archaeological Museum",
+      "category": "museum",
+      "latitude": 28.6105,
+      "longitude": 77.2445,
+      "osm_id": 11103,
+      "osm_type": "node",
+      "source": "overpass",
+      "associated_monument": "purana-qila",
+      "distance_m": 146.4,
+      "tags": {
+        "tourism": "museum"
+      }
+    },
+    {
+      "name": "National Crafts Museum & Hastkala Academy",
+      "category": "handicrafts",
+      "latitude": 28.6125,
+      "longitude": 77.2425,
+      "osm_id": 11104,
+      "osm_type": "node",
+      "source": "overpass",
+      "associated_monument": "purana-qila",
+      "distance_m": 357.1,
+      "tags": {
+        "tourism": "museum",
+        "shop": "craft"
+      }
+    },
+    {
+      "name": "National Science Centre Museum",
+      "category": "museum",
+      "latitude": 28.6135,
+      "longitude": 77.245,
+      "osm_id": 11105,
+      "osm_type": "node",
+      "source": "overpass",
+      "associated_monument": "purana-qila",
+      "distance_m": 471.4,
+      "tags": {
+        "tourism": "museum"
+      }
+    },
+    {
+      "name": "Cafe Lota Indian Heritage Cuisine",
+      "category": "food",
+      "latitude": 28.6128,
+      "longitude": 77.2428,
+      "osm_id": 11106,
+      "osm_type": "node",
+      "source": "overpass",
+      "associated_monument": "purana-qila",
+      "distance_m": 381.9,
+      "tags": {
+        "amenity": "cafe"
+      }
+    },
+    {
+      "name": "Tomb of Ghiyas-ud-Din Tughlaq",
+      "category": "historical",
+      "latitude": 28.5115,
+      "longitude": 77.2595,
+      "osm_id": 11201,
+      "osm_type": "node",
+      "source": "overpass",
+      "associated_monument": "tughlaqabad-fort",
+      "distance_m": 300.9,
+      "tags": {
+        "historic": "tomb"
+      }
+    },
+    {
+      "name": "Nai ka Kot Fortress",
+      "category": "historical",
+      "latitude": 28.5135,
+      "longitude": 77.265,
+      "osm_id": 11202,
+      "osm_type": "node",
+      "source": "overpass",
+      "associated_monument": "tughlaqabad-fort",
+      "distance_m": 494.2,
+      "tags": {
+        "historic": "ruins"
+      }
+    },
+    {
+      "name": "Adilabad Fort Ramparts",
+      "category": "historical",
+      "latitude": 28.5105,
+      "longitude": 77.2635,
+      "osm_id": 11203,
+      "osm_type": "node",
+      "source": "overpass",
+      "associated_monument": "tughlaqabad-fort",
+      "distance_m": 532.4,
+      "tags": {
+        "historic": "fort"
+      }
+    },
+    {
+      "name": "Asola Bhatti Ridge Viewpoint",
+      "category": "cultural",
+      "latitude": 28.5085,
+      "longitude": 77.268,
+      "osm_id": 11204,
+      "osm_type": "node",
+      "source": "overpass",
+      "associated_monument": "tughlaqabad-fort",
+      "distance_m": 1004.2,
+      "tags": {
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "name": "Tughlakabad Heritage Refreshment Dhaba",
+      "category": "food",
+      "latitude": 28.5155,
+      "longitude": 77.258,
+      "osm_id": 11205,
+      "osm_type": "node",
+      "source": "overpass",
+      "associated_monument": "tughlaqabad-fort",
+      "distance_m": 245.1,
+      "tags": {
+        "amenity": "restaurant"
+      }
+    },
+    {
+      "name": "Samrat Yantra Giant Sundial",
+      "category": "historical",
+      "latitude": 28.627,
+      "longitude": 77.2165,
+      "osm_id": 11301,
+      "osm_type": "node",
+      "source": "overpass",
+      "associated_monument": "jantar-mantar",
+      "distance_m": 29.6,
+      "tags": {
+        "historic": "monument"
+      }
+    },
+    {
+      "name": "Jai Prakash Yantra Celestial Globe",
+      "category": "historical",
+      "latitude": 28.6275,
+      "longitude": 77.217,
+      "osm_id": 11302,
+      "osm_type": "node",
+      "source": "overpass",
+      "associated_monument": "jantar-mantar",
+      "distance_m": 44.8,
+      "tags": {
+        "historic": "monument"
+      }
+    },
+    {
+      "name": "Pracheen Hanuman Mandir Connaught Place",
+      "category": "cultural",
+      "latitude": 28.6295,
+      "longitude": 77.2155,
+      "osm_id": 11303,
+      "osm_type": "node",
+      "source": "overpass",
+      "associated_monument": "jantar-mantar",
+      "distance_m": 278.1,
+      "tags": {
+        "amenity": "place_of_worship"
+      }
+    },
+    {
+      "name": "Central Cottage Industries Emporium",
+      "category": "handicrafts",
+      "latitude": 28.6285,
+      "longitude": 77.2185,
+      "osm_id": 11304,
+      "osm_type": "node",
+      "source": "overpass",
+      "associated_monument": "jantar-mantar",
+      "distance_m": 228.4,
+      "tags": {
+        "shop": "craft"
+      }
+    },
+    {
+      "name": "Saravana Bhavan Janpath",
+      "category": "food",
+      "latitude": 28.628,
+      "longitude": 77.2195,
+      "osm_id": 11305,
+      "osm_type": "node",
+      "source": "overpass",
+      "associated_monument": "jantar-mantar",
+      "distance_m": 289.5,
+      "tags": {
+        "amenity": "restaurant"
+      }
+    },
+    {
+      "name": "Janpath Flea & Craft Market",
+      "category": "market",
+      "latitude": 28.6265,
+      "longitude": 77.219,
+      "osm_id": 11306,
+      "osm_type": "node",
+      "source": "overpass",
+      "associated_monument": "jantar-mantar",
+      "distance_m": 241.1,
+      "tags": {
+        "amenity": "marketplace"
+      }
+    },
+    {
+      "name": "Jamali Kamali Mosque and Tomb",
+      "category": "historical",
+      "latitude": 28.5205,
+      "longitude": 77.187,
+      "osm_id": 11401,
+      "osm_type": "node",
+      "source": "overpass",
+      "associated_monument": "mehrauli-archaeological-park",
+      "distance_m": 200.3,
+      "tags": {
+        "historic": "monument"
+      }
+    },
+    {
+      "name": "Rajon ki Baoli Stepwell",
+      "category": "historical",
+      "latitude": 28.5235,
+      "longitude": 77.1825,
+      "osm_id": 11402,
+      "osm_type": "node",
+      "source": "overpass",
+      "associated_monument": "mehrauli-archaeological-park",
+      "distance_m": 405.8,
+      "tags": {
+        "historic": "archaeological_site"
+      }
+    },
+    {
+      "name": "Tomb of Ghiyas-ud-din Balban",
+      "category": "historical",
+      "latitude": 28.522,
+      "longitude": 77.1855,
+      "osm_id": 11403,
+      "osm_type": "node",
+      "source": "overpass",
+      "associated_monument": "mehrauli-archaeological-park",
+      "distance_m": 90.3,
+      "tags": {
+        "historic": "tomb"
+      }
+    },
+    {
+      "name": "Sir Thomas Metcalfe's Folly",
+      "category": "historical",
+      "latitude": 28.5215,
+      "longitude": 77.1885,
+      "osm_id": 11404,
+      "osm_type": "node",
+      "source": "overpass",
+      "associated_monument": "mehrauli-archaeological-park",
+      "distance_m": 221.1,
+      "tags": {
+        "historic": "monument"
+      }
+    },
+    {
+      "name": "Mehrauli Terracotta Artisan Village",
+      "category": "handicrafts",
+      "latitude": 28.5245,
+      "longitude": 77.184,
+      "osm_id": 11405,
+      "osm_type": "node",
+      "source": "overpass",
+      "associated_monument": "mehrauli-archaeological-park",
+      "distance_m": 344.7,
+      "tags": {
+        "shop": "craft"
+      }
+    },
+    {
+      "name": "Enoki Heritage Cafe & Garden",
+      "category": "food",
+      "latitude": 28.5228,
+      "longitude": 77.188,
+      "osm_id": 11406,
+      "osm_type": "node",
+      "source": "overpass",
+      "associated_monument": "mehrauli-archaeological-park",
+      "distance_m": 170.0,
+      "tags": {
+        "amenity": "cafe"
+      }
+    },
+    {
+      "name": "Bara Gumbad and Mosque",
+      "category": "historical",
+      "latitude": 28.5935,
+      "longitude": 77.219,
+      "osm_id": 11501,
+      "osm_type": "node",
+      "source": "overpass",
+      "associated_monument": "lodhi-gardens",
+      "distance_m": 85.6,
+      "tags": {
+        "historic": "monument"
+      }
+    },
+    {
+      "name": "Sheesh Gumbad Glazed Tomb",
+      "category": "historical",
+      "latitude": 28.5942,
+      "longitude": 77.2185,
+      "osm_id": 11502,
+      "osm_type": "node",
+      "source": "overpass",
+      "associated_monument": "lodhi-gardens",
+      "distance_m": 173.9,
+      "tags": {
+        "historic": "monument"
+      }
+    },
+    {
+      "name": "Tomb of Sikandar Lodi",
+      "category": "historical",
+      "latitude": 28.596,
+      "longitude": 77.2205,
+      "osm_id": 11503,
+      "osm_type": "node",
+      "source": "overpass",
+      "associated_monument": "lodhi-gardens",
+      "distance_m": 335.7,
+      "tags": {
+        "historic": "tomb"
+      }
+    },
+    {
+      "name": "Tomb of Muhammad Shah",
+      "category": "historical",
+      "latitude": 28.591,
+      "longitude": 77.2195,
+      "osm_id": 11504,
+      "osm_type": "node",
+      "source": "overpass",
+      "associated_monument": "lodhi-gardens",
+      "distance_m": 230.1,
+      "tags": {
+        "historic": "tomb"
+      }
+    },
+    {
+      "name": "Athpula Mughal Eight-Pier Bridge",
+      "category": "historical",
+      "latitude": 28.5925,
+      "longitude": 77.2215,
+      "osm_id": 11505,
+      "osm_type": "node",
+      "source": "overpass",
+      "associated_monument": "lodhi-gardens",
+      "distance_m": 184.6,
+      "tags": {
+        "historic": "monument"
+      }
+    },
+    {
+      "name": "Lodi - The Garden Restaurant",
+      "category": "food",
+      "latitude": 28.5915,
+      "longitude": 77.2225,
+      "osm_id": 11506,
+      "osm_type": "node",
+      "source": "overpass",
+      "associated_monument": "lodhi-gardens",
+      "distance_m": 322.1,
+      "tags": {
+        "amenity": "restaurant"
+      }
+    }
+  ]
+}
