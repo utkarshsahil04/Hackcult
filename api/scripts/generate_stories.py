@@ -25,7 +25,7 @@ from app.services.stories import STORY_MODEL, generate_story, store_story
 # backend/ is a sibling of api/
 BACKEND_ROOT = Path(__file__).resolve().parents[2] / "backend"
 sys.path.insert(0, str(BACKEND_ROOT))
-from app.db.init_db import connect, default_db_path
+from app.db.init_db import connect, default_db_path  # noqa: E402
 
 LANGUAGES = ["en", "hi"]
 STORY_TYPES = ["visitor", "academic"]

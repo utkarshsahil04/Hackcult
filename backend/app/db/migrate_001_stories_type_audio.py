@@ -8,7 +8,10 @@ from __future__ import annotations
 import sqlite3
 from pathlib import Path
 
-from app.db.init_db import default_db_path
+try:
+    from app.db.init_db import default_db_path
+except ModuleNotFoundError:
+    from backend.app.db.init_db import default_db_path
 
 
 def _column_exists(conn: sqlite3.Connection, table: str, column: str) -> bool:

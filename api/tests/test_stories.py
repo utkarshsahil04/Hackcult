@@ -10,6 +10,7 @@ from fastapi.testclient import TestClient
 
 from app.db import get_db
 from app.main import app
+from app.services.stories import check_claims
 
 SCHEMA = Path(__file__).resolve().parents[2] / "backend" / "app" / "db" / "schema.sql"
 
@@ -125,3 +126,46 @@ def test_story_missing_type_returns_404(client_with_story):
     r = client_with_story.get("/api/stories/taj-mahal?story_type=academic")
     assert r.status_code == 404
     assert r.json()["error"]["code"] == "STORY_NOT_FOUND"
+
+# --- Claim checking tests ---
+
+def test_check_claims_passes_grounded_story():
+    claims = [
+        {
+            "text": "Commissioned by Mughal Emperor Shah Jahan in 1632.",
+            "source_notes": ["White marble mausoleum housing the tomb of Mumtaz Mahal."],
+        }
+    ]
+    story = (
+        "As you stand before the monument, the white marble mausoleum rises gracefully. "
+        "It was commissioned by Mughal Emperor Shah Jahan in 1632. "
+        "Welcome to this wonder."
+    )
+    res = check_claims(story, claims)
+    assert res.passed is True
+    assert res.unchecked_sentences == []
+
+
+def test_check_claims_fails_hallucinated_sentence():
+    claims = [
+        {
+            "text": "Commissioned by Mughal Emperor Shah Jahan in 1632.",
+            "source_notes": ["White marble mausoleum housing the tomb of Mumtaz Mahal."],
+        }
+    ]
+    story = (
+        "It was commissioned by Mughal Emperor Shah Jahan in 1632. "
+        "The Apollo 11 spacecraft landed humans on the lunar surface in July."
+    )
+    res = check_claims(story, claims)
+    assert res.passed is False
+    assert len(res.unchecked_sentences) == 1
+    assert "Apollo 11" in res.unchecked_sentences[0]
+
+
+def test_check_claims_short_sentences_skipped():
+    claims = [{"text": "Historic fortress built in Agra.", "source_notes": []}]
+    story = "Look up. Welcome. It is grand."
+    res = check_claims(story, claims)
+    assert res.passed is True
+    assert res.unchecked_sentences == []
