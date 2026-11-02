@@ -4,8 +4,6 @@ import os
 os.environ.setdefault("GEMINI_API_KEY", "test-key")
 
 import pytest
-from fastapi.testclient import TestClient
-
 from app.main import app
 from app.ml import (
     Candidate,
@@ -14,6 +12,8 @@ from app.ml import (
     RecognitionPipeline,
     get_pipeline,
 )
+from app.routes.recognition import _rate_store
+from fastapi.testclient import TestClient
 
 # -- Minimal valid JPEG bytes (SOI marker only) --------------------------------
 JPEG = b"\xff\xd8" + b"\x00" * 10
@@ -45,6 +45,9 @@ class _BrokenPipeline(RecognitionPipeline):
     def _run(self, image_bytes):
         raise RuntimeError("GPU exploded")
 
+class _ErrorResultPipeline(RecognitionPipeline):
+    def _run(self, image_bytes):
+        return PipelineResult(status="error", candidates=[], error="Model unavailable")
 
 # -- Fixtures ------------------------------------------------------------------
 def _make_client(pipeline_instance):
@@ -121,6 +124,19 @@ def test_model_failure_returns_500_envelope(broken_client):
     assert err["message"]
     assert err["hint"]
 
+def test_pipeline_error_status_returns_500_envelope():
+    instance = _ErrorResultPipeline()
+    client, test_app = _make_client(instance)
+    try:
+        response = _post(client)
+        assert response.status_code == 500
+        err = response.json()["error"]
+        assert err["code"] == "RECOGNITION_ERROR"
+        assert err["message"]
+        assert err["hint"]
+    finally:
+        test_app.dependency_overrides.pop(get_pipeline, None)
+
 
 def test_uncertain_and_broken_look_different():
     u_inst = _UncertainPipeline()
@@ -166,3 +182,32 @@ def test_health_reports_pipeline_status(ok_client):
     sub = r.json()["subsystems"]
     assert sub["models"] == "ok"
     assert sub["faiss_index"] == "ok"
+
+def test_rate_limit_blocks_31st_request():
+    instance = _OkPipeline()
+    test_app = app
+    test_app.dependency_overrides[get_pipeline] = lambda: instance
+    test_ip = "192.0.2.123"
+    client = TestClient(
+        test_app,
+        raise_server_exceptions=False,
+        client=(test_ip, 50000),
+    )
+
+    try:
+        for _ in range(30):
+            response = client.post(
+                "/api/recognition/identify",
+                files={"photo": ("photo.jpg", io.BytesIO(JPEG), "image/jpeg")},
+            )
+            assert response.status_code == 200
+
+        response = client.post(
+            "/api/recognition/identify",
+            files={"photo": ("photo.jpg", io.BytesIO(JPEG), "image/jpeg")},
+        )
+        assert response.status_code == 429
+        assert response.json()["error"]["code"] == "RATE_LIMITED"
+    finally:
+        _rate_store.pop(test_ip, None)
+        test_app.dependency_overrides.pop(get_pipeline, None)

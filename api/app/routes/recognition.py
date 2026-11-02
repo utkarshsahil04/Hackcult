@@ -103,6 +103,13 @@ async def identify(
 
     try:
         result = pipeline.run(data)
+        if result.status == "error":
+            raise AppError(
+                500,
+                "RECOGNITION_ERROR",
+                "The recognition model failed to process the photo.",
+                "Retry shortly. If the problem persists, contact support.",
+            )
     except Exception as exc:
         logger.exception("Recognition pipeline error", exc_info=exc)
         raise AppError(
