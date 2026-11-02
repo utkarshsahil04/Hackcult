@@ -3,7 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from app.config import get_settings
 from app.errors import register_error_handlers
-from app.routes import health
+from app.routes import health, monuments
 
 settings = get_settings()  # fails fast at startup if env is invalid
 
@@ -18,3 +18,4 @@ app.add_middleware(
 
 register_error_handlers(app)
 app.include_router(health.router)
+app.include_router(monuments.router)

@@ -11,6 +11,7 @@ class Settings(BaseSettings):
     ors_api_key: str = ""
     frontend_origin: str = "http://localhost:3000"
     database_url: str | None = None
+    sqlite_db_path: str | None = None
     redis_url: str | None = None
 
     @field_validator("gemini_api_key")
