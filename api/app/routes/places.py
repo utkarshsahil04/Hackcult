@@ -6,7 +6,6 @@ from typing import Annotated
 from fastapi import APIRouter, Query
 
 from app.errors import AppError
-from app.planner.models import CacheNotFoundError, OverpassError
 from app.planner.overpass import haversine_distance, load_overpass_cache
 from app.schemas import PlaceOut
 
@@ -89,8 +88,8 @@ def get_nearby_places(
     # Load cached Overpass data
     try:
         raw_pois = load_overpass_cache(require_fresh=False)
-    except (CacheNotFoundError, OverpassError, OSError) as exc:
-        logger.error("Failed to load Overpass POI cache: %s", exc)
+    except Exception as exc:
+        logger.exception("Failed to load Overpass POI cache")
         raise AppError(
             status_code=502,
             code="UPSTREAM_PLACES_UNAVAILABLE",

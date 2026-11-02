@@ -99,6 +99,17 @@ def test_nearby_places_upstream_overpass_error_returns_502(client):
         assert body["error"]["code"] == "UPSTREAM_PLACES_UNAVAILABLE"
 
 
+def test_nearby_places_unexpected_cache_error_returns_502(client):
+    """Unexpected cache parsing failures use the upstream-unavailable envelope."""
+    with patch(
+        "app.routes.places.load_overpass_cache",
+        side_effect=ValueError("Malformed cached data"),
+    ):
+        response = client.get("/api/places/nearby?monument_slug=humayuns-tomb")
+    assert response.status_code == 502
+    assert response.json()["error"]["code"] == "UPSTREAM_PLACES_UNAVAILABLE"
+
+
 def test_nearby_places_invalid_partial_coordinates(client):
     """Passing only latitude without longitude returns HTTP 400 validation error."""
     response = client.get("/api/places/nearby?latitude=28.5")
