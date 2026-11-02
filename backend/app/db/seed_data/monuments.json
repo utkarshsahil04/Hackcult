@@ -1,0 +1,167 @@
+[
+  {
+    "slug": "humayuns-tomb",
+    "name": "Humayun's Tomb",
+    "latitude": 28.59333,
+    "longitude": 77.25083,
+    "coordinates_source": "unesco-232-maps",
+    "era": "Mughal Empire, 16th century",
+    "architectural_style": "Early Mughal (Garden Tomb)",
+    "location": "Nizamuddin East, New Delhi",
+    "city": "Delhi"
+  },
+  {
+    "slug": "taj-mahal",
+    "name": "Taj Mahal",
+    "latitude": 27.17417,
+    "longitude": 78.04222,
+    "coordinates_source": "unesco-252-maps",
+    "era": "Mughal Empire, 17th century",
+    "architectural_style": "Mughal (Indo-Islamic)",
+    "location": "Dharmapuri, Forest Colony, Agra",
+    "city": "Agra"
+  },
+  {
+    "slug": "fatehpur-sikri",
+    "name": "Fatehpur Sikri",
+    "latitude": 27.09444,
+    "longitude": 77.66417,
+    "coordinates_source": "unesco-255-maps",
+    "era": "Mughal Empire, 16th century",
+    "architectural_style": "Mughal",
+    "location": "Agra District, Uttar Pradesh",
+    "city": "Fatehpur Sikri"
+  },
+  {
+    "slug": "qutb-complex",
+    "name": "Qutb Minar and its Monuments",
+    "latitude": 28.52583,
+    "longitude": 77.18528,
+    "coordinates_source": "unesco-233-maps",
+    "era": "Delhi Sultanate, 12th-14th century",
+    "architectural_style": "Indo-Islamic (Delhi Sultanate)",
+    "location": "Mehrauli, New Delhi",
+    "city": "Delhi"
+  },
+  {
+    "slug": "red-fort",
+    "name": "Red Fort Complex",
+    "latitude": 28.65556,
+    "longitude": 77.24083,
+    "coordinates_source": "unesco-231-maps",
+    "era": "Mughal Empire, 17th century",
+    "architectural_style": "Mughal",
+    "location": "Old Delhi, Delhi",
+    "city": "Delhi"
+  },
+  {
+    "slug": "agra-fort",
+    "name": "Agra Fort",
+    "latitude": 27.18333,
+    "longitude": 78.03333,
+    "coordinates_source": "unesco-251-maps",
+    "era": "Mughal Empire, 16th-17th century",
+    "architectural_style": "Mughal",
+    "location": "Agra, Uttar Pradesh",
+    "city": "Agra"
+  },
+  {
+    "slug": "akbars-tomb",
+    "name": "Akbar's Tomb, Sikandra",
+    "latitude": 27.22056,
+    "longitude": 77.95056,
+    "coordinates_source": "agra-nic-sikandra",
+    "era": "Mughal Empire, 17th century",
+    "architectural_style": "Mughal (Tiered Sandstone and Marble)",
+    "location": "Sikandra, Agra, Uttar Pradesh",
+    "city": "Agra"
+  },
+  {
+    "slug": "itimad-ud-daulah",
+    "name": "Tomb of I'timad-ud-Daulah",
+    "latitude": 27.19306,
+    "longitude": 78.03139,
+    "coordinates_source": "agra-nic-itimad-ud-daulah",
+    "era": "Mughal Empire, 17th century",
+    "architectural_style": "Mughal (White Marble with Pietra Dura)",
+    "location": "Moti Bagh, Agra, Uttar Pradesh",
+    "city": "Agra"
+  },
+  {
+    "slug": "jama-masjid",
+    "name": "Jama Masjid",
+    "latitude": 28.65083,
+    "longitude": 77.23361,
+    "coordinates_source": "delhitourism-jama-masjid",
+    "era": "Mughal Empire, 17th century",
+    "architectural_style": "Mughal",
+    "location": "Chandni Chowk, Old Delhi",
+    "city": "Delhi"
+  },
+  {
+    "slug": "safdarjungs-tomb",
+    "name": "Safdarjung's Tomb",
+    "latitude": 28.58917,
+    "longitude": 77.21056,
+    "coordinates_source": "delhitourism-safdarjang-tomb",
+    "era": "Late Mughal Empire, 18th century",
+    "architectural_style": "Late Mughal (Enclosed Garden Tomb)",
+    "location": "Airforce Golf Course, New Delhi",
+    "city": "Delhi"
+  },
+  {
+    "slug": "purana-qila",
+    "name": "Purana Qila",
+    "latitude": 28.60944,
+    "longitude": 77.24361,
+    "coordinates_source": "delhitourism-purana-quila",
+    "era": "Sur Empire & Mughal Empire, 16th century",
+    "architectural_style": "Indo-Islamic (Sur and Mughal)",
+    "location": "Mathura Road, New Delhi",
+    "city": "Delhi"
+  },
+  {
+    "slug": "tughlaqabad-fort",
+    "name": "Tughlaqabad Fort",
+    "latitude": 28.51417,
+    "longitude": 77.26,
+    "coordinates_source": "delhitourism-tughlaqabad",
+    "era": "Delhi Sultanate (Tughlaq Dynasty), 14th century",
+    "architectural_style": "Delhi Sultanate Military Architecture",
+    "location": "Tughlakabad, New Delhi",
+    "city": "Delhi"
+  },
+  {
+    "slug": "jantar-mantar",
+    "name": "Jantar Mantar",
+    "latitude": 28.62722,
+    "longitude": 77.21667,
+    "coordinates_source": "delhitourism-jantar-mantar",
+    "era": "Early Modern / Mughal Period (Jai Singh II), 18th century",
+    "architectural_style": "Astronomical Observational Architecture",
+    "location": "Sansad Marg, Connaught Place, New Delhi",
+    "city": "Delhi"
+  },
+  {
+    "slug": "mehrauli-archaeological-park",
+    "name": "Mehrauli Archaeological Park",
+    "latitude": 28.52222,
+    "longitude": 77.18639,
+    "coordinates_source": "delhitourism-mehrauli",
+    "era": "Tomar to Mughal, 11th-19th century",
+    "architectural_style": "Sultanate and Mughal Architecture",
+    "location": "Mehrauli, New Delhi",
+    "city": "Delhi"
+  },
+  {
+    "slug": "lodhi-gardens",
+    "name": "Lodhi Gardens",
+    "latitude": 28.59306,
+    "longitude": 77.21972,
+    "coordinates_source": "delhitourism-lodhi-garden",
+    "era": "Delhi Sultanate (Sayyid and Lodi Dynasties), 15th-16th century",
+    "architectural_style": "Indo-Islamic (Sayyid and Lodi Dynasties)",
+    "location": "Lodhi Road, New Delhi",
+    "city": "Delhi"
+  }
+]
