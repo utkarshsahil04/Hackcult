@@ -49,6 +49,21 @@ pre-commit install            # blocks commits that contain secrets
 
 Test the secret check anytime with `pre-commit run --all-files`.
 
+## Database (SQLite seed)
+
+Read-only heritage data lives in a SQLite file built from JSON in `backend/app/db/seed_data/`.
+
+```powershell
+cd backend
+pip install -r requirements.txt
+python -m app.db.seed            # create / refresh backend/data/raahein.db (safe to re-run)
+python -m app.db.seed --check    # validate the data files only
+python -m pytest                 # schema + seed tests
+```
+
+Set `SQLITE_DB_PATH` in `.env` to change the location. Every historical claim needs two sources
+from different publishers; legends are flagged `is_legend`. See `backend/app/db/seed_data/README.md`.
+
 ## How we work
 
 1. Create a branch from `main`: `git switch -c feat/short-name`.

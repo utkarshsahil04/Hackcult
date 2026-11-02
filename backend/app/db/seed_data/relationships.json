@@ -1,0 +1,226 @@
+[
+  {
+    "from": "humayuns-tomb",
+    "to": "taj-mahal",
+    "type": "architectural_influence",
+    "claim": "humayuns-tomb/inspired-taj-mahal",
+    "note": "Humayun's Tomb established the Mughal grand garden-tomb typology with its double dome and symmetrical charbagh that directly served as an architectural precursor to the Taj Mahal."
+  },
+  {
+    "from": "agra-fort",
+    "to": "taj-mahal",
+    "type": "same_patron",
+    "claim": "taj-mahal/shah-jahan-patron-marble",
+    "note": "Both monuments were commissioned and embellished in white marble by the Mughal Emperor Shah Jahan, who spent his final captive years at Agra Fort gazing at the Taj Mahal."
+  },
+  {
+    "from": "agra-fort",
+    "to": "red-fort",
+    "type": "capital_relationship",
+    "claim": "red-fort/capital-shift-from-agra",
+    "note": "Shah Jahan transferred the principal seat of Mughal imperial power from Agra Fort to the Red Fort in Delhi in 1648."
+  },
+  {
+    "from": "agra-fort",
+    "to": "fatehpur-sikri",
+    "type": "same_patron",
+    "claim": "fatehpur-sikri/akbar-founder-capital",
+    "note": "Both Agra Fort and Fatehpur Sikri were grand architectural projects executed in red sandstone under the direct patronage of Emperor Akbar."
+  },
+  {
+    "from": "akbars-tomb",
+    "to": "fatehpur-sikri",
+    "type": "same_dynasty",
+    "claim": "akbars-tomb/akbar-mausoleum-begun",
+    "note": "Akbar planned his own mausoleum at Sikandra after having previously founded the imperial city of Fatehpur Sikri."
+  },
+  {
+    "from": "akbars-tomb",
+    "to": "agra-fort",
+    "type": "successor_of",
+    "claim": "akbars-tomb/jahangir-completion-1613",
+    "note": "Jahangir governed from Agra Fort and oversaw the completion of his father Akbar's funerary complex at Sikandra."
+  },
+  {
+    "from": "itimad-ud-daulah",
+    "to": "taj-mahal",
+    "type": "architectural_influence",
+    "claim": "itimad-ud-daulah/pietra-dura-precursor",
+    "note": "The delicate white marble masonry and polychrome floral pietra dura of I'timad-ud-Daulah directly anticipated the masterworks of the Taj Mahal."
+  },
+  {
+    "from": "itimad-ud-daulah",
+    "to": "agra-fort",
+    "type": "burial_association",
+    "claim": "itimad-ud-daulah/nur-jahan-patronage",
+    "note": "Mirza Ghiyas Beg held court as Wazir under Jahangir at Agra Fort, and his daughter Empress Nur Jahan built his mausoleum across the Yamuna."
+  },
+  {
+    "from": "red-fort",
+    "to": "jama-masjid",
+    "type": "same_patron",
+    "claim": "jama-masjid/shah-jahan-patronage",
+    "note": "Shah Jahan commissioned both the Red Fort palace and the Jama Masjid as complementary civic and religious keystones of Shahjahanabad."
+  },
+  {
+    "from": "humayuns-tomb",
+    "to": "safdarjungs-tomb",
+    "type": "architectural_influence",
+    "claim": "safdarjungs-tomb/last-garden-tomb",
+    "note": "Safdarjung's Tomb represents the final iteration of the Mughal enclosed garden-tomb tradition that began with Humayun's Tomb two centuries earlier."
+  },
+  {
+    "from": "purana-qila",
+    "to": "humayuns-tomb",
+    "type": "historical_event",
+    "claim": "purana-qila/humayun-dinpanah-death",
+    "note": "Humayun resided and died at Purana Qila before his widow commissioned his grand garden tomb nearby in Nizamuddin."
+  },
+  {
+    "from": "qutb-complex",
+    "to": "mehrauli-archaeological-park",
+    "type": "historical_event",
+    "claim": "mehrauli-archaeological-park/delhi-first-city-precinct",
+    "note": "Both complexes form a contiguous historic precinct in Mehrauli representing the earliest seat of the Delhi Sultanate."
+  },
+  {
+    "from": "qutb-complex",
+    "to": "tughlaqabad-fort",
+    "type": "successor_of",
+    "claim": "tughlaqabad-fort/ghiyasuddin-founder-1321",
+    "note": "Tughlaqabad Fort was built as the third historical city of Delhi, moving the sultanate capital eastward from the first city at Qutb/Mehrauli."
+  },
+  {
+    "from": "red-fort",
+    "to": "jantar-mantar",
+    "type": "historical_event",
+    "claim": "jantar-mantar/jai-singh-patronage-1724",
+    "note": "Maharaja Jai Singh II built the masonry observatory in Delhi upon the instruction of Mughal Emperor Muhammad Shah who resided at the Red Fort."
+  },
+  {
+    "from": "red-fort",
+    "to": "humayuns-tomb",
+    "type": "historical_event",
+    "claim": "humayuns-tomb/bahadur-shah-refuge-1857",
+    "note": "Humayun's Tomb was the site where Emperor Bahadur Shah Zafar surrendered to the British after fleeing the Red Fort in 1857."
+  },
+  {
+    "from": "fatehpur-sikri",
+    "to": "jama-masjid",
+    "type": "architectural_influence",
+    "claim": "jama-masjid/mughal-congregational-tradition",
+    "note": "The congregational courtyard plan and grand scale of Delhi's Jama Masjid directly reflected the architectural precedent set by the Friday Mosque at Fatehpur Sikri."
+  },
+  {
+    "from": "itimad-ud-daulah",
+    "to": "akbars-tomb",
+    "type": "same_dynasty",
+    "claim": "itimad-ud-daulah/jahangir-era-monuments",
+    "note": "Both mausoleums were erected in Agra during Jahangir's reign, marking the stylistic evolution from sandstone to pure white marble."
+  },
+  {
+    "from": "red-fort",
+    "to": "safdarjungs-tomb",
+    "type": "same_dynasty",
+    "claim": "safdarjungs-tomb/wazir-mughal-empire",
+    "note": "Safdarjung exercised executive power as prime minister of the Mughal Empire from the court at the Red Fort."
+  },
+  {
+    "from": "lodhi-gardens",
+    "to": "humayuns-tomb",
+    "type": "architectural_influence",
+    "claim": "lodhi-gardens/sikandar-lodi-garden-tomb",
+    "note": "Sikandar Lodi's tomb in Lodhi Gardens introduced the octagonal garden-tomb layout and double-dome technology that directly influenced the design of Humayun's Tomb."
+  },
+  {
+    "from": "lodhi-gardens",
+    "to": "safdarjungs-tomb",
+    "type": "successor_of",
+    "claim": "safdarjungs-tomb/lodhi-road-precinct",
+    "note": "The two garden cemeteries flank opposite sides of Lodhi Road, illustrating the shift from late Sultanate tomb architecture to late Mughal design."
+  },
+  {
+    "from": "lodhi-gardens",
+    "to": "qutb-complex",
+    "type": "same_dynasty",
+    "claim": "lodhi-gardens/sayyid-lodi-sultanate",
+    "note": "Lodhi Gardens houses the tombs and mosques of the final ruling dynasties of the Delhi Sultanate, which was founded at the Qutb Complex."
+  },
+  {
+    "from": "purana-qila",
+    "to": "lodhi-gardens",
+    "type": "successor_of",
+    "claim": "purana-qila/sultanate-to-mughal-transition",
+    "note": "The rise of Sher Shah Suri and Humayun at Purana Qila marked the political replacement of the Lodi dynasty interred at Lodhi Gardens."
+  },
+  {
+    "from": "purana-qila",
+    "to": "qutb-complex",
+    "type": "successor_of",
+    "claim": "purana-qila/sixth-city-delhi",
+    "note": "Purana Qila represents Delhi's sixth historic city, continuing the sequence of capitals begun by Qutb-ud-din Aibak at Qutb Minar."
+  },
+  {
+    "from": "akbars-tomb",
+    "to": "taj-mahal",
+    "type": "architectural_influence",
+    "claim": "akbars-tomb/south-gate-minarets",
+    "note": "The four marble minarets rising from the South Gate of Akbar's Tomb at Sikandra directly inspired the four detached minarets of the Taj Mahal."
+  },
+  {
+    "from": "taj-mahal",
+    "to": "fatehpur-sikri",
+    "type": "co_located_world_heritage",
+    "claim": "taj-mahal/agra-world-heritage-trio",
+    "note": "Both are UNESCO World Heritage properties in Agra District, situated within the Taj Trapezium Zone."
+  },
+  {
+    "from": "taj-mahal",
+    "to": "agra-fort",
+    "type": "co_located_world_heritage",
+    "claim": "agra-fort/unesco-world-heritage-agra-district",
+    "note": "Both are UNESCO World Heritage properties situated along the banks of the Yamuna River in Agra."
+  },
+  {
+    "from": "fatehpur-sikri",
+    "to": "agra-fort",
+    "type": "co_located_world_heritage",
+    "claim": "fatehpur-sikri/unesco-world-heritage-agra-district",
+    "note": "Both are UNESCO World Heritage properties in Agra District displaying Akbar's signature red-sandstone architecture."
+  },
+  {
+    "from": "humayuns-tomb",
+    "to": "qutb-complex",
+    "type": "co_located_world_heritage",
+    "claim": "humayuns-tomb/delhi-world-heritage-trio",
+    "note": "Both are UNESCO World Heritage properties in Delhi representing major eras of Indo-Islamic monumental architecture."
+  },
+  {
+    "from": "humayuns-tomb",
+    "to": "red-fort",
+    "type": "co_located_world_heritage",
+    "claim": "red-fort/delhi-world-heritage-trio",
+    "note": "Both are UNESCO World Heritage properties in Delhi marking the beginning and zenith of Mughal dynastic building in the city."
+  },
+  {
+    "from": "qutb-complex",
+    "to": "red-fort",
+    "type": "co_located_world_heritage",
+    "claim": "qutb-complex/delhi-world-heritage-trio",
+    "note": "Both are UNESCO World Heritage properties in Delhi reflecting centuries of Islamic dynastic governance."
+  },
+  {
+    "from": "agra-fort",
+    "to": "akbars-tomb",
+    "type": "capital_relationship",
+    "claim": "akbars-tomb/burial-outskirts-agra",
+    "note": "Sikandra was designated by Akbar as his final resting place along the imperial highway leading from Agra Fort."
+  },
+  {
+    "from": "mehrauli-archaeological-park",
+    "to": "lodhi-gardens",
+    "type": "architectural_influence",
+    "claim": "mehrauli-archaeological-park/sultanate-tombs-evolution",
+    "note": "The architectural forms developed in Mehrauli directly informed the later Sultanate tomb and dome designs built in Lodhi Gardens."
+  }
+]
