@@ -8,7 +8,6 @@ from __future__ import annotations
 
 import logging
 from dataclasses import dataclass, field
-from functools import lru_cache
 
 logger = logging.getLogger("raahein.ml")
 
@@ -54,11 +53,16 @@ class RecognitionPipeline:
         return PipelineResult(status="uncertain", candidates=[])
 
 
-@lru_cache(maxsize=1)
+_pipeline: RecognitionPipeline | None = None
+
+
 def get_pipeline() -> RecognitionPipeline:
     """
-    Returns the singleton pipeline. lru_cache means models load once per process.
+    Returns the singleton pipeline.
     UV can replace RecognitionPipeline with a subclass and re-point this function.
     """
-    logger.info("Loading recognition pipeline (stub)")
-    return RecognitionPipeline()
+    global _pipeline
+    if _pipeline is None:
+        logger.info("Loading recognition pipeline (stub)")
+        _pipeline = RecognitionPipeline()
+    return _pipeline
