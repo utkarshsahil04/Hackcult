@@ -1,6 +1,8 @@
-from typing import Literal
+from __future__ import annotations
 
-from pydantic import BaseModel
+from typing import Any, Literal
+
+from pydantic import BaseModel, Field, model_validator
 
 
 class SourceOut(BaseModel):
@@ -50,3 +52,118 @@ class RelatedItem(BaseModel):
 class RelatedResponse(BaseModel):
     monument: MonumentSummary
     related: list[RelatedItem]
+
+
+# --- Nearby Places Schemas (Issue #10) ---
+
+
+class PlaceOut(BaseModel):
+    name: str
+    category: str
+    latitude: float
+    longitude: float
+    osm_id: int
+    osm_type: str = "node"
+    source: str = "overpass"
+    associated_monument: str = ""
+    distance_m: float | None = None
+    tags: dict[str, str] = Field(default_factory=dict)
+
+
+# --- Tour Planning Schemas (Issue #10) ---
+
+
+class TourPlanRequest(BaseModel):
+    query: str | None = Field(
+        default=None,
+        description="Natural language trip description or visitor preferences (e.g. '3 hour tour in Delhi starting at Red Fort')",
+    )
+    start_monument: str | None = Field(
+        default=None,
+        description="Slug of the starting monument (e.g. 'red-fort')",
+    )
+    time_budget_minutes: float | None = Field(
+        default=None,
+        gt=0,
+        description="Total tour time budget in minutes",
+    )
+    must_visit: list[str] = Field(
+        default_factory=list,
+        description="List of monument slugs that must be visited",
+    )
+    preferences: dict[str, Any] = Field(
+        default_factory=dict,
+        description="Optional filter preferences such as {'city': 'Delhi'}",
+    )
+    profile: Literal["driving-car", "foot-walking"] = "driving-car"
+    return_to_start: bool = False
+    max_stops: int | None = Field(
+        default=None,
+        ge=1,
+        description="Maximum number of monuments to visit",
+    )
+    visit_durations: dict[str, float] = Field(
+        default_factory=dict,
+        description="Custom visit duration in minutes per monument slug",
+    )
+    time_limit_seconds: int = Field(
+        default=5,
+        ge=1,
+        description="OR-Tools solver computation time limit in seconds",
+    )
+
+    @model_validator(mode="after")
+    def check_query_or_start(self) -> TourPlanRequest:
+        has_query = bool(self.query and self.query.strip())
+        has_direct = bool(self.start_monument and self.start_monument.strip())
+        if not has_query and not has_direct:
+            raise ValueError(
+                "Either 'query' (natural language preferences) or 'start_monument' must be provided."
+            )
+        return self
+
+
+class StopOut(BaseModel):
+    monument_slug: str
+    name: str
+    arrival_time_min: float
+    visit_duration_min: float
+    departure_time_min: float
+    travel_time_to_next_min: float = 0.0
+    travel_distance_to_next_m: float = 0.0
+
+
+class ItineraryOut(BaseModel):
+    is_feasible: bool
+    status_message: str
+    start_monument: str
+    time_budget_min: float
+    total_time_min: float
+    total_travel_time_min: float
+    total_visit_time_min: float
+    total_travel_distance_m: float
+    stops: list[StopOut] = Field(default_factory=list)
+    profile: str = "driving-car"
+    return_to_start: bool = False
+    solver_status: str = "SUCCESS"
+
+
+class ValidationOut(BaseModel):
+    is_valid: bool
+    errors: list[str] = Field(default_factory=list)
+    warnings: list[str] = Field(default_factory=list)
+    recalculated_total_time_min: float = 0.0
+    recalculated_travel_time_min: float = 0.0
+    recalculated_visit_time_min: float = 0.0
+    recalculated_distance_m: float = 0.0
+
+
+class TourPlanResponse(BaseModel):
+    is_feasible: bool
+    status_message: str
+    solver_status: str
+    is_validated: bool
+    itinerary: ItineraryOut | None = None
+    validation: ValidationOut | None = None
+    explanation: str | None = None
+    parsed_preferences: dict[str, Any] | None = None
