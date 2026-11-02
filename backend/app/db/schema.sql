@@ -81,10 +81,12 @@ CREATE TABLE IF NOT EXISTS stories (
     id            INTEGER PRIMARY KEY,
     monument_id   INTEGER NOT NULL REFERENCES monuments (id) ON DELETE RESTRICT,
     language      TEXT    NOT NULL DEFAULT 'en' CHECK (length(trim(language)) > 0),
+    story_type    TEXT    NOT NULL DEFAULT 'visitor' CHECK (story_type IN ('visitor', 'academic')),
     body          TEXT    NOT NULL CHECK (length(trim(body)) > 0),
+    audio_key     TEXT,
     model_version TEXT    NOT NULL CHECK (length(trim(model_version)) > 0),
     generated_at  TEXT    NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%SZ', 'now')),
-    UNIQUE (monument_id, language, model_version)
+    UNIQUE (monument_id, language, story_type)
 );
 
 -- Indexes (SQLite does not index foreign keys automatically).

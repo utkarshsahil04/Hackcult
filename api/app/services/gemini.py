@@ -14,7 +14,8 @@ from app.planner.models import Itinerary
 
 logger = logging.getLogger("raahein.api.gemini")
 
-GEMINI_API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent"
+GEMINI_BASE_URL = "https://generativelanguage.googleapis.com/v1beta/models"
+DEFAULT_MODEL = "gemini-2.5-flash"  # tour planner keeps its current model
 
 VALID_SLUGS = [
     "taj-mahal",
@@ -103,20 +104,27 @@ class GeminiService:
                 self.api_key = os.environ.get("GEMINI_API_KEY", "")
         self._client = http_client
 
-    def _call_gemini(self, prompt: str, timeout: float = 10.0) -> str:
+    def _call_gemini(
+        self,
+        prompt: str,
+        timeout: float = 10.0,
+        model: str | None = None,
+        max_output_tokens: int = 800,
+    ) -> str:
         """Call Gemini REST API generateContent. Raises RuntimeError on failure."""
         if not self.api_key or self.api_key in ("test-key", "placeholder", "your-api-key"):
             raise RuntimeError("Gemini API key is unconfigured or dummy.")
 
-        url = f"{GEMINI_API_URL}?key={self.api_key}"
+        url = f"{GEMINI_BASE_URL}/{model or DEFAULT_MODEL}:generateContent"
+        headers = {"x-goog-api-key": self.api_key}  # header, so the key never lands in URLs or logs
         payload = {
             "contents": [{"parts": [{"text": prompt}]}],
-            "generationConfig": {"temperature": 0.2, "maxOutputTokens": 800},
+            "generationConfig": {"temperature": 0.2, "maxOutputTokens": max_output_tokens},
         }
 
         client = self._client or httpx.Client(timeout=timeout)
         try:
-            resp = client.post(url, json=payload)
+            resp = client.post(url, json=payload, headers=headers)
             if resp.status_code != 200:
                 raise RuntimeError(f"Gemini API returned status {resp.status_code}: {resp.text}")
             data = resp.json()
