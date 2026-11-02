@@ -6,9 +6,10 @@ import sqlite3
 from pathlib import Path
 
 import pytest
+from fastapi.testclient import TestClient
+
 from app.db import get_db
 from app.main import app
-from fastapi.testclient import TestClient
 
 SCHEMA = Path(__file__).resolve().parents[2] / "backend" / "app" / "db" / "schema.sql"
 

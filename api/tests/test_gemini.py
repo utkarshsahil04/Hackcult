@@ -3,6 +3,7 @@ from unittest.mock import patch
 
 import pytest
 from app.planner.models import Itinerary, Stop
+
 from app.services.gemini import GeminiService
 
 
