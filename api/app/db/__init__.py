@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import sqlite3
 from collections.abc import Iterator
 from pathlib import Path
@@ -5,9 +7,14 @@ from pathlib import Path
 from app.config import get_settings
 from app.errors import AppError
 
-REPO_ROOT = Path(__file__).resolve().parents[2]
+REPO_ROOT = Path(__file__).resolve().parents[3]
 BACKEND_ROOT = REPO_ROOT / "backend"
 DEFAULT_DB_PATH = BACKEND_ROOT / "data" / "raahein.db"
+
+# Allow app.db package to discover backend database modules (such as app.db.init_db)
+_backend_db = BACKEND_ROOT / "app" / "db"
+if _backend_db.is_dir() and str(_backend_db) not in __path__:
+    __path__.append(str(_backend_db))
 
 
 def resolve_db_path() -> Path:
