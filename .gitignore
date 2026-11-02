@@ -15,6 +15,7 @@ venv/
 .pytest_cache/
 .ruff_cache/
 .mypy_cache/
+*.egg-info/
 .coverage
 htmlcov/
 
@@ -29,6 +30,13 @@ build/
 .cache/
 hf_cache/
 models_cache/
+/data/
+*.faiss
+*.npy
+*.npz
+*.pt
+*.pth
+*.safetensors
 postgres_data/
 redis_data/
 *.log

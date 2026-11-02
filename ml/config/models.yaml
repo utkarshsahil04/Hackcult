@@ -1,0 +1,58 @@
+schema_version: 1
+device: cuda
+allow_cpu: false
+mixed_precision: true
+paths:
+  canonical_monuments: backend/app/db/seed_data/monuments.json
+  source_catalog: ml/catalog/sources.csv
+  manifest: ml/manifests/manifest.csv
+  artifacts: data/artifacts
+  embedding_cache: data/cache/embeddings
+models:
+  siglip:
+    model_id: google/siglip-base-patch16-224
+    revision: 7fd15f0689c79d79e38b1c2e2e2370a7bf2761ed
+    adapter: siglip
+    dimension: 768
+    preprocessing:
+      processor: AutoProcessor
+      image_size: 224
+  dinov2:
+    model_id: facebook/dinov2-base
+    revision: f9e44c814b77203eaa57a6bdbbd535f21ede1415
+    adapter: dinov2
+    dimension: 768
+    preprocessing:
+      processor: AutoImageProcessor
+      image_size: 224
+  clip:
+    model_id: openai/clip-vit-base-patch32
+    revision: 3d74acf9a28c67741b2f4f2ea7635f0aaf6f0268
+    adapter: clip
+    dimension: 512
+    preprocessing:
+      processor: AutoProcessor
+      image_size: 224
+index:
+  kind: IndexFlatIP
+  aggregation_top_n: 3
+  search_all_gallery: true
+fusion:
+  method: reciprocal_rank
+  rrf_k: 60
+  weights:
+    siglip: 1.0
+    dinov2: 1.0
+    clip: 1.0
+split:
+  minimum_gallery: 8
+  maximum_gallery: 20
+  calibration_per_class: 2
+  test_per_class: 2
+calibration:
+  maximum_ood_false_acceptance: 0.05
+  minimum_winner_models: 2
+  calibration_negative_count: 50
+  test_negative_count: 50
+evaluation:
+  independent_positive_count: 20
