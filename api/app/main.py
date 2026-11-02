@@ -21,3 +21,4 @@ app.include_router(health.router)
 app.include_router(monuments.router)
 app.include_router(places.router)
 app.include_router(tours.router)
+
