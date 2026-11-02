@@ -1,0 +1,2 @@
+# Install a CUDA-enabled PyTorch wheel for WSL2 first. See the root README.
+-e .[gpu]
