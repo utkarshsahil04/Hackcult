@@ -163,3 +163,4 @@ def get_nearby_places(
     # Sort by distance if available
     results.sort(key=lambda p: (p.distance_m is None, p.distance_m or 0.0))
     return results[:limit]
+

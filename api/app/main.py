@@ -3,7 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from app.config import get_settings
 from app.errors import register_error_handlers
-from app.routes import health, monuments, places
+from app.routes import health, monuments, places, tours
 
 settings = get_settings()  # fails fast at startup if env is invalid
 
@@ -20,3 +20,4 @@ register_error_handlers(app)
 app.include_router(health.router)
 app.include_router(monuments.router)
 app.include_router(places.router)
+app.include_router(tours.router)
