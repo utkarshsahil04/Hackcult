@@ -42,7 +42,7 @@ export function Monument3DViewer({ monumentId, name, lang = 'en', className = ''
     }
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
     renderer.shadowMap.enabled = true
-    renderer.shadowMap.type = THREE.PCFSoftShadowMap
+    renderer.shadowMap.type = THREE.PCFShadowMap
     renderer.toneMapping = THREE.ACESFilmicToneMapping
     renderer.toneMappingExposure = 1.08
     const canvas = renderer.domElement
@@ -55,7 +55,8 @@ export function Monument3DViewer({ monumentId, name, lang = 'en', className = ''
 
     const scene = new THREE.Scene()
     scene.background = new THREE.Color(BACKDROP)
-    scene.fog = new THREE.Fog(BACKDROP, fit * 2.6, fit * 5)
+    // The fog only fades the display floor into the backdrop. It starts beyond the far side of the model.
+    scene.fog = new THREE.Fog(BACKDROP, fit * 4.5, fit * 8)
     scene.add(new THREE.HemisphereLight(0xfff6e6, 0xb9a27e, 1.25))
     const sun = new THREE.DirectionalLight(0xffe6c4, 2.5)
     sun.position.copy(center).add(new THREE.Vector3(fit * 0.9, fit * 1.5, fit * 0.7))
@@ -72,7 +73,8 @@ export function Monument3DViewer({ monumentId, name, lang = 'en', className = ''
     scene.add(model.group, floor)
 
     const camera = new THREE.PerspectiveCamera(36, 1, 0.1, fit * 12)
-    const home = fit / Math.sin(THREE.MathUtils.degToRad(18)) * 0.92
+    // Closer than the whole bounding sphere: it is dominated by the flat ground, which is seen at an angle.
+    const home = fit / Math.sin(THREE.MathUtils.degToRad(18)) * 0.76
     const view = { theta: START.theta, phi: START.phi, radius: home }
     const goal: { theta: number | null; phi: number | null } = { theta: null, phi: null }
     let auto = !reduced
