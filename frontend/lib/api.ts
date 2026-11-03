@@ -3,7 +3,7 @@
  * Falls back to mock data when NEXT_PUBLIC_API_URL is not set or the request fails.
  */
 
-import { monuments, getMonument, type Monument, type Lang } from './mock'
+import { findMonument, type Monument, type Lang } from './mock'
 
 const BASE = process.env.NEXT_PUBLIC_API_URL ?? ''
 
@@ -30,29 +30,22 @@ export async function identify(file: File): Promise<IdentifyResult> {
   if (!file.type.startsWith('image/') || file.size === 0 || file.size > 6 * 1024 * 1024) {
     throw new Error('Invalid image')
   }
-  if (!BASE) {
-    // shortcut: mock path when no backend is configured
-    await new Promise((r) => setTimeout(r, 300))
-    return { status: 'match', monument: getMonument('taj-mahal') }
-  }
+  // A failed request is an error, never a guess: "broken" must not look like a match or like "not sure".
+  let data: { status: string; candidates: Array<{ slug: string; name: string; score: number }> }
   try {
     const body = new FormData()
     body.append('photo', file)
     const res = await fetch(`${BASE}/api/recognition/identify`, { method: 'POST', body })
-    if (res.ok) {
-      const data = await res.json() as { status: string; candidates: Array<{ slug: string; name: string; score: number }> }
-      if (data.status === 'ok' && data.candidates[0]) {
-        const monument = getMonument(data.candidates[0].slug) ?? monuments[0]
-        return { status: 'match', monument }
-      }
-      if (data.status === 'uncertain') {
-        return { status: 'uncertain', candidates: data.candidates }
-      }
-    }
+    if (!res.ok) return { status: 'error' }
+    data = await res.json()
   } catch {
-    // Backend offline or network error: graceful fallback to mock
+    return { status: 'error' }
   }
-  return { status: 'match', monument: getMonument('taj-mahal') }
+  const known = data.candidates.filter((c) => findMonument(c.slug))
+  const top = data.candidates[0] && findMonument(data.candidates[0].slug)
+  if (data.status === 'ok' && top) return { status: 'match', monument: top }
+  if (data.status === 'ok' || data.status === 'uncertain') return { status: 'uncertain', candidates: known }
+  return { status: 'error' }
 }
 
 // ─── monuments ────────────────────────────────────────────────────────────────

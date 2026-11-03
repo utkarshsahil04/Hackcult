@@ -1,6 +1,6 @@
 """Batch story pre-generation script for Raahein.
 
-Generates 15 monuments × 2 languages × 2 story types = 60 stories.
+Generates every monument in the DB × 2 languages × 2 story types (15 × 4 = 60 stories).
 Writes results to the SQLite DB. Never called at request time.
 
 Usage (from api/ with venv active):
@@ -30,17 +30,14 @@ from app.db.init_db import connect, default_db_path  # noqa: E402
 LANGUAGES = ["en", "hi"]
 STORY_TYPES = ["visitor", "academic"]
 
-ALL_SLUGS = [
-    "taj-mahal", "agra-fort", "fatehpur-sikri", "itmad-ud-daulah", "mehtab-bagh",
-    "akbars-tomb", "qutb-minar", "humayuns-tomb", "red-fort", "jama-masjid",
-    "india-gate", "lotus-temple", "purana-qila", "safdarjung-tomb", "jantar-mantar",
-]
 
 
-def run(slugs: list[str], dry_run: bool = False) -> None:
+def run(slugs: list[str] | None, dry_run: bool = False) -> None:
     settings = get_settings()
     gemini = GeminiService(api_key=settings.gemini_api_key)
     conn = connect(default_db_path())
+    if not slugs:  # default: every monument in the DB, so this can't drift from the seed data
+        slugs = [row[0] for row in conn.execute("SELECT slug FROM monuments ORDER BY slug")]
 
     total = len(slugs) * len(LANGUAGES) * len(STORY_TYPES)
     done = 0
@@ -65,11 +62,12 @@ def run(slugs: list[str], dry_run: bool = False) -> None:
                     done += 1
                     print(f"  [OK] {label} ({len(body)} chars)")
                 except (ValueError, RuntimeError, OSError) as exc:
-                    conn.execute("ROLLBACK")
+                    if conn.in_transaction:
+                        conn.execute("ROLLBACK")
                     failures.append(label)
                     print(f"  [FAIL] {label}: {exc}")
-                # Respect free-tier rate limits: ~2 req/s max
-                time.sleep(0.6)
+                # Free tier allows roughly 15 requests/minute; 0.6 s pacing hit 429s
+                time.sleep(4.5)
 
     print(f"\nDone: {done}/{total} succeeded, {len(failures)} failed.")
     if failures:
@@ -83,7 +81,7 @@ def run(slugs: list[str], dry_run: bool = False) -> None:
 
 if __name__ == "__main__":
     ap = argparse.ArgumentParser(description="Pre-generate Raahein stories.")
-    ap.add_argument("--slugs", nargs="+", default=ALL_SLUGS, help="monument slugs to generate")
+    ap.add_argument("--slugs", nargs="+", help="monument slugs (default: all in the DB)")
     ap.add_argument("--dry-run", action="store_true", help="generate but do not write to DB")
     args = ap.parse_args()
     run(args.slugs, dry_run=args.dry_run)
