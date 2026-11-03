@@ -5,8 +5,10 @@ import { ArrowRight, BookOpen, Clock, Compass, MapPin, MapPinned, Route, ShieldC
 import { LazyMotion, domAnimation, m } from 'framer-motion'
 import { Toggle, useLang } from '@/components/raahein'
 import { RaaheinLogo } from '@/components/RaaheinLogo'
-import { ArchImage, HeritageSimulator, InlayFrame, VineDivider } from '@/components/heritage'
-import { monuments } from '@/lib/mock'
+import { ArchImage, HeritageSimulator, InlayFrame, Reveal, VineDivider } from '@/components/heritage'
+import { monuments } from '@/lib/catalog'
+
+const verifiedCount = monuments.filter((m) => m.verified).length
 import { transitions } from '@/lib/motion'
 
 const homeCopy = {
@@ -21,10 +23,10 @@ const homeCopy = {
     nearby: 'Nearby',
     plan: 'Plan a day',
     metrics: [
-      { value: '6 Sites', label: 'Agra & Delhi circuits', desc: 'Curated UNESCO & ASI landmarks' },
-      { value: '800+ Yrs', label: 'Layered history', desc: 'From 1199 Sultanate to Mughal zenith' },
-      { value: 'Bilingual', label: 'Audio & text', desc: 'English & Hindi sourced narratives' },
-      { value: '100% Sourced', label: 'Archival claims', desc: 'Verified against ASI publications' },
+      { value: `${monuments.length} Sites`, label: 'Delhi & Agra', desc: 'Real locations with routed travel times' },
+      { value: `${verifiedCount} Stories`, label: 'Sourced histories', desc: 'Other sites show as story pending' },
+      { value: 'Bilingual', label: 'Audio & text', desc: 'Stories in English and Hindi' },
+      { value: '2 Publishers', label: 'Per historical fact', desc: 'Every fact needs two independent sources' },
     ],
     circuitsHeading: 'Curated heritage corridors',
     circuitsSub: 'Explore India’s grandest architectural dialogues connected across time.',
@@ -35,15 +37,15 @@ const homeCopy = {
         era: '1565 – 1648 CE',
         desc: 'White marble inlay, monumental red sandstone fortresses, and Akbar’s utopian capital.',
         stops: ['Taj Mahal', 'Agra Fort', 'Fatehpur Sikri'],
-        href: '/plan/route?hours=6&mode=auto',
+        href: '/plan/route?hours=6&mode=auto&city=Agra',
       },
       {
         title: 'The Delhi Sultanate & Mughal Axis',
         city: 'Delhi NCR',
         era: '1199 – 1639 CE',
-        desc: 'From the fluted 73-meter minaret to India’s first charbagh garden tomb and the Red Fort.',
+        desc: 'From the fluted 72.5-meter minaret to India’s first charbagh garden tomb and the Red Fort.',
         stops: ['Qutub Minar', 'Humayun’s Tomb', 'Red Fort'],
-        href: '/plan/route?hours=6&mode=auto',
+        href: '/plan/route?hours=6&mode=auto&city=Delhi',
       },
     ],
     monumentsHeading: 'Explore the monuments',
@@ -78,10 +80,10 @@ const homeCopy = {
     nearby: 'आस-पास',
     plan: 'दिन बनाएं',
     metrics: [
-      { value: '६ धरोहरें', label: 'आगरा व दिल्ली', desc: 'यूनेस्को और एएसआई संरक्षित स्थल' },
-      { value: '८००+ वर्ष', label: 'इतिहास की परतें', desc: '११९९ सल्तनत से मुगल काल तक' },
-      { value: 'द्विभाषी', label: 'ऑडियो व लिपि', desc: 'हिंदी और अंग्रेजी में प्रमाणित कथाएं' },
-      { value: '१००% प्रमाणित', label: 'ऐतिहासिक स्रोत', desc: 'एएसआई दस्तावेजों से सत्यापित' },
+      { value: `${monuments.length} धरोहरें`, label: 'दिल्ली व आगरा', desc: 'वास्तविक स्थान और यात्रा समय' },
+      { value: `${verifiedCount} कहानियां`, label: 'प्रमाणित इतिहास', desc: 'बाकी स्थानों की कहानी शीघ्र आएगी' },
+      { value: 'द्विभाषी', label: 'ऑडियो व लिपि', desc: 'हिंदी और अंग्रेज़ी में कहानियां' },
+      { value: '2 प्रकाशक', label: 'हर ऐतिहासिक तथ्य पर', desc: 'हर तथ्य के लिए दो स्वतंत्र स्रोत' },
     ],
     circuitsHeading: 'विशेष ऐतिहासिक मार्ग',
     circuitsSub: 'समय की धारा में जुड़े भारत के भव्य वास्तुकला संवाद को जानें।',
@@ -92,15 +94,15 @@ const homeCopy = {
         era: '१५६५ – १६४८ ईस्वी',
         desc: 'सफेद संगमरमर की पच्चीकारी, लाल बलुआ पत्थर के दुर्ग और अकबर की राजधानी।',
         stops: ['ताजमहल', 'आगरा किला', 'फतेहपुर सीकरी'],
-        href: '/plan/route?hours=6&mode=auto',
+        href: '/plan/route?hours=6&mode=auto&city=Agra',
       },
       {
         title: 'दिल्ली सल्तनत व मुगल अक्ष',
         city: 'दिल्ली',
         era: '११९९ – १६३९ ईस्वी',
-        desc: '७३ मीटर ऊंची मीनार से लेकर पहले चारबाग मकबरे और लाल किले तक का सफर।',
+        desc: '72.5 मीटर ऊंची मीनार से लेकर पहले चारबाग मकबरे और लाल किले तक का सफर।',
         stops: ['क़ुतुब मीनार', 'हुमायूँ का मकबरा', 'लाल किला'],
-        href: '/plan/route?hours=6&mode=auto',
+        href: '/plan/route?hours=6&mode=auto&city=Delhi',
       },
     ],
     monumentsHeading: 'स्मारकों की खोज करें',
@@ -142,7 +144,7 @@ export default function Page() {
         {/* Mobile Header */}
         <header className="sticky top-0 z-40 flex items-center justify-between border-b border-[#E8A317]/20 bg-[#EADBC0]/95 px-5 py-2.5 backdrop-blur lg:hidden safe-top">
           <Link className="flex min-h-12 items-center" href="/" aria-label={lang === 'hi' ? 'राहें' : 'Raahein'}>
-            <RaaheinLogo className="h-9 w-24" />
+            <RaaheinLogo className="h-10 w-28" />
           </Link>
           <Toggle lang={lang} setLang={setLang} />
         </header>
@@ -201,7 +203,7 @@ export default function Page() {
               <ArchImage src={monument.image} alt={monument.name[lang]} className="h-full w-full shadow-2xl" />
               <div className="absolute inset-x-0 bottom-7 px-4 text-center text-[#FBF6EC] drop-shadow-lg">
                 <p className="fraunces text-3xl">{monument.name[lang]}</p>
-                <p className="text-sm text-[#FBF6EC]/90">{monument.city} · {monument.yearBuilt} CE · {monument.builder}</p>
+                <p className="text-sm text-[#FBF6EC]/90">{monument.city} · {monument.era}</p>
               </div>
             </m.div>
             {shortcuts.map(({ href, label, position }) => (
@@ -217,6 +219,7 @@ export default function Page() {
         </section>
 
         {/* Heritage Metrics Ribbon */}
+        <Reveal>
         <section aria-label={lang === 'hi' ? 'धरोहर सांख्यिकी' : 'Heritage Metrics'} className="px-5 py-6 lg:px-0 lg:py-10">
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 lg:gap-5">
             {copy.metrics.map((item, index) => (
@@ -232,11 +235,13 @@ export default function Page() {
             ))}
           </div>
         </section>
+        </Reveal>
 
         {/* Interactive Architectural & Solar Simulator */}
         <HeritageSimulator lang={lang} />
 
         {/* Curated Corridors */}
+        <Reveal>
         <section aria-labelledby="corridors-heading" className="px-5 py-8 lg:px-0 lg:py-14">
           <div className="mb-8 flex flex-col justify-between gap-2 sm:flex-row sm:items-end">
             <div>
@@ -287,8 +292,10 @@ export default function Page() {
             ))}
           </div>
         </section>
+        </Reveal>
 
         {/* How It Works */}
+        <Reveal>
         <section aria-labelledby="how-heading" className="px-5 py-8 lg:px-0 lg:py-16">
           <div className="mb-8 flex items-end justify-between">
             <h2 id="how-heading" className="fraunces text-3xl lg:text-4xl">{copy.how}</h2>
@@ -320,8 +327,10 @@ export default function Page() {
             ))}
           </ol>
         </section>
+        </Reveal>
 
         {/* Monuments Showcase */}
+        <Reveal>
         <section aria-labelledby="monuments-heading" className="px-5 py-8 lg:px-0 lg:py-14">
           <div className="mb-6 flex items-end justify-between">
             <div>
@@ -334,7 +343,7 @@ export default function Page() {
           </div>
 
           <div className="flex snap-x gap-5 overflow-x-auto pb-4">
-            {monuments.map((item) => (
+            {monuments.filter((m) => m.verified).slice(0, 8).map((item) => (
               <Link
                 href={`/monument/${item.id}`}
                 key={item.id}
@@ -347,14 +356,13 @@ export default function Page() {
                       <div className="p-3">
                         <div className="flex items-center justify-between text-xs text-[#5A4E3F]">
                           <span className="font-semibold text-[#8F3221]">{item.city}</span>
-                          <span>{item.yearBuilt} CE</span>
                         </div>
                         <h3 className="fraunces mt-1.5 text-xl text-[#1F1A14]">{item.name[lang]}</h3>
                         <p className="mt-1 text-xs text-[#5A4E3F]">
-                          {lang === 'hi' ? `निर्माता: ${item.builder}` : `Commissioned by ${item.builder}`}
+                          {item.era}
                         </p>
                         <p className="mt-2 line-clamp-2 text-xs leading-5 text-[#5A4E3F]">
-                          {item.sections[0]?.text[lang]}
+                          {item.summary[lang] || item.style}
                         </p>
                       </div>
                     </div>
@@ -374,6 +382,7 @@ export default function Page() {
             ))}
           </div>
         </section>
+        </Reveal>
 
         {/* Mobile quick actions */}
         <div className="grid grid-cols-3 gap-2 px-5 lg:hidden">

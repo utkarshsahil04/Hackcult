@@ -5,7 +5,12 @@ from typing import Annotated, Any
 
 from fastapi import APIRouter, Depends
 
+import sqlite3
+
+from app.db import get_db
 from app.errors import AppError
+from app.planner.config import interest_priorities, resolve_config, restrict_legs
+from app.planner.exhaustive import best_plan
 from app.planner.matrix import load_matrix
 from app.planner.models import (
     InvalidInputError,
@@ -18,6 +23,7 @@ from app.planner.solver import solve_itinerary
 from app.planner.validator import validate_itinerary
 from app.schemas import (
     ItineraryOut,
+    PlanMetricsOut,
     StopOut,
     TourPlanRequest,
     TourPlanResponse,
@@ -63,10 +69,28 @@ def _to_itinerary_out(itinerary: Itinerary) -> ItineraryOut:
     )
 
 
+def _metrics(itinerary: Itinerary, cfg, optimum, priorities: dict[str, int]) -> PlanMetricsOut:
+    planned = itinerary.total_time_min or 0.0
+    budget = itinerary.time_budget_min
+    score = sum(1 + priorities.get(s.monument_slug, 0) for s in itinerary.stops)
+    # optimal = same weighted visits as the exact search and no more than a minute slower
+    optimal = None if optimum is None else (score, -planned) >= (optimum[0][0], optimum[0][1] - 1.0)
+    return PlanMetricsOut(
+        stop_count=len(itinerary.stops),
+        max_stops=cfg.max_stops,
+        budget_utilisation=round(planned / budget, 3) if budget else 0.0,
+        travel_share=round(itinerary.total_travel_time_min / planned, 3) if planned else 0.0,
+        slack_min=round(budget - planned, 2),
+        is_optimal=optimal,
+        preset=cfg.preset,
+    )
+
+
 @router.post("/plan", response_model=TourPlanResponse)
 def plan_tour(
     payload: TourPlanRequest,
     gemini: Annotated[GeminiService, Depends(get_gemini_service)],
+    conn: Annotated[sqlite3.Connection, Depends(get_db)],
 ) -> TourPlanResponse:
     """Plan an optimal, constraint-checked heritage tour using OR-Tools and Gemini.
 
@@ -77,6 +101,16 @@ def plan_tour(
     4. Run independent RouteValidator to mathematically verify the route.
     5. Explain the verified itinerary with Gemini (without altering route or stops).
     """
+    rows = [
+        dict(r)
+        for r in conn.execute(
+            "SELECT slug, name, city, era, architectural_style, "
+            "NOT EXISTS (SELECT 1 FROM claims c WHERE c.monument_id = m.id) AS listed, "
+            "EXISTS (SELECT 1 FROM claims c WHERE c.monument_id = m.id AND c.is_legend = 1) AS has_legend "
+            "FROM monuments m ORDER BY id"
+        )
+    ]
+    VALID_SLUGS[:] = [r["slug"] for r in rows]  # the DB, not a hard-coded list, defines what exists
     parsed = ParsedConstraints()
     if payload.query and payload.query.strip():
         parsed = gemini.parse_preferences(payload.query)
@@ -97,20 +131,21 @@ def plan_tour(
     # Profile & return_to_start
     profile = payload.profile
     return_to_start = payload.return_to_start or parsed.return_to_start
-    max_stops = payload.max_stops or parsed.max_stops
-    visit_durations = {**parsed.visit_durations, **payload.visit_durations}
+    try:
+        cfg = resolve_config(payload.preset, payload.max_stops or parsed.max_stops, payload.max_leg_min)
+    except InvalidInputError as exc:
+        raise AppError(status_code=400, code="VALIDATION_ERROR", message=str(exc), hint="Use relaxed, standard or quick.") from exc
+    listed = {r["slug"] for r in rows if r["listed"]}
+    visit_durations = {
+        **{r["slug"]: cfg.visit_minutes(r["slug"], r["slug"] in listed) for r in rows},
+        **parsed.visit_durations,
+        **payload.visit_durations,
+    }
+    priorities = interest_priorities(rows, payload.interests)
+    preferences["monument_cities"] = {r["slug"]: r["city"] for r in rows}
     time_limit_seconds = payload.time_limit_seconds
 
-    # Validate essential fields
-    if not start_monument:
-        raise AppError(
-            status_code=400,
-            code="VALIDATION_ERROR",
-            message="Starting monument could not be determined. Please specify 'start_monument' or mention a valid monument in your query.",
-            hint="Use a valid monument slug such as 'humayuns-tomb' or 'taj-mahal'.",
-        )
-
-    if start_monument not in VALID_SLUGS:
+    if start_monument and start_monument not in VALID_SLUGS:
         raise AppError(
             status_code=400,
             code="VALIDATION_ERROR",
@@ -138,6 +173,20 @@ def plan_tour(
             hint="Ensure precomputed matrices are available.",
         ) from exc
 
+    matrix = restrict_legs(matrix, cfg.max_leg_min)
+    city = str(preferences.get("city") or "").strip().lower()
+    pool = [r["slug"] for r in rows if not city or r["city"].lower() == city]
+    must = set(combined_must_visit)
+
+    def optimum(start: str | None):
+        return best_plan(matrix, time_budget_minutes, cfg.max_stops, visit_durations, pool,
+                         start=start, must_visit=must, priorities=priorities)
+
+    if not start_monument:  # let the exact search pick the best place to begin
+        found = optimum(None)
+        start_monument = found[1][0] if found else pool[0]
+        combined_must_visit = [s for s in combined_must_visit if s != start_monument]
+
     # 3. Solve itinerary using OR-Tools
     try:
         itinerary = solve_itinerary(
@@ -147,9 +196,10 @@ def plan_tour(
             must_visit=combined_must_visit,
             preferences=preferences,
             return_to_start=return_to_start,
-            max_stops=max_stops,
+            max_stops=cfg.max_stops,
             visit_durations=visit_durations,
             time_limit_seconds=time_limit_seconds,
+            priorities=priorities,
         )
     except InvalidInputError as exc:
         raise AppError(
@@ -174,7 +224,10 @@ def plan_tour(
         "preferences": preferences,
         "profile": profile,
         "return_to_start": return_to_start,
-        "max_stops": max_stops,
+        "max_stops": cfg.max_stops,
+        "preset": cfg.preset,
+        "max_leg_min": cfg.max_leg_min,
+        "interests": payload.interests,
     }
 
     # 4. Handle infeasible solver outcome
@@ -224,6 +277,8 @@ def plan_tour(
             parsed_preferences=parsed_dict,
         )
 
+    metrics = _metrics(itinerary, cfg, optimum(start_monument) if not return_to_start else None, priorities)
+
     # 7. Generate natural language explanation for already-validated itinerary
     explanation = gemini.explain_itinerary(itinerary)
 
@@ -244,4 +299,5 @@ def plan_tour(
         ),
         explanation=explanation,
         parsed_preferences=parsed_dict,
+        metrics=metrics,
     )

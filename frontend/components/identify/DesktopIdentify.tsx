@@ -5,7 +5,7 @@ import { Upload } from 'lucide-react'
 import { QRCodeSVG } from 'qrcode.react'
 import { m } from 'framer-motion'
 import { ArchImage, InlayFrame } from '@/components/heritage'
-import { monuments, type Lang } from '@/lib/mock'
+import { monuments, type Lang } from '@/lib/catalog'
 import { transitions } from '@/lib/motion'
 
 const copy = {

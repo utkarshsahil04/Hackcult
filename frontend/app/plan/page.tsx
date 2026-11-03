@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import { CarFront, Check, Footprints, TrainFront } from 'lucide-react'
+import { CarFront, Check, Footprints } from 'lucide-react'
 import { LazyMotion, domAnimation, m } from 'framer-motion'
 import Map from '@/components/map'
 import { Toggle, useLang } from '@/components/raahein'
@@ -10,23 +10,30 @@ import { springs, transitions } from '@/lib/motion'
 
 const interests = [
   { id: 'mughal', en: 'Mughal', hi: 'मुगल' },
-  { id: 'rajput', en: 'Rajput', hi: 'राजपूत' },
   { id: 'architecture', en: 'Architecture', hi: 'वास्तुकला' },
-  { id: 'stories', en: 'Stories and legends', hi: 'कहानियां और किंवदंतियां' },
-  { id: 'gardens', en: 'Gardens', hi: 'बगीचे' },
+  { id: 'legend', en: 'Stories and legends', hi: 'कहानियां और किंवदंतियां' },
+  { id: 'garden', en: 'Gardens', hi: 'बगीचे' },
 ] as const
+
+const presets = [
+  { id: 'relaxed', en: 'Relaxed · 2 stops', hi: 'आराम से · 2 पड़ाव' },
+  { id: 'standard', en: 'Standard · 3 stops', hi: 'सामान्य · 3 पड़ाव' },
+  { id: 'quick', en: 'Quick · 3 short stops', hi: 'तेज़ · 3 छोटे पड़ाव' },
+] as const
+const cities = [{ id: 'Delhi', en: 'Delhi', hi: 'दिल्ली' }, { id: 'Agra', en: 'Agra', hi: 'आगरा' }] as const
 
 export default function Page() {
   const { lang, setLang, t } = useLang()
   const [hours, setHours] = useState(6)
   const [selected, setSelected] = useState<string[]>([])
   const [mode, setMode] = useState('walk')
+  const [preset, setPreset] = useState('standard')
+  const [city, setCity] = useState('Delhi')
   const modes = [
     { id: 'walk', label: t.walk, icon: Footprints },
     { id: 'auto', label: t.auto, icon: CarFront },
-    { id: 'metro', label: t.metro, icon: TrainFront },
   ]
-  const routeHref = { pathname: '/plan/route', query: { hours, mode, interests: selected.join(',') } }
+  const routeHref = { pathname: '/plan/route', query: { hours, mode, preset, city, interests: selected.join(',') } }
 
   return (
     <LazyMotion features={domAnimation}>
@@ -46,6 +53,18 @@ export default function Page() {
             <div className="mt-1 flex justify-between text-xs text-[#5A4E3F]"><span>{t.twoHours}</span><span>{t.tenHours}</span></div>
           </section>
           <section>
+            <h2 className="mb-3 font-semibold">{lang === 'hi' ? 'शहर' : 'City'}</h2>
+            <div className="flex flex-wrap gap-2">
+              {cities.map((item) => <button aria-pressed={city === item.id} className={`min-h-12 rounded-full border px-3 py-2 text-sm ${city === item.id ? 'border-[#B5452B] bg-[#B5452B] text-white' : 'border-[#C8B594] bg-[#FBF6EC]'}`} key={item.id} onClick={() => setCity(item.id)} type="button">{item[lang]}</button>)}
+            </div>
+          </section>
+          <section>
+            <h2 className="mb-3 font-semibold">{lang === 'hi' ? 'दिन की गति' : 'Pace of the day'}</h2>
+            <div className="flex flex-wrap gap-2">
+              {presets.map((item) => <button aria-pressed={preset === item.id} className={`min-h-12 rounded-full border px-3 py-2 text-sm ${preset === item.id ? 'border-[#B5452B] bg-[#B5452B] text-white' : 'border-[#C8B594] bg-[#FBF6EC]'}`} key={item.id} onClick={() => setPreset(item.id)} type="button">{item[lang]}</button>)}
+            </div>
+          </section>
+          <section>
             <h2 className="mb-3 font-semibold">{t.interests}</h2>
             <div className="flex flex-wrap gap-2">
               {interests.map((item) => {
@@ -61,7 +80,7 @@ export default function Page() {
             </div>
           </section>
           <p className="border-t border-[#D4C3A6] pt-5 text-[#5A4E3F]">{t.about} <strong className="text-[#1F1A14]">{hours} {t.hours}</strong></p>
-          <Link href={routeHref} className="link-inverse flex min-h-14 items-center justify-center rounded-full bg-[#B5452B] px-6 text-center font-semibold shadow-[0_10px_24px_rgba(143,50,33,.28)]">{t.build}</Link>
+          <Link href={routeHref} className="link-inverse sticky bottom-20 z-10 flex min-h-14 items-center justify-center rounded-full bg-[#B5452B] px-6 text-center font-semibold shadow-[0_10px_24px_rgba(143,50,33,.28)] lg:static">{t.build}</Link>
         </div>
         <div className="hidden lg:sticky lg:top-0 lg:col-start-2 lg:row-start-1 lg:block lg:h-[calc(100svh-4.5rem)]"><Map /></div>
       </main>

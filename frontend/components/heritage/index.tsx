@@ -2,9 +2,9 @@
 
 import { forwardRef, useId, useImperativeHandle, useRef, useState } from 'react'
 import Image from 'next/image'
-import { LazyMotion, domAnimation, m, useReducedMotion } from 'framer-motion'
+import { LazyMotion, domAnimation, m, useReducedMotion, useScroll, useSpring } from 'framer-motion'
 import { durations, springs, transitions } from '@/lib/motion'
-import { monumentImages } from '@/lib/mock'
+import { monumentImages } from '@/lib/catalog'
 export { Atmosphere } from './atmosphere'
 export { HeritageSimulator } from './HeritageSimulator'
 
@@ -35,3 +35,7 @@ export function ManuscriptPanel({ children, className = '' }: { children: React.
 export function Dock({ children }: { children: React.ReactNode }) { return <nav className="fixed bottom-4 left-1/2 z-30 flex min-h-14 -translate-x-1/2 items-center gap-1 rounded-full border border-[#E8A317]/45 bg-[#FBF6EC]/95 p-1.5 shadow-[0_10px_30px_rgba(31,26,20,.14)] backdrop-blur">{children}</nav> }
 
 export function CaravanRoute({ points }: { points: Array<[number, number]> }) { const d = points.map(([x, y], i) => `${i ? 'L' : 'M'} ${x} ${y}`).join(' '); return <KitMotion><m.svg viewBox="0 0 320 180" className="h-full w-full" aria-label="Tour route"><m.path d={d} fill="none" stroke="#B5452B" strokeWidth="3" strokeDasharray="7 8" animate={{ strokeDashoffset: [0, -60] }} transition={{ duration: durations.intro * 4, repeat: Infinity, ease: 'linear' }} /><path d={d} fill="none" stroke="#B5452B" strokeWidth="8" opacity=".1" />{points.map(([x, y], i) => <m.circle key={`${x}-${y}`} cx={x} cy={y} r="6" fill="#E8A317" initial={{ scale: 0 }} whileInView={{ scale: 1 }} viewport={{ once: true }} transition={{ ...springs.soft, delay: i * durations.fast }} />)}</m.svg></KitMotion> }
+
+export function Reveal({ children, delay = 0, className = '' }: { children: React.ReactNode; delay?: number; className?: string }) { const reduce = useReducedMotion(); return <KitMotion><m.div className={className} initial={{ opacity: 0, y: reduce ? 0 : 28 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-60px' }} transition={{ ...transitions.slow, delay }}>{children}</m.div></KitMotion> }
+
+export function ScrollProgress() { const { scrollYProgress } = useScroll(); const scaleX = useSpring(scrollYProgress, { stiffness: 140, damping: 26 }); return <KitMotion><m.div aria-hidden="true" className="fixed inset-x-0 top-0 z-50 h-0.5 origin-left bg-[#E8A317]" style={{ scaleX }} /></KitMotion> }

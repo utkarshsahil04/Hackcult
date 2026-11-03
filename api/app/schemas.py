@@ -106,6 +106,13 @@ class TourPlanRequest(BaseModel):
         default_factory=dict,
         description="Custom visit duration in minutes per monument slug",
     )
+    preset: str | None = Field(
+        default=None, description="Plan preset from planner/data/plan_presets.json (relaxed, standard, quick)"
+    )
+    max_leg_min: float | None = Field(default=None, gt=0, description="Longest allowed travel leg in minutes")
+    interests: list[str] = Field(
+        default_factory=list, description="Interest keywords (e.g. 'mughal', 'garden') that raise a site's priority"
+    )
     time_limit_seconds: int = Field(
         default=5,
         ge=1,
@@ -116,9 +123,9 @@ class TourPlanRequest(BaseModel):
     def check_query_or_start(self) -> TourPlanRequest:
         has_query = bool(self.query and self.query.strip())
         has_direct = bool(self.start_monument and self.start_monument.strip())
-        if not has_query and not has_direct:
+        if not has_query and not has_direct and not self.time_budget_minutes:
             raise ValueError(
-                "Either 'query' (natural language preferences) or 'start_monument' must be provided."
+                "Provide 'query', 'start_monument' or 'time_budget_minutes' (the start is then chosen for you)."
             )
         return self
 
@@ -158,6 +165,16 @@ class ValidationOut(BaseModel):
     recalculated_distance_m: float = 0.0
 
 
+class PlanMetricsOut(BaseModel):
+    stop_count: int
+    max_stops: int
+    budget_utilisation: float  # planned minutes / budget
+    travel_share: float  # travel minutes / planned minutes
+    slack_min: float  # unused budget
+    is_optimal: bool | None = None  # matches the exhaustive-search optimum (None when not checked)
+    preset: str
+
+
 class TourPlanResponse(BaseModel):
     is_feasible: bool
     status_message: str
@@ -167,3 +184,4 @@ class TourPlanResponse(BaseModel):
     validation: ValidationOut | None = None
     explanation: str | None = None
     parsed_preferences: dict[str, Any] | None = None
+    metrics: PlanMetricsOut | None = None

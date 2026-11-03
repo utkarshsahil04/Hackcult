@@ -7,6 +7,7 @@ import { AnimatePresence, m } from 'framer-motion'
 import { CalendarDays, Compass, ScanLine, X } from 'lucide-react'
 import { Tabs, Toggle, useLang } from '@/components/raahein'
 import { RaaheinLogo } from '@/components/RaaheinLogo'
+import { ScrollProgress } from '@/components/heritage'
 import { transitions } from '@/lib/motion'
 
 type TourStop = { id: string; name: string }
@@ -66,6 +67,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="app-shell">
+      <ScrollProgress />
       <header className="desktop-nav">
         <Link href="/" className="flex min-h-12 items-center" aria-label={t.app}>
           <RaaheinLogo className="h-11 w-28" />

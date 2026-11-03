@@ -7,7 +7,7 @@ import { motion } from 'framer-motion'
 import { MonumentArt } from '@/components/heritage'
 import { RaaheinLogo } from '@/components/RaaheinLogo'
 import { strings } from '@/lib/i18n/strings'
-import { monuments, type Lang } from '@/lib/mock'
+import { monuments, type Lang } from '@/lib/catalog'
 import { transitions } from '@/lib/motion'
 
 const LANGUAGE_KEY = 'raahein-language'
@@ -139,8 +139,9 @@ export function Explore() {
   const cityLabel = (value: (typeof cityOptions)[number]) => value === 'All' ? t.all : value === 'Delhi' ? t.delhi : t.agra
   const eraLabel = (value: (typeof eraOptions)[number]) => value === 'All' ? t.all : value === 'Sultanate' ? copy.sultanate : copy.mughal
   const data = monuments.filter((monument) => {
-    const monumentEra = monument.id === 'qutb-complex' ? 'Sultanate' : 'Mughal'
-    return (city === 'All' || monument.city === city)
+    const monumentEra = /sultanate/i.test(monument.era) ? 'Sultanate' : /mughal/i.test(monument.era) ? 'Mughal' : 'Other'
+    const region = monument.lat < 28 ? 'Agra' : 'Delhi' // the Agra filter includes Fatehpur Sikri
+    return (city === 'All' || region === city)
       && (era === 'All' || monumentEra === era)
       && (!legendsOnly || monument.sections.some((section) => section.isLegend))
       && monument.name[lang].toLocaleLowerCase().includes(query.trim().toLocaleLowerCase())
@@ -202,20 +203,19 @@ export function Explore() {
           <div className="card space-y-4 p-4 lg:hidden">{filters('mobile')}</div>
           {data.length ? (
             <motion.div layout className="mt-5 grid grid-cols-2 items-stretch gap-3 lg:mt-0 lg:grid-cols-3 xl:grid-cols-4">
-              {data.map((monument) => (
-                <motion.div className="h-full" key={monument.id} layout transition={transitions.fast} whileHover={{ y: -3 }}>
+              {data.map((monument, i) => (
+                <motion.div className="h-full" key={monument.id} layout initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ ...transitions.base, delay: Math.min(i, 8) * .05 }} whileHover={{ y: -3 }}>
                   <Link href={`/monument/${monument.id}`} className="card flex h-full min-h-48 flex-col overflow-hidden focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#E8A317]">
                     <MonumentArt alt={monument.name[lang]} className="h-36 w-full" id={monument.id} />
                     <div className="flex flex-1 flex-col p-3">
                       <div className="flex items-center justify-between text-xs text-[#5A4E3F]">
                         <span className="font-semibold text-[#8F3221]">{monument.city}</span>
-                        <span>{monument.yearBuilt} CE</span>
                       </div>
                       <div className="mt-1 font-semibold text-[#1F1A14]">{monument.name[lang]}</div>
-                      <div className="mt-0.5 text-xs text-[#5A4E3F] line-clamp-1">{monument.builder}</div>
-                      <div className="mt-2 line-clamp-2 text-xs leading-5 text-[#5A4E3F]">{monument.sections[0]?.text[lang]}</div>
+                      <div className="mt-0.5 text-xs text-[#5A4E3F] line-clamp-1">{monument.era}</div>
+                      <div className="mt-2 line-clamp-2 text-xs leading-5 text-[#5A4E3F]">{monument.summary[lang] || monument.style}</div>
                       <div className="mt-auto flex items-center justify-between pt-3 text-[11px] text-[#5A4E3F]">
-                        <span className="font-medium text-[#765500]">{monument.sources.length} {lang === 'hi' ? 'स्रोत' : 'sources'}</span>
+                        <span className="font-medium text-[#765500]">{monument.verified ? `${monument.sources.length} ${lang === 'hi' ? 'स्रोत' : 'sources'}` : lang === 'hi' ? 'कहानी शीघ्र' : 'Story pending'}</span>
                         {monument.sections.some((section) => section.isLegend) && (
                           <span className="inline-block rounded-full border border-[#E8A317] px-2 py-0.5 text-[10px] text-[#765500]">{t.legend}</span>
                         )}

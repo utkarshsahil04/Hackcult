@@ -1,2 +1,10 @@
-import { getMonument, type Lang } from './mock'
-export async function getNarration(monumentId:string,lang:Lang){const monument=getMonument(monumentId);if(monument.audio)return {type:'audio' as const,url:monument.audio,note:lang==='hi'&&!('speechSynthesis' in window)?'Hindi audio is unavailable, playing the stored story.':undefined};if(typeof window!=='undefined'&&'speechSynthesis' in window){const voice=speechSynthesis.getVoices().find(v=>v.lang.toLowerCase().startsWith(lang));if(voice)return {type:'speech' as const,voice}}return {type:'audio' as const,url:monument.audio,note:lang==='hi'?'Hindi voice unavailable, playing the stored story.':undefined}}
+import type { Lang } from './catalog'
+
+type Narration = { type: 'speech'; voice: SpeechSynthesisVoice } | { type: 'audio'; url?: string; note?: string }
+
+export async function getNarration(lang: Lang): Promise<Narration> {
+  const voice = typeof window !== 'undefined' && 'speechSynthesis' in window
+    ? speechSynthesis.getVoices().find((v) => v.lang.toLowerCase().startsWith(lang))
+    : undefined
+  return voice ? { type: 'speech', voice } : { type: 'audio' }
+}

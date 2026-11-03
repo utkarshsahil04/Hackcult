@@ -17,36 +17,19 @@ logger = logging.getLogger("raahein.api.gemini")
 GEMINI_BASE_URL = "https://generativelanguage.googleapis.com/v1beta/models"
 DEFAULT_MODEL = "gemini-2.5-flash"  # tour planner keeps its current model
 
-VALID_SLUGS = [
-    "taj-mahal",
-    "agra-fort",
-    "fatehpur-sikri",
-    "itmad-ud-daulah",
-    "mehtab-bagh",
-    "akbars-tomb",
-    "qutb-minar",
-    "humayuns-tomb",
-    "red-fort",
-    "jama-masjid",
-    "india-gate",
-    "lotus-temple",
-    "purana-qila",
-    "safdarjung-tomb",
-    "jantar-mantar",
-]
 
 MONUMENT_KEYWORDS: dict[str, str] = {
     "taj": "taj-mahal",
     "agra fort": "agra-fort",
     "fatehpur": "fatehpur-sikri",
     "sikri": "fatehpur-sikri",
-    "itmad": "itmad-ud-daulah",
-    "baby taj": "itmad-ud-daulah",
-    "mehtab": "mehtab-bagh",
+    "itimad": "itimad-ud-daulah",
+    "i'timad": "itimad-ud-daulah",
+    "baby taj": "itimad-ud-daulah",
     "akbar": "akbars-tomb",
     "sikandra": "akbars-tomb",
-    "qutb": "qutb-minar",
-    "qutub": "qutb-minar",
+    "qutb": "qutb-complex",
+    "qutub": "qutb-complex",
     "humayun": "humayuns-tomb",
     "red fort": "red-fort",
     "lal qila": "red-fort",
@@ -56,9 +39,26 @@ MONUMENT_KEYWORDS: dict[str, str] = {
     "bahai": "lotus-temple",
     "purana qila": "purana-qila",
     "old fort": "purana-qila",
-    "safdarjung": "safdarjung-tomb",
+    "safdarjung": "safdarjungs-tomb",
     "jantar mantar": "jantar-mantar",
+    "tughlaqabad": "tughlaqabad-fort",
+    "mehrauli": "mehrauli-archaeological-park",
+    "lodhi": "lodhi-gardens",
+    "hauz khas": "hauz-khas-complex",
+    "agrasen": "agrasen-ki-baoli",
+    "feroz shah": "feroz-shah-kotla",
+    "rashtrapati": "rashtrapati-bhavan",
+    "sunder nursery": "sunder-nursery",
+    "khan-i-khana": "abdul-rahim-khan-i-khana-tomb",
+    "khirki": "khirki-masjid",
+    "nizamuddin": "nizamuddin-dargah",
+    "raj ghat": "raj-ghat",
+    "akshardham": "akshardham-delhi",
+    "fatehpuri": "fatehpuri-masjid",
 }
+
+# Defaults to every slug the keywords can reach; routes/tours.py refreshes it from the monuments table.
+VALID_SLUGS: list[str] = sorted(set(MONUMENT_KEYWORDS.values()))
 
 
 @dataclass

@@ -10,7 +10,7 @@ import { KolamLoader, MonumentArt } from '@/components/heritage'
 import { RaaheinLogo } from '@/components/RaaheinLogo'
 import { Toggle, useLang } from '@/components/raahein'
 import { identify, type IdentifyResult } from '@/lib/api'
-import { monuments, findMonument } from '@/lib/mock'
+import { monuments, findMonument } from '@/lib/catalog'
 import { delays, durations, transitions } from '@/lib/motion'
 
 type IdentifyState = 'scan' | 'match' | 'uncertain' | 'error'
@@ -107,9 +107,6 @@ export default function Identify() {
     setPhoto(preview)
     try {
       const result = await identify(file) as IdentifyResult
-      const forced = new URLSearchParams(window.location.search).get('mock')
-      if (forced === 'error') { setState('error'); return }
-      if (forced === 'uncertain') { setState('uncertain'); return }
       if (result.status === 'match') {
         setMatchedMonument(result.monument)
         setState('match')

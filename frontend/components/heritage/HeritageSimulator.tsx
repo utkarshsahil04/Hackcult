@@ -4,78 +4,12 @@ import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { ArrowRight, Compass, Eye, Info, Layers, Sparkles, Sun, Volume2, VolumeX } from 'lucide-react'
-import { monuments } from '@/lib/mock'
+import { monumentImages, monuments as allMonuments } from '@/lib/catalog'
+
+const monuments = allMonuments.filter((m) => m.verified && monumentImages[m.id])
 import { InlayFrame } from '@/components/heritage'
 
 type Lang = 'en' | 'hi'
-
-const architecturalData: Record<string, {
-  alignment: { en: string; hi: string }
-  material: { en: string; hi: string }
-  acoustic: { en: string; hi: string }
-  facts: { en: string; hi: string }[]
-}> = {
-  'taj-mahal': {
-    alignment: { en: 'Equinoctial River Axis & Solstice Alignment', hi: 'विषुवतीय यमुना अक्ष व संक्रांति रेखा' },
-    material: { en: 'Makrana White Marble & Pietra Dura Inlays', hi: 'मकराना श्वेत संगमरमर व पच्चीकारी' },
-    acoustic: { en: '28-second reverberation beneath main dome', hi: 'मुख्य गुम्बद के नीचे २८ सेकंड की प्रतिध्वनि' },
-    facts: [
-      { en: 'Pietra dura floral panels use 28 varieties of semi-precious stones (jade, lapis, turquoise).', hi: 'पच्चीकारी में २८ प्रकार के दुर्लभ रत्न (लापिस, फिरोज़ा, जेड) जड़े गए हैं।' },
-      { en: 'Four minarets lean outward by 3 degrees to prevent collapse onto the tomb during earthquakes.', hi: 'चारों मीनारें ३ डिग्री बाहर झुकी हैं ताकि भूकंप में मुख्य मकबरे पर न गिरें।' },
-      { en: 'The charbagh garden cross-axis reflects the full moon precisely in the lotus pond.', hi: 'चारबाग का अक्ष पूर्णिमा के चांद को कमल ताल में सटीक प्रतिबिंबित करता है।' },
-    ],
-  },
-  'agra-fort': {
-    alignment: { en: 'Yamuna River Defense & Sunrise Darshan Axis', hi: 'यमुना रक्षा प्राचीर व सूर्योदय झरोखा दर्शन' },
-    material: { en: 'Dholpur Red Sandstone & Inlaid Marble', hi: 'धौलपुर लाल बलुआ पत्थर व संगमरमर' },
-    acoustic: { en: 'Musamman Burj acoustic river whisper conduit', hi: 'मुसम्मन बुर्ज की सूक्ष्म ध्वनि संवाहक रचना' },
-    facts: [
-      { en: 'Massive double-curtain walls stand over 21 meters high, stretching 2.5 kilometers along the river.', hi: '२१ मीटर ऊंची दोहरी रक्षा प्राचीर नदी के किनारे २.५ किमी तक फैली है।' },
-      { en: 'Sheesh Mahal features thousands of Syrian convex mirrors reflecting candlelight across the hall.', hi: 'शीश महल में सीरियाई दर्पण मोमबत्ती की रोशनी को हजारों तारों में बदलते हैं।' },
-      { en: 'Shah Jahan spent his final years here gazing at the Taj Mahal across the bend of the Yamuna.', hi: 'शाहजहाँ ने जीवन के अंतिम वर्ष यहीं से यमुना पार ताजमहल को निहारते हुए बिताए।' },
-    ],
-  },
-  'red-fort': {
-    alignment: { en: 'Shahjahanabad Cardinal Grid & Riverfront', hi: 'शाहजहानाबाद प्रधान अक्ष व यमुना किनारा' },
-    material: { en: 'Ochre Red Sandstone & Marble Pavilions', hi: 'गेरुआ लाल बलुआ पत्थर व संगमरमर मंडप' },
-    acoustic: { en: 'Diwan-i-Khas marble portico sound resonance', hi: 'दीवाने-खास के संगमरमर बरामदे का ध्वनि विस्तार' },
-    facts: [
-      { en: 'The Stream of Paradise (Nahr-i-Bihisht) flowed continuously through all royal pavilions for natural cooling.', hi: 'नहर-ए-बहिश्त सभी शाही महलों के बीच से बहकर प्राकृतिक वातानुकूलन करती थी।' },
-      { en: 'Lahori Gate bastions incorporate ingenious zigzag barbicans added by Aurangzeb for artillery defense.', hi: 'लाहौरी गेट में तोपों से बचाव के लिए टेढ़े-मेढ़े सुरक्षा द्वार बनाए गए।' },
-      { en: 'Site of the historic Peacock Throne before it was carried away in the 18th century.', hi: '१८वीं सदी से पहले यह विश्व प्रसिद्ध मयूर सिंहासन का मूल स्थान था।' },
-    ],
-  },
-  'humayuns-tomb': {
-    alignment: { en: 'Astronomical Cardinal Charbagh Geometry', hi: 'खगोलीय चारबाग सममिति व दिशा अक्ष' },
-    material: { en: 'Chunar Red Sandstone with White Marble Borders', hi: 'चुनार लाल पत्थर व सफेद संगमरमर की पट्टियां' },
-    acoustic: { en: 'Octagonal chamber double-dome acoustic balance', hi: 'अष्टकोणीय कक्ष व दोहरे गुम्बद का ध्वनि संतुलन' },
-    facts: [
-      { en: 'First grand garden tomb in the Indian subcontinent, introducing the iconic double dome architecture.', hi: 'भारतीय उपमहाद्वीप का पहला विशाल बाग मकबरा, जिसने दोहरे गुम्बद की शुरुआत की।' },
-      { en: 'The four-part Charbagh symbolizes the four rivers of paradise described in historic manuscripts.', hi: 'चारबाग की चार धाराएं ऐतिहासिक ग्रंथों में वर्णित जन्नत की नदियों का प्रतीक हैं।' },
-      { en: 'Served as the direct architectural inspiration and proportion blueprint for the Taj Mahal.', hi: 'यह ताजमहल के निर्माण का प्रत्यक्ष वास्तुशिल्प और अनुपातिक प्रेरणा स्रोत बना।' },
-    ],
-  },
-  'qutb-complex': {
-    alignment: { en: 'Astronomical Gnomon & Solar Noon Shadow', hi: 'खगोलीय शंकु व मध्याह्न छाया मापन अक्ष' },
-    material: { en: 'Fluted Red Sandstone & White Marble Upper Storeys', hi: 'धारदार लाल बलुआ पत्थर व ऊपरी संगमरमर' },
-    acoustic: { en: 'Projecting corbelled balcony vocal propagation', hi: 'झरोखा बालकनी की खुली ध्वनि प्रसार क्षमता' },
-    facts: [
-      { en: 'At 72.5 meters, it is the tallest brick minaret in the world, tapering from 14.3m base to 2.7m at the top.', hi: '७२.५ मीटर के साथ यह दुनिया की सबसे ऊंची ईंट-मीनार है, जो आधार से शिखर तक संकरी होती है।' },
-      { en: 'Alternates angular and rounded flutes across the lower tiers, carved with intricate epigraphy.', hi: 'निचली मंजिलों पर कोणीय और गोलाकार पट्टियों पर सूक्ष्म नक्काशी की गई है।' },
-      { en: 'The neighboring Iron Pillar has stood for 1,600+ years without corroding due to a protective misawite layer.', hi: 'प्रांगण का लौह स्तंभ १६०० वर्षों से बिना जंग लगे प्राचीन धातु विज्ञान का प्रमाण है।' },
-    ],
-  },
-  'fatehpur-sikri': {
-    alignment: { en: 'Buland Darwaza South Cardinal Gateway Axis', hi: 'बुलंद दरवाज़ा दक्षिण दिशा प्रधान अक्ष' },
-    material: { en: 'Sikri Red Sandstone with Mortarless Joinery', hi: 'सीकरी लाल बलुआ पत्थर व बिना गारे की चुनाई' },
-    acoustic: { en: 'Anup Talao central musical platform acoustics', hi: 'अनूप ताल के केंद्रीय संगीत मंच की ध्वनि तरंगें' },
-    facts: [
-      { en: 'Buland Darwaza stands 54 meters high, built to commemorate Akbar’s victory in Gujarat in 1573.', hi: '५४ मीटर ऊंचा बुलंद दरवाज़ा १५७३ में गुजरात विजय की स्मृति में बनवाया गया था।' },
-      { en: 'Diwan-i-Khas features a singular central carved pillar branching out into 36 serpentine brackets.', hi: 'दीवाने-खास के मध्य में ३६ नक्काशीदार कोष्ठकों वाला एक अद्वितीय केंद्रीय स्तंभ है।' },
-      { en: 'The five-tiered Panch Mahal cools its open pavilions using Persian wind-catcher principles.', hi: 'पांच मंजिला पंच महल फ़ारसी पवन-मार्ग सिद्धांत पर खुली हवा से ठंडा रहता है।' },
-    ],
-  },
-}
 
 const timesOfDay = [
   {
@@ -140,7 +74,8 @@ export function HeritageSimulator({ lang = 'en' }: { lang?: Lang }) {
   const gainNodeRef = useRef<GainNode | null>(null)
 
   const activeMonument = monuments.find((m) => m.id === selectedId) ?? monuments[0]
-  const activeDetails = architecturalData[activeMonument.id] ?? architecturalData['taj-mahal']
+  // Sourced claims only; claims are stored in English, so Hindi shows the Hindi story summary.
+  const facts = lang === 'hi' && activeMonument.summary.hi ? [activeMonument.summary.hi] : activeMonument.sections.filter((section) => !section.isLegend).map((section) => section.text.en)
   const activeTime = timesOfDay[timeIndex]
 
   // Clean up audio on unmount
@@ -223,7 +158,7 @@ export function HeritageSimulator({ lang = 'en' }: { lang?: Lang }) {
               <p className="mt-1 text-xs sm:text-sm text-[#5A4E3F]">
                 {lang === 'hi'
                   ? 'स्मारक चुनें, सूर्य की दिशा बदलें और ऐतिहासिक संरेखण को साक्षात अनुभव करें।'
-                  : 'Select a monument, shift the solar angle, and experience archival alignments in real time.'}
+                  : 'Select a monument, shift the solar angle, and read its sourced record.'}
               </p>
             </div>
 
@@ -308,7 +243,7 @@ export function HeritageSimulator({ lang = 'en' }: { lang?: Lang }) {
                     <div>
                       <p className="fraunces text-2xl sm:text-3xl drop-shadow-md">{activeMonument.name[lang]}</p>
                       <p className="text-xs sm:text-sm text-[#FBF6EC]/90 drop-shadow">
-                        {activeMonument.city} • {activeMonument.yearBuilt} CE • {lang === 'hi' ? `निर्माता: ${activeMonument.builder}` : `By ${activeMonument.builder}`}
+                        {activeMonument.city} • {activeMonument.era}
                       </p>
                     </div>
                     <span className="rounded-full border border-[#E8A317]/60 bg-[#1F1A14]/65 px-3 py-1 text-xs font-semibold backdrop-blur text-[#E8A317]">
@@ -355,30 +290,30 @@ export function HeritageSimulator({ lang = 'en' }: { lang?: Lang }) {
                 <div className="rounded-xl border border-[#E8A317]/40 bg-[#EADBC0]/40 p-3.5">
                   <div className="flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-wider text-[#B5452B]">
                     <Compass size={13} aria-hidden="true" />
-                    <span>{lang === 'hi' ? 'खगोलीय व भौगोलिक संरेखण' : 'Astronomical & Solar Alignment'}</span>
+                    <span>{lang === 'hi' ? 'काल' : 'Era'}</span>
                   </div>
                   <div className="mt-1 text-xs font-medium text-[#1F1A14] leading-relaxed">
-                    {activeDetails.alignment[lang]}
+                    {activeMonument.era}
                   </div>
                 </div>
 
                 <div className="rounded-xl border border-[#E8A317]/40 bg-[#EADBC0]/40 p-3.5">
                   <div className="flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-wider text-[#B5452B]">
                     <Layers size={13} aria-hidden="true" />
-                    <span>{lang === 'hi' ? 'शिल्प सामग्री व शैली' : 'Materials & Masonry'}</span>
+                    <span>{lang === 'hi' ? 'शैली' : 'Architectural Style'}</span>
                   </div>
                   <div className="mt-1 text-xs font-medium text-[#1F1A14] leading-relaxed">
-                    {activeDetails.material[lang]}
+                    {activeMonument.style}
                   </div>
                 </div>
 
                 <div className="rounded-xl border border-[#E8A317]/40 bg-[#EADBC0]/40 p-3.5 sm:col-span-2 lg:col-span-1">
                   <div className="flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-wider text-[#B5452B]">
                     <Volume2 size={13} aria-hidden="true" />
-                    <span>{lang === 'hi' ? 'ध्वनि व स्थानिक वास्तुकला' : 'Acoustics & Spatial Resonance'}</span>
+                    <span>{lang === 'hi' ? 'स्थान' : 'Location'}</span>
                   </div>
                   <div className="mt-1 text-xs font-medium text-[#1F1A14] leading-relaxed">
-                    {activeDetails.acoustic[lang]}
+                    {activeMonument.location}
                   </div>
                 </div>
               </div>
@@ -391,7 +326,7 @@ export function HeritageSimulator({ lang = 'en' }: { lang?: Lang }) {
                     <span>{lang === 'hi' ? 'प्रमाणित तथ्य' : 'Documented Fact'}</span>
                   </span>
                   <button
-                    onClick={() => setFactIndex((prev) => (prev + 1) % activeDetails.facts.length)}
+                    onClick={() => setFactIndex((prev) => (prev + 1) % facts.length)}
                     className="inline-flex min-h-8 items-center gap-1 text-xs font-semibold text-[#B5452B] hover:underline"
                     type="button"
                   >
@@ -400,7 +335,7 @@ export function HeritageSimulator({ lang = 'en' }: { lang?: Lang }) {
                   </button>
                 </div>
                 <p className="mt-2 text-xs sm:text-sm text-[#1F1A14] leading-relaxed">
-                  {activeDetails.facts[factIndex][lang]}
+                  {facts[factIndex % facts.length]}
                 </p>
               </div>
 
