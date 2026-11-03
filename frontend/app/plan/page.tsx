@@ -39,15 +39,15 @@ export default function Page() {
     <LazyMotion features={domAnimation}>
       <main className="shell pb-24 lg:grid lg:max-w-none lg:grid-cols-[420px_minmax(0,1fr)] lg:gap-0 lg:px-0 lg:pb-0" lang={lang}>
         <header className="sticky top-0 z-40 flex items-center justify-between border-b border-[#E8A317]/20 bg-[#EADBC0]/95 px-5 py-2.5 backdrop-blur lg:hidden safe-top">
-          <h1 className="font-[var(--font-fraunces)] text-4xl">{t.plan}</h1>
+          <h1 className="fraunces text-4xl">{t.plan}</h1>
           <Toggle lang={lang} setLang={setLang} />
         </header>
         <div className="space-y-8 px-5 pt-8 lg:col-start-1 lg:row-start-1 lg:max-h-[calc(100svh-4.5rem)] lg:overflow-y-auto lg:pb-12 lg:pt-10">
-          <h1 className="hidden font-[var(--font-fraunces)] text-4xl lg:block">{t.plan}</h1>
+          <h1 className="hidden fraunces text-4xl lg:block">{t.plan}</h1>
           <section>
             <div className="mb-5 flex items-end justify-between gap-3">
               <label className="font-semibold" htmlFor="available-hours">{t.timeAvailable}</label>
-              <m.output animate={{ opacity: 1, y: 0 }} className="font-[var(--font-fraunces)] text-2xl text-[#B5452B]" htmlFor="available-hours" initial={false} key={hours} transition={transitions.fast}>{hours} {t.hours}</m.output>
+              <m.output animate={{ opacity: 1, y: 0 }} className="fraunces text-2xl text-[#B5452B]" htmlFor="available-hours" initial={false} key={hours} transition={transitions.fast}>{hours} {t.hours}</m.output>
             </div>
             <input id="available-hours" type="range" min="2" max="10" value={hours} onChange={(event) => setHours(Number(event.target.value))} className="min-h-12 w-full accent-[#B5452B]" />
             <div className="mt-1 flex justify-between text-xs text-[#5A4E3F]"><span>{t.twoHours}</span><span>{t.tenHours}</span></div>

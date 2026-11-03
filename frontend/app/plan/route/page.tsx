@@ -9,7 +9,7 @@ import Map from '@/components/map'
 import { KolamLoader, Monument3DViewer, VineDivider } from '@/components/heritage'
 import { useLang } from '@/components/raahein'
 import { planTour, type TourPlanResponse } from '@/lib/api'
-import { findMonument } from '@/lib/catalog'
+import { findMonument, getMonument } from '@/lib/catalog'
 import { transitions } from '@/lib/motion'
 
 function RouteContent() {
@@ -27,6 +27,13 @@ function RouteContent() {
   const [status, setStatus] = useState<'loading' | 'ready' | 'error'>('loading')
   const [started, setStarted] = useState(false)
   const [viewing3D, setViewing3D] = useState<string | null>(null)
+
+  useEffect(() => {
+    if (!viewing3D) return
+    const onKey = (event: KeyboardEvent) => { if (event.key === 'Escape') setViewing3D(null) }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [viewing3D])
 
   useEffect(() => {
     let live = true
@@ -58,7 +65,7 @@ function RouteContent() {
   if (status === 'error') return (
     <main className="shell grid min-h-[70svh] place-items-center px-5" lang={lang}>
       <div className="card max-w-md p-8 text-center" role="alert">
-        <h1 className="font-[var(--font-fraunces)] text-3xl">{lang === 'hi' ? 'योजना अभी नहीं बन सकी' : 'We could not build your plan'}</h1>
+        <h1 className="fraunces text-3xl">{lang === 'hi' ? 'योजना अभी नहीं बन सकी' : 'We could not build your plan'}</h1>
         <p className="mt-3 text-[#5A4E3F]">{lang === 'hi' ? 'योजना सेवा से संपर्क नहीं हो पाया। कृपया फिर कोशिश करें।' : 'The planning service could not be reached. Please try again.'}</p>
         <Link href="/plan" className="link-inverse mt-6 flex min-h-12 items-center justify-center rounded-full bg-[#B5452B] px-5 font-semibold">{t.change}</Link>
       </div>
@@ -80,7 +87,7 @@ function RouteContent() {
           {impossible ? (
             <m.div animate={{ opacity: 1, y: 0 }} initial={false} transition={transitions.base}>
               <m.div animate={{ rotate: [0, 8, 0] }} className="mb-3 text-[#B5452B]" transition={transitions.base}><Scale aria-hidden="true" /></m.div>
-              <h1 className="font-[var(--font-fraunces)] text-3xl">{t.impossible}</h1>
+              <h1 className="fraunces text-3xl">{t.impossible}</h1>
               <p className="my-5 rounded-2xl border border-[#E8A317]/40 bg-[#EADBC0]/50 p-4 text-[#5A4E3F]">{lang === 'hi' ? `${hours} घंटे में इन विकल्पों के साथ कोई रास्ता नहीं बन पाया।` : `No route fits ${hours} hours with these choices.`}</p>
               <div className="space-y-2">
                 <Link href={withParams({ hours: '9' })} className="link-inverse flex min-h-12 w-full items-center justify-center rounded-full bg-[#B5452B] px-5 text-center">{t.addTime}</Link>
@@ -90,7 +97,7 @@ function RouteContent() {
             </m.div>
           ) : (
             <>
-              <h1 className="font-[var(--font-fraunces)] text-3xl text-[#1F1A14]">{t.routeTitle}</h1>
+              <h1 className="fraunces text-3xl text-[#1F1A14]">{t.routeTitle}</h1>
               {planData && <p className="mt-2 text-sm text-[#5A4E3F]" data-testid="plan-summary">{lang === 'hi' ? `${hours} घंटे में से ${hm(planData.itinerary.total_time_min)} की योजना, ${hm(planData.itinerary.total_travel_time_min)} यात्रा` : `Plans ${hm(planData.itinerary.total_time_min)} of your ${hours} hours, with ${hm(planData.itinerary.total_travel_time_min)} of travel`}</p>}
               <div className="mt-4">
                 {stops.map(({ id, time, duration }, index) => {
@@ -106,7 +113,7 @@ function RouteContent() {
                           <button
                             type="button"
                             onClick={() => setViewing3D(id)}
-                            className="mt-2 inline-flex items-center gap-1.5 rounded-full border border-[#E8A317]/50 bg-[#EADBC0]/60 px-3 py-1 text-xs font-semibold text-[#8F3221] shadow-2xs transition-colors hover:bg-[#E8A317]/30"
+                            className="mt-2 inline-flex min-h-12 items-center gap-1.5 rounded-full border border-[#E8A317]/50 bg-[#EADBC0]/60 px-4 text-xs font-semibold text-[#8F3221] shadow-2xs transition-colors hover:bg-[#E8A317]/30"
                           >
                             <Box size={13} className="text-[#E8A317]" />
                             {lang === 'hi' ? '3D वास्तुकला' : '3D Architecture'}
@@ -128,25 +135,26 @@ function RouteContent() {
 
         {/* 3D Architecture Viewer Modal */}
         {viewing3D && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#1F1A14]/75 p-4 backdrop-blur-xs">
-            <div className="relative w-full max-w-lg overflow-hidden rounded-2xl border border-[#E8A317]/50 bg-[#FBF6EC] p-4 shadow-2xl">
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#1F1A14]/75 p-4 backdrop-blur-xs" onClick={() => setViewing3D(null)}>
+            <div aria-labelledby="route-3d-title" aria-modal="true" className="relative max-h-full w-full max-w-lg overflow-y-auto rounded-2xl border border-[#E8A317]/50 bg-[#FBF6EC] p-4 shadow-2xl" onClick={(event) => event.stopPropagation()} role="dialog">
               <div className="mb-3 flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                  <Box size={18} className="text-[#B5452B]" />
-                  <h3 className="font-[var(--font-fraunces)] text-lg text-[#1F1A14]">
-                    {findMonument(viewing3D)?.name[lang]}
+                  <Box aria-hidden="true" size={18} className="text-[#B5452B]" />
+                  <h3 className="fraunces text-lg text-[#1F1A14]" id="route-3d-title">
+                    {getMonument(viewing3D).name[lang]}
                   </h3>
                 </div>
                 <button
                   onClick={() => setViewing3D(null)}
-                  className="grid size-8 place-items-center rounded-full bg-[#EADBC0] text-[#1F1A14] transition-colors hover:bg-[#E8A317]/40"
+                  autoFocus
+                  className="grid size-12 shrink-0 place-items-center rounded-full bg-[#EADBC0] text-[#1F1A14] transition-colors hover:bg-[#E8A317]/40"
                   type="button"
                   aria-label={lang === 'hi' ? 'बंद करें' : 'Close'}
                 >
-                  <X size={16} />
+                  <X aria-hidden="true" size={16} />
                 </button>
               </div>
-              <Monument3DViewer monumentId={viewing3D} lang={lang} />
+              <Monument3DViewer monumentId={viewing3D} name={getMonument(viewing3D).name[lang]} lang={lang} />
             </div>
           </div>
         )}

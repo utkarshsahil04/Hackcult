@@ -1,11 +1,11 @@
 'use client'
 
 import Link from 'next/link'
-import { ArrowRight, BookOpen, Clock, Compass, MapPin, MapPinned, Route, ShieldCheck, Sparkles } from 'lucide-react'
+import { ArrowRight, BookOpen, Box, Clock, Compass, MapPin, MapPinned, Route, ShieldCheck, Sparkles } from 'lucide-react'
 import { LazyMotion, domAnimation, m } from 'framer-motion'
 import { Toggle, useLang } from '@/components/raahein'
 import { RaaheinLogo } from '@/components/RaaheinLogo'
-import { ArchImage, HeritageSimulator, InlayFrame, Reveal, VineDivider } from '@/components/heritage'
+import { ArchImage, HeritageSimulator, InlayFrame, MonumentArt, Reveal, VineDivider } from '@/components/heritage'
 import { monuments } from '@/lib/catalog'
 
 const verifiedCount = monuments.filter((m) => m.verified).length
@@ -51,6 +51,9 @@ const homeCopy = {
     monumentsHeading: 'Explore the monuments',
     monumentsSub: 'Every monument holds a documented history and living legend.',
     readStory: 'Read manuscript',
+    moreHeading: 'More heritage sites near Delhi',
+    moreSub: 'Explore each building in 3D while its sourced story is being prepared.',
+    inThreeD: 'Explore in 3D',
     steps: [
       [
         'Scan a monument',
@@ -108,6 +111,9 @@ const homeCopy = {
     monumentsHeading: 'स्मारकों की खोज करें',
     monumentsSub: 'हर इमारत में दर्ज इतिहास और लोक कथाएं मौजूद हैं।',
     readStory: 'पांडुलिपि पढ़ें',
+    moreHeading: 'दिल्ली के पास और धरोहर स्थल',
+    moreSub: 'जब तक प्रमाणित कहानी तैयार हो रही है, हर इमारत को 3D में देखें।',
+    inThreeD: '3D में देखें',
     steps: [
       [
         'स्मारक स्कैन करें',
@@ -200,7 +206,7 @@ export default function Page() {
               initial={false}
               transition={transitions.slow}
             >
-              <ArchImage src={monument.image} alt={monument.name[lang]} className="h-full w-full shadow-2xl" />
+              <ArchImage src={monument.image} alt={monument.name[lang]} className="h-full w-full shadow-2xl" priority />
               <div className="absolute inset-x-0 bottom-7 px-4 text-center text-[#FBF6EC] drop-shadow-lg">
                 <p className="fraunces text-3xl">{monument.name[lang]}</p>
                 <p className="text-sm text-[#FBF6EC]/90">{monument.city} · {monument.era}</p>
@@ -378,6 +384,33 @@ export default function Page() {
                     </div>
                   </div>
                 </InlayFrame>
+              </Link>
+            ))}
+          </div>
+        </section>
+        </Reveal>
+
+        {/* Sites whose stories are still being sourced */}
+        <Reveal>
+        <section aria-labelledby="more-sites-heading" className="px-5 py-8 lg:px-0 lg:py-10">
+          <h2 id="more-sites-heading" className="fraunces text-2xl lg:text-3xl">{copy.moreHeading}</h2>
+          <p className="mt-2 text-sm text-[#5A4E3F]">{copy.moreSub}</p>
+          <div className="mt-5 flex snap-x gap-4 overflow-x-auto pb-4">
+            {monuments.filter((m) => !m.verified).map((item) => (
+              <Link
+                href={`/monument/${item.id}`}
+                key={item.id}
+                className="monument-card card group flex w-56 shrink-0 snap-start flex-col overflow-hidden focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#E8A317]"
+              >
+                <MonumentArt alt={item.name[lang]} className="aspect-[4/3] w-full" id={item.id} />
+                <div className="flex flex-1 flex-col p-3">
+                  <h3 className="fraunces text-base leading-snug text-[#1F1A14]">{item.name[lang]}</h3>
+                  <p className="mt-1 line-clamp-1 text-xs text-[#5A4E3F]">{item.style}</p>
+                  <span className="mt-auto inline-flex items-center gap-1 pt-3 text-[11px] font-semibold text-[#B5452B]">
+                    <Box aria-hidden="true" size={13} />
+                    {copy.inThreeD}
+                  </span>
+                </div>
               </Link>
             ))}
           </div>

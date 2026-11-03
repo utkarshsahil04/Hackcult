@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useState } from 'react'
 import Link from 'next/link'
-import { CalendarDays, Compass, Map, ScanLine, Search } from 'lucide-react'
+import { Box, CalendarDays, ChevronDown, Compass, Map, ScanLine, Search } from 'lucide-react'
 import { motion } from 'framer-motion'
 import { MonumentArt } from '@/components/heritage'
 import { RaaheinLogo } from '@/components/RaaheinLogo'
@@ -125,7 +125,7 @@ function Header({ lang, setLang }: { lang: Lang; setLang: (next: Lang) => void }
 }
 
 const cityOptions = ['All', 'Delhi', 'Agra'] as const
-const eraOptions = ['All', 'Sultanate', 'Mughal'] as const
+const eraOptions = ['All', 'Sultanate', 'Mughal', 'Modern'] as const
 
 export function Explore() {
   const { lang, setLang, t } = useLang()
@@ -134,12 +134,11 @@ export function Explore() {
   const [era, setEra] = useState<(typeof eraOptions)[number]>('All')
   const [legendsOnly, setLegendsOnly] = useState(false)
   const copy = lang === 'hi'
-    ? { search: 'खोज', city: 'शहर', era: 'काल', refine: 'स्मारक छांटें', legendOnly: 'केवल किंवदंती वाली कहानियां', empty: 'इन विकल्पों से कोई स्मारक नहीं मिला।', sultanate: 'सल्तनत', mughal: 'मुगल' }
-    : { search: 'Search', city: 'City', era: 'Era', refine: 'Refine monuments', legendOnly: 'Legend stories only', empty: 'No monuments match these filters.', sultanate: 'Sultanate', mughal: 'Mughal' }
+    ? { search: 'खोज', city: 'शहर', era: 'काल', refine: 'स्मारक छांटें', legendOnly: 'केवल किंवदंती वाली कहानियां', empty: 'इन विकल्पों से कोई स्मारक नहीं मिला।', All: t.all, Sultanate: 'सल्तनत', Mughal: 'मुगल', Modern: 'आधुनिक', count: 'स्मारक', model: '3D मॉडल', filters: 'छांटने के विकल्प' }
+    : { search: 'Search', city: 'City', era: 'Era', refine: 'Refine monuments', legendOnly: 'Legend stories only', empty: 'No monuments match these filters.', All: t.all, Sultanate: 'Sultanate', Mughal: 'Mughal', Modern: 'Modern', count: 'monuments', model: '3D model', filters: 'Filters' }
   const cityLabel = (value: (typeof cityOptions)[number]) => value === 'All' ? t.all : value === 'Delhi' ? t.delhi : t.agra
-  const eraLabel = (value: (typeof eraOptions)[number]) => value === 'All' ? t.all : value === 'Sultanate' ? copy.sultanate : copy.mughal
   const data = monuments.filter((monument) => {
-    const monumentEra = /sultanate/i.test(monument.era) ? 'Sultanate' : /mughal/i.test(monument.era) ? 'Mughal' : 'Other'
+    const monumentEra = /sultanate/i.test(monument.era) ? 'Sultanate' : /mughal/i.test(monument.era) ? 'Mughal' : /2[01](st|th) century/i.test(monument.era) ? 'Modern' : 'Other'
     const region = monument.lat < 28 ? 'Agra' : 'Delhi' // the Agra filter includes Fatehpur Sikri
     return (city === 'All' || region === city)
       && (era === 'All' || monumentEra === era)
@@ -147,15 +146,18 @@ export function Explore() {
       && monument.name[lang].toLocaleLowerCase().includes(query.trim().toLocaleLowerCase())
   })
 
-  const filters = (id: string) => (
-    <>
-      <div>
-        <label className="text-sm font-semibold" htmlFor={`monument-search-${id}`}>{copy.search}</label>
-        <div className="card mt-2 flex items-center gap-2 px-3">
-          <Search aria-hidden="true" size={16} />
-          <input id={`monument-search-${id}`} value={query} onChange={(event) => setQuery(event.target.value)} placeholder={t.search} className="min-h-12 w-full bg-transparent py-3 outline-none placeholder:text-[#61402F]" />
-        </div>
+  const activeFilters = Number(city !== 'All') + Number(era !== 'All') + Number(legendsOnly)
+  const searchField = (id: string) => (
+    <div>
+      <label className="text-sm font-semibold" htmlFor={`monument-search-${id}`}>{copy.search}</label>
+      <div className="card mt-2 flex items-center gap-2 px-3">
+        <Search aria-hidden="true" size={16} />
+        <input id={`monument-search-${id}`} value={query} onChange={(event) => setQuery(event.target.value)} placeholder={t.search} className="min-h-12 w-full bg-transparent py-3 outline-none placeholder:text-[#61402F]" />
       </div>
+    </div>
+  )
+  const filterFields = () => (
+    <>
       <fieldset>
         <legend className="mb-2 text-sm font-semibold">{copy.city}</legend>
         <div className="flex flex-wrap gap-2">
@@ -171,7 +173,7 @@ export function Explore() {
         <div className="flex flex-wrap gap-2">
           {eraOptions.map((value) => (
             <button aria-pressed={era === value} className={`min-h-12 rounded-full border px-4 text-sm ${era === value ? 'border-[#B5452B] bg-[#B5452B] text-white' : 'border-[#C8B594] bg-[#FBF6EC]'}`} key={value} onClick={() => setEra(value)} type="button">
-              {eraLabel(value)}
+              {copy[value]}
             </button>
           ))}
         </div>
@@ -190,31 +192,46 @@ export function Explore() {
         <aside className="hidden lg:sticky lg:top-24 lg:block lg:h-fit lg:self-start">
           <div className="card max-h-[calc(100vh-7.5rem)] overflow-y-auto space-y-5 p-5">
             <h2 className="fraunces text-2xl">{copy.refine}</h2>
-            {filters('desktop')}
+            {searchField('desktop')}
+            {filterFields()}
           </div>
         </aside>
         <div>
           <div className="flex items-center justify-between">
-            <h1 className="fraunces mb-4 text-4xl">{t.explore}</h1>
-            <Link href="/nearby" className="grid size-12 place-items-center rounded-full border border-[#C8B594]" aria-label={t.map}>
+            <div className="mb-4">
+              <h1 className="fraunces text-4xl">{t.explore}</h1>
+              <p className="mt-1 text-sm text-[#5A4E3F]" role="status">{data.length} {copy.count}</p>
+            </div>
+            <Link href="/nearby" className="grid size-12 place-items-center rounded-full border border-[#C8B594] bg-[#FBF6EC] transition-colors hover:border-[#B5452B]" aria-label={t.map}>
               <Map aria-hidden="true" size={18} />
             </Link>
           </div>
-          <div className="card space-y-4 p-4 lg:hidden">{filters('mobile')}</div>
+          <div className="card space-y-2 p-4 lg:hidden">
+            {searchField('mobile')}
+            <details className="group">
+              <summary className="flex min-h-12 cursor-pointer list-none items-center justify-between text-sm font-semibold [&::-webkit-details-marker]:hidden">
+                <span>{copy.filters}{activeFilters > 0 && <span className="ml-2 rounded-full bg-[#B5452B] px-2 py-0.5 text-xs text-white">{activeFilters}</span>}</span>
+                <ChevronDown aria-hidden="true" className="transition-transform group-open:rotate-180" size={18} />
+              </summary>
+              <div className="space-y-4 pt-2">{filterFields()}</div>
+            </details>
+          </div>
           {data.length ? (
-            <motion.div layout className="mt-5 grid grid-cols-2 items-stretch gap-3 lg:mt-0 lg:grid-cols-3 xl:grid-cols-4">
+            <motion.div layout className="mt-5 grid grid-cols-2 items-stretch gap-3 sm:gap-4 lg:mt-0 lg:grid-cols-3 xl:grid-cols-4">
               {data.map((monument, i) => (
-                <motion.div className="h-full" key={monument.id} layout initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ ...transitions.base, delay: Math.min(i, 8) * .05 }} whileHover={{ y: -3 }}>
-                  <Link href={`/monument/${monument.id}`} className="card flex h-full min-h-48 flex-col overflow-hidden focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#E8A317]">
-                    <MonumentArt alt={monument.name[lang]} className="h-36 w-full" id={monument.id} />
+                <motion.div className="h-full" key={monument.id} layout initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ ...transitions.base, delay: Math.min(i, 8) * .05 }} whileHover={{ y: -4 }}>
+                  <Link href={`/monument/${monument.id}`} className="monument-card card group flex h-full min-h-48 flex-col overflow-hidden focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#E8A317]">
+                    <div className="relative overflow-hidden">
+                      <MonumentArt alt={monument.name[lang]} className="aspect-[4/3] w-full" id={monument.id} />
+                      <div aria-hidden="true" className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-[#1F1A14]/70 to-transparent" />
+                      <span className="absolute bottom-2 left-3 text-xs font-semibold text-[#FBF6EC] drop-shadow">{monument.city}</span>
+                      <span className="absolute right-2 top-2 inline-flex items-center gap-1 rounded-full bg-[#FBF6EC]/90 px-2 py-1 text-[10px] font-semibold text-[#8F3221] backdrop-blur" title={copy.model}><Box aria-hidden="true" size={11} />3D</span>
+                    </div>
                     <div className="flex flex-1 flex-col p-3">
-                      <div className="flex items-center justify-between text-xs text-[#5A4E3F]">
-                        <span className="font-semibold text-[#8F3221]">{monument.city}</span>
-                      </div>
-                      <div className="mt-1 font-semibold text-[#1F1A14]">{monument.name[lang]}</div>
-                      <div className="mt-0.5 text-xs text-[#5A4E3F] line-clamp-1">{monument.era}</div>
+                      <h2 className="fraunces text-[17px] leading-snug text-[#1F1A14]">{monument.name[lang]}</h2>
+                      <div className="mt-1 line-clamp-1 text-xs text-[#5A4E3F]">{monument.era}</div>
                       <div className="mt-2 line-clamp-2 text-xs leading-5 text-[#5A4E3F]">{monument.summary[lang] || monument.style}</div>
-                      <div className="mt-auto flex items-center justify-between pt-3 text-[11px] text-[#5A4E3F]">
+                      <div className="mt-auto flex items-center justify-between gap-2 pt-3 text-[11px] text-[#5A4E3F]">
                         <span className="font-medium text-[#765500]">{monument.verified ? `${monument.sources.length} ${lang === 'hi' ? 'स्रोत' : 'sources'}` : lang === 'hi' ? 'कहानी शीघ्र' : 'Story pending'}</span>
                         {monument.sections.some((section) => section.isLegend) && (
                           <span className="inline-block rounded-full border border-[#E8A317] px-2 py-0.5 text-[10px] text-[#765500]">{t.legend}</span>

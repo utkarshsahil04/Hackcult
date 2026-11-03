@@ -47,19 +47,23 @@ test.describe('all pages', () => {
       await expect.poll(() => page.locator('img').evaluateAll((images) => images.filter((image) => {
         const candidate = image as HTMLImageElement
         if (candidate.getClientRects().length === 0) return false
-        return !candidate.complete || candidate.naturalWidth === 0
+        // Lazy images outside the viewport have correctly not started loading yet.
+        const box = candidate.getBoundingClientRect()
+        const onScreen = box.bottom > 0 && box.right > 0 && box.top < innerHeight && box.left < innerWidth
+        if (!candidate.complete) return onScreen || candidate.loading !== 'lazy'
+        return candidate.naturalWidth === 0
       }).map((image) => image.getAttribute('src'))), { message: `${path} should not contain broken images` }).toEqual([])
       expect(pageErrors).toEqual([])
     })
   }
 
-  test('monument cards use official UNESCO gallery images', async ({ page }) => {
+  test('every monument card has a photo from Wikimedia Commons', async ({ page }) => {
     await page.goto('/explore')
     const cardImages = page.locator('a[href^="/monument/"] img')
 
-    await expect(cardImages).toHaveCount(6)
+    await expect(cardImages).toHaveCount(28)
     for (const image of await cardImages.all()) {
-      await expect(image).toHaveAttribute('src', /whc\.unesco\.org(?:%2F|\/)uploads(?:%2F|\/)thumbs/i)
+      await expect(image).toHaveAttribute('src', /(thumb|upload)\.wikimedia\.org(?:%2F|\/)wikipedia/i)
     }
   })
 

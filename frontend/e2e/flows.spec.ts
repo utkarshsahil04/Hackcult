@@ -95,3 +95,26 @@ test('a listed site says its story is pending instead of inventing one', async (
   await page.goto('/monument/india-gate')
   await expect(page.getByTestId('story-pending')).toBeVisible()
 })
+
+test('a listed site asks the API for nothing it does not have', async ({ page }) => {
+  await page.addInitScript(() => localStorage.setItem('raahein-language', 'en'))
+  const missing: string[] = []
+  page.on('response', (response) => { if (response.status() === 404 && response.url().includes('/api/')) missing.push(response.url()) })
+  await page.goto('/monument/india-gate')
+  await expect(page.getByRole('heading', { name: 'Nearby monuments' })).toBeVisible()
+  await page.goto('/monument/india-gate/related')
+  await expect(page.getByRole('heading', { name: 'Near India Gate' })).toBeVisible()
+  await expect(page.getByTestId('connection-graph').getByRole('link')).toHaveCount(6)
+  expect(missing).toEqual([])
+})
+
+test('the 3D view shows the model for this monument and explains its parts', async ({ page }) => {
+  await page.addInitScript(() => localStorage.setItem('raahein-language', 'en'))
+  await page.goto('/monument/lotus-temple')
+  await page.getByRole('button', { name: '3D Architecture' }).click()
+  const viewer = page.getByTestId('monument-3d')
+  await expect(viewer.getByRole('button', { name: /Water feature/ })).toBeVisible({ timeout: 60_000 })
+  await viewer.getByRole('button', { name: /Water feature/ }).click()
+  await expect(viewer.getByText('Still water that cools the air')).toBeVisible()
+  await expect(page.getByRole('heading', { name: 'Lotus Temple' })).toBeVisible()
+})

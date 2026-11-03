@@ -7,10 +7,10 @@ import { ArrowLeft, Check, Plus } from 'lucide-react'
 import { InlayFrame, MonumentArt } from '@/components/heritage'
 import { Toggle, useLang } from '@/components/raahein'
 import { fetchRelated, type ApiRelated } from '@/lib/api'
-import { getMonument } from '@/lib/catalog'
+import { findMonument, getMonument, nearestMonuments } from '@/lib/catalog'
 import { transitions } from '@/lib/motion'
 
-const nodes = [[160, 90], [70, 40], [250, 40], [70, 140], [250, 140]] as const
+const GRAPH_NODES = 6
 
 export function RelatedMonuments({ id }: { id: string }) {
   const monument = getMonument(id)
@@ -18,17 +18,26 @@ export function RelatedMonuments({ id }: { id: string }) {
   const [added, setAdded] = useState<string[]>([])
   const [apiRelated, setApiRelated] = useState<ApiRelated | null>(null)
 
+  // Only sourced monuments have recorded connections; asking for the others is always a 404.
   useEffect(() => {
-    fetchRelated(id).then(setApiRelated).catch(() => {})
-  }, [id])
+    if (monument.verified) fetchRelated(id).then(setApiRelated).catch(() => {})
+  }, [id, monument.verified])
 
-  const relatedIds = (apiRelated?.related && apiRelated.related.length > 0)
-    ? apiRelated.related.map((r) => r.monument.slug)
-    : monument.related
+  // One monument can be linked several ways, so group the records by monument.
+  const notes = new Map<string, string>()
+  for (const item of apiRelated?.related ?? []) if (!notes.has(item.monument.slug)) notes.set(item.monument.slug, item.note ?? '')
+  const connected = [...new Set(notes.size ? notes.keys() : monument.related)].filter((slug) => findMonument(slug))
+  const nearby = connected.length ? [] : nearestMonuments(monument, GRAPH_NODES)
+  const items = connected.length
+    ? connected.map((slug) => ({ id: slug, detail: lang === 'en' && notes.get(slug) ? notes.get(slug)! : t.relatedBody }))
+    : nearby.map(({ monument: near, km }) => ({ id: near.id, detail: `${km < 1 ? `${Math.round(km * 1000)} m` : `${km.toFixed(1)} km`} ${lang === 'hi' ? 'दूर' : 'away'}` }))
+  const nodes = items.slice(0, GRAPH_NODES).map((item, index, shown) => {
+    const angle = -Math.PI / 2 + (index * 2 * Math.PI) / shown.length
+    return { ...item, x: 50 + 38 * Math.cos(angle), y: 50 + 38 * Math.sin(angle) }
+  })
 
   function toggleTour(relatedId: string) {
-    const related = getMonument(relatedId)
-    const name = related ? related.name[lang] : relatedId
+    const name = getMonument(relatedId).name[lang]
     const isAdded = added.includes(relatedId)
     setAdded((current) => isAdded ? current.filter((item) => item !== relatedId) : [...current, relatedId])
     window.dispatchEvent(new CustomEvent('raahein-tour', { detail: isAdded ? { remove: relatedId } : { add: { id: relatedId, name } } }))
@@ -42,26 +51,41 @@ export function RelatedMonuments({ id }: { id: string }) {
           <Toggle lang={lang} setLang={setLang} />
         </header>
         <Link href={`/monument/${id}`} className="link-primary hidden min-h-12 items-center gap-2 text-sm lg:inline-flex"><ArrowLeft aria-hidden="true" size={18} />{t.back} {monument.name[lang]}</Link>
-        <h1 className="mt-3 break-words font-[var(--font-fraunces)] text-4xl">{t.connected} {monument.name[lang]}</h1>
-        <svg viewBox="0 0 320 180" className="my-8 w-full overflow-visible" aria-label={lang === 'hi' ? 'संबंधित स्मारकों का आरेख' : 'Connected monuments diagram'} role="img">
-          <m.path d="M160 90 70 40M160 90 250 40M160 90 70 140M160 90 250 140" stroke="#E8A317" strokeWidth="2" strokeDasharray="5 5" fill="none" initial={false} animate={{ pathLength: 1 }} transition={transitions.slow} />
-          {nodes.map(([x, y], index) => <m.g key={`${x}-${y}`} initial={false} animate={{ scale: 1 }} transition={{ ...transitions.base, delay: index * .06 }}><path d={`M${x - 14} ${y + 12}V${y - 2}q0-14 14-14t14 14v14Z`} fill={index === 0 ? '#B5452B' : '#FBF6EC'} stroke="#E8A317" strokeWidth="2" /></m.g>)}
-        </svg>
-        <div className="space-y-3">
-          {relatedIds.map((relatedId, index) => {
-            const related = getMonument(relatedId) ?? { id: relatedId, name: { en: relatedId, hi: relatedId }, city: '' }
-            const isAdded = added.includes(relatedId)
+        <h1 className="fraunces mt-3 break-words text-4xl">{connected.length ? `${t.connected} ${monument.name[lang]}` : `${lang === 'hi' ? `${monument.name.hi} के पास` : `Near ${monument.name.en}`}`}</h1>
+        {!connected.length && <p className="mt-2 text-sm leading-6 text-[#5A4E3F]">{lang === 'hi' ? 'इस स्मारक के प्रमाणित संबंध अभी दर्ज नहीं हैं, इसलिए सबसे नज़दीकी स्मारक दिखाए गए हैं।' : 'No sourced connections are recorded for this monument yet, so these are the closest monuments.'}</p>}
+        <div className="relative mx-auto my-8 aspect-square w-full max-w-md" data-testid="connection-graph">
+          <svg viewBox="0 0 100 100" className="absolute inset-0 size-full" aria-hidden="true">
+            {nodes.map((node) => <m.line animate={{ pathLength: 1 }} initial={false} key={node.id} stroke="#E8A317" strokeDasharray="1.4 1.4" strokeWidth=".5" transition={transitions.slow} x1="50" x2={node.x} y1="50" y2={node.y} />)}
+          </svg>
+          <div className="absolute left-1/2 top-1/2 w-28 -translate-x-1/2 -translate-y-1/2 text-center">
+            <MonumentArt alt="" className="mx-auto size-24 rounded-full border-4 border-[#B5452B] shadow-lg" id={monument.id} />
+            <p className="fraunces mt-1 rounded-md bg-[#FBF6EC]/85 px-1 text-xs leading-tight text-[#1F1A14]">{monument.name[lang]}</p>
+          </div>
+          {nodes.map((node) => {
+            const related = getMonument(node.id)
             return (
-              <InlayFrame key={related.id}>
+              <Link aria-label={related.name[lang]} className="absolute w-24 -translate-x-1/2 -translate-y-1/2 rounded-xl text-center transition-transform hover:scale-105" href={`/monument/${node.id}`} key={node.id} style={{ left: `${node.x}%`, top: `${node.y}%` }}>
+                <MonumentArt alt="" className="mx-auto size-16 rounded-full border-2 border-[#E8A317] shadow-md" id={node.id} />
+                <span className="mt-1 block rounded-md bg-[#FBF6EC]/85 px-1 text-[11px] leading-tight text-[#1F1A14]">{related.name[lang]}</span>
+              </Link>
+            )
+          })}
+        </div>
+        <div className="space-y-3">
+          {items.map((item) => {
+            const related = getMonument(item.id)
+            const isAdded = added.includes(item.id)
+            return (
+              <InlayFrame key={item.id}>
                 <article className="flex items-center gap-3 rounded-[10px] bg-[#FBF6EC] p-3">
-                  <Link aria-label={related.name[lang]} className="shrink-0 rounded-lg focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#E8A317]" href={`/monument/${related.id}`}>
-                    <MonumentArt alt="" className="size-16 rounded-lg" id={related.id} />
+                  <Link aria-label={related.name[lang]} className="shrink-0 rounded-lg focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#E8A317]" href={`/monument/${item.id}`}>
+                    <MonumentArt alt="" className="size-16 rounded-lg" id={item.id} />
                   </Link>
-                  <Link className="min-w-0 flex-1 py-2" href={`/monument/${related.id}`}>
-                    <h2 className="break-words font-[var(--font-fraunces)] text-lg">{related.name[lang]}</h2>
-                    <p className="text-sm text-[#5A4E3F]">{index ? t.relatedBody : lang === 'hi' ? 'शिल्प और स्थान से जुड़ा।' : 'Connected by craft and place.'}</p>
+                  <Link className="min-w-0 flex-1 py-2" href={`/monument/${item.id}`}>
+                    <h2 className="fraunces break-words text-lg">{related.name[lang]}</h2>
+                    <p className="text-sm text-[#5A4E3F]">{item.detail}</p>
                   </Link>
-                  <button aria-label={`${isAdded ? (lang === 'hi' ? 'हटाएं' : 'Remove') : (lang === 'hi' ? 'टूर में जोड़ें' : 'Add to tour')} ${related.name[lang]}`} aria-pressed={isAdded} className="grid size-12 shrink-0 place-items-center rounded-full text-[#B5452B]" onClick={() => toggleTour(relatedId)} type="button">
+                  <button aria-label={`${isAdded ? (lang === 'hi' ? 'हटाएं' : 'Remove') : (lang === 'hi' ? 'टूर में जोड़ें' : 'Add to tour')} ${related.name[lang]}`} aria-pressed={isAdded} className="grid size-12 shrink-0 place-items-center rounded-full text-[#B5452B]" onClick={() => toggleTour(item.id)} type="button">
                     {isAdded ? <Check aria-hidden="true" /> : <Plus aria-hidden="true" />}
                   </button>
                 </article>

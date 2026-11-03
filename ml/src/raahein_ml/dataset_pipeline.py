@@ -89,9 +89,9 @@ def _trace(vectors: dict[str, np.ndarray], gallery: dict[str, np.ndarray], label
         name: aggregate_monument_scores(
             gallery[name] @ vectors[name], labels, top_n=config.index.aggregation_top_n
         )
-        for name in MODEL_NAMES
+        for name in vectors
     }
-    fused = reciprocal_rank_fusion(
+    fused = () if len(rankings) == 1 else reciprocal_rank_fusion(
         rankings, rrf_k=config.fusion.rrf_k, weights=config.fusion.weights
     )
     return PredictionTrace(model_rankings=rankings, fusion_ranking=fused)
@@ -271,7 +271,7 @@ def build(dataset: Path, config: MLConfig, out: Path | None = None) -> Path:
 
 
 class DatasetRecognizer:
-    """Loads the artifact and the three encoders once; thread-safe via the caller's lock."""
+    """Loads the artifact and the encoders it needs once; thread-safe via the caller's lock."""
 
     def __init__(self, config: MLConfig, path: Path | None = None) -> None:
         self.config = config
@@ -291,7 +291,10 @@ class DatasetRecognizer:
         try:
             labels = json.loads((self.path / "labels.json").read_text(encoding="utf-8"))
             meta = json.loads((self.path / "gates.json").read_text(encoding="utf-8"))
-            gallery = {n: np.load(self.path / f"{n}.npy") for n in MODEL_NAMES}
+            # Only fusion uses every model. Loading the others wastes memory and slows each photo.
+            strategy = meta["active_strategy"]
+            names = MODEL_NAMES if strategy == "fusion" else (strategy,)
+            gallery = {n: np.load(self.path / f"{n}.npy") for n in names}
         except (OSError, ValueError, KeyError) as exc:
             raise ArtifactError(f"recognition artifact missing or corrupt: {self.path}") from exc
         if any(len(m) != len(labels) for m in gallery.values()):
@@ -303,7 +306,7 @@ class DatasetRecognizer:
             json.dumps([labels, meta], sort_keys=True).encode()
         ).hexdigest()[:12]
         encoders = {}
-        for name in MODEL_NAMES:
+        for name in names:
             encoder = create_encoder(self.config.models[name], self.config)
             encoder.load()
             encoder.warmup()
@@ -314,7 +317,7 @@ class DatasetRecognizer:
         if not self.ready:
             raise NotReadyError("recognition pipeline is not loaded")
         try:
-            vectors = {n: self._encoders[n].encode([image])[0] for n in MODEL_NAMES}
+            vectors = {n: e.encode([image])[0] for n, e in self._encoders.items()}
             trace = _trace(vectors, self._gallery, self._labels, self.config)
         except Exception as exc:
             raise InferenceError("monument recognition inference failed") from exc

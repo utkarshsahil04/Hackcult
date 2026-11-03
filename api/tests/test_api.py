@@ -2,6 +2,9 @@ import os
 
 os.environ.setdefault("GEMINI_API_KEY", "test-key")
 
+import sqlite3
+from contextlib import closing
+
 import pytest
 from app.config import Settings
 from app.main import app
@@ -23,6 +26,25 @@ def test_health_returns_200_with_subsystems():
     body = r.json()
     assert body["status"] == "ok"
     assert set(body["subsystems"]) == {"models", "faiss_index", "gemini", "database"}
+
+
+def test_health_reports_the_real_database_state(tmp_path, monkeypatch):
+    database = lambda: client.get("/api/health").json()["subsystems"]["database"]  # noqa: E731
+
+    monkeypatch.setattr("app.routes.health.resolve_db_path", lambda: tmp_path / "absent.db")
+    assert database() == "missing"
+
+    corrupt = tmp_path / "corrupt.db"
+    corrupt.write_bytes(b"this is not a database")
+    monkeypatch.setattr("app.routes.health.resolve_db_path", lambda: corrupt)
+    assert database() == "error"
+
+    good = tmp_path / "good.db"
+    with closing(sqlite3.connect(good)) as conn:
+        conn.execute("CREATE TABLE monuments (id INTEGER)")
+        conn.commit()
+    monkeypatch.setattr("app.routes.health.resolve_db_path", lambda: good)
+    assert database() == "ok"
 
 
 def test_unknown_route_uses_error_envelope():

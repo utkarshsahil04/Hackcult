@@ -1,12 +1,12 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    remotePatterns: [{
+    remotePatterns: ['thumb.wikimedia.org', 'upload.wikimedia.org'].map((hostname) => ({
       protocol: 'https',
-      hostname: 'whc.unesco.org',
+      hostname,
       port: '',
-      pathname: '/uploads/thumbs/**',
-    }],
+      pathname: '/wikipedia/commons/**',
+    })),
   },
 }
 

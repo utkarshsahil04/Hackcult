@@ -212,7 +212,7 @@ export default function Identify() {
             {cameraState === 'unavailable' ? (
               <div className="flex h-full flex-col items-center justify-center rounded-t-[48%] border-2 border-[#E8A317] bg-gradient-to-b from-[#D9C4A1] to-[#B98961] p-8 text-center">
                 <CameraOff aria-hidden="true" className="mb-4 text-[#B5452B]" size={42} />
-                <p className="font-[var(--font-fraunces)] text-xl">{lang === 'hi' ? 'कैमरा उपलब्ध नहीं है' : "Camera isn't available here"}</p>
+                <p className="fraunces text-xl">{lang === 'hi' ? 'कैमरा उपलब्ध नहीं है' : "Camera isn't available here"}</p>
                 <button onClick={() => input.current?.click()} className="mt-5 min-h-12 rounded-full bg-[#B5452B] px-6 font-semibold text-[#FBF6EC]" type="button">{lang === 'hi' ? 'तस्वीर अपलोड करें' : 'Upload a photo'}</button>
               </div>
             ) : (

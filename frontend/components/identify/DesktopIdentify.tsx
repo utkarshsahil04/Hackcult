@@ -54,7 +54,7 @@ export function DesktopIdentify({ state, lang, onUpload }: { state: string; lang
           <div className="absolute inset-0 opacity-35"><ArchImage src={monuments[0].image} alt="" className="h-full w-full" /></div>
           <div className="relative z-10 text-center">
             <Upload aria-hidden="true" className="mx-auto mb-3 text-[#B5452B]" size={32} />
-            <p className="font-[var(--font-fraunces)] text-2xl">{t.drop}</p>
+            <p className="fraunces text-2xl">{t.drop}</p>
             <p className="mt-2 text-sm text-[#5A4E3F]">{t.choice}</p>
             <button className="mt-6 inline-flex min-h-12 items-center gap-2 rounded-full bg-[#B5452B] px-5 font-semibold text-[#FBF6EC] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#E8A317]" onClick={() => input.current?.click()} type="button">
               <Upload aria-hidden="true" size={17} /> {t.upload}

@@ -5,16 +5,10 @@ import Link from 'next/link'
 import Map from '@/components/map'
 import { MonumentArt } from '@/components/heritage'
 import { Toggle, useLang } from '@/components/raahein'
-import { monuments } from '@/lib/catalog'
+import { distanceKm, monuments } from '@/lib/catalog'
 
 // Connaught Place, used until (or unless) the visitor shares their location.
 const DELHI = { lat: 28.6315, lng: 77.2167 }
-
-function km(a: { lat: number; lng: number }, b: { lat: number; lng: number }) {
-  const rad = Math.PI / 180
-  const h = Math.sin(((b.lat - a.lat) * rad) / 2) ** 2 + Math.cos(a.lat * rad) * Math.cos(b.lat * rad) * Math.sin(((b.lng - a.lng) * rad) / 2) ** 2
-  return 2 * 6371 * Math.asin(Math.sqrt(h))
-}
 
 export default function Page() {
   const { lang, setLang } = useLang()
@@ -28,7 +22,7 @@ export default function Page() {
     }, () => {})
   }, [])
 
-  const nearest = monuments.map((m) => ({ m, d: km(origin, m) })).sort((a, b) => a.d - b.d).slice(0, 8)
+  const nearest = monuments.map((m) => ({ m, d: distanceKm(origin, m) })).sort((a, b) => a.d - b.d).slice(0, 8)
   const title = lang === 'hi' ? 'आस-पास के स्मारक' : 'Nearby monuments'
   const hint = located ? (lang === 'hi' ? 'आपके स्थान से दूरी' : 'Distance from you') : (lang === 'hi' ? 'मध्य दिल्ली से दूरी' : 'Distance from central Delhi')
   return (
@@ -39,7 +33,7 @@ export default function Page() {
         <div className="rounded-full bg-[#FBF6EC] shadow-lg lg:hidden"><Toggle lang={lang} setLang={setLang} /></div>
       </div>
       <section className="absolute bottom-16 z-10 w-full rounded-t-3xl border-t border-[#E8A317]/30 bg-[#FBF6EC] p-4 shadow-[0_-12px_30px_rgba(31,26,20,.15)] lg:bottom-0" aria-labelledby="nearby-heading">
-        <h1 className="font-[var(--font-fraunces)] text-2xl text-[#1F1A14]" id="nearby-heading">{title}</h1>
+        <h1 className="fraunces text-2xl text-[#1F1A14]" id="nearby-heading">{title}</h1>
         <p className="text-xs text-[#5A4E3F]">{hint}</p>
         <div className="mt-3 flex snap-x gap-3 overflow-x-auto pb-2">
           {nearest.map(({ m, d }) => (
