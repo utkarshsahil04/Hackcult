@@ -149,7 +149,7 @@ export default function Identify() {
     <LazyMotion features={domAnimation}>
       <DesktopIdentify lang={lang} state={state} onUpload={run} />
       {state === 'error' ? (
-        <main aria-live="polite" className="shell flex min-h-svh flex-col bg-[#FBF6EC] p-6 pb-24" lang={lang}>
+        <main aria-live="polite" className="shell flex min-h-svh flex-col bg-[#FBF6EC] p-6 pb-24 lg:max-w-7xl lg:mx-auto" lang={lang}>
           <div className="flex justify-end lg:hidden"><Toggle lang={lang} setLang={setLang} /></div>
           <div className="flex flex-1 flex-col items-center justify-center text-center">
             <m.svg aria-label={lang === 'hi' ? 'टूटी हुई जाली' : 'Broken lattice window'} animate={{ opacity: 1, scale: 1 }} className="mb-8 size-44 text-[#B5452B]" initial={false} role="img" transition={transitions.base} viewBox="0 0 176 176">
@@ -163,7 +163,7 @@ export default function Identify() {
           </div>
         </main>
       ) : state === 'match' ? (
-        <main aria-live="polite" className="shell min-h-svh bg-[#FBF6EC] pb-24" lang={lang}>
+        <main aria-live="polite" className="shell min-h-svh bg-[#FBF6EC] pb-24 lg:max-w-7xl lg:mx-auto" lang={lang}>
           <CapturedPhoto src={photo} className="h-[45svh] w-full object-cover" />
           <m.div animate={{ y: 0, opacity: 1 }} className="card -mt-8 min-h-[55svh] rounded-t-3xl p-6" initial={false} transition={transitions.base}>
             <m.div animate={{ opacity: 1 }} className="text-sm text-[#5A4E3F]" initial={false} transition={{ ...transitions.fast, delay: delays.matchLabel }}>{t.likely}</m.div>
@@ -175,7 +175,7 @@ export default function Identify() {
           </m.div>
         </main>
       ) : state === 'uncertain' ? (
-        <main aria-live="polite" className="shell min-h-svh bg-[#EADBC0] p-5 pb-24" lang={lang}>
+        <main aria-live="polite" className="shell min-h-svh bg-[#EADBC0] p-5 pb-24 lg:max-w-7xl lg:mx-auto" lang={lang}>
           <div className="flex justify-end lg:hidden"><Toggle lang={lang} setLang={setLang} /></div>
           <CapturedPhoto src={photo} className="mt-3 h-40 w-full rounded-3xl object-cover" />
           <h1 className="fraunces mt-7 text-3xl">{t.notSureHeading}</h1>

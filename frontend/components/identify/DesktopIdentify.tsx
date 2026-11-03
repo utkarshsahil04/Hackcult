@@ -36,7 +36,7 @@ export function DesktopIdentify({ state, lang, onUpload }: { state: string; lang
   if (state !== 'scan') return null
 
   return (
-    <main className="hidden min-h-[calc(100svh-72px)] gap-16 px-8 py-16 lg:grid lg:grid-cols-12" lang={lang}>
+    <main className="shell hidden min-h-[calc(100svh-72px)] gap-16 px-8 py-16 lg:grid lg:max-w-7xl lg:grid-cols-12 lg:mx-auto" lang={lang}>
       <section className="col-span-7 flex flex-col justify-center">
         <h1 className="fraunces max-w-2xl text-7xl leading-[.94]">{t.heading}</h1>
         <p className="mt-6 max-w-xl text-lg leading-8 text-[#5A4E3F]">{t.body}</p>

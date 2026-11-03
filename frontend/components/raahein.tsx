@@ -182,9 +182,9 @@ export function Explore() {
   return (
     <main className="shell pb-24 lg:max-w-7xl lg:px-8 lg:pb-12">
       <Header lang={lang} setLang={setLang} />
-      <div className="px-5 lg:grid lg:grid-cols-[260px_minmax(0,1fr)] lg:gap-10 lg:px-0 lg:pt-10">
-        <aside className="hidden lg:sticky lg:top-24 lg:block lg:h-fit">
-          <div className="card space-y-5 p-5">
+      <div className="px-5 lg:grid lg:grid-cols-[260px_minmax(0,1fr)] lg:items-start lg:gap-10 lg:px-0 lg:pt-10">
+        <aside className="hidden lg:sticky lg:top-24 lg:block lg:h-fit lg:self-start">
+          <div className="card max-h-[calc(100vh-7.5rem)] overflow-y-auto space-y-5 p-5">
             <h2 className="fraunces text-2xl">{copy.refine}</h2>
             {filters('desktop')}
           </div>
