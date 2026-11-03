@@ -1,9 +1,8 @@
 /**
  * Raahein API client — all calls go through here.
- * Falls back to mock data when NEXT_PUBLIC_API_URL is not set or the request fails.
  */
 
-import { findMonument, type Monument, type Lang } from './mock'
+import { findMonument, type Monument, type Lang } from './catalog'
 
 const BASE = process.env.NEXT_PUBLIC_API_URL ?? ''
 
@@ -108,19 +107,21 @@ export async function fetchNearby(slug: string, radius_m = 2000): Promise<ApiPla
 export type TourStop = { monument_slug: string; name: string; arrival_time_min: number; visit_duration_min: number; departure_time_min: number; travel_time_to_next_min?: number | null; travel_distance_to_next_m?: number | null }
 export type TourPlanResponse = {
   is_feasible: boolean; status_message: string; solver_status: string; is_validated: boolean; explanation: string
-  itinerary: { stops: TourStop[]; total_time_min: number; total_travel_distance_m?: number | null; time_budget_min: number }
+  itinerary: { stops: TourStop[]; total_time_min: number; total_travel_time_min: number; total_travel_distance_m?: number | null; time_budget_min: number }
+  metrics?: { stop_count: number; max_stops: number; budget_utilisation: number; travel_share: number; slack_min: number; is_optimal: boolean | null; preset: string } | null
 }
 
 export async function planTour(params: {
-  start_monument: string
+  start_monument?: string
   time_budget_minutes: number
   profile: string
-  must_visit?: string[]
+  preset?: string
+  interests?: string[]
+  max_stops?: number
   preferences?: Record<string, unknown>
 }): Promise<TourPlanResponse | null> {
-  if (!BASE) return null
   return apiFetch<TourPlanResponse>('/api/tours/plan', {
     method: 'POST',
-    body: JSON.stringify({ must_visit: [], preferences: {}, return_to_start: false, ...params }),
+    body: JSON.stringify({ must_visit: [], preferences: {}, return_to_start: false, time_limit_seconds: 1, ...params }),
   }).catch(() => null)
 }
