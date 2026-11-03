@@ -1,11 +1,10 @@
 from __future__ import annotations
 
 import logging
+import sqlite3
 from typing import Annotated, Any
 
 from fastapi import APIRouter, Depends
-
-import sqlite3
 
 from app.db import get_db
 from app.errors import AppError

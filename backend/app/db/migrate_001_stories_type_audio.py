@@ -1,6 +1,6 @@
-"""Migration 001: add story_type and audio_key to stories, keyed by (monument, language, story_type).
+"""Migration 001: add story_type and audio_key to stories table and update UNIQUE constraint.
 
-Safe to run repeatedly (checks column existence first).
+Safe to run repeatedly (checks column and constraint state first).
 Run from repo root: python -m backend.app.db.migrate_001_stories_type_audio
 """
 from __future__ import annotations
@@ -39,17 +39,21 @@ CREATE TABLE stories (
 
 def _rebuild_if_key_is_stale(conn: sqlite3.Connection) -> None:
     # SQLite cannot alter a UNIQUE constraint, and store_story upserts on this exact key.
-    sql = re.sub(r"\s+", " ", conn.execute("SELECT sql FROM sqlite_master WHERE name = 'stories'").fetchone()[0])
+    row = conn.execute("SELECT sql FROM sqlite_master WHERE type='table' AND name = 'stories'").fetchone()
+    if not row or not row[0]:
+        return
+    sql = re.sub(r"\s+", " ", row[0])
     if WANTED_UNIQUE in sql:
         print("stories unique key already (monument, language, story_type), skipping.")
         return
+
     conn.execute("ALTER TABLE stories RENAME TO stories_old")
     conn.execute(STORIES_DDL)
     conn.execute(
         "INSERT OR REPLACE INTO stories "
-        "(monument_id, language, story_type, body, audio_key, model_version, generated_at) "
-        "SELECT monument_id, language, story_type, body, audio_key, model_version, generated_at "
-        "FROM stories_old ORDER BY generated_at"
+        "(id, monument_id, language, story_type, body, audio_key, model_version, generated_at) "
+        "SELECT id, monument_id, language, story_type, body, audio_key, model_version, generated_at "
+        "FROM stories_old ORDER BY id"
     )
     conn.execute("DROP TABLE stories_old")
     conn.execute("CREATE INDEX IF NOT EXISTS ix_stories_monument ON stories (monument_id)")
@@ -60,7 +64,7 @@ def run(db_path: Path | None = None) -> None:
     path = db_path or default_db_path()
     conn = sqlite3.connect(path, isolation_level=None)
     conn.row_factory = sqlite3.Row
-    conn.execute("PRAGMA foreign_keys = ON")
+    conn.execute("PRAGMA foreign_keys = OFF")
 
     try:
         conn.execute("BEGIN")
@@ -83,12 +87,15 @@ def run(db_path: Path | None = None) -> None:
 
         _rebuild_if_key_is_stale(conn)
 
+        conn.execute("CREATE INDEX IF NOT EXISTS ix_stories_monument ON stories (monument_id)")
+
         conn.execute("COMMIT")
         print("Migration 001 complete.")
     except Exception:
         conn.execute("ROLLBACK")
         raise
     finally:
+        conn.execute("PRAGMA foreign_keys = ON")
         conn.close()
 
 

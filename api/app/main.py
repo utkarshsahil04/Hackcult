@@ -19,7 +19,7 @@ async def lifespan(_: FastAPI):
     # reported by /api/health and surfaces as a 500 on identify, never as "uncertain".
     try:
         await run_in_threadpool(get_pipeline().load)
-    except Exception:
+    except Exception:  # noqa: BLE001
         logging.getLogger("raahein.api").warning("Recognition pipeline not loaded at startup")
     yield
 

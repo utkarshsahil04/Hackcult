@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from functools import lru_cache
 
 from pydantic import field_validator
@@ -14,6 +16,8 @@ class Settings(BaseSettings):
     sqlite_db_path: str | None = None
     llm_primary_model: str = "gemini-3.5-flash-lite"
     redis_url: str | None = None
+    demo_mode: bool = False
+    offline_mode: bool = False
 
     @field_validator("gemini_api_key")
     @classmethod

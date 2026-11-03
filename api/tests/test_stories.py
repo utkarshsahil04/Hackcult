@@ -6,11 +6,10 @@ import sqlite3
 from pathlib import Path
 
 import pytest
-from fastapi.testclient import TestClient
-
 from app.db import get_db
 from app.main import app
 from app.services.stories import check_claims
+from fastapi.testclient import TestClient
 
 SCHEMA = Path(__file__).resolve().parents[2] / "backend" / "app" / "db" / "schema.sql"
 
@@ -55,7 +54,7 @@ def _setup_db(tmp_path):
 
 @pytest.fixture
 def client(tmp_path):
-    conn, mid = _setup_db(tmp_path)
+    conn, _mid = _setup_db(tmp_path)
 
     app.dependency_overrides[get_db] = lambda: conn
     yield TestClient(app)

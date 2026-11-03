@@ -4,8 +4,6 @@ import os
 os.environ.setdefault("GEMINI_API_KEY", "test-key")
 
 import pytest
-from fastapi.testclient import TestClient
-
 from app.main import app
 from app.ml import (
     Candidate,
@@ -15,6 +13,7 @@ from app.ml import (
     get_pipeline,
 )
 from app.routes.recognition import _rate_store
+from fastapi.testclient import TestClient
 
 # -- Minimal valid JPEG bytes (SOI marker only) --------------------------------
 JPEG = b"\xff\xd8" + b"\x00" * 10

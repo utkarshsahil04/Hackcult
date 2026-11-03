@@ -7,11 +7,10 @@ os.environ.setdefault("GEMINI_API_KEY", "test-key")
 from unittest.mock import MagicMock, patch
 
 import pytest
-from app.planner.models import Itinerary, ValidationResult
-from fastapi.testclient import TestClient
-
 from app.main import app
+from app.planner.models import Itinerary, ValidationResult
 from app.services.gemini import GeminiService, ParsedConstraints, get_gemini_service
+from fastapi.testclient import TestClient
 
 
 @pytest.fixture
