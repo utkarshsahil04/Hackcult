@@ -12,7 +12,7 @@ class Settings(BaseSettings):
     frontend_origin: str = "http://localhost:3000"
     database_url: str | None = None
     sqlite_db_path: str | None = None
-    llm_primary_model: str = "gemini-2.5-flash-lite"
+    llm_primary_model: str = "gemini-3.5-flash-lite"
     redis_url: str | None = None
 
     @field_validator("gemini_api_key")

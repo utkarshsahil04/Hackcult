@@ -1,10 +1,11 @@
-"""Migration 001: add story_type and audio_key to stories table.
+"""Migration 001: add story_type and audio_key to stories, keyed by (monument, language, story_type).
 
 Safe to run repeatedly (checks column existence first).
 Run from repo root: python -m backend.app.db.migrate_001_stories_type_audio
 """
 from __future__ import annotations
 
+import re
 import sqlite3
 from pathlib import Path
 
@@ -17,6 +18,42 @@ except ModuleNotFoundError:
 def _column_exists(conn: sqlite3.Connection, table: str, column: str) -> bool:
     rows = conn.execute(f"PRAGMA table_info({table})").fetchall()
     return any(r["name"] == column for r in rows)
+
+
+WANTED_UNIQUE = "UNIQUE (monument_id, language, story_type)"
+
+STORIES_DDL = """
+CREATE TABLE stories (
+    id            INTEGER PRIMARY KEY,
+    monument_id   INTEGER NOT NULL REFERENCES monuments (id) ON DELETE RESTRICT,
+    language      TEXT    NOT NULL DEFAULT 'en' CHECK (length(trim(language)) > 0),
+    story_type    TEXT    NOT NULL DEFAULT 'visitor' CHECK (story_type IN ('visitor', 'academic')),
+    body          TEXT    NOT NULL CHECK (length(trim(body)) > 0),
+    audio_key     TEXT,
+    model_version TEXT    NOT NULL CHECK (length(trim(model_version)) > 0),
+    generated_at  TEXT    NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%SZ', 'now')),
+    UNIQUE (monument_id, language, story_type)
+)
+"""
+
+
+def _rebuild_if_key_is_stale(conn: sqlite3.Connection) -> None:
+    # SQLite cannot alter a UNIQUE constraint, and store_story upserts on this exact key.
+    sql = re.sub(r"\s+", " ", conn.execute("SELECT sql FROM sqlite_master WHERE name = 'stories'").fetchone()[0])
+    if WANTED_UNIQUE in sql:
+        print("stories unique key already (monument, language, story_type), skipping.")
+        return
+    conn.execute("ALTER TABLE stories RENAME TO stories_old")
+    conn.execute(STORIES_DDL)
+    conn.execute(
+        "INSERT OR REPLACE INTO stories "
+        "(monument_id, language, story_type, body, audio_key, model_version, generated_at) "
+        "SELECT monument_id, language, story_type, body, audio_key, model_version, generated_at "
+        "FROM stories_old ORDER BY generated_at"
+    )
+    conn.execute("DROP TABLE stories_old")
+    conn.execute("CREATE INDEX IF NOT EXISTS ix_stories_monument ON stories (monument_id)")
+    print("Rebuilt stories with unique key (monument, language, story_type).")
 
 
 def run(db_path: Path | None = None) -> None:
@@ -43,6 +80,8 @@ def run(db_path: Path | None = None) -> None:
             print("Added column: audio_key")
         else:
             print("Column audio_key already exists, skipping.")
+
+        _rebuild_if_key_is_stale(conn)
 
         conn.execute("COMMIT")
         print("Migration 001 complete.")
