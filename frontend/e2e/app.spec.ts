@@ -47,7 +47,11 @@ test.describe('all pages', () => {
       await expect.poll(() => page.locator('img').evaluateAll((images) => images.filter((image) => {
         const candidate = image as HTMLImageElement
         if (candidate.getClientRects().length === 0) return false
-        return !candidate.complete || candidate.naturalWidth === 0
+        // Lazy images outside the viewport have correctly not started loading yet.
+        const box = candidate.getBoundingClientRect()
+        const onScreen = box.bottom > 0 && box.right > 0 && box.top < innerHeight && box.left < innerWidth
+        if (!candidate.complete) return onScreen || candidate.loading !== 'lazy'
+        return candidate.naturalWidth === 0
       }).map((image) => image.getAttribute('src'))), { message: `${path} should not contain broken images` }).toEqual([])
       expect(pageErrors).toEqual([])
     })
