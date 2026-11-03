@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { MonumentProfile } from '@/components/monument/profile'
-import { findMonument, monuments } from '@/lib/mock'
+import { findMonument, monuments } from '@/lib/catalog'
 
 type Props = { params: Promise<{ id: string }> }
 
