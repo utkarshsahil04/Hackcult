@@ -2,7 +2,6 @@ import shutil
 from pathlib import Path
 
 import pytest
-
 from app.db.init_db import connect, init_db
 from app.db.seed import DATA_DIR, seed
 

@@ -4,7 +4,6 @@ import json
 import sqlite3
 
 import pytest
-
 from app.db.init_db import REQUIRED_TABLES, verify_integrity
 from app.db.seed import (
     TARGET_MONUMENTS,

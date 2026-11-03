@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 import pytest
-
 from app.planner.matrix import load_matrix
 from app.planner.models import Itinerary, Stop, TravelMatrix
 from app.planner.solver import solve_itinerary

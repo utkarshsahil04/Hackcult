@@ -8,7 +8,6 @@ from pathlib import Path
 from unittest.mock import patch
 
 import pytest
-
 from app.planner.matrix import (
     fetch_ors_matrix,
     get_or_fetch_matrix,

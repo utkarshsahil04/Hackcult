@@ -9,7 +9,6 @@ from pathlib import Path
 from unittest.mock import patch
 
 import pytest
-
 from app.planner.models import POI, CacheNotFoundError, OverpassError
 from app.planner.overpass import (
     categorize_tags,
