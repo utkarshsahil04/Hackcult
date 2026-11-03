@@ -14,7 +14,6 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
-import faiss
 import numpy as np
 
 from raahein_ml.config import (
@@ -188,6 +187,9 @@ def build_staged_artifact(
     catalog_hash: str,
     extraction_configs: Mapping[str, Mapping[str, object]] | None = None,
 ) -> Path:
+    # Imported here so live recognition skips it: with faiss, SigLIP segfaulted at low memory.
+    import faiss
+
     if staging_dir.exists():
         if any(staging_dir.iterdir()):
             raise ArtifactError(f"staging directory is not empty: {staging_dir}")
@@ -401,6 +403,9 @@ def load_artifact(
     require_final: bool = True,
     verify_repository_inputs: bool = True,
 ) -> ArtifactBundle:
+    # Imported here so live recognition skips it: with faiss, SigLIP segfaulted at low memory.
+    import faiss
+
     artifact_path = path.resolve()
     metadata_path = artifact_path / "metadata.json"
     try:
