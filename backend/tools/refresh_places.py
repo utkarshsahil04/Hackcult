@@ -3,6 +3,7 @@
 Refuses to overwrite the cache unless every region was fetched: a partial refresh would silently
 hide places. Usage: python tools/refresh_places.py
 """
+import http.client
 import json
 import re
 import sys
@@ -12,8 +13,8 @@ import urllib.request
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from app.planner.matrix import read_monuments_from_db  # noqa: E402
-from app.planner.overpass import (  # noqa: E402
+from app.planner.matrix import read_monuments_from_db
+from app.planner.overpass import (
     DEFAULT_RADIUS_METERS,
     DEFAULT_USER_AGENT,
     build_overpass_query,
@@ -41,7 +42,8 @@ def fetch_region(bbox: str) -> dict:
             req = urllib.request.Request(endpoint, data=data, headers={"User-Agent": DEFAULT_USER_AGENT})
             with urllib.request.urlopen(req, timeout=180) as r:
                 return json.loads(r.read())
-        except Exception as exc:  # public servers: try the next one, report if none recover
+        # Network failures, or an overloaded server answering with non-JSON: try the next one.
+        except (OSError, ValueError, http.client.HTTPException) as exc:
             print(f"retry {endpoint}: {exc}")
             time.sleep(15)
     sys.exit(f"not overwriting cache; region {bbox} failed")

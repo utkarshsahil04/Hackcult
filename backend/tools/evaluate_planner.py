@@ -12,11 +12,11 @@ import time
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from app.planner.config import preset_names, resolve_config, restrict_legs  # noqa: E402
-from app.planner.exhaustive import best_plan  # noqa: E402
-from app.planner.matrix import load_matrix, read_monuments_from_db  # noqa: E402
-from app.planner.solver import solve_itinerary  # noqa: E402
-from app.planner.validator import validate_itinerary  # noqa: E402
+from app.planner.config import preset_names, resolve_config, restrict_legs
+from app.planner.exhaustive import best_plan
+from app.planner.matrix import load_matrix, read_monuments_from_db
+from app.planner.solver import solve_itinerary
+from app.planner.validator import validate_itinerary
 
 BUDGETS = (90, 120, 180, 240, 360)
 PROFILES = ("driving-car", "foot-walking")

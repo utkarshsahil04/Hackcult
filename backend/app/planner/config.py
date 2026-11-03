@@ -55,7 +55,10 @@ def resolve_config(
 def restrict_legs(matrix: TravelMatrix, max_leg_min: float) -> TravelMatrix:
     """Copy of the matrix where legs longer than max_leg_min are unroutable (solver and validator agree)."""
     limit = max_leg_min * 60
-    keep = lambda i, j, v: None if v is None or (i != j and v > limit) else v  # noqa: E731
+
+    def keep(i: int, j: int, v: float | None) -> float | None:
+        return None if v is None or (i != j and v > limit) else v
+
     n = len(matrix.monument_slugs)
     durations = [[keep(i, j, matrix.durations[i][j]) for j in range(n)] for i in range(n)]
     distances = [

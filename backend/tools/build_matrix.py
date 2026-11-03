@@ -4,8 +4,13 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from app.planner.matrix import (  # noqa: E402
-    SUPPORTED_PROFILES, bundled_matrix_path, fetch_ors_matrix, fetch_osrm_matrix, read_monuments_from_db, save_matrix,
+from app.planner.matrix import (
+    SUPPORTED_PROFILES,
+    bundled_matrix_path,
+    fetch_ors_matrix,
+    fetch_osrm_matrix,
+    read_monuments_from_db,
+    save_matrix,
 )
 
 mons = read_monuments_from_db()

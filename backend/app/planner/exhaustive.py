@@ -3,7 +3,7 @@ oracle the OR-Tools solver is graded against and the way to pick a start when no
 
 from __future__ import annotations
 
-from itertools import permutations
+from itertools import pairwise, permutations
 
 from app.planner.models import TravelMatrix
 
@@ -26,9 +26,9 @@ def best_plan(
         for route in permutations(pool, k):
             if (start and route[0] != start) or not must <= set(route):
                 continue
-            if any(not matrix.has_route(a, b) for a, b in zip(route, route[1:], strict=False)):
+            if any(not matrix.has_route(a, b) for a, b in pairwise(route)):
                 continue
-            travel = sum(matrix.get_travel_time_minutes(a, b) for a, b in zip(route, route[1:], strict=False))
+            travel = sum(matrix.get_travel_time_minutes(a, b) for a, b in pairwise(route))
             total = travel + sum(visit_min[s] for s in route)
             if total > budget_min:
                 continue

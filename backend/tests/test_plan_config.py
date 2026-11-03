@@ -1,6 +1,11 @@
 import pytest
 
-from app.planner.config import interest_priorities, preset_names, resolve_config, restrict_legs
+from app.planner.config import (
+    interest_priorities,
+    preset_names,
+    resolve_config,
+    restrict_legs,
+)
 from app.planner.exhaustive import best_plan
 from app.planner.models import InvalidInputError, TravelMatrix
 from app.planner.solver import solve_itinerary

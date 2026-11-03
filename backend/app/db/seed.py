@@ -189,8 +189,8 @@ def validate_dataset(ds: dict[str, list[dict[str, Any]]]) -> list[str]:
             )
         claims[ref] = c
 
-    for slug in monuments:
-        if monuments[slug].get("listed"):
+    for slug, monument in monuments.items():
+        if monument.get("listed"):
             continue
         if not any(c["monument"] == slug and not c["is_legend"] and c["type"] in DESCRIPTION_TYPES
                    for c in claims.values()):
