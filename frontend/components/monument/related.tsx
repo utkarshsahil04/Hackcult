@@ -7,7 +7,7 @@ import { ArrowLeft, Check, Plus } from 'lucide-react'
 import { InlayFrame, MonumentArt } from '@/components/heritage'
 import { Toggle, useLang } from '@/components/raahein'
 import { fetchRelated, type ApiRelated } from '@/lib/api'
-import { getMonument } from '@/lib/mock'
+import { getMonument } from '@/lib/catalog'
 import { transitions } from '@/lib/motion'
 
 const nodes = [[160, 90], [70, 40], [250, 40], [70, 140], [250, 140]] as const
