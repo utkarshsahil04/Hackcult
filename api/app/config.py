@@ -8,6 +8,8 @@ class Settings(BaseSettings):
     model_config = SettingsConfigDict(env_file=".env", extra="ignore")
 
     gemini_api_key: str
+    groq_api_key: str
+    hf_token: str
     ors_api_key: str = ""
     frontend_origin: str = "http://localhost:3000"
     database_url: str | None = None
@@ -15,11 +17,11 @@ class Settings(BaseSettings):
     llm_primary_model: str = "gemini-3.5-flash-lite"
     redis_url: str | None = None
 
-    @field_validator("gemini_api_key")
+    @field_validator("gemini_api_key", "groq_api_key", "hf_token")
     @classmethod
-    def key_not_empty(cls, v: str) -> str:
+    def key_not_empty(cls, v: str, info) -> str:
         if not v.strip():
-            raise ValueError("GEMINI_API_KEY is empty. Set it in api/.env")
+            raise ValueError(f"{info.field_name.upper()} is empty. Set it in api/.env")
         return v.strip()
 
 
