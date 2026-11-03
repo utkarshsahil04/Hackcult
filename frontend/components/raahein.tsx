@@ -139,7 +139,7 @@ export function Explore() {
   const cityLabel = (value: (typeof cityOptions)[number]) => value === 'All' ? t.all : value === 'Delhi' ? t.delhi : t.agra
   const eraLabel = (value: (typeof eraOptions)[number]) => value === 'All' ? t.all : value === 'Sultanate' ? copy.sultanate : copy.mughal
   const data = monuments.filter((monument) => {
-    const monumentEra = monument.id === 'qutub-minar' ? 'Sultanate' : 'Mughal'
+    const monumentEra = monument.id === 'qutb-complex' ? 'Sultanate' : 'Mughal'
     return (city === 'All' || monument.city === city)
       && (era === 'All' || monumentEra === era)
       && (!legendsOnly || monument.sections.some((section) => section.isLegend))

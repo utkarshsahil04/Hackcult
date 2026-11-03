@@ -203,7 +203,7 @@ export function MonumentProfile({ id }: Props) {
               {monument.related.map((relatedId) => { const related = getMonument(relatedId); return <Link href={`/monument/${related.id}`} key={related.id} className="min-w-44 snap-start rounded-2xl focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#E8A317]"><InlayFrame><MonumentArt alt="" className="h-24 w-full rounded-[10px]" id={related.id} /><p className="p-2 font-[var(--font-fraunces)] text-base">{related.name[lang]}</p><p className="px-2 pb-2 text-xs text-[#5A4E3F]">{related.city} · {t.nearby}</p></InlayFrame></Link>})}
             </div>
           </section>
-          <p className="pt-2 text-xs text-[#5A4E3F]">{imageCredits[monument.id]?.source} · {imageCredits[monument.id]?.licence}</p>
+          {imageCredits[monument.id] && <p className="pt-2 text-xs text-[#5A4E3F]">{imageCredits[monument.id].source} · {imageCredits[monument.id].licence}</p>}
         </div>
         {/* Mobile Fixed Action Bar: Isolated at bottom with safe padding, hidden on desktop */}
         <div className="fixed bottom-0 left-0 right-0 z-30 border-t border-[#E8A317]/30 bg-[#EADBC0]/95 p-3.5 backdrop-blur safe-bottom lg:hidden">

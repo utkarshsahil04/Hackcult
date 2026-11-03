@@ -55,7 +55,7 @@ const architecturalData: Record<string, {
       { en: 'Served as the direct architectural inspiration and proportion blueprint for the Taj Mahal.', hi: 'यह ताजमहल के निर्माण का प्रत्यक्ष वास्तुशिल्प और अनुपातिक प्रेरणा स्रोत बना।' },
     ],
   },
-  'qutub-minar': {
+  'qutb-complex': {
     alignment: { en: 'Astronomical Gnomon & Solar Noon Shadow', hi: 'खगोलीय शंकु व मध्याह्न छाया मापन अक्ष' },
     material: { en: 'Fluted Red Sandstone & White Marble Upper Storeys', hi: 'धारदार लाल बलुआ पत्थर व ऊपरी संगमरमर' },
     acoustic: { en: 'Projecting corbelled balcony vocal propagation', hi: 'झरोखा बालकनी की खुली ध्वनि प्रसार क्षमता' },

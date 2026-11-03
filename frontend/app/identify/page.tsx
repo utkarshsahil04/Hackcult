@@ -10,7 +10,7 @@ import { KolamLoader, MonumentArt } from '@/components/heritage'
 import { RaaheinLogo } from '@/components/RaaheinLogo'
 import { Toggle, useLang } from '@/components/raahein'
 import { identify, type IdentifyResult } from '@/lib/api'
-import { monuments, getMonument } from '@/lib/mock'
+import { monuments, findMonument } from '@/lib/mock'
 import { delays, durations, transitions } from '@/lib/motion'
 
 type IdentifyState = 'scan' | 'match' | 'uncertain' | 'error'
@@ -115,7 +115,7 @@ export default function Identify() {
         setState('match')
       } else if (result.status === 'uncertain') {
         const slugs = result.candidates.map((c) => c.slug)
-        setCandidates(slugs.map((s) => getMonument(s)).filter(Boolean) as typeof monuments)
+        setCandidates(slugs.map((s) => findMonument(s)).filter(Boolean) as typeof monuments)
         setState('uncertain')
       } else {
         setState('error')

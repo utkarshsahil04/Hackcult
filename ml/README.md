@@ -27,6 +27,32 @@ Current local verification:
 | API tests | 14 passed |
 | ML, backend, and API Ruff checks | Passed |
 
+## Demo Pipeline (works today, dataset-backed)
+
+`raahein_ml.dataset_pipeline` runs the same frozen encoders, top-3 aggregation, RRF and
+calibrated rejection on the local `Indian-monuments` dataset, skipping the licence-manifest
+workflow below. The dataset licence is unconfirmed, so this artifact is for the hackathon demo
+only and must be rebuilt from a licensed corpus before launch.
+
+```bash
+uv pip install --python .venv/Scripts/python.exe --index-url https://download.pytorch.org/whl/cu124 "torch==2.5.1+cu124"
+uv pip install --python .venv/Scripts/python.exe -e './ml[gpu]'
+python -m raahein_ml.dataset_pipeline build --dataset <path>/Indian-monuments/images
+cd api && python -m uvicorn app.main:app --port 8000   # run from the project venv
+```
+
+The build writes `data/artifacts/dataset-v1/` (gitignored). `GET /api/health` reports
+`models: ok` once the API has loaded it; a missing artifact is a 500 on identify, never "uncertain".
+
+Coverage is limited by the dataset: 5 of the 15 canonical monuments can be recognized
+(`taj-mahal`, `humayuns-tomb`, `fatehpur-sikri`, `qutb-complex`, `mehrauli-archaeological-park`).
+The other 10 have no reference images. Photos of any other monument return "uncertain".
+
+Held-out results (236 positives, 96 non-target monuments; test images within pHash distance 6 of
+a gallery image are dropped): DINOv2 is the calibrated active strategy with 100% top-1, 97%
+coverage and 2.1% false acceptance. Fusion scored the same top-1 on this set. The test split
+comes from the same dataset as the gallery, so expect lower accuracy on fresh phone photos.
+
 ## What Was Created
 
 | Capability | Implementation |

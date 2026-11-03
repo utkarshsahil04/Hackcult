@@ -15,10 +15,11 @@ from collections import defaultdict
 from typing import Annotated
 
 from fastapi import APIRouter, Depends, Request, UploadFile
+from fastapi.concurrency import run_in_threadpool
 from fastapi.responses import JSONResponse
 
 from app.errors import AppError
-from app.ml import Candidate, get_pipeline
+from app.ml import Candidate, UnreadableImage, get_pipeline
 
 logger = logging.getLogger("raahein.api")
 
@@ -102,7 +103,7 @@ async def identify(
     _validate_image(photo, data)
 
     try:
-        result = pipeline.run(data)
+        result = await run_in_threadpool(pipeline.run, data)
         if result.status == "error":
             raise AppError(
                 500,
@@ -110,6 +111,13 @@ async def identify(
                 "The recognition model failed to process the photo.",
                 "Retry shortly. If the problem persists, contact support.",
             )
+    except UnreadableImage as exc:
+        raise AppError(
+            400,
+            "INVALID_FILE_TYPE",
+            "The photo could not be read as an image.",
+            "Upload a JPEG, PNG, GIF or WebP image.",
+        ) from exc
     except Exception as exc:
         logger.exception("Recognition pipeline error", exc_info=exc)
         raise AppError(
