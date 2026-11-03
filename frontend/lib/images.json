@@ -1,0 +1,170 @@
+{
+ "taj-mahal": {
+  "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1d/Taj_Mahal_%28Edited%29.jpeg/1280px-Taj_Mahal_%28Edited%29.jpeg",
+  "page": "https://commons.wikimedia.org/wiki/File:Taj_Mahal_(Edited).jpeg",
+  "artist": "Yann ; edited by Jim Carter",
+  "licence": "CC BY-SA 4.0"
+ },
+ "agra-fort": {
+  "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/38/20191204_Czerwony_Fort_w_Agrze_0936_6599.jpg/1280px-20191204_Czerwony_Fort_w_Agrze_0936_6599.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:20191204_Czerwony_Fort_w_Agrze_0936_6599.jpg",
+  "artist": "Jakub Hałun",
+  "licence": "CC BY-SA 4.0"
+ },
+ "red-fort": {
+  "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/2a/Delhi_fort.jpg/1280px-Delhi_fort.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Delhi_fort.jpg",
+  "artist": "PerSona77",
+  "licence": "CC BY-SA 3.0"
+ },
+ "humayuns-tomb": {
+  "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/05/20191205_Grobowiec_Humajuna_w_Delhi_1055_6794.jpg/1280px-20191205_Grobowiec_Humajuna_w_Delhi_1055_6794.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:20191205_Grobowiec_Humajuna_w_Delhi_1055_6794.jpg",
+  "artist": "Jakub Hałun",
+  "licence": "CC BY-SA 4.0"
+ },
+ "qutb-complex": {
+  "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3c/Qutb_Minar_2022.jpg/1280px-Qutb_Minar_2022.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Qutb_Minar_2022.jpg",
+  "artist": "Wasir kasab",
+  "licence": "CC BY 4.0"
+ },
+ "fatehpur-sikri": {
+  "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b5/Fatehput_Sikiri_Buland_Darwaza_gate_2010.jpg/1280px-Fatehput_Sikiri_Buland_Darwaza_gate_2010.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Fatehput_Sikiri_Buland_Darwaza_gate_2010.jpg",
+  "artist": "Marcin Białek",
+  "licence": "CC BY-SA 3.0"
+ },
+ "akbars-tomb": {
+  "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a4/Akbar%27s_Tomb_-_Agra_-_Uttar_Pradesh_-_001.jpg/1280px-Akbar%27s_Tomb_-_Agra_-_Uttar_Pradesh_-_001.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Akbar%27s_Tomb_-_Agra_-_Uttar_Pradesh_-_001.jpg",
+  "artist": "Rupeshsarkar",
+  "licence": "CC BY-SA 4.0"
+ },
+ "itimad-ud-daulah": {
+  "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/95/Itimad-ud-Daulah_Agra_04.jpg/1280px-Itimad-ud-Daulah_Agra_04.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Itimad-ud-Daulah_Agra_04.jpg",
+  "artist": "Philip Nalangan",
+  "licence": "CC BY 4.0"
+ },
+ "jama-masjid": {
+  "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a4/Jama_Masjid_-_In_the_Noon.jpg/1280px-Jama_Masjid_-_In_the_Noon.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Jama_Masjid_-_In_the_Noon.jpg",
+  "artist": "Bikashrd",
+  "licence": "CC BY-SA 4.0"
+ },
+ "safdarjungs-tomb": {
+  "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/dc/Safdar_Jang%E2%80%99s_Tomb%2C_Delhi_.jpg/1280px-Safdar_Jang%E2%80%99s_Tomb%2C_Delhi_.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Safdar_Jang%E2%80%99s_Tomb,_Delhi_.jpg",
+  "artist": "Chitranshi",
+  "licence": "CC BY-SA 3.0"
+ },
+ "purana-qila": {
+  "url": "https://upload.wikimedia.org/wikipedia/commons/9/98/Purana_Qila_01.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Purana_Qila_01.jpg",
+  "artist": "Airknight at English Wikipedia",
+  "licence": "CC BY 3.0"
+ },
+ "tughlaqabad-fort": {
+  "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/76/Tughlaqabad_fort_wall.jpg/1280px-Tughlaqabad_fort_wall.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Tughlaqabad_fort_wall.jpg",
+  "artist": "Nvvchar",
+  "licence": "CC BY-SA 3.0"
+ },
+ "jantar-mantar": {
+  "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b8/Jantar_Mantar%2C_New_Delhi_%28Misra_Yantra%29.jpg/1280px-Jantar_Mantar%2C_New_Delhi_%28Misra_Yantra%29.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Jantar_Mantar,_New_Delhi_(Misra_Yantra).jpg",
+  "artist": "AKS.9955",
+  "licence": "CC BY-SA 4.0"
+ },
+ "mehrauli-archaeological-park": {
+  "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/ad/Mehrauli_Archaeological_Park%2C_Mehrauli%2C_Delhi%2C_India%2C_2016_077.jpg/1280px-Mehrauli_Archaeological_Park%2C_Mehrauli%2C_Delhi%2C_India%2C_2016_077.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Mehrauli_Archaeological_Park,_Mehrauli,_Delhi,_India,_2016_077.jpg",
+  "artist": "Anupamg",
+  "licence": "CC BY-SA 4.0"
+ },
+ "lodhi-gardens": {
+  "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/45/Lodhi_Gardens_on_a_sunny_day.jpg/1280px-Lodhi_Gardens_on_a_sunny_day.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Lodhi_Gardens_on_a_sunny_day.jpg",
+  "artist": "Amaninder",
+  "licence": "CC BY-SA 3.0"
+ },
+ "india-gate": {
+  "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3b/India_Gate_front.jpg/1280px-India_Gate_front.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:India_Gate_front.jpg",
+  "artist": "AKS.9955",
+  "licence": "CC BY-SA 4.0"
+ },
+ "lotus-temple": {
+  "url": "https://upload.wikimedia.org/wikipedia/commons/f/fc/LotusDelhi.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:LotusDelhi.jpg",
+  "artist": "Vandelizer",
+  "licence": "CC BY 2.0"
+ },
+ "hauz-khas-complex": {
+  "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/4f/Feroze_Shah%27s_Tomb.JPG/1280px-Feroze_Shah%27s_Tomb.JPG",
+  "page": "https://commons.wikimedia.org/wiki/File:Feroze_Shah%27s_Tomb.JPG",
+  "artist": "Nvvchar ( talk )",
+  "licence": "CC BY-SA 3.0"
+ },
+ "agrasen-ki-baoli": {
+  "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/28/Agrasen_ki_Baoli%2C_New_Delhi.jpg/1280px-Agrasen_ki_Baoli%2C_New_Delhi.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Agrasen_ki_Baoli,_New_Delhi.jpg",
+  "artist": "Slyronit",
+  "licence": "CC BY-SA 4.0"
+ },
+ "feroz-shah-kotla": {
+  "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/46/Ferozabad_Panorama.jpg/1280px-Ferozabad_Panorama.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Ferozabad_Panorama.jpg",
+  "artist": "Rangan Datta Wiki",
+  "licence": "CC BY-SA 4.0"
+ },
+ "rashtrapati-bhavan": {
+  "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/fd/Rashrapati_Bhavan_in_September_2024.jpg/1280px-Rashrapati_Bhavan_in_September_2024.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Rashrapati_Bhavan_in_September_2024.jpg",
+  "artist": "Tamjeed Ahmed",
+  "licence": "CC BY-SA 4.0"
+ },
+ "sunder-nursery": {
+  "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0d/Sunder_Nursery_Sep-2019.jpg/1280px-Sunder_Nursery_Sep-2019.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Sunder_Nursery_Sep-2019.jpg",
+  "artist": "Gryffindor",
+  "licence": "CC BY-SA 4.0"
+ },
+ "abdul-rahim-khan-i-khana-tomb": {
+  "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/5c/Tomb_of_Abdul_Rahim_Khan-I-Khana%2C_Delhi.jpg/1280px-Tomb_of_Abdul_Rahim_Khan-I-Khana%2C_Delhi.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Tomb_of_Abdul_Rahim_Khan-I-Khana,_Delhi.jpg",
+  "artist": "RussBowling",
+  "licence": "CC BY 2.0"
+ },
+ "khirki-masjid": {
+  "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e7/Main_south_entrance.jpg/1280px-Main_south_entrance.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Main_south_entrance.jpg",
+  "artist": "Varun Shiv Kapur",
+  "licence": "CC BY 2.0"
+ },
+ "nizamuddin-dargah": {
+  "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/59/Nizamuddin_Dargah_and_Jamaat_Khana_Masjid%2C_Delhi.jpg/1280px-Nizamuddin_Dargah_and_Jamaat_Khana_Masjid%2C_Delhi.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Nizamuddin_Dargah_and_Jamaat_Khana_Masjid,_Delhi.jpg",
+  "artist": "Commons contributor",
+  "licence": "CC BY 2.0"
+ },
+ "raj-ghat": {
+  "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f3/Gandhi_Memorial.jpg/1280px-Gandhi_Memorial.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Gandhi_Memorial.jpg",
+  "artist": "Humayunn Niaz Ahmed Peerzaada from Mumbai, India",
+  "licence": "CC BY-SA 2.0"
+ },
+ "akshardham-delhi": {
+  "url": "https://upload.wikimedia.org/wikipedia/commons/c/c2/New_Delhi_Temple.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:New_Delhi_Temple.jpg",
+  "artist": "Swaminarayan Sanstha",
+  "licence": "CC BY-SA 3.0"
+ },
+ "fatehpuri-masjid": {
+  "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/48/Fatehpuri_Masjid_in_Delhi_19.jpg/1280px-Fatehpuri_Masjid_in_Delhi_19.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Fatehpuri_Masjid_in_Delhi_19.jpg",
+  "artist": "Indrajit Das",
+  "licence": "CC BY-SA 4.0"
+ }
+}
