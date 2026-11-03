@@ -1,4 +1,4 @@
-"""POST /api/recognition/identify and demo photo helpers (Issue #17).
+"""POST /api/recognition/identify and demo photo helpers (Issue #17 & #20).
 
 - Accepts a resized photo (multipart/form-data, field name: photo)
 - Per-IP in-memory rate limit: 30 requests / day
@@ -17,11 +17,12 @@ from collections import defaultdict
 from typing import Annotated
 
 from fastapi import APIRouter, Depends, Request, Response, UploadFile
+from fastapi.concurrency import run_in_threadpool
 from fastapi.responses import JSONResponse
 
 from app.demo_cache import get_demo_cache
 from app.errors import AppError
-from app.ml import Candidate, get_pipeline
+from app.ml import Candidate, UnreadableImage, get_pipeline
 
 logger = logging.getLogger("raahein.api")
 
@@ -106,7 +107,7 @@ async def identify(
     _validate_image(photo, data)
 
     try:
-        result = pipeline.run(data)
+        result = await run_in_threadpool(pipeline.run, data)
         if result.status == "error":
             raise AppError(
                 500,
@@ -114,6 +115,13 @@ async def identify(
                 "The recognition model failed to process the photo.",
                 "Retry shortly. If the problem persists, contact support.",
             )
+    except UnreadableImage as exc:
+        raise AppError(
+            400,
+            "INVALID_FILE_TYPE",
+            "The photo could not be read as an image.",
+            "Upload a JPEG, PNG, GIF or WebP image.",
+        ) from exc
     except Exception as exc:
         if isinstance(exc, AppError):
             raise

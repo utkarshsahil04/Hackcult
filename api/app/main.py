@@ -1,13 +1,30 @@
+import logging
+from contextlib import asynccontextmanager
+
 from fastapi import FastAPI
+from fastapi.concurrency import run_in_threadpool
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.config import get_settings
 from app.errors import register_error_handlers
+from app.ml import get_pipeline
 from app.routes import health, monuments, places, recognition, stories, tours
 
 settings = get_settings()  # fails fast at startup if env is invalid
 
-app = FastAPI(title="Raahein API")
+
+@asynccontextmanager
+async def lifespan(_: FastAPI):
+    # Warm the models so the first visitor photo is not a 30 s cold start. A failed load is
+    # reported by /api/health and surfaces as a 500 on identify, never as "uncertain".
+    try:
+        await run_in_threadpool(get_pipeline().load)
+    except Exception:  # noqa: BLE001
+        logging.getLogger("raahein.api").warning("Recognition pipeline not loaded at startup")
+    yield
+
+
+app = FastAPI(title="Raahein API", lifespan=lifespan)
 
 app.add_middleware(
     CORSMiddleware,

@@ -203,6 +203,43 @@ def fetch_ors_matrix(
     return matrix
 
 
+OSRM_ENDPOINTS = {
+    "driving-car": "https://routing.openstreetmap.de/routed-car/table/v1/driving",
+    "foot-walking": "https://routing.openstreetmap.de/routed-foot/table/v1/foot",
+}
+
+
+def fetch_osrm_matrix(monuments: list[dict[str, Any]], profile: str = "driving-car", timeout: int = 60) -> TravelMatrix:
+    """Keyless real road/foot routing from OSRM (OpenStreetMap data); used when ORS_API_KEY is unset."""
+    if profile not in OSRM_ENDPOINTS:
+        raise ORSAPIError(f"Unsupported profile '{profile}'. Supported: {SUPPORTED_PROFILES}")
+    locations = [[float(m["longitude"]), float(m["latitude"])] for m in monuments]
+    coords = ";".join(f"{lon},{lat}" for lon, lat in locations)
+    req = urllib.request.Request(
+        f"{OSRM_ENDPOINTS[profile]}/{coords}?annotations=duration,distance",
+        headers={"User-Agent": "raahein-heritage-planner/0.1"},
+    )
+    try:
+        with urllib.request.urlopen(req, timeout=timeout) as response:
+            data = json.loads(response.read().decode("utf-8"))
+    except (urllib.error.URLError, json.JSONDecodeError) as exc:
+        raise ORSAPIError(f"OSRM request failed: {exc}") from exc
+    if data.get("code") != "Ok":
+        raise ORSAPIError(f"OSRM returned {data.get('code')}: {data.get('message')}")
+    matrix = TravelMatrix(
+        profile=profile,
+        monument_slugs=[m["slug"] for m in monuments],
+        locations=locations,
+        durations=data["durations"],
+        distances=data["distances"],
+        created_at=datetime.now(UTC).isoformat(),
+        source="osrm-openstreetmap",
+    )
+    matrix.validate()
+    validate_matrix_against_monuments(matrix, monuments)
+    return matrix
+
+
 def get_or_fetch_matrix(
     profile: str = "driving-car",
     monuments: list[dict[str, Any]] | None = None,

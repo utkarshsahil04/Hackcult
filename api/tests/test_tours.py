@@ -210,9 +210,9 @@ def test_plan_tour_gemini_api_failure_handles_gracefully(client):
             app.dependency_overrides.pop(get_gemini_service, None)
 
 
-def test_plan_tour_invalid_payload_missing_query_and_start(client):
-    """Request with neither query nor start_monument returns HTTP 400 validation error."""
-    response = client.post("/api/tours/plan", json={"time_budget_minutes": 180})
+def test_plan_tour_invalid_payload_missing_query_start_and_budget(client):
+    """Request with no query, start or budget returns HTTP 400 validation error."""
+    response = client.post("/api/tours/plan", json={})
     assert response.status_code == 400
     body = response.json()
     assert body["error"]["code"] == "VALIDATION_ERROR"
@@ -250,3 +250,34 @@ def test_plan_tour_unknown_monument_slug(client):
     body = response.json()
     assert body["error"]["code"] == "VALIDATION_ERROR"
     assert "eiffel-tower" in body["error"]["message"]
+
+
+def test_plan_never_exceeds_three_stops_even_when_asked_for_more(client):
+    r = client.post("/api/tours/plan", json={"time_budget_minutes": 600, "max_stops": 9, "preferences": {"city": "Delhi"}})
+    body = r.json()
+    assert r.status_code == 200 and body["is_validated"] is True
+    assert len(body["itinerary"]["stops"]) <= 3
+    assert body["metrics"]["max_stops"] == 3
+
+
+def test_plan_without_start_picks_one_and_is_optimal(client):
+    r = client.post("/api/tours/plan", json={"time_budget_minutes": 240, "preset": "standard", "preferences": {"city": "Delhi"}})
+    body = r.json()
+    assert body["is_validated"] is True and body["metrics"]["is_optimal"] is True
+    assert body["itinerary"]["total_time_min"] <= 240
+
+
+def test_plan_preset_and_interests_are_configurable(client):
+    quick = client.post("/api/tours/plan", json={"time_budget_minutes": 300, "preset": "relaxed", "preferences": {"city": "Delhi"}}).json()
+    assert len(quick["itinerary"]["stops"]) <= 2
+    gardens = client.post("/api/tours/plan", json={"time_budget_minutes": 300, "interests": ["garden"], "preferences": {"city": "Delhi"}}).json()
+    assert any(s["monument_slug"] in ("lodhi-gardens", "sunder-nursery", "humayuns-tomb") for s in gardens["itinerary"]["stops"])
+
+
+def test_plan_unknown_preset_is_a_400(client):
+    assert client.post("/api/tours/plan", json={"time_budget_minutes": 120, "preset": "nope"}).status_code == 400
+
+
+def test_plan_accepts_new_delhi_sites(client):
+    r = client.post("/api/tours/plan", json={"start_monument": "india-gate", "time_budget_minutes": 180})
+    assert r.status_code == 200 and r.json()["itinerary"]["stops"][0]["monument_slug"] == "india-gate"

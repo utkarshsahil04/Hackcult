@@ -50,3 +50,7 @@ demo/images/*.png
 .DS_Store
 .idea/
 .vscode/
+
+# Binaries
+*.exe
+**/scripts/bin/

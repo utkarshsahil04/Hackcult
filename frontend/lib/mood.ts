@@ -1,0 +1,2 @@
+export type Mood = 'dawn' | 'golden' | 'noon' | 'dusk' | 'mist' | 'overcast'
+export function getMood(pathname: string, mock?: string | null): Mood { if (pathname === '/identify') return mock === 'uncertain' ? 'mist' : mock === 'error' ? 'overcast' : 'dawn'; if (pathname.startsWith('/monument')) return 'golden'; if (pathname.startsWith('/plan/route')) return 'dusk'; if (pathname.startsWith('/explore') || pathname.startsWith('/plan') || pathname.startsWith('/nearby')) return 'noon'; return 'golden' }

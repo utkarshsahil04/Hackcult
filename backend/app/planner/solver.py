@@ -115,6 +115,7 @@ def solve_itinerary(
     max_stops: int | None = None,
     preferences: dict[str, Any] | None = None,
     time_limit_seconds: int = 2,
+    priorities: dict[str, int] | None = None,
 ) -> Itinerary:
     """Solve the constrained tour itinerary using Google OR-Tools.
 
@@ -350,7 +351,10 @@ def solve_itinerary(
     drop_penalty = 10_000_000
     for node_idx in range(1, n_candidates):
         if node_idx not in must_visit_indices:
-            routing.AddDisjunction([manager.NodeToIndex(node_idx)], drop_penalty)
+            routing.AddDisjunction(
+                [manager.NodeToIndex(node_idx)],
+                drop_penalty * (1 + (priorities or {}).get(candidates[node_idx], 0)),
+            )
 
     # Search parameters
     search_parameters = pywrapcp.DefaultRoutingSearchParameters()

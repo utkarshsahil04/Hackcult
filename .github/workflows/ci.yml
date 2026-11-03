@@ -27,14 +27,25 @@ jobs:
           cache: pnpm
           cache-dependency-path: frontend/pnpm-lock.yaml
 
-      - name: Frontend typecheck, lint, build
+      - name: Frontend typecheck, lint, unit tests, build
         if: ${{ hashFiles('frontend/pnpm-lock.yaml') != '' }}
         working-directory: frontend
         run: |
           pnpm install --frozen-lockfile
           pnpm run typecheck
           pnpm run lint
+          pnpm run test:unit
           pnpm run build
+
+      - name: Install Playwright browser
+        if: ${{ hashFiles('frontend/pnpm-lock.yaml') != '' }}
+        working-directory: frontend
+        run: pnpm exec playwright install --with-deps chromium
+
+      - name: Frontend end-to-end tests
+        if: ${{ hashFiles('frontend/pnpm-lock.yaml') != '' }}
+        working-directory: frontend
+        run: pnpm run test:e2e
 
       # Backend: runs once backend/requirements.txt exists
       - uses: actions/setup-python@v5

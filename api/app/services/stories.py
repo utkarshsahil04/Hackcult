@@ -14,11 +14,12 @@ import re
 import sqlite3
 from dataclasses import dataclass
 
+from app.config import get_settings
 from app.services.gemini import GeminiService
 
 logger = logging.getLogger("raahein.api.stories")
 
-STORY_MODEL = "gemini-2.0-flash-lite"
+STORY_MODEL = get_settings().llm_primary_model.strip() or "gemini-3.5-flash-lite"
 
 VISITOR_PROMPT_TEMPLATE = """\
 You are a heritage storyteller for Raahein, an Indian monument discovery app.
@@ -69,7 +70,7 @@ class ClaimCheckResult:
     unchecked_sentences: list[str]  # sentences with no matching source note
 
 
-def _build_claims_block(claims: list[sqlite3.Row]) -> str:
+def _build_claims_block(claims: list[dict]) -> str:
     lines = []
     for c in claims:
         tag = " [LEGEND]" if c["is_legend"] else ""
@@ -187,9 +188,7 @@ def generate_story(
     if not claims:
         raise ValueError(f"No claims found for monument: {slug!r}")
 
-    claims_block = _build_claims_block(
-        [type("R", (), c)() for c in claims]  # type: ignore[arg-type]
-    )
+    claims_block = _build_claims_block(claims)
     related_block = _build_related_block(related)
     language_label = LANGUAGE_LABELS.get(language, language)
 
