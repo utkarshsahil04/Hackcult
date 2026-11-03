@@ -181,6 +181,13 @@ def run_demo(fast: bool = False, url: str | None = None) -> int:
 
     # STEP 2: Demo Photos Recognition
     print_step(2, "Demo Insurance: Cached Photo Recognition", "Testing deterministic recognition across 5 representative heritage photos.")
+    try:
+        from app.demo_cache import get_demo_cache
+
+        get_demo_cache().ensure_images_on_disk(offline=True)
+    except (ImportError, OSError):
+        pass
+
     demo_photos = [
         ("taj_mahal.jpg", "taj-mahal", "Taj Mahal"),
         ("qutb_minar.jpg", "qutb-minar", "Qutb Minar"),
@@ -193,7 +200,7 @@ def run_demo(fast: bool = False, url: str | None = None) -> int:
     for fname, expected_slug, label in demo_photos:
         img_path = IMAGES_DIR / fname
         if not img_path.is_file():
-            print(f"  {RED}[FAIL] Missing photo: {img_path}{RESET}")
+            print(f"  {YELLOW}[PENDING] Missing local photo: {img_path} (Run 'python demo/fetch_assets.py' or publish release assets){RESET}")
             all_matched = False
             continue
         data = img_path.read_bytes()

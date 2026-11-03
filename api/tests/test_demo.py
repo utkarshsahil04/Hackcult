@@ -7,7 +7,11 @@ import os
 os.environ.setdefault("GEMINI_API_KEY", "test-key")
 
 import hashlib
+import io
 import socket
+import sys
+import urllib.error
+import urllib.request
 from pathlib import Path
 
 from app.demo_cache import DemoCache, get_demo_cache
@@ -16,6 +20,15 @@ from app.ml import get_pipeline
 from fastapi.testclient import TestClient
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
+if str(REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT))
+
+from demo.fetch_assets import (
+    fetch_all_assets,
+    fetch_single_asset,
+    verify_file_sha256,
+)
+
 DEMO_DIR = REPO_ROOT / "demo"
 DEMO_IMAGES_DIR = DEMO_DIR / "images"
 
@@ -198,3 +211,156 @@ def test_full_offline_network_isolation(monkeypatch):
     plan_data = plan_resp.json()
     assert plan_data["itinerary"]["is_feasible"] is True
     assert len(plan_data["itinerary"]["stops"]) >= 2
+
+
+def test_demo_images_integrity_on_disk():
+    """Verify all 5 demo images exist on disk and pass size and SHA-256 checks."""
+    listing_resp = client.get("/api/recognition/demo-photos")
+    assert listing_resp.status_code == 200
+    photos = listing_resp.json()["photos"]
+
+    for p in photos:
+        img_file = DEMO_IMAGES_DIR / p["filename"]
+        assert img_file.is_file(), f"Missing demo image {img_file}"
+        assert img_file.stat().st_size == p["size_bytes"]
+        assert verify_file_sha256(img_file, p["sha256"])
+
+
+def test_fetch_assets_local_cache():
+    """Verify fetch_all_assets reports verified_local when images exist locally."""
+    results = fetch_all_assets(dest_dir=DEMO_IMAGES_DIR, offline=True)
+    assert len(results) == 5
+    for res in results.values():
+        assert res.status == "verified_local"
+        assert res.path is not None
+        assert res.path.is_file()
+        assert res.actual_sha == res.expected_sha
+
+
+def test_fetch_assets_mocked_download_success(tmp_path, monkeypatch):
+    """Verify successful asset download with verified SHA-256."""
+    taj_photo = {
+        "filename": "taj_mahal.jpg",
+        "sha256": "5a7f69bdbcd2a7c1193d368617769a85aaa22449b0a9c28e90ad2fb1d96db965",
+        "size_bytes": 20724,
+        "source": {
+            "download_url": "https://example.com/taj_mahal.jpg",
+            "release_tag": "v0.1.0-demo-assets",
+        },
+    }
+    real_bytes = (DEMO_IMAGES_DIR / "taj_mahal.jpg").read_bytes()
+
+    class MockResponse:
+        def read(self):
+            return real_bytes
+
+        def __enter__(self):
+            return self
+
+        def __exit__(self, *args):
+            pass
+
+    monkeypatch.setattr(urllib.request, "urlopen", lambda req, timeout=None: MockResponse())
+
+    res = fetch_single_asset(taj_photo, dest_dir=tmp_path, force=True, offline=False)
+    assert res.status == "downloaded_and_verified"
+    assert res.path == tmp_path / "taj_mahal.jpg"
+    assert (tmp_path / "taj_mahal.jpg").is_file()
+    assert (tmp_path / "taj_mahal.jpg").read_bytes() == real_bytes
+
+
+def test_fetch_assets_mocked_checksum_mismatch(tmp_path, monkeypatch):
+    """Verify corrupt asset download triggers checksum_mismatch and leaves no file."""
+    taj_photo = {
+        "filename": "taj_mahal.jpg",
+        "sha256": "5a7f69bdbcd2a7c1193d368617769a85aaa22449b0a9c28e90ad2fb1d96db965",
+        "size_bytes": 20724,
+        "source": {
+            "download_url": "https://example.com/taj_mahal.jpg",
+            "release_tag": "v0.1.0-demo-assets",
+        },
+    }
+
+    class MockBadResponse:
+        def read(self):
+            return b"corrupted bytes from compromised or altered CDN"
+
+        def __enter__(self):
+            return self
+
+        def __exit__(self, *args):
+            pass
+
+    monkeypatch.setattr(urllib.request, "urlopen", lambda req, timeout=None: MockBadResponse())
+
+    res = fetch_single_asset(taj_photo, dest_dir=tmp_path, force=True, offline=False)
+    assert res.status == "checksum_mismatch"
+    assert not (tmp_path / "taj_mahal.jpg").is_file()
+    assert "failed SHA-256" in res.message
+
+
+def test_fetch_assets_release_pending_404(tmp_path, monkeypatch):
+    """Verify HTTP 404 is gracefully reported as release_pending."""
+    taj_photo = {
+        "filename": "taj_mahal.jpg",
+        "sha256": "5a7f69bdbcd2a7c1193d368617769a85aaa22449b0a9c28e90ad2fb1d96db965",
+        "size_bytes": 20724,
+        "source": {
+            "download_url": "https://example.com/taj_mahal.jpg",
+            "release_tag": "v0.1.0-demo-assets",
+        },
+    }
+
+    def _mock_404(req, timeout=None):
+        raise urllib.error.HTTPError(
+            url="https://example.com/taj_mahal.jpg",
+            code=404,
+            msg="Not Found",
+            hdrs=None,
+            fp=io.BytesIO(b"Not Found"),
+        )
+
+    monkeypatch.setattr(urllib.request, "urlopen", _mock_404)
+
+    res = fetch_single_asset(taj_photo, dest_dir=tmp_path, force=True, offline=False)
+    assert res.status == "release_pending"
+    assert "404" in res.message
+    assert "maintainer" in res.message.lower()
+    assert not (tmp_path / "taj_mahal.jpg").is_file()
+
+
+def test_fetch_assets_offline_missing_file(tmp_path):
+    """Verify offline mode reports missing_offline without network call."""
+    taj_photo = {
+        "filename": "taj_mahal.jpg",
+        "sha256": "5a7f69bdbcd2a7c1193d368617769a85aaa22449b0a9c28e90ad2fb1d96db965",
+        "size_bytes": 20724,
+        "source": {
+            "download_url": "https://example.com/taj_mahal.jpg",
+            "release_tag": "v0.1.0-demo-assets",
+        },
+    }
+
+    res = fetch_single_asset(taj_photo, dest_dir=tmp_path, offline=True)
+    assert res.status == "missing_offline"
+    assert not (tmp_path / "taj_mahal.jpg").is_file()
+
+
+def test_fetch_assets_offline_corrupt_file(tmp_path):
+    """Verify offline mode identifies corrupted local files."""
+    corrupt_file = tmp_path / "taj_mahal.jpg"
+    corrupt_file.write_bytes(b"damaged local file")
+
+    taj_photo = {
+        "filename": "taj_mahal.jpg",
+        "sha256": "5a7f69bdbcd2a7c1193d368617769a85aaa22449b0a9c28e90ad2fb1d96db965",
+        "size_bytes": 20724,
+        "source": {
+            "download_url": "https://example.com/taj_mahal.jpg",
+            "release_tag": "v0.1.0-demo-assets",
+        },
+    }
+
+    res = fetch_single_asset(taj_photo, dest_dir=tmp_path, offline=True)
+    assert res.status == "checksum_mismatch"
+    assert "corrupted" in res.message

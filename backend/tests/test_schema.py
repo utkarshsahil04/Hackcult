@@ -3,6 +3,7 @@
 import sqlite3
 
 import pytest
+
 from app.db.init_db import REQUIRED_TABLES, init_db, verify_integrity
 
 

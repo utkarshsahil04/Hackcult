@@ -5,6 +5,8 @@ from __future__ import annotations
 from unittest.mock import patch
 
 import pytest
+from ortools.constraint_solver import routing_enums_pb2
+
 from app.planner.matrix import load_matrix
 from app.planner.models import (
     InfeasibleItineraryError,
@@ -12,7 +14,6 @@ from app.planner.models import (
     TravelMatrix,
 )
 from app.planner.solver import solve_itinerary
-from ortools.constraint_solver import routing_enums_pb2
 
 
 @pytest.fixture

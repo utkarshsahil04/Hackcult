@@ -41,6 +41,11 @@ postgres_data/
 redis_data/
 *.log
 
+# Demo images (materialized locally from cached_responses.json, not tracked)
+demo/images/*.jpg
+demo/images/*.jpeg
+demo/images/*.png
+
 # Editors / OS
 .DS_Store
 .idea/
