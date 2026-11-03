@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { ArrowRight, BookOpen, Clock, Compass, MapPin, MapPinned, Route, ShieldCheck, Sparkles } from 'lucide-react'
 import { LazyMotion, domAnimation, m } from 'framer-motion'
 import { Toggle, useLang } from '@/components/raahein'
-import { ArchImage, InlayFrame, VineDivider } from '@/components/heritage'
+import { ArchImage, HeritageSimulator, InlayFrame, VineDivider } from '@/components/heritage'
 import { monuments } from '@/lib/mock'
 import { transitions } from '@/lib/motion'
 
@@ -229,6 +229,9 @@ export default function Page() {
             ))}
           </div>
         </section>
+
+        {/* Interactive Architectural & Solar Simulator */}
+        <HeritageSimulator lang={lang} />
 
         {/* Curated Corridors */}
         <section aria-labelledby="corridors-heading" className="px-5 py-8 lg:px-0 lg:py-14">
