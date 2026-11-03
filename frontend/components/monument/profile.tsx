@@ -3,8 +3,8 @@
 import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import { LazyMotion, domAnimation, m, useReducedMotion } from 'framer-motion'
-import { ArrowLeft, Check, ChevronDown, Pause, Play, Plus, X } from 'lucide-react'
-import { ArchImage, DropCap, InlayFrame, ManuscriptPanel, MonumentArt, SectionHeading } from '@/components/heritage'
+import { ArrowLeft, Box, Camera, Check, ChevronDown, Pause, Play, Plus, X } from 'lucide-react'
+import { ArchImage, DropCap, InlayFrame, ManuscriptPanel, Monument3DViewer, MonumentArt, SectionHeading } from '@/components/heritage'
 import { Toggle, useLang } from '@/components/raahein'
 import { imageCredits } from '@/lib/credits'
 import { getMonument } from '@/lib/catalog'
@@ -26,6 +26,7 @@ export function MonumentProfile({ id }: Props) {
   const [source, setSource] = useState<number | null>(null)
   const [sourcesOpen, setSourcesOpen] = useState(false)
   const [added, setAdded] = useState(false)
+  const [viewMode, setViewMode] = useState<'photo' | '3d'>('photo')
   const reduced = useReducedMotion()
   const audioRef = useRef<HTMLAudioElement | null>(null)
   const returnFocus = useRef<HTMLElement | null>(null)
@@ -128,13 +129,45 @@ export function MonumentProfile({ id }: Props) {
 
         {/* Fixed Left Canvas: Clean aspect ratio, unblurred image, sticky on desktop */}
         <aside className="relative lg:sticky lg:top-24 lg:col-span-5 lg:self-start lg:space-y-4">
-          <m.section animate={{ opacity: 1, y: 0 }} className="relative h-[44vh] min-h-80 sm:h-[400px] lg:h-[480px] w-full overflow-hidden rounded-2xl border border-[#E8A317]/50 shadow-xl" initial={false} transition={transitions.slow}>
-            <ArchImage src={monument.image} alt={monument.name[lang]} className="h-full w-full rounded-none border-0" layoutId={`monument-${monument.id}`} />
-            <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#1F1A14]/85 via-[#1F1A14]/40 to-transparent px-5 pb-5 pt-16">
-              <h1 className="font-[var(--font-fraunces)] text-3xl sm:text-4xl leading-tight text-[#FBF6EC] drop-shadow">{monument.name[lang]}</h1>
-              <p className="mt-1 text-xs sm:text-sm text-[#FBF6EC]/85">{monument.city} · {monument.era}</p>
-            </div>
-          </m.section>
+          {/* Visual Mode Selector: Photo vs 3D Architecture */}
+          <div className="flex items-center gap-1.5 rounded-full border border-[#E8A317]/40 bg-[#FBF6EC] p-1 shadow-xs">
+            <button
+              type="button"
+              onClick={() => setViewMode('photo')}
+              className={`flex-1 flex items-center justify-center gap-1.5 py-1.5 px-3 rounded-full text-xs font-semibold transition-all ${
+                viewMode === 'photo'
+                  ? 'bg-[#B5452B] text-[#FBF6EC] shadow-xs'
+                  : 'text-[#5A4E3F] hover:text-[#1F1A14]'
+              }`}
+            >
+              <Camera size={14} />
+              {lang === 'hi' ? 'तस्वीर' : 'Photo'}
+            </button>
+            <button
+              type="button"
+              onClick={() => setViewMode('3d')}
+              className={`flex-1 flex items-center justify-center gap-1.5 py-1.5 px-3 rounded-full text-xs font-semibold transition-all ${
+                viewMode === '3d'
+                  ? 'bg-[#B5452B] text-[#FBF6EC] shadow-xs'
+                  : 'text-[#5A4E3F] hover:text-[#1F1A14]'
+              }`}
+            >
+              <Box size={14} />
+              {lang === 'hi' ? '3D वास्तुकला' : '3D Architecture'}
+            </button>
+          </div>
+
+          {viewMode === '3d' ? (
+            <Monument3DViewer monumentId={monument.id} lang={lang} />
+          ) : (
+            <m.section animate={{ opacity: 1, y: 0 }} className="relative h-[44vh] min-h-80 sm:h-[400px] lg:h-[480px] w-full overflow-hidden rounded-2xl border border-[#E8A317]/50 shadow-xl" initial={false} transition={transitions.slow}>
+              <ArchImage src={monument.image} alt={monument.name[lang]} className="h-full w-full rounded-none border-0" layoutId={`monument-${monument.id}`} />
+              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#1F1A14]/85 via-[#1F1A14]/40 to-transparent px-5 pb-5 pt-16">
+                <h1 className="font-[var(--font-fraunces)] text-3xl sm:text-4xl leading-tight text-[#FBF6EC] drop-shadow">{monument.name[lang]}</h1>
+                <p className="mt-1 text-xs sm:text-sm text-[#FBF6EC]/85">{monument.city} · {monument.era}</p>
+              </div>
+            </m.section>
+          )}
 
           {/* Desktop Tour Action: Cleanly docked beneath the fixed image, never overlaying */}
           <div className="hidden lg:block">

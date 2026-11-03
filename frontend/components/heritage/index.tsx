@@ -7,6 +7,11 @@ import { durations, springs, transitions } from '@/lib/motion'
 import { monumentImages } from '@/lib/catalog'
 export { Atmosphere } from './atmosphere'
 export { HeritageSimulator } from './HeritageSimulator'
+import dynamic from 'next/dynamic'
+export const Monument3DViewer = dynamic(() => import('./Monument3DViewer').then((mod) => mod.Monument3DViewer), {
+  ssr: false,
+  loading: () => <div className="h-[380px] w-full rounded-2xl border border-[#E8A317]/50 bg-[#EADBC0] animate-pulse" />,
+})
 
 const KitMotion = ({ children }: { children: React.ReactNode }) => <LazyMotion features={domAnimation}>{children}</LazyMotion>
 

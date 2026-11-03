@@ -4,9 +4,9 @@ import { Suspense, useEffect, useState } from 'react'
 import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
 import { LazyMotion, domAnimation, m } from 'framer-motion'
-import { Scale } from 'lucide-react'
+import { Box, Scale, X } from 'lucide-react'
 import Map from '@/components/map'
-import { KolamLoader, VineDivider } from '@/components/heritage'
+import { KolamLoader, Monument3DViewer, VineDivider } from '@/components/heritage'
 import { useLang } from '@/components/raahein'
 import { planTour, type TourPlanResponse } from '@/lib/api'
 import { findMonument } from '@/lib/catalog'
@@ -26,6 +26,7 @@ function RouteContent() {
   const [planData, setPlanData] = useState<TourPlanResponse | null>(null)
   const [status, setStatus] = useState<'loading' | 'ready' | 'error'>('loading')
   const [started, setStarted] = useState(false)
+  const [viewing3D, setViewing3D] = useState<string | null>(null)
 
   useEffect(() => {
     let live = true
@@ -102,6 +103,14 @@ function RouteContent() {
                           <Link className="font-semibold underline-offset-4 hover:underline" href={`/monument/${id}`}>{monument.name[lang]}</Link>
                           <div className="text-sm text-[#5A4E3F]">{time} · {duration} min visit</div>
                           <div className="mt-0.5 text-xs text-[#8F3221]">{monument.era}{monument.verified ? '' : lang === 'hi' ? ' · कहानी शीघ्र' : ' · Story pending'}</div>
+                          <button
+                            type="button"
+                            onClick={() => setViewing3D(id)}
+                            className="mt-2 inline-flex items-center gap-1.5 rounded-full border border-[#E8A317]/50 bg-[#EADBC0]/60 px-3 py-1 text-xs font-semibold text-[#8F3221] shadow-2xs transition-colors hover:bg-[#E8A317]/30"
+                          >
+                            <Box size={13} className="text-[#E8A317]" />
+                            {lang === 'hi' ? '3D वास्तुकला' : '3D Architecture'}
+                          </button>
                         </div>
                       </div>
                       {index < stops.length - 1 && <VineDivider />}
@@ -116,6 +125,31 @@ function RouteContent() {
             </>
           )}
         </div>
+
+        {/* 3D Architecture Viewer Modal */}
+        {viewing3D && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#1F1A14]/75 p-4 backdrop-blur-xs">
+            <div className="relative w-full max-w-lg overflow-hidden rounded-2xl border border-[#E8A317]/50 bg-[#FBF6EC] p-4 shadow-2xl">
+              <div className="mb-3 flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <Box size={18} className="text-[#B5452B]" />
+                  <h3 className="font-[var(--font-fraunces)] text-lg text-[#1F1A14]">
+                    {findMonument(viewing3D)?.name[lang]}
+                  </h3>
+                </div>
+                <button
+                  onClick={() => setViewing3D(null)}
+                  className="grid size-8 place-items-center rounded-full bg-[#EADBC0] text-[#1F1A14] transition-colors hover:bg-[#E8A317]/40"
+                  type="button"
+                  aria-label={lang === 'hi' ? 'बंद करें' : 'Close'}
+                >
+                  <X size={16} />
+                </button>
+              </div>
+              <Monument3DViewer monumentId={viewing3D} lang={lang} />
+            </div>
+          </div>
+        )}
       </main>
     </LazyMotion>
   )
