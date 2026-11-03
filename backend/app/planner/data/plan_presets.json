@@ -1,0 +1,22 @@
+{
+  "hard_max_stops": 3,
+  "default_preset": "standard",
+  "visit_minutes": {
+    "default": 60,
+    "listed_default": 30,
+    "by_slug": {
+      "taj-mahal": 90, "agra-fort": 75, "fatehpur-sikri": 90, "red-fort": 75, "humayuns-tomb": 60,
+      "qutb-complex": 60, "akbars-tomb": 45, "itimad-ud-daulah": 30, "jama-masjid": 40,
+      "safdarjungs-tomb": 40, "purana-qila": 50, "tughlaqabad-fort": 60, "jantar-mantar": 35,
+      "mehrauli-archaeological-park": 75, "lodhi-gardens": 45, "india-gate": 25, "lotus-temple": 40,
+      "hauz-khas-complex": 50, "agrasen-ki-baoli": 25, "feroz-shah-kotla": 40, "rashtrapati-bhavan": 30,
+      "sunder-nursery": 50, "abdul-rahim-khan-i-khana-tomb": 25, "khirki-masjid": 25,
+      "nizamuddin-dargah": 40, "raj-ghat": 25, "akshardham-delhi": 90, "fatehpuri-masjid": 25
+    }
+  },
+  "presets": {
+    "relaxed":  {"label": "Relaxed",  "max_stops": 2, "max_leg_min": 30, "visit_scale": 1.25},
+    "standard": {"label": "Standard", "max_stops": 3, "max_leg_min": 45, "visit_scale": 1.0},
+    "quick":    {"label": "Quick",    "max_stops": 3, "max_leg_min": 30, "visit_scale": 0.6}
+  }
+}
