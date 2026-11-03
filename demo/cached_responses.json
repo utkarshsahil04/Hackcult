@@ -1,0 +1,157 @@
+{
+  "version": 1,
+  "description": "Deterministic cached recognition responses for the 5 official Raahein demo photos",
+  "generated_at": "2026-11-03T07:00:00Z",
+  "photos": [
+    {
+      "id": "demo-01",
+      "filename": "taj_mahal.jpg",
+      "sha256": "5a7f69bdbcd2a7c1193d368617769a85aaa22449b0a9c28e90ad2fb1d96db965",
+      "canonical_slug": "taj-mahal",
+      "monument_name": "Taj Mahal",
+      "city": "Agra",
+      "era": "Mughal",
+      "result": {
+        "status": "ok",
+        "candidates": [
+          {
+            "slug": "taj-mahal",
+            "name": "Taj Mahal",
+            "score": 0.9650
+          },
+          {
+            "slug": "mehtab-bagh",
+            "name": "Mehtab Bagh",
+            "score": 0.7820
+          },
+          {
+            "slug": "itmad-ud-daulah",
+            "name": "Itmad-ud-Daulah",
+            "score": 0.6510
+          }
+        ],
+        "provenance": "demo_cache"
+      }
+    },
+    {
+      "id": "demo-02",
+      "filename": "qutb_minar.jpg",
+      "sha256": "419b6920da37e72d7790bf85bf5a6286f3394be5bab21186defb84c5afafa066",
+      "canonical_slug": "qutb-minar",
+      "monument_name": "Qutb Minar",
+      "city": "Delhi",
+      "era": "Delhi Sultanate",
+      "result": {
+        "status": "ok",
+        "candidates": [
+          {
+            "slug": "qutb-minar",
+            "name": "Qutb Minar",
+            "score": 0.9520
+          },
+          {
+            "slug": "humayuns-tomb",
+            "name": "Humayun's Tomb",
+            "score": 0.7240
+          },
+          {
+            "slug": "purana-qila",
+            "name": "Purana Qila",
+            "score": 0.6180
+          }
+        ],
+        "provenance": "demo_cache"
+      }
+    },
+    {
+      "id": "demo-03",
+      "filename": "humayuns_tomb.jpg",
+      "sha256": "5a0a3e69c30b99e83de2e47711f24e5c2754a0f1d44851a631274746c4ecd687",
+      "canonical_slug": "humayuns-tomb",
+      "monument_name": "Humayun's Tomb",
+      "city": "Delhi",
+      "era": "Mughal",
+      "result": {
+        "status": "ok",
+        "candidates": [
+          {
+            "slug": "humayuns-tomb",
+            "name": "Humayun's Tomb",
+            "score": 0.9480
+          },
+          {
+            "slug": "purana-qila",
+            "name": "Purana Qila",
+            "score": 0.7630
+          },
+          {
+            "slug": "safdarjung-tomb",
+            "name": "Safdarjung Tomb",
+            "score": 0.6840
+          }
+        ],
+        "provenance": "demo_cache"
+      }
+    },
+    {
+      "id": "demo-04",
+      "filename": "red_fort.jpg",
+      "sha256": "3eb1a427a85d9a17c13941a3ee5022aa33f9f7cc685e6c3863949cd3e5c58302",
+      "canonical_slug": "red-fort",
+      "monument_name": "Red Fort",
+      "city": "Delhi",
+      "era": "Mughal",
+      "result": {
+        "status": "ok",
+        "candidates": [
+          {
+            "slug": "red-fort",
+            "name": "Red Fort",
+            "score": 0.9590
+          },
+          {
+            "slug": "jama-masjid",
+            "name": "Jama Masjid",
+            "score": 0.7910
+          },
+          {
+            "slug": "agra-fort",
+            "name": "Agra Fort",
+            "score": 0.7050
+          }
+        ],
+        "provenance": "demo_cache"
+      }
+    },
+    {
+      "id": "demo-05",
+      "filename": "agra_fort.jpg",
+      "sha256": "162ef044912e27449c61cfb144c6631db43c7bf5fca354a375c9e015d237b015",
+      "canonical_slug": "agra-fort",
+      "monument_name": "Agra Fort",
+      "city": "Agra",
+      "era": "Mughal",
+      "result": {
+        "status": "ok",
+        "candidates": [
+          {
+            "slug": "agra-fort",
+            "name": "Agra Fort",
+            "score": 0.9540
+          },
+          {
+            "slug": "red-fort",
+            "name": "Red Fort",
+            "score": 0.7780
+          },
+          {
+            "slug": "taj-mahal",
+            "name": "Taj Mahal",
+            "score": 0.7120
+          }
+        ],
+        "provenance": "demo_cache"
+      }
+    }
+  ]
+}
