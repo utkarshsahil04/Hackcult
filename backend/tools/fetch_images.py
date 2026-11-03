@@ -20,7 +20,7 @@ API = "https://commons.wikimedia.org/w/api.php"
 WIKI = "https://en.wikipedia.org/w/api.php"
 HEADERS = {"User-Agent": "raahein-image-tool/0.1 (https://github.com/utkarshsahil04/Hackcult)"}
 WIDTH = 1280
-FREE = re.compile(r"^(cc[ -]?by|cc0|public domain|pd\b)", re.I)
+FREE = re.compile(r"^(cc[ -]?by|cc0|public domain|pd\b)", re.IGNORECASE)
 
 # Wikipedia article whose lead image is used, or "File:..." where a specific Commons photo was chosen by eye.
 SITES = {
