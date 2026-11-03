@@ -7,6 +7,7 @@ import { AnimatePresence, LazyMotion, domAnimation, m, useReducedMotion } from '
 import { Camera, CameraOff, ImagePlus } from 'lucide-react'
 import { DesktopIdentify } from '@/components/identify/DesktopIdentify'
 import { KolamLoader, MonumentArt } from '@/components/heritage'
+import { RaaheinLogo } from '@/components/RaaheinLogo'
 import { Toggle, useLang } from '@/components/raahein'
 import { identify, type IdentifyResult } from '@/lib/api'
 import { monuments, getMonument } from '@/lib/mock'
@@ -205,7 +206,9 @@ export default function Identify() {
         <main className="shell min-h-svh pb-24 lg:hidden" lang={lang}>
           <h1 className="sr-only">{t.scan}</h1>
           <header className="sticky top-0 z-40 flex items-center justify-between border-b border-[#E8A317]/20 bg-[#EADBC0]/95 px-5 py-2.5 backdrop-blur safe-top">
-            <Link className="fraunces flex min-h-12 items-center text-2xl" href="/">Raahein</Link>
+            <Link className="flex min-h-12 items-center" href="/" aria-label={t.app}>
+              <RaaheinLogo className="h-9 w-24" />
+            </Link>
             <Toggle lang={lang} setLang={setLang} />
           </header>
           <div className="relative mx-5 mt-3 h-[54svh] overflow-hidden rounded-[2rem] bg-[#D9C4A1]">

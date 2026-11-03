@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { ArrowRight, BookOpen, Clock, Compass, MapPin, MapPinned, Route, ShieldCheck, Sparkles } from 'lucide-react'
 import { LazyMotion, domAnimation, m } from 'framer-motion'
 import { Toggle, useLang } from '@/components/raahein'
+import { RaaheinLogo } from '@/components/RaaheinLogo'
 import { ArchImage, HeritageSimulator, InlayFrame, VineDivider } from '@/components/heritage'
 import { monuments } from '@/lib/mock'
 import { transitions } from '@/lib/motion'
@@ -140,7 +141,9 @@ export default function Page() {
       <main className="shell min-h-svh overflow-hidden pb-24 lg:mx-auto lg:max-w-7xl lg:px-8" lang={lang}>
         {/* Mobile Header */}
         <header className="sticky top-0 z-40 flex items-center justify-between border-b border-[#E8A317]/20 bg-[#EADBC0]/95 px-5 py-2.5 backdrop-blur lg:hidden safe-top">
-          <Link className="fraunces flex min-h-12 items-center text-2xl" href="/">Raahein</Link>
+          <Link className="flex min-h-12 items-center" href="/" aria-label={lang === 'hi' ? 'राहें' : 'Raahein'}>
+            <RaaheinLogo className="h-9 w-24" />
+          </Link>
           <Toggle lang={lang} setLang={setLang} />
         </header>
 

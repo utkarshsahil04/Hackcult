@@ -6,6 +6,7 @@ import { usePathname } from 'next/navigation'
 import { AnimatePresence, m } from 'framer-motion'
 import { CalendarDays, Compass, ScanLine, X } from 'lucide-react'
 import { Tabs, Toggle, useLang } from '@/components/raahein'
+import { RaaheinLogo } from '@/components/RaaheinLogo'
 import { transitions } from '@/lib/motion'
 
 type TourStop = { id: string; name: string }
@@ -66,7 +67,9 @@ export function AppShell({ children }: { children: React.ReactNode }) {
   return (
     <div className="app-shell">
       <header className="desktop-nav">
-        <Link href="/" className="fraunces flex min-h-12 items-center text-2xl">{t.app}</Link>
+        <Link href="/" className="flex min-h-12 items-center" aria-label={t.app}>
+          <RaaheinLogo className="h-11 w-28" />
+        </Link>
         <nav aria-label={lang === 'hi' ? 'मुख्य नेविगेशन' : 'Primary navigation'} className="flex items-center gap-8 text-sm font-semibold">
           {navItems.map(({ href, id, icon: Icon }) => {
             const current = pathname === href || (id === 'explore' && pathname === '/nearby')

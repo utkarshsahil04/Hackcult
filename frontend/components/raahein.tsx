@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { CalendarDays, Compass, Map, ScanLine, Search } from 'lucide-react'
 import { motion } from 'framer-motion'
 import { MonumentArt } from '@/components/heritage'
+import { RaaheinLogo } from '@/components/RaaheinLogo'
 import { strings } from '@/lib/i18n/strings'
 import { monuments, type Lang } from '@/lib/mock'
 import { transitions } from '@/lib/motion'
@@ -115,7 +116,9 @@ export function Tabs({ active }: { active: 'scan' | 'explore' | 'plan' }) {
 function Header({ lang, setLang }: { lang: Lang; setLang: (next: Lang) => void }) {
   return (
     <header className="sticky top-0 z-40 flex items-center justify-between border-b border-[#E8A317]/20 bg-[#EADBC0]/95 px-5 py-2.5 backdrop-blur lg:hidden safe-top">
-      <Link className="fraunces flex min-h-12 items-center text-2xl" href="/">Raahein</Link>
+      <Link className="flex min-h-12 items-center" href="/" aria-label={lang === 'hi' ? 'राहें' : 'Raahein'}>
+        <RaaheinLogo className="h-9 w-24" />
+      </Link>
       <Toggle lang={lang} setLang={setLang} />
     </header>
   )
