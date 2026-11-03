@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation'
 import { RelatedMonuments } from '@/components/monument/related'
-import { findMonument, monuments } from '@/lib/mock'
+import { findMonument, monuments } from '@/lib/catalog'
 
 export const dynamicParams = false
 export function generateStaticParams() { return monuments.map((monument) => ({ id: monument.id })) }
