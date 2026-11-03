@@ -45,3 +45,7 @@ redis_data/
 .DS_Store
 .idea/
 .vscode/
+
+# Binaries
+*.exe
+**/scripts/bin/
