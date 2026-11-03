@@ -40,10 +40,10 @@ export default function Page() {
             })
           ) : (
             monuments.slice(0, 4).map((monument) => (
-              <Link href={`/monument/${monument.id}`} className="min-w-40 snap-start rounded-xl border border-[#E8A317]/35 bg-[#EADBC0]/45 p-2 text-[#1F1A14]" key={monument.id}>
+              <Link href={`/monument/${monument.id}`} className="min-w-44 snap-start rounded-xl border border-[#E8A317]/35 bg-[#EADBC0]/45 p-2.5 text-[#1F1A14]" key={monument.id}>
                 <MonumentArt alt="" className="h-20 w-full rounded-lg" id={monument.id} />
                 <div className="mt-2 break-words text-sm font-semibold">{monument.name[lang]}</div>
-                <div className="text-xs text-[#5A4E3F]">{monument.city}</div>
+                <div className="text-xs text-[#5A4E3F]">{monument.city} · {monument.yearBuilt} CE</div>
               </Link>
             ))
           )}

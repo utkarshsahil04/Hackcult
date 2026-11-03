@@ -204,7 +204,7 @@ export default function Identify() {
       ) : (
         <main className="shell min-h-svh bg-[#FBF6EC] pb-24 lg:hidden" lang={lang}>
           <h1 className="sr-only">{t.scan}</h1>
-          <header className="safe-top flex items-center justify-between px-5 py-2">
+          <header className="sticky top-0 z-40 flex items-center justify-between border-b border-[#E8A317]/20 bg-[#EADBC0]/95 px-5 py-2.5 backdrop-blur safe-top">
             <Link className="fraunces flex min-h-12 items-center text-2xl" href="/">Raahein</Link>
             <Toggle lang={lang} setLang={setLang} />
           </header>

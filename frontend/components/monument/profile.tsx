@@ -132,7 +132,13 @@ export function MonumentProfile({ id }: Props) {
         <div className="mx-auto max-w-md space-y-6 px-5 pt-5 lg:col-span-7 lg:col-start-6 lg:row-start-2 lg:max-w-none lg:px-0 lg:pt-0">
           <Link className="link-primary hidden min-h-12 items-center gap-2 lg:inline-flex" href="/explore"><ArrowLeft aria-hidden="true" size={18} />{t.back}</Link>
           <div className="flex flex-wrap gap-2">
-            {[monument.city, monument.yearBuilt, monument.builder].map((chip, index) => <m.span animate={{ opacity: 1, y: 0 }} className="rounded-full border border-[#B5452B]/25 bg-[#FBF6EC] px-3 py-2 text-xs font-semibold text-[#5A4E3F]" initial={false} key={chip} transition={{ ...transitions.base, delay: index * .06 }}>{chip}</m.span>)}
+            {[
+              monument.city,
+              `${monument.yearBuilt} CE`,
+              lang === 'hi' ? `निर्माता: ${monument.builder}` : `By ${monument.builder}`,
+              'UNESCO Site',
+              `${monument.sources.length} ${lang === 'hi' ? 'प्रमाणित स्रोत' : 'Verified Sources'}`,
+            ].map((chip, index) => <m.span animate={{ opacity: 1, y: 0 }} className="rounded-full border border-[#B5452B]/25 bg-[#FBF6EC] px-3 py-1.5 text-xs font-semibold text-[#5A4E3F]" initial={false} key={chip} transition={{ ...transitions.base, delay: index * .06 }}>{chip}</m.span>)}
           </div>
           <InlayFrame>
             <div className="rounded-[11px] bg-[#FBF6EC] p-4">

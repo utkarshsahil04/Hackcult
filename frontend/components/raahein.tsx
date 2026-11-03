@@ -114,7 +114,7 @@ export function Tabs({ active }: { active: 'scan' | 'explore' | 'plan' }) {
 
 function Header({ lang, setLang }: { lang: Lang; setLang: (next: Lang) => void }) {
   return (
-    <header className="flex items-center justify-between px-5 py-3 lg:hidden">
+    <header className="sticky top-0 z-40 flex items-center justify-between border-b border-[#E8A317]/20 bg-[#EADBC0]/95 px-5 py-2.5 backdrop-blur lg:hidden safe-top">
       <Link className="fraunces flex min-h-12 items-center text-2xl" href="/">Raahein</Link>
       <Toggle lang={lang} setLang={setLang} />
     </header>
@@ -204,9 +204,19 @@ export function Explore() {
                   <Link href={`/monument/${monument.id}`} className="card flex h-full min-h-48 flex-col overflow-hidden focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#E8A317]">
                     <MonumentArt alt={monument.name[lang]} className="h-36 w-full" id={monument.id} />
                     <div className="flex flex-1 flex-col p-3">
-                      <div className="font-semibold">{monument.name[lang]}</div>
-                      <div className="text-sm text-[#5A4E3F]">{monument.city}</div>
-                      {monument.sections.some((section) => section.isLegend) && <span className="mt-auto pt-2"><span className="inline-block rounded-full border border-[#E8A317] px-2 py-1 text-xs text-[#765500]">{t.legend}</span></span>}
+                      <div className="flex items-center justify-between text-xs text-[#5A4E3F]">
+                        <span className="font-semibold text-[#8F3221]">{monument.city}</span>
+                        <span>{monument.yearBuilt} CE</span>
+                      </div>
+                      <div className="mt-1 font-semibold text-[#1F1A14]">{monument.name[lang]}</div>
+                      <div className="mt-0.5 text-xs text-[#5A4E3F] line-clamp-1">{monument.builder}</div>
+                      <div className="mt-2 line-clamp-2 text-xs leading-5 text-[#5A4E3F]">{monument.sections[0]?.text[lang]}</div>
+                      <div className="mt-auto flex items-center justify-between pt-3 text-[11px] text-[#5A4E3F]">
+                        <span className="font-medium text-[#765500]">{monument.sources.length} {lang === 'hi' ? 'स्रोत' : 'sources'}</span>
+                        {monument.sections.some((section) => section.isLegend) && (
+                          <span className="inline-block rounded-full border border-[#E8A317] px-2 py-0.5 text-[10px] text-[#765500]">{t.legend}</span>
+                        )}
+                      </div>
                     </div>
                   </Link>
                 </motion.div>

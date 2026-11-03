@@ -31,7 +31,7 @@ export default function Page() {
   return (
     <LazyMotion features={domAnimation}>
       <main className="shell pb-24 lg:grid lg:max-w-none lg:grid-cols-[420px_minmax(0,1fr)] lg:gap-0 lg:px-0 lg:pb-0" lang={lang}>
-        <header className="flex items-center justify-between px-5 pt-3 lg:hidden">
+        <header className="sticky top-0 z-40 flex items-center justify-between border-b border-[#E8A317]/20 bg-[#EADBC0]/95 px-5 py-2.5 backdrop-blur lg:hidden safe-top">
           <h1 className="font-[var(--font-fraunces)] text-4xl">{t.plan}</h1>
           <Toggle lang={lang} setLang={setLang} />
         </header>

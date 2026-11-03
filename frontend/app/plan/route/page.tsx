@@ -86,7 +86,11 @@ function RouteContent() {
                     <m.div animate={{ opacity: 1, x: 0 }} initial={false} key={id} transition={{ ...transitions.base, delay: index * .06 }}>
                       <div className="flex gap-4 border-l-2 border-[#B5452B] py-3 pl-4">
                         <span className="grid size-8 shrink-0 place-items-center rounded-full bg-[#B5452B] text-sm text-white">{index + 1}</span>
-                        <div><div className="font-semibold">{monument.name[lang]}</div><div className="text-sm text-[#5A4E3F]">{time} · {duration} min</div></div>
+                        <div>
+                          <div className="font-semibold">{monument.name[lang]}</div>
+                          <div className="text-sm text-[#5A4E3F]">{time} · {duration} min visit</div>
+                          <div className="mt-0.5 text-xs text-[#8F3221]">{monument.city} · {monument.yearBuilt} CE · {monument.builder}</div>
+                        </div>
                       </div>
                       {index < stops.length - 1 && <VineDivider />}
                     </m.div>
