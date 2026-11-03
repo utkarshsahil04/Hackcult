@@ -7,6 +7,10 @@ async function openIdentify(page: Page, query = '') {
     sessionStorage.setItem('raahein-intro', '1')
     localStorage.setItem('raahein-language', 'en')
   })
+  await page.route('**/api/recognition/identify', (route) => route.fulfill({
+    contentType: 'application/json',
+    body: JSON.stringify({ status: 'ok', candidates: [{ slug: 'taj-mahal', name: 'Taj Mahal', score: .99 }] }),
+  }))
   await page.goto(`/identify${query}`)
   await page.locator('input[type="file"]').first().setInputFiles({ name: 'monument.png', mimeType: 'image/png', buffer: png })
 }

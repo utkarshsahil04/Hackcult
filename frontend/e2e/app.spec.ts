@@ -46,11 +46,39 @@ test.describe('all pages', () => {
       await expect.poll(() => page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth), { message: `${path} should not overflow horizontally` }).toBeLessThanOrEqual(1)
       await expect.poll(() => page.locator('img').evaluateAll((images) => images.filter((image) => {
         const candidate = image as HTMLImageElement
+        if (candidate.getClientRects().length === 0) return false
         return !candidate.complete || candidate.naturalWidth === 0
       }).map((image) => image.getAttribute('src'))), { message: `${path} should not contain broken images` }).toEqual([])
       expect(pageErrors).toEqual([])
     })
   }
+
+  test('monument cards use official UNESCO gallery images', async ({ page }) => {
+    await page.goto('/explore')
+    const cardImages = page.locator('a[href^="/monument/"] img')
+
+    await expect(cardImages).toHaveCount(6)
+    for (const image of await cardImages.all()) {
+      await expect(image).toHaveAttribute('src', /whc\.unesco\.org(?:%2F|\/)uploads(?:%2F|\/)thumbs/i)
+    }
+  })
+
+  test('home desktop header continues the page surface', async ({ page, isMobile }) => {
+    test.skip(isMobile, 'The desktop navigation is hidden on mobile.')
+    await page.goto('/')
+    await expect(page.locator('.desktop-nav')).not.toHaveCSS('background-color', 'rgba(0, 0, 0, 0)')
+  })
+
+  test('home desktop steps stay equal width', async ({ page, isMobile }) => {
+    test.skip(isMobile, 'The mobile steps intentionally use a single column.')
+    await page.goto('/')
+    const section = page.getByRole('heading', { name: 'How it works' }).locator('../..')
+    const widths = await section.locator('ol > li > div:first-child').evaluateAll((cards) => cards.map((card) => Math.round(card.getBoundingClientRect().width)))
+    expect(new Set(widths).size).toBe(1)
+    const connectors = section.locator('ol > li > div:nth-child(2) svg')
+    await expect(connectors).toHaveCount(2)
+    for (const connector of await connectors.all()) await expect(connector).toHaveCSS('opacity', '1')
+  })
 
   test('language stays synchronized across shared and page controls', async ({ page }) => {
     await page.goto('/explore')

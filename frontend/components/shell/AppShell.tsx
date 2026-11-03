@@ -65,7 +65,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="app-shell">
-      <header className="desktop-nav">
+      <header className={`desktop-nav ${pathname === '/' ? 'bg-[#EADBC0]/95' : ''}`}>
         <Link href="/" className="fraunces flex min-h-12 items-center text-2xl">{t.app}</Link>
         <nav aria-label={lang === 'hi' ? 'मुख्य नेविगेशन' : 'Primary navigation'} className="flex items-center gap-8 text-sm font-semibold">
           {navItems.map(({ href, id, icon: Icon }) => {

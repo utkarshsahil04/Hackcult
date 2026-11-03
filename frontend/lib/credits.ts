@@ -1,1 +1,8 @@
-export const imageCredits: Record<string, { source: string; licence: string }> = { 'taj-mahal': { source: 'Raahein heritage archive', licence: 'Illustrated fallback artwork; no external photo licence required' }, 'agra-fort': { source: 'Raahein heritage archive', licence: 'Illustrated fallback artwork; no external photo licence required' }, 'red-fort': { source: 'Raahein heritage archive', licence: 'Illustrated fallback artwork; no external photo licence required' }, 'humayuns-tomb': { source: 'Raahein heritage archive', licence: 'Illustrated fallback artwork; no external photo licence required' }, 'qutub-minar': { source: 'Raahein heritage archive', licence: 'Illustrated fallback artwork; no external photo licence required' }, 'fatehpur-sikri': { source: 'Raahein heritage archive', licence: 'Illustrated fallback artwork; no external photo licence required' } }
+export const imageCredits: Record<string, { source: string; licence: string }> = {
+  'taj-mahal': { source: 'UNESCO World Heritage Centre', licence: '© M & G Therin-Weise' },
+  'agra-fort': { source: 'UNESCO World Heritage Centre', licence: '© Limes.Media/Tim Schnarr' },
+  'red-fort': { source: 'UNESCO World Heritage Centre', licence: '© C. Babu Rajeev' },
+  'humayuns-tomb': { source: 'UNESCO World Heritage Centre', licence: '© UNESCO / Francesco Bandarin' },
+  'qutub-minar': { source: 'UNESCO World Heritage Centre', licence: '© UNESCO / Francesco Bandarin' },
+  'fatehpur-sikri': { source: 'UNESCO World Heritage Centre', licence: '© M & G Therin-Weise' },
+}
