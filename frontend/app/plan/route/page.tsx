@@ -9,49 +9,60 @@ import Map from '@/components/map'
 import { KolamLoader, VineDivider } from '@/components/heritage'
 import { useLang } from '@/components/raahein'
 import { planTour, type TourPlanResponse } from '@/lib/api'
-import { getMonument } from '@/lib/mock'
+import { findMonument } from '@/lib/catalog'
 import { transitions } from '@/lib/motion'
-
-const routeStops = [
-  { id: 'taj-mahal', time: '09:00', duration: 60 },
-  { id: 'agra-fort', time: '11:15', duration: 75 },
-  { id: 'fatehpur-sikri', time: '14:00', duration: 90 },
-] as const
 
 function RouteContent() {
   const { lang, t } = useLang()
   const params = useSearchParams()
   const requestedHours = Number(params.get('hours')) || 6
   const hours = Math.min(10, Math.max(2, requestedHours))
-  const forcedStops = Number(params.get('stops'))
-  const defaultStopCount = forcedStops ? Math.min(routeStops.length, Math.max(1, forcedStops)) : hours < 4 ? 1 : hours < 6 ? 2 : 3
-  const defaultStops = routeStops.slice(0, defaultStopCount)
-  const defaultDistance = defaultStopCount === 1 ? 2 : defaultStopCount === 2 ? 5 : 42
+  const maxStops = Number(params.get('stops')) || undefined
   const mode = params.get('mode')
-  const modeLabel = mode === 'metro' ? t.metro : mode === 'auto' ? t.auto : t.walk
+  const preset = params.get('preset') || undefined
+  const city = params.get('city') || 'Delhi'
+  const interests = params.get('interests') || ''
+  const modeLabel = mode === 'auto' ? t.auto : t.walk
   const [planData, setPlanData] = useState<TourPlanResponse | null>(null)
+  const [status, setStatus] = useState<'loading' | 'ready' | 'error'>('loading')
   const [started, setStarted] = useState(false)
 
   useEffect(() => {
-    const profile = mode === 'auto' ? 'driving-car' : 'foot-walking'
+    let live = true
     planTour({
-      start_monument: 'taj-mahal',
       time_budget_minutes: hours * 60,
-      profile,
-    }).then(setPlanData).catch(() => {})
-  }, [hours, mode])
+      profile: mode === 'auto' ? 'driving-car' : 'foot-walking',
+      preset,
+      max_stops: maxStops,
+      interests: interests ? interests.split(',') : [],
+      preferences: { city },
+    }).then((plan) => {
+      if (!live) return
+      setPlanData(plan)
+      setStatus(plan ? 'ready' : 'error')
+    })
+    return () => { live = false }
+  }, [hours, mode, preset, maxStops, interests, city])
 
-  const impossible = params.get('mock') === 'impossible' || (planData !== null && !planData.is_feasible)
-  const stops = (planData?.is_feasible && planData.itinerary?.stops?.length)
-    ? planData.itinerary.stops.map((s) => ({
-        id: s.monument_slug,
-        time: `${String(Math.floor(s.arrival_time_min / 60) + 9).padStart(2, '0')}:${String(s.arrival_time_min % 60).padStart(2, '0')}`,
-        duration: s.visit_duration_min,
-      }))
-    : defaultStops
-  const distance = planData?.itinerary?.total_travel_distance_m
-    ? Math.round(planData.itinerary.total_travel_distance_m / 1000)
-    : defaultDistance
+  const impossible = planData !== null && !planData.is_feasible
+  const stops = (planData?.is_feasible ? planData.itinerary.stops : []).filter((s) => findMonument(s.monument_slug)).map((s) => {
+    const start = 9 * 60 + Math.round(s.arrival_time_min)
+    return { id: s.monument_slug, time: `${String(Math.floor(start / 60)).padStart(2, '0')}:${String(start % 60).padStart(2, '0')}`, duration: Math.round(s.visit_duration_min) }
+  })
+  const distance = Math.round((planData?.itinerary?.total_travel_distance_m ?? 0) / 1000)
+  const withParams = (changes: Record<string, string>) => `/plan/route?${new URLSearchParams({ ...Object.fromEntries(params), ...changes })}`
+  const hm = (min: number) => { const m = Math.round(min); return `${Math.floor(m / 60)}h ${m % 60}m` }
+
+  if (status === 'loading') return <main className="shell grid min-h-svh place-items-center" role="status"><div className="text-center"><KolamLoader /><p className="mt-3 text-sm text-[#5A4E3F]">{lang === 'hi' ? 'आपका रास्ता बन रहा है…' : 'Building your path…'}</p></div></main>
+  if (status === 'error') return (
+    <main className="shell grid min-h-[70svh] place-items-center px-5" lang={lang}>
+      <div className="card max-w-md p-8 text-center" role="alert">
+        <h1 className="font-[var(--font-fraunces)] text-3xl">{lang === 'hi' ? 'योजना अभी नहीं बन सकी' : 'We could not build your plan'}</h1>
+        <p className="mt-3 text-[#5A4E3F]">{lang === 'hi' ? 'योजना सेवा से संपर्क नहीं हो पाया। कृपया फिर कोशिश करें।' : 'The planning service could not be reached. Please try again.'}</p>
+        <Link href="/plan" className="link-inverse mt-6 flex min-h-12 items-center justify-center rounded-full bg-[#B5452B] px-5 font-semibold">{t.change}</Link>
+      </div>
+    </main>
+  )
 
   return (
     <LazyMotion features={domAnimation}>
@@ -69,27 +80,28 @@ function RouteContent() {
             <m.div animate={{ opacity: 1, y: 0 }} initial={false} transition={transitions.base}>
               <m.div animate={{ rotate: [0, 8, 0] }} className="mb-3 text-[#B5452B]" transition={transitions.base}><Scale aria-hidden="true" /></m.div>
               <h1 className="font-[var(--font-fraunces)] text-3xl">{t.impossible}</h1>
-              <p className="my-5 rounded-2xl border border-[#E8A317]/40 bg-[#EADBC0]/50 p-4 text-[#5A4E3F]">{t.impossibleBody}</p>
+              <p className="my-5 rounded-2xl border border-[#E8A317]/40 bg-[#EADBC0]/50 p-4 text-[#5A4E3F]">{lang === 'hi' ? `${hours} घंटे में इन विकल्पों के साथ कोई रास्ता नहीं बन पाया।` : `No route fits ${hours} hours with these choices.`}</p>
               <div className="space-y-2">
-                <Link href="/plan/route?hours=9" className="link-inverse flex min-h-12 w-full items-center justify-center rounded-full bg-[#B5452B] px-5 text-center">{t.addTime}</Link>
-                <Link href="/plan/route?hours=6&stops=2" className="flex min-h-12 w-full items-center justify-center rounded-full border border-[#B5452B] px-5 text-center">{t.removeStop}</Link>
-                <Link href="/plan/route?hours=6&best=1" className="link-primary flex min-h-12 w-full items-center justify-center px-5 text-center">{t.bestRoute}</Link>
+                <Link href={withParams({ hours: '9' })} className="link-inverse flex min-h-12 w-full items-center justify-center rounded-full bg-[#B5452B] px-5 text-center">{t.addTime}</Link>
+                <Link href={withParams({ stops: '2' })} className="flex min-h-12 w-full items-center justify-center rounded-full border border-[#B5452B] px-5 text-center">{t.removeStop}</Link>
+                <Link href={withParams({ hours: '6', preset: 'quick' })} className="link-primary flex min-h-12 w-full items-center justify-center px-5 text-center">{t.bestRoute}</Link>
               </div>
             </m.div>
           ) : (
             <>
               <h1 className="font-[var(--font-fraunces)] text-3xl text-[#1F1A14]">{t.routeTitle}</h1>
+              {planData && <p className="mt-2 text-sm text-[#5A4E3F]" data-testid="plan-summary">{lang === 'hi' ? `${hours} घंटे में से ${hm(planData.itinerary.total_time_min)} की योजना, ${hm(planData.itinerary.total_travel_time_min)} यात्रा` : `Plans ${hm(planData.itinerary.total_time_min)} of your ${hours} hours, with ${hm(planData.itinerary.total_travel_time_min)} of travel`}</p>}
               <div className="mt-4">
                 {stops.map(({ id, time, duration }, index) => {
-                  const monument = getMonument(id)
+                  const monument = findMonument(id)!
                   return (
                     <m.div animate={{ opacity: 1, x: 0 }} initial={false} key={id} transition={{ ...transitions.base, delay: index * .06 }}>
                       <div className="flex gap-4 border-l-2 border-[#B5452B] py-3 pl-4">
                         <span className="grid size-8 shrink-0 place-items-center rounded-full bg-[#B5452B] text-sm text-white">{index + 1}</span>
                         <div>
-                          <div className="font-semibold">{monument.name[lang]}</div>
+                          <Link className="font-semibold underline-offset-4 hover:underline" href={`/monument/${id}`}>{monument.name[lang]}</Link>
                           <div className="text-sm text-[#5A4E3F]">{time} · {duration} min visit</div>
-                          <div className="mt-0.5 text-xs text-[#8F3221]">{monument.city} · {monument.yearBuilt} CE · {monument.builder}</div>
+                          <div className="mt-0.5 text-xs text-[#8F3221]">{monument.era}{monument.verified ? '' : lang === 'hi' ? ' · कहानी शीघ्र' : ' · Story pending'}</div>
                         </div>
                       </div>
                       {index < stops.length - 1 && <VineDivider />}
