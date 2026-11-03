@@ -36,7 +36,7 @@ export function RelatedMonuments({ id }: { id: string }) {
 
   return (
     <LazyMotion features={domAnimation}>
-      <main className="mx-auto max-w-2xl px-5 pb-12 pt-4 lg:pt-10" lang={lang}>
+      <main className="shell mx-auto max-w-2xl px-5 pb-12 pt-4 lg:pt-10" lang={lang}>
         <header className="mb-5 flex items-center justify-between lg:hidden">
           <Link href={`/monument/${id}`} className="grid size-12 place-items-center rounded-full" aria-label={`${t.back} ${monument.name[lang]}`}><ArrowLeft aria-hidden="true" /></Link>
           <Toggle lang={lang} setLang={setLang} />

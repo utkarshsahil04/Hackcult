@@ -119,7 +119,7 @@ export function MonumentProfile({ id }: Props) {
   return (
     <LazyMotion features={domAnimation}>
       <div className="profile-progress" aria-hidden="true"><span style={{ width: `${scrollProgress}%` }} /></div>
-      <main className="pb-28 lg:grid lg:grid-cols-12 lg:gap-x-12 lg:px-8 lg:pb-16" lang={lang}>
+      <main className="shell pb-28 lg:grid lg:max-w-7xl lg:grid-cols-12 lg:gap-x-12 lg:px-8 lg:pb-16 lg:mx-auto" lang={lang}>
         <m.header animate={{ opacity: 1 }} className={`fixed left-0 right-0 top-0 z-40 flex items-center justify-between px-5 py-4 transition-colors safe-top lg:hidden ${scrolled ? 'border-b border-[#E8A317]/25 bg-[#EADBC0]/95 backdrop-blur' : 'bg-gradient-to-b from-[#1F1A14]/45 to-transparent'}`} initial={false} transition={transitions.fast}>
           <Link href="/explore" aria-label={t.back} className="grid size-12 place-items-center rounded-full bg-[#FBF6EC]/90 text-[#1F1A14]"><ArrowLeft aria-hidden="true" size={20} /></Link>
           <div className={`${scrolled ? 'font-[var(--font-fraunces)] text-lg text-[#1F1A14]' : 'text-transparent'} max-w-[11rem] break-words text-center`}>{scrolled ? monument.name[lang] : ''}</div>

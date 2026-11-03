@@ -15,13 +15,12 @@ export function Atmosphere() {
   const [hidden, setHidden] = useState(false)
   const [identifyState, setIdentifyState] = useState('scan')
   const mood = getMood(pathname, identifyState)
-  const camera = pathname === '/identify'
 
   useEffect(() => {
     const readIdentifyState = () => setIdentifyState(document.documentElement.dataset.identifyState || 'scan')
     const observer = new MutationObserver(readIdentifyState)
     const motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)')
-    const updateLite = () => setLite(motionPreference.matches || (navigator.hardwareConcurrency || 8) <= 4)
+    const updateLite = () => setLite(motionPreference.matches)
     const onVisibility = () => setHidden(document.hidden)
     const onPointer = (event: PointerEvent) => {
       if (window.innerWidth < 1024 || !root.current) return
@@ -42,5 +41,5 @@ export function Atmosphere() {
     }
   }, [])
 
-  return <div ref={root} className={`atmosphere atmosphere-${mood} ${hidden ? 'atmosphere-paused' : ''} ${camera ? 'atmosphere-camera' : ''}`} onPointerDown={(event) => { if (event.target === event.currentTarget) event.currentTarget.classList.add('atmosphere-burst') }}><Sky mood={mood} lite={lite} /></div>
+  return <div ref={root} className={`atmosphere atmosphere-${mood} ${hidden ? 'atmosphere-paused' : ''}`} onPointerDown={(event) => { if (event.target === event.currentTarget) event.currentTarget.classList.add('atmosphere-burst') }}><Sky mood={mood} lite={lite} /></div>
 }
