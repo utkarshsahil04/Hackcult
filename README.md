@@ -1,190 +1,144 @@
 # Raahein
 
 > Photograph a monument. Discover its story, explore it in 3D, and follow the
-> historical threads that connect it to places across India.
+> historical threads that connect it to other places in India.
 
-Built for **HackCult '26** (Track: Culture & Digital Heritage). Launch region: the Golden Triangle (Delhi, Agra, Jaipur).
+Built for **HackCult '26** (Track: Culture & Digital Heritage). Covers 28 sites in Delhi and Agra:
+15 with sourced stories, and 13 that can be planned and mapped while their stories are pending.
+
+## Quick start
+
+You need Python 3.12, Node 22 and pnpm. From the repository root, run:
+
+```
+python dev.py
+```
+
+That's the only command you need. It starts the web app at http://localhost:3000 and the API at
+http://localhost:8000/docs, and Ctrl+C stops both.
+
+The first run asks for your `GEMINI_API_KEY` and then sets everything up, which takes a few minutes.
+Later runs only redo what has changed.
+
+If your default Python isn't 3.12, use `py -3.12 dev.py` the first time.
+
+### Optional extras
+
+Add these once, when you want them:
+
+| Command | What it adds |
+|---|---|
+| `python dev.py --stories` | Generates stories with Gemini. Without them, `/api/stories/{slug}` returns a 404. |
+| `python dev.py --recognition` | Installs photo recognition (a large download). |
+
+**Stories** take at least 8 minutes because of free-tier rate limits. The 13 story-pending sites have
+no sourced claims, so they report `[FAIL]`. That's expected.
+
+**Recognition** also needs the artifact in `data\artifacts\dataset-v1`. If you don't have one, build
+it from the `Indian-monuments` dataset, which downloads the models on the first run:
+
+```powershell
+.venv\Scripts\python -m raahein_ml.dataset_pipeline build --dataset <path>\Indian-monuments\images
+```
+
+`http://localhost:8000/api/health` shows `"models":"ok"` when it's ready. It uses your NVIDIA GPU if
+you have one, otherwise the CPU. It recognises 5 monuments: Taj Mahal, Humayun's Tomb, Fatehpur
+Sikri, Qutb complex and Mehrauli Archaeological Park. The dataset's licence is unconfirmed, so this
+is for the demo only.
 
 ## Features
 
-1. AI monument recognition from a photo
-2. Interactive 3D visualisation with clickable hotspots
-3. Nearby cultural discovery (sites, museums, food, markets, handicrafts)
-4. Historical connections across dynasties, rulers, events and styles
-5. AI-powered tour planner (solver-based, constraint-checked)
-6. Story-based historical journey (chapters, narration, timeline)
+- **Recognition:** identify a monument from a photo, or say when it isn't sure
+- **Stories:** sourced narratives in English and Hindi, with narration
+- **3D:** explore a monument's architecture through clickable hotspots
+- **Connections:** links between monuments through dynasties, rulers, events and styles
+- **Plan your day:** solver-built routes of up to 3 stops, each checked by an independent validator
+- **Nearby:** the closest monuments to you, with distances
 
-## Tech stack (hackathon)
+## Tech stack
 
 | Part | Tools |
 |---|---|
-| Frontend | Next.js PWA on Vercel |
-| Backend | FastAPI on a GPU laptop, exposed with a Cloudflare tunnel |
-| Recognition | SigLIP, DINOv2 and CLIP embeddings with FAISS |
-| Stories | Gemini Flash-Lite, pre-generated and cached |
-| Data | SQLite seed |
-| Maps and tours | OpenStreetMap, Overpass, OpenRouteService, OR-Tools |
-
-After the hackathon we move to AWS (Lambda, DynamoDB, Amplify, S3, CloudFront).
+| Frontend | Next.js 16 PWA, pnpm, Playwright |
+| API | FastAPI |
+| Recognition | DINOv2, SigLIP and CLIP embeddings |
+| Stories | Gemini, generated in advance and stored in the database |
+| Data | SQLite, built from JSON seed files |
+| Maps and routes | OpenStreetMap, Overpass, OSRM or OpenRouteService, OR-Tools |
 
 ## Project layout
 
 ```
+dev.py      Sets up and runs everything
+frontend/   Next.js web app
 api/        FastAPI HTTP application
-backend/    SQLite heritage data and tour-planner package
-ml/         Standalone recognition package, manifests, config and fast tests
-.github/    CI workflow and CODEOWNERS
-data/       Ignored raw images, caches and generated recognition artifacts
+backend/    SQLite heritage data, tour planner and data tools
+ml/         Recognition package, manifests and config
+data/       Ignored images, caches and generated recognition artifacts
 ```
 
-There is currently no `frontend/` directory. CI runs backend checks, conditional frontend checks,
-and isolated ML lint/unit tests that do not download checkpoints or require CUDA.
+## API
 
-## Setup
+| Method | Path | Purpose |
+|---|---|---|
+| GET | `/api/health` | Status of the API and its models |
+| POST | `/api/recognition/identify` | Identify a photo (multipart field `photo`, 6 MB max) |
+| GET | `/api/monuments/{slug}` | Monument profile with sourced claims |
+| GET | `/api/monuments/{slug}/related` | Connected monuments |
+| GET | `/api/stories/{slug}` | Generated story |
+| GET | `/api/places/nearby` | Places near a monument |
+| POST | `/api/tours/plan` | Build a day plan |
+
+## Configuration
+
+All settings live in `.env` at the repository root, which `dev.py` creates for you:
+
+| Variable | Required | Purpose |
+|---|---|---|
+| `GEMINI_API_KEY` | Yes | Stories and free-text plan queries |
+| `FRONTEND_ORIGIN` | No | Allowed web app origin (default `http://localhost:3000`) |
+| `SQLITE_DB_PATH` | No | Database location, relative to `backend\` |
+
+## Tests
+
+From the repository root:
 
 ```powershell
-git clone https://github.com/utkarshsahil04/Hackcult.git
-cd Hackcult
-copy .env.example .env        # fill in your keys; .env is never committed
-pip install pre-commit
-pre-commit install            # blocks commits that contain secrets
+.venv\Scripts\python -m pytest api
+.venv\Scripts\python -m pytest backend
+.venv\Scripts\python -m pytest ml -m "not real_model"
+.venv\Scripts\python -m ruff check backend ml\src ml\tests
+pnpm -C frontend typecheck
+pnpm -C frontend lint
+pnpm -C frontend test:unit
+pnpm -C frontend test:e2e
 ```
 
-Test the secret check anytime with `pre-commit run --all-files`.
+## Troubleshooting
 
-## Database (SQLite seed)
+| Symptom | Cause and fix |
+|---|---|
+| `Port 8000 is already in use` | An old server is still running. Close it and try again. |
+| `identify` returns 500 and health shows `"models":"error"` | Recognition isn't installed, the artifact is missing, or Windows is low on memory. The server log has the exact error. |
+| `identify` returns 405 | It only accepts POST, so it can't be opened in a browser. |
+| `paging file is too small` in the log | Close other heavy programs, or increase the Windows page file. |
+| `/api/stories/{slug}` returns 404 | Run `python dev.py --stories`. |
 
-Read-only heritage data lives in a SQLite file built from JSON in `backend/app/db/seed_data/`.
+## More documentation
 
-```powershell
-cd backend
-pip install -r requirements.txt
-python -m app.db.seed            # create / refresh backend/data/raahein.db (safe to re-run)
-python -m app.db.seed --check    # validate the data files only
-python -m pytest                 # schema + seed tests
-```
+- [Plan architecture](backend/docs/PLAN_ARCHITECTURE.md): configure plans and add locations
+- [Seed data](backend/app/db/seed_data/README.md): data files and sourcing rules
+- [Recognition pipeline](ml/README.md): architecture, licensed-data workflow and service contract
 
-Set `SQLITE_DB_PATH` in `.env` to change the location. Every historical claim needs two sources
-from different publishers; legends are flagged `is_legend`. See `backend/app/db/seed_data/README.md`.
+## Contributing
 
-## Monument recognition
+1. Install the secret check once: `pip install pre-commit`, then `pre-commit install`.
+2. Create a branch from `Dev`: `git switch -c feat/short-name`.
+3. Commit with conventional messages (`feat:`, `fix:`, `docs:`, `chore:`).
+4. Open a pull request into `Dev`. Merge only after CI passes and the code owner approves.
 
-The standalone `raahein_ml` package reads the 15 canonical slugs directly from
-`backend/app/db/seed_data/monuments.json`. It never imports either existing top-level `app`
-package. Raw images, embedding caches and finalized FAISS artifacts live under ignored `data/`;
-only provenance, manifests, configuration and honest evaluation results are tracked.
-
-### WSL2 GPU setup
-
-Production recognition requires WSL2 Ubuntu, an NVIDIA driver with CUDA support, and Python 3.12.
-FAISS remains on CPU. CPU encoder execution is available only through an explicit development
-override and is never selected automatically.
-
-```bash
-python3.12 -m venv .venv
-source .venv/bin/activate
-python -m pip install --index-url https://download.pytorch.org/whl/cu124 torch==2.5.1
-python -m pip install -e './ml[gpu,test]'
-export HF_HOME="$PWD/data/cache/huggingface"
-python -m raahein_ml fetch-models
-```
-
-For CPU-only development commands, set both `RAAHEIN_ML_DEVICE=cpu` and
-`RAAHEIN_ML_ALLOW_CPU=true`. Final artifacts must be built and served with their recorded device,
-precision and preprocessing configuration.
-
-### Curation and artifacts
-
-The supplied external train/test folders are not trusted inputs: their licences are unknown and
-their splits contain leakage. Populate `ml/catalog/sources.csv` only with independently verified
-public-domain, CC0, CC BY or CC BY-SA sources, then run the pipeline in order:
-
-```bash
-python -m raahein_ml.manifest fetch
-python -m raahein_ml.manifest scan
-# Resolve every row in ml/manifests/duplicate_review.csv.
-python -m raahein_ml.manifest build
-python -m raahein_ml build
-python -m raahein_ml calibrate
-python -m raahein_ml validate --artifact data/artifacts/<artifact-id>
-python -m raahein_ml smoke --artifact data/artifacts/<artifact-id>
-python -m raahein_ml evaluate --artifact data/artifacts/<artifact-id> --update-readme
-```
-
-`manifest scan` writes ignored local drafts under `data/cache/` and refreshes only the tracked
-manual-review queue. It cannot overwrite a previously validated tracked manifest; only a successful
-`manifest build` replaces final manifest files.
-
-`manifest build` refuses missing provenance, pending near-duplicate reviews, cross-label or
-cross-collection duplicates, infeasible per-class quotas, and any cross-split leakage. Calibration
-uses its own 50 OOD images and freezes model thresholds, the fusion margin, active strategy and all
-final-set hashes before evaluation. The evaluation command requires a separate 50-image OOD set
-and exactly 20 independent positive images. It writes `ml/reports/evaluation.json` atomically and
-adds the README results table only after a real frozen evaluation; no placeholder metrics are
-reported.
-
-Fast verification without models or CUDA:
-
-```bash
-cd ml
-python -m pip install -r requirements-ci.txt
-ruff check src tests
-pytest -q -m 'not real_model'
-```
-
-### Backend handoff
-
-Construct and warm one service per GPU worker during FastAPI lifespan startup, never at module
-import time:
-
-```python
-from contextlib import asynccontextmanager
-
-from fastapi import FastAPI
-from raahein_ml.config import load_config
-from raahein_ml.service import RecognitionService
-
-
-@asynccontextmanager
-async def lifespan(app: FastAPI):
-    service = RecognitionService(load_config())
-    service.start()
-    app.state.recognition = service
-    yield
-```
-
-The Python contract is `RecognitionService.identify(PIL.Image) -> RecognitionResult`. A valid
-low-evidence prediction is successful uncertainty and still contains ordered candidates:
-
-```json
-{
-  "status": "uncertain",
-  "strategy": "fusion",
-  "candidates": [
-    {
-      "monument_id": "taj-mahal",
-      "rank": 1,
-      "ranking_score": 0.93,
-      "fused_score": 0.93,
-      "model_ranks": {"siglip": 1, "dinov2": 2, "clip": 1}
-    }
-  ],
-  "artifact_version": "<artifact-id>"
-}
-```
-
-`service.readiness.to_dict()` exposes load state, artifact version, device, loaded models and the
-startup error, if any. Missing CUDA, checkpoints, indexes, thresholds or mismatched hashes raise
-typed service/configuration errors and must map to a server error. They must never be translated to
-`status: "uncertain"`. HTTP image decoding, MIME/size validation, multipart handling, rate limiting
-and the existing API error envelope remain the backend route's responsibility.
-
-## How we work
-
-1. Create a branch from `main`: `git switch -c feat/short-name`.
-2. Commit with conventional messages (`feat:`, `fix:`, `docs:`, `chore:`).
-3. Push and open a pull request into `main`.
-4. Merge only after CI passes and the code owner approves. Don't push to `main` directly.
+Never commit `.env` files. Every historical claim needs two sources from different publishers, and
+legends must be flagged `is_legend`.
 
 ## Team
 
