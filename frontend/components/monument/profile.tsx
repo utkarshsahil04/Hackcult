@@ -136,9 +136,9 @@ export function MonumentProfile({ id }: Props) {
         </m.header>
 
         {/* Fixed Left Canvas: Clean aspect ratio, unblurred image, sticky on desktop */}
-        <aside className="relative px-5 pt-20 lg:sticky lg:top-24 lg:col-span-5 lg:space-y-4 lg:self-start lg:px-0 lg:pt-0">
+        <aside className="relative flex flex-col gap-3 px-5 pt-20 lg:sticky lg:top-24 lg:col-span-5 lg:gap-4 lg:self-start lg:px-0 lg:pt-0">
           {/* Visual Mode Selector: Photo vs 3D Architecture */}
-          <div className="mb-3 flex items-center gap-1.5 rounded-full border border-[#E8A317]/40 bg-[#FBF6EC] p-1 shadow-xs lg:mb-0">
+          <div className="flex items-center gap-1.5 rounded-full border border-[#E8A317]/40 bg-[#FBF6EC] p-1 shadow-xs">
             <button aria-pressed={viewMode === 'photo'} className={viewTab('photo')} onClick={() => setViewMode('photo')} type="button">
               <Camera aria-hidden="true" size={15} />
               {lang === 'hi' ? 'तस्वीर' : 'Photo'}
@@ -151,7 +151,7 @@ export function MonumentProfile({ id }: Props) {
 
           {viewMode === '3d' ? (
             <>
-              <h1 className="fraunces mb-3 text-3xl leading-tight text-[#1F1A14] lg:mb-0">{monument.name[lang]}</h1>
+              <h1 className="fraunces text-3xl leading-tight text-[#1F1A14]">{monument.name[lang]}</h1>
               <Monument3DViewer monumentId={monument.id} name={monument.name[lang]} lang={lang} />
             </>
           ) : (

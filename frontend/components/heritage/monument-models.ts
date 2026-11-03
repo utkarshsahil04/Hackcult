@@ -60,6 +60,49 @@ function pillaredHall(k: Kit, mat: Mat, roof: Mat, w: number, h: number, d: numb
   k.box(roof, w + 0.1, 0.18, d + 0.1, 0, h + 0.14, 0)
 }
 
+function baoli(k: Kit) {
+  const width = 6
+  const length = 18
+  const depth = 6
+  for (const sx of [-1, 1]) {
+    k.box('rubbleDark', 2.4, depth, length + 2.4, sx * (width / 2 + 1.2), -depth)
+    k.at(sx * (width / 2), -depth, 0, () => {
+      for (let level = 0; level < 3; level += 1) k.arches(9, length - 1.5, 1.3, 0.8 + level * 1.7, 0.01)
+      for (let level = 1; level < 3; level += 1) k.box('rubble', length, 0.1, 0.1, 0, level * 1.7 + 0.3, 0.05)
+    }, sx * -Math.PI / 2)
+  }
+  const steps = 22
+  const run = 13 / steps
+  for (let i = 0; i < steps; i += 1) {
+    const top = -i * ((depth - 0.9) / steps)
+    k.box(i % 2 ? 'rubble' : 'rubbleDark', width, top + depth, run, 0, -depth, -length / 2 + run * (i + 0.5))
+  }
+  k.box('rubbleDark', width, 0.5, 5.2, 0, -depth, 6.4)
+  k.box('water', width, 0.6, 5, 0, -depth + 0.1, 6.4)
+  k.at(0, -depth, length / 2 - 0.1, () => {
+    k.box('rubbleDark', width + 4.8, depth, 1.2, 0, 0, 0.7)
+    k.at(0, 0, 0.1, () => {
+      k.arch('niche', 1.5, 3.2, -1.5, 0.7, 0)
+      k.arch('niche', 1.5, 3.2, 1.5, 0.7, 0)
+      k.arches(5, 5.5, 0.8, 4.4, 0)
+    }, Math.PI)
+  })
+  k.at(0, 0, -length / 2 - 1.2, () => {
+    k.box('rubble', width + 4.8, 0.3, 2.4)
+    k.box('rubbleDark', width, depth, 1.2, 0, -depth, 0.6)
+    k.at(-3, 0.3, 0, () => {
+      k.box('rubble', 2.2, 1.4, 2)
+      k.arch('niche', 0.9, 1.1, 0, 0, 1)
+      k.hemi('rubbleDark', 0.75, 0, 1.4, 0, 0.8)
+    })
+  })
+  trees(k, [[-6, 6, 0.8], [6.2, 3, 0.7], [6, -6, 0.7], [-6.2, -3, 0.6]])
+  k.spot('steps', 0, -2, -3)
+  k.spot('arcade', 3, -2.6, 2)
+  k.spot('water', 0, -5, 6.4)
+  k.spot('prayerHall', -3, 1.9, -9.2)
+}
+
 function trees(k: Kit, list: [number, number, number?][]) {
   for (const [x, z, s] of list) k.tree(x, z, s ?? 1)
 }
@@ -183,7 +226,7 @@ const builders: Record<string, (k: Kit) => void> = {
   },
   'fatehpur-sikri'(k) {
     k.ground(28, 24)
-    k.box('redLight', 26, 0.1, 22)
+    k.box('paving', 26, 0.1, 22)
     k.at(-6.5, 0.1, -1.5, () => {
       const tiers: [number, number][] = [[7.4, 7], [6, 6], [4.4, 5], [2.9, 4], [1.5, 3]]
       let y = 0
@@ -443,7 +486,7 @@ const builders: Record<string, (k: Kit) => void> = {
     })
     trees(k, [[-10, 7.5], [-11, -6.5], [10.5, 7.8, 0.9], [10.5, -2.4, 0.8], [-3, 8, 0.8]])
     k.spot('gnomon', -2.5, 3.8, 0.9)
-    k.spot('dial', 2.2, 2.2, 3.2)
+    k.spot('dial', -1.9, 1.7, 3)
     k.spot('dial', 5.5, 1.5, -6)
     k.spot('hall', 4.5, 3.1, 5.2)
   },
@@ -520,6 +563,7 @@ const builders: Record<string, (k: Kit) => void> = {
     k.spot('garden', -7, 0.4, 3.5)
   },
   'india-gate'(k) {
+    k.view = { theta: 0.42, phi: 1.2 }
     k.ground(20, 40)
     k.box('path', 8, 0.04, 39, 0, 0, 0)
     for (const sx of [-1, 1]) {
@@ -529,6 +573,8 @@ const builders: Record<string, (k: Kit) => void> = {
     for (let i = 0; i < 3; i += 1) k.box('redstone', 13 - i * 0.8, 0.28, 6.4 - i * 0.7, 0, i * 0.28)
     k.at(0, 0.84, 0, () => {
       k.gateBlock('buff', 10, 12, 4, 4.6, 9.2)
+      k.archBand('rubbleDark', 4.3, 9, 0.15, 3.96)
+      for (const z of [-2, 2]) k.archBand('marbleShade', 4.6, 9.2, 0.3, 0.1, z)
       for (const sx of [-1, 1]) k.at(sx * 5.01, 0, 0, () => k.arch('niche', 2, 5, 0, 0.2, 0, 0.03), sx * Math.PI / 2)
       k.box('redLight', 10.3, 0.5, 4.3, 0, 0)
       k.box('marbleShade', 10.5, 0.14, 4.5, 0, 9.8)
@@ -639,46 +685,9 @@ const builders: Record<string, (k: Kit) => void> = {
     k.spot('garden', -11, 0.4, 2)
   },
   'agrasen-ki-baoli'(k) {
-    const width = 6
-    const length = 18
-    const depth = 6
-    for (const sx of [-1, 1]) {
-      k.box('rubbleDark', 2.4, depth, length + 2.4, sx * (width / 2 + 1.2), -depth)
-      k.at(sx * (width / 2), -depth, 0, () => {
-        for (let level = 0; level < 3; level += 1) k.arches(9, length - 1.5, 1.3, 0.8 + level * 1.7, 0.01)
-        for (let level = 1; level < 3; level += 1) k.box('rubble', length, 0.1, 0.1, 0, level * 1.7 + 0.3, 0.05)
-      }, sx * -Math.PI / 2)
-    }
-    const steps = 22
-    const run = 13 / steps
-    for (let i = 0; i < steps; i += 1) {
-      const top = -i * ((depth - 0.9) / steps)
-      k.box(i % 2 ? 'rubble' : 'rubbleDark', width, top + depth, run, 0, -depth, -length / 2 + run * (i + 0.5))
-    }
-    k.box('rubbleDark', width, 0.5, 5.2, 0, -depth, 6.4)
-    k.box('water', width, 0.6, 5, 0, -depth + 0.1, 6.4)
-    k.at(0, -depth, length / 2 - 0.1, () => {
-      k.box('rubbleDark', width + 4.8, depth, 1.2, 0, 0, 0.7)
-      k.at(0, 0, 0.1, () => {
-        k.arch('niche', 1.5, 3.2, -1.5, 0.7, 0)
-        k.arch('niche', 1.5, 3.2, 1.5, 0.7, 0)
-        k.arches(5, 5.5, 0.8, 4.4, 0)
-      }, Math.PI)
-    })
-    k.at(0, 0, -length / 2 - 1.2, () => {
-      k.box('rubble', width + 4.8, 0.3, 2.4)
-      k.box('rubbleDark', width, depth, 1.2, 0, -depth, 0.6)
-      k.at(-3, 0.3, 0, () => {
-        k.box('rubble', 2.2, 1.4, 2)
-        k.arch('niche', 0.9, 1.1, 0, 0, 1)
-        k.hemi('rubbleDark', 0.75, 0, 1.4, 0, 0.8)
-      })
-    })
-    trees(k, [[-6, 6, 0.8], [6.2, 3, 0.7], [6, -6, 0.7], [-6.2, -3, 0.6]])
-    k.spot('steps', 0, -2, -3)
-    k.spot('arcade', 3, -2.6, 2)
-    k.spot('water', 0, -5, 6.4)
-    k.spot('prayerHall', -3, 1.9, -9.2)
+    // Turned and framed so the opening view looks down the steps towards the water.
+    k.view = { theta: 0.14, phi: 0.82 }
+    k.at(0, 0, 0, () => baoli(k), Math.PI)
   },
   'feroz-shah-kotla'(k) {
     k.ground(28, 24)
@@ -892,14 +901,13 @@ const builders: Record<string, (k: Kit) => void> = {
       k.box('black', 5.8, 0.3, 5.8)
       k.box('black', 4.4, 0.45, 4.4, 0, 0.3)
       k.at(0, 0.75, -1.6, () => {
-        k.cyl('gold', 0.34, 0.22, 0.34)
-        k.add('flame', new THREE.ConeGeometry(0.2, 0.75, 10).translate(0, 0.72, 0))
+        k.cyl('gold', 0.55, 0.36, 0.5)
+        k.add('flame', new THREE.ConeGeometry(0.34, 1.3, 12).translate(0, 1.15, 0))
       })
-      for (const [x, z] of [[-1.2, 0.7], [-0.4, 1.2], [0.4, 1.2], [1.2, 0.7], [0, 0.3]]) k.add('flame', new THREE.IcosahedronGeometry(0.26, 0).translate(x, 0.82, z))
     })
     for (const [x, z] of [[-12, -12], [12, -12], [-12, 12], [12, 12], [-12, -2.8], [12, 3], [-3, -12], [4, 12], [-12, 5], [12, -5], [4, -12], [-4, 12]]) k.tree(x, z, 1.5)
     k.spot('memorial', 1.9, 1.3, 1.6)
-    k.spot('flame', 0, 2.3, -1.6)
+    k.spot('flame', 0, 3.1, -1.6)
     k.spot('enclosure', -8, 1.4, 3)
     k.spot('garden', 8.8, 0.4, 8.8)
   },
@@ -960,7 +968,7 @@ const builders: Record<string, (k: Kit) => void> = {
   },
   'fatehpuri-masjid'(k) {
     k.ground(22, 24)
-    k.box('redLight', 21, 0.12, 23)
+    k.box('paving', 21, 0.12, 23)
     k.at(0, 0.12, -3.5, () => {
       mosque(k, { w: 15, h: 3.8, d: 4.4, mat: 'redstone', trim: 'marbleShade', dome: 'redLight', arches: 7, domes: [[0, 2.3]], tall: 0.82 })
       for (const sx of [-1, 1]) k.minaret('redstone', 6.4, 0.42, sx * 7.4, 0, -0.5, { band: 'marble', dome: 'marble' })

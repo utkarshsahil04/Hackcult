@@ -74,8 +74,9 @@ export function Monument3DViewer({ monumentId, name, lang = 'en', className = ''
 
     const camera = new THREE.PerspectiveCamera(36, 1, 0.1, fit * 12)
     // Closer than the whole bounding sphere: it is dominated by the flat ground, which is seen at an angle.
-    const home = fit / Math.sin(THREE.MathUtils.degToRad(18)) * 0.76
-    const view = { theta: START.theta, phi: START.phi, radius: home }
+    const home = fit / Math.sin(THREE.MathUtils.degToRad(18)) * 0.82
+    const opening = model.view ?? START
+    const view = { ...opening, radius: home }
     const goal: { theta: number | null; phi: number | null } = { theta: null, phi: null }
     let auto = !reduced
     let dragging = false
@@ -187,7 +188,7 @@ export function Monument3DViewer({ monumentId, name, lang = 'en', className = ''
       turn: (d) => { goal.theta = null; view.theta += d; dirty = true },
       tilt: (d) => { view.phi = clampPhi(view.phi + d); dirty = true },
       zoom: (f) => { view.radius = THREE.MathUtils.clamp(view.radius * f, home * 0.35, home * 1.25); dirty = true },
-      reset: () => { goal.theta = START.theta; goal.phi = START.phi; view.theta %= Math.PI * 2; view.radius = home; dirty = true },
+      reset: () => { goal.theta = opening.theta; goal.phi = opening.phi; view.theta %= Math.PI * 2; view.radius = home; dirty = true },
       focus: (i) => {
         const spot = spots[i]
         const azimuth = Math.atan2(spot.x - center.x, spot.z - center.z)

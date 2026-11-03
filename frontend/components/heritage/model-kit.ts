@@ -3,7 +3,7 @@ import { mergeGeometries } from 'three/examples/jsm/utils/BufferGeometryUtils.js
 import type { PartId } from '@/lib/architecture'
 
 export type Spot = { part: PartId; at: [number, number, number] }
-export type MonumentModel = { group: THREE.Group; spots: Spot[]; dispose: () => void }
+export type MonumentModel = { group: THREE.Group; spots: Spot[]; view?: { theta: number; phi: number }; dispose: () => void }
 
 const MATERIALS = {
   marble: { color: 0xf7f1e4, roughness: 0.38 },
@@ -23,6 +23,7 @@ const MATERIALS = {
   water: { color: 0x6c9eb3, roughness: 0.12, metalness: 0.35 },
   lawn: { color: 0x7e9b56, roughness: 0.96 },
   path: { color: 0xd8c5a2, roughness: 0.95 },
+  paving: { color: 0xc9a285, roughness: 0.92 },
   sand: { color: 0xdcc8a4, roughness: 1 },
   leaf: { color: 0x567a40, roughness: 0.95 },
   trunk: { color: 0x6a5038, roughness: 0.95 },
@@ -54,6 +55,8 @@ export class Kit {
   private readonly pieces = new Map<Mat, THREE.BufferGeometry[]>()
   private readonly spots: Spot[] = []
   private matrix = new THREE.Matrix4()
+  /** Opening camera angle, for models that only read well from one side. */
+  view?: { theta: number; phi: number }
 
   add(mat: Mat, geometry: THREE.BufferGeometry) {
     const geo = geometry.index ? geometry.toNonIndexed() : geometry
@@ -162,6 +165,13 @@ export class Kit {
     shape.closePath()
     shape.holes.push(archPath(new THREE.Path(), archW, archH, 0, -0.01))
     this.add(mat, new THREE.ExtrudeGeometry(shape, { depth: d, bevelEnabled: false, curveSegments: 8 }).translate(0, 0, -d / 2))
+  }
+
+  /** Arch-shaped band around a real opening, base at y = 0, extruded along z and centred on z. */
+  archBand(mat: Mat, w: number, h: number, band: number, d: number, z = 0) {
+    const shape = archPath(new THREE.Shape(), w + band * 2, h + band * 1.3, 0, 0)
+    shape.holes.push(archPath(new THREE.Path(), w, h, 0, -0.01))
+    this.add(mat, new THREE.ExtrudeGeometry(shape, { depth: d, bevelEnabled: false, curveSegments: 8 }).translate(0, 0, z - d / 2))
   }
 
   /** Square prism with cut corners, as in the plan of many Mughal tombs. */
@@ -308,6 +318,7 @@ export class Kit {
     return {
       group,
       spots: this.spots,
+      view: this.view,
       dispose: () => {
         geometries.forEach((g) => g.dispose())
         materials.forEach((m) => m.dispose())

@@ -53,13 +53,13 @@ test.describe('all pages', () => {
     })
   }
 
-  test('monument cards use official UNESCO gallery images', async ({ page }) => {
+  test('every monument card has a photo from Wikimedia Commons', async ({ page }) => {
     await page.goto('/explore')
     const cardImages = page.locator('a[href^="/monument/"] img')
 
-    await expect(cardImages).toHaveCount(6)
+    await expect(cardImages).toHaveCount(28)
     for (const image of await cardImages.all()) {
-      await expect(image).toHaveAttribute('src', /whc\.unesco\.org(?:%2F|\/)uploads(?:%2F|\/)thumbs/i)
+      await expect(image).toHaveAttribute('src', /(thumb|upload)\.wikimedia\.org(?:%2F|\/)wikipedia/i)
     }
   })
 
