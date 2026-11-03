@@ -147,9 +147,9 @@ export default function Page() {
         {/* Hero Section */}
         <section className="relative px-5 pb-14 pt-8 lg:grid lg:grid-cols-12 lg:items-center lg:gap-12 lg:px-0 lg:pb-20 lg:pt-16">
           <div className="lg:col-span-5">
-            <span className="inline-flex items-center gap-2 rounded-full border border-[#E8A317]/50 bg-[#EADBC0]/60 px-3.5 py-1.5 text-xs font-semibold text-[#8F3221]">
-              <Sparkles size={14} className="text-[#E8A317]" aria-hidden="true" />
-              {lang === 'hi' ? 'भारतीय स्थापत्य सहयात्री' : 'Indian Heritage Field Guide'}
+            <span className="inline-flex items-center gap-2 rounded-full border border-[#E8A317] bg-[#FBF6EC]/90 px-4 py-1.5 text-xs font-semibold text-[#8F3221] shadow-sm backdrop-blur">
+              <Sparkles size={14} className="text-[#E8A317] animate-pulse" aria-hidden="true" />
+              {lang === 'hi' ? 'भारतीय सांस्कृतिक धरोहर यात्रा' : 'Indian Cultural Heritage Tour'}
             </span>
             <h1 className="fraunces mt-4 max-w-[360px] text-5xl leading-[.98] sm:text-6xl lg:max-w-none lg:text-7xl">
               {copy.heading}
@@ -166,7 +166,7 @@ export default function Page() {
               </Link>
               <Link
                 href="/explore"
-                className="inline-flex min-h-14 items-center gap-2 rounded-full border border-[#B5452B]/35 bg-[#FBF6EC] px-6 text-sm font-semibold text-[#1F1A14] transition-colors hover:border-[#B5452B]"
+                className="inline-flex min-h-14 items-center gap-2 rounded-full border border-[#B5452B]/35 bg-[#FBF6EC]/90 px-6 text-sm font-semibold text-[#1F1A14] backdrop-blur transition-colors hover:border-[#B5452B]"
               >
                 {copy.browseAll}
               </Link>
@@ -174,6 +174,21 @@ export default function Page() {
           </div>
 
           <div className="relative mt-14 flex min-h-[460px] items-center justify-center lg:col-span-7 lg:mt-0 lg:min-h-[580px]">
+            {/* Animated Indian Cultural Mandala Aura */}
+            <div className="pointer-events-none absolute -inset-6 sm:-inset-10 flex items-center justify-center overflow-visible" aria-hidden="true">
+              <m.div
+                animate={{ rotate: 360 }}
+                transition={{ duration: 140, repeat: Infinity, ease: 'linear' }}
+                className="absolute size-[350px] sm:size-[440px] lg:size-[560px] rounded-full border-2 border-dashed border-[#E8A317]/55 opacity-75"
+              />
+              <m.div
+                animate={{ rotate: -360 }}
+                transition={{ duration: 200, repeat: Infinity, ease: 'linear' }}
+                className="absolute size-[410px] sm:size-[500px] lg:size-[640px] rounded-full border border-[#B5452B]/35 opacity-60"
+              />
+              <div className="absolute size-[300px] sm:size-[380px] rounded-full bg-radial from-[#E8A317]/25 via-[#E8A317]/10 to-transparent blur-2xl" />
+            </div>
+
             <m.div
               animate={{ opacity: 1 }}
               className="relative h-[430px] w-[290px] lg:h-[560px] lg:w-[390px]"
