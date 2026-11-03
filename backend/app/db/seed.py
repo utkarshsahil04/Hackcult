@@ -76,7 +76,25 @@ def load_dataset(data_dir: Path | None = None) -> dict[str, list[dict[str, Any]]
             raise SeedError([f"{path.name}: invalid JSON ({exc})"]) from None
         if not isinstance(dataset[name], list):
             raise SeedError([f"{path.name}: top level must be a list"])
+    _merge_listed_sites(base, dataset)
     return dataset
+
+
+def _merge_listed_sites(base: Path, dataset: dict[str, list[dict[str, Any]]]) -> None:
+    """Add real OSM-located sites (sites.json) as listed monuments: plannable, but with no
+    claims, so the API shows them as "story pending" instead of inventing history."""
+    path = base / "sites.json"
+    if not path.is_file():
+        return
+    for site in json.loads(path.read_text(encoding="utf-8")):
+        key = f"osm-{site['osm_type']}-{site['osm_id']}"
+        dataset["sources"].append({
+            "key": key, "url": f"https://www.openstreetmap.org/{site['osm_type']}/{site['osm_id']}",
+            "title": f"{site['name']} (OpenStreetMap)", "publisher": "OpenStreetMap contributors",
+            "source_type": "other",
+        })
+        listed = {k: v for k, v in site.items() if k not in ("osm_type", "osm_id")}
+        dataset["monuments"].append({**listed, "coordinates_source": key, "listed": True})
 
 
 # ------------------------------------------------------------------------ validation
@@ -172,6 +190,8 @@ def validate_dataset(ds: dict[str, list[dict[str, Any]]]) -> list[str]:
         claims[ref] = c
 
     for slug in monuments:
+        if monuments[slug].get("listed"):
+            continue
         if not any(c["monument"] == slug and not c["is_legend"] and c["type"] in DESCRIPTION_TYPES
                    for c in claims.values()):
             errors.append(f"monument {slug!r}: needs at least one sourced historical claim for its description")
@@ -205,8 +225,9 @@ def validate_dataset(ds: dict[str, list[dict[str, Any]]]) -> list[str]:
 
 def target_shortfalls(ds: dict[str, list[dict[str, Any]]]) -> list[str]:
     out = []
-    if len(ds["monuments"]) != TARGET_MONUMENTS:
-        out.append(f"monuments: {len(ds['monuments'])} of {TARGET_MONUMENTS}")
+    verified = sum(1 for m in ds["monuments"] if not m.get("listed"))
+    if verified != TARGET_MONUMENTS:
+        out.append(f"verified monuments: {verified} of {TARGET_MONUMENTS}")
     if len(ds["relationships"]) < TARGET_RELATIONSHIPS:
         out.append(f"relationship edges: {len(ds['relationships'])} of {TARGET_RELATIONSHIPS}")
     return out
