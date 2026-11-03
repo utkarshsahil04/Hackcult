@@ -11,12 +11,6 @@ export const RaaheinLogo = ({ className = 'w-full max-w-2xl h-auto' }: { classNa
         aria-hidden="true"
       >
         <defs>
-          <radialGradient id="sunGlow" cx="50%" cy="40%" r="55%">
-            <stop offset="0%" stopColor="#FFFDF7" />
-            <stop offset="60%" stopColor="#FFF4E6" />
-            <stop offset="100%" stopColor="#FDE3C8" stopOpacity="0.4" />
-          </radialGradient>
-
           <linearGradient id="warmStone" x1="0%" y1="0%" x2="0%" y2="100%">
             <stop offset="0%" stopColor="#F9844A" />
             <stop offset="40%" stopColor="#E76F51" />
@@ -45,8 +39,6 @@ export const RaaheinLogo = ({ className = 'w-full max-w-2xl h-auto' }: { classNa
             <stop offset="100%" stopColor="#1E3A8A" />
           </linearGradient>
         </defs>
-
-        <circle cx="500" cy="300" r="280" fill="url(#sunGlow)" />
 
         {/* South Indian Gopuram */}
         <g id="south-gopuram" transform="translate(180, 160)">
@@ -186,3 +178,4 @@ export const RaaheinLogo = ({ className = 'w-full max-w-2xl h-auto' }: { classNa
 }
 
 export default RaaheinLogo
+
