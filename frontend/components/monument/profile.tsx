@@ -119,17 +119,37 @@ export function MonumentProfile({ id }: Props) {
   return (
     <LazyMotion features={domAnimation}>
       <div className="profile-progress" aria-hidden="true"><span style={{ width: `${scrollProgress}%` }} /></div>
-      <main className="shell pb-28 lg:grid lg:max-w-7xl lg:grid-cols-12 lg:gap-x-12 lg:px-8 lg:pb-16 lg:mx-auto" lang={lang}>
+      <main className="shell pb-28 lg:grid lg:max-w-7xl lg:grid-cols-12 lg:items-start lg:gap-x-12 lg:px-8 lg:pb-16 lg:mx-auto" lang={lang}>
         <m.header animate={{ opacity: 1 }} className={`fixed left-0 right-0 top-0 z-40 flex items-center justify-between px-5 py-4 transition-colors safe-top lg:hidden ${scrolled ? 'border-b border-[#E8A317]/25 bg-[#EADBC0]/95 backdrop-blur' : 'bg-gradient-to-b from-[#1F1A14]/45 to-transparent'}`} initial={false} transition={transitions.fast}>
           <Link href="/explore" aria-label={t.back} className="grid size-12 place-items-center rounded-full bg-[#FBF6EC]/90 text-[#1F1A14]"><ArrowLeft aria-hidden="true" size={20} /></Link>
           <div className={`${scrolled ? 'font-[var(--font-fraunces)] text-lg text-[#1F1A14]' : 'text-transparent'} max-w-[11rem] break-words text-center`}>{scrolled ? monument.name[lang] : ''}</div>
           <Toggle lang={lang} setLang={setLang} />
         </m.header>
-        <m.section animate={{ opacity: 1, y: 0 }} className="relative h-[42vh] min-h-72 lg:sticky lg:top-24 lg:col-span-5 lg:row-start-2 lg:h-[720px]" initial={false} transition={transitions.slow}>
-          <ArchImage src={monument.image} alt={monument.name[lang]} className="h-full w-full rounded-none border-0" layoutId={`monument-${monument.id}`} />
-          <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#1F1A14]/75 to-transparent px-5 pb-7 pt-20"><h1 className="font-[var(--font-fraunces)] text-4xl leading-none text-[#FBF6EC]">{monument.name[lang]}</h1></div>
-        </m.section>
-        <div className="mx-auto max-w-md space-y-6 px-5 pt-5 lg:col-span-7 lg:col-start-6 lg:row-start-2 lg:max-w-none lg:px-0 lg:pt-0">
+
+        {/* Fixed Left Canvas: Clean aspect ratio, unblurred image, sticky on desktop */}
+        <aside className="relative lg:sticky lg:top-24 lg:col-span-5 lg:self-start lg:space-y-4">
+          <m.section animate={{ opacity: 1, y: 0 }} className="relative h-[44vh] min-h-80 sm:h-[400px] lg:h-[480px] w-full overflow-hidden rounded-2xl border border-[#E8A317]/50 shadow-xl" initial={false} transition={transitions.slow}>
+            <ArchImage src={monument.image} alt={monument.name[lang]} className="h-full w-full rounded-none border-0" layoutId={`monument-${monument.id}`} />
+            <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#1F1A14]/85 via-[#1F1A14]/40 to-transparent px-5 pb-5 pt-16">
+              <h1 className="font-[var(--font-fraunces)] text-3xl sm:text-4xl leading-tight text-[#FBF6EC] drop-shadow">{monument.name[lang]}</h1>
+              <p className="mt-1 text-xs sm:text-sm text-[#FBF6EC]/85">{monument.city} · {monument.yearBuilt} CE</p>
+            </div>
+          </m.section>
+
+          {/* Desktop Tour Action: Cleanly docked beneath the fixed image, never overlaying */}
+          <div className="hidden lg:block">
+            <button
+              aria-pressed={added}
+              onClick={toggleTour}
+              className="flex min-h-14 w-full items-center justify-center gap-2 rounded-full bg-[#B5452B] font-semibold text-[#FBF6EC] shadow-md transition-transform hover:-translate-y-0.5 active:scale-95"
+              type="button"
+            >
+              {added ? <><Check aria-hidden="true" size={20} />{t.added}</> : <><Plus aria-hidden="true" size={20} />{t.addTour}</>}
+            </button>
+          </div>
+        </aside>
+
+        <div className="mx-auto max-w-md space-y-6 px-5 pt-5 lg:col-span-7 lg:max-w-none lg:px-0 lg:pt-0">
           <Link className="link-primary hidden min-h-12 items-center gap-2 lg:inline-flex" href="/explore"><ArrowLeft aria-hidden="true" size={18} />{t.back}</Link>
           <div className="flex flex-wrap gap-2">
             {[
@@ -185,8 +205,16 @@ export function MonumentProfile({ id }: Props) {
           </section>
           <p className="pt-2 text-xs text-[#5A4E3F]">{imageCredits[monument.id]?.source} · {imageCredits[monument.id]?.licence}</p>
         </div>
-        <div className="fixed bottom-0 left-0 right-0 z-20 border-t border-[#B5452B]/15 bg-[#EADBC0]/95 p-4 backdrop-blur lg:static lg:col-span-5 lg:row-start-3 lg:mt-6 lg:bg-transparent lg:p-0">
-          <button aria-pressed={added} onClick={toggleTour} className="mx-auto flex min-h-14 w-full max-w-md items-center justify-center gap-2 rounded-full bg-[#B5452B] font-semibold text-[#FBF6EC] shadow-lg" type="button">{added ? <><Check aria-hidden="true" size={20} />{t.added}</> : <><Plus aria-hidden="true" size={20} />{t.addTour}</>}</button>
+        {/* Mobile Fixed Action Bar: Isolated at bottom with safe padding, hidden on desktop */}
+        <div className="fixed bottom-0 left-0 right-0 z-30 border-t border-[#E8A317]/30 bg-[#EADBC0]/95 p-3.5 backdrop-blur safe-bottom lg:hidden">
+          <button
+            aria-pressed={added}
+            onClick={toggleTour}
+            className="mx-auto flex min-h-12 w-full max-w-md items-center justify-center gap-2 rounded-full bg-[#B5452B] font-semibold text-[#FBF6EC] shadow-lg active:scale-95 text-sm"
+            type="button"
+          >
+            {added ? <><Check aria-hidden="true" size={18} />{t.added}</> : <><Plus aria-hidden="true" size={18} />{t.addTour}</>}
+          </button>
         </div>
         {source && (
           <div className="fixed inset-0 z-50 bg-[#1F1A14]/35" onClick={closeSource}>
