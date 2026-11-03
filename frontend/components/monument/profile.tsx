@@ -7,7 +7,7 @@ import { ArrowLeft, Check, ChevronDown, Pause, Play, Plus, X } from 'lucide-reac
 import { ArchImage, DropCap, InlayFrame, ManuscriptPanel, MonumentArt, SectionHeading } from '@/components/heritage'
 import { Toggle, useLang } from '@/components/raahein'
 import { imageCredits } from '@/lib/credits'
-import { getMonument } from '@/lib/mock'
+import { getMonument } from '@/lib/catalog'
 import { durations, springs, transitions } from '@/lib/motion'
 import { getNarration } from '@/lib/narration'
 import { fetchStory, type ApiStory } from '@/lib/api'
@@ -71,14 +71,14 @@ export function MonumentProfile({ id }: Props) {
 
   async function toggleAudio() {
     setAudioError('')
-    const narration = await getNarration(monument.id, lang)
+    const narration = await getNarration(lang)
     if (narration.type === 'speech') {
       if (playing) {
         speechSynthesis.cancel()
         setPlaying(false)
         return
       }
-      const utterance = new SpeechSynthesisUtterance(monument.sections.map((section) => section.text[lang]).join(' '))
+      const utterance = new SpeechSynthesisUtterance(apiStory?.body ?? monument.sections.map((section) => section.text[lang]).join(' '))
       utterance.voice = narration.voice
       utterance.onend = () => setPlaying(false)
       utterance.onerror = () => { setPlaying(false); setAudioError(lang === 'hi' ? 'आवाज़ उपलब्ध नहीं है।' : 'Narration is unavailable right now.') }
@@ -132,7 +132,7 @@ export function MonumentProfile({ id }: Props) {
             <ArchImage src={monument.image} alt={monument.name[lang]} className="h-full w-full rounded-none border-0" layoutId={`monument-${monument.id}`} />
             <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#1F1A14]/85 via-[#1F1A14]/40 to-transparent px-5 pb-5 pt-16">
               <h1 className="font-[var(--font-fraunces)] text-3xl sm:text-4xl leading-tight text-[#FBF6EC] drop-shadow">{monument.name[lang]}</h1>
-              <p className="mt-1 text-xs sm:text-sm text-[#FBF6EC]/85">{monument.city} · {monument.yearBuilt} CE</p>
+              <p className="mt-1 text-xs sm:text-sm text-[#FBF6EC]/85">{monument.city} · {monument.era}</p>
             </div>
           </m.section>
 
@@ -154,12 +154,12 @@ export function MonumentProfile({ id }: Props) {
           <div className="flex flex-wrap gap-2">
             {[
               monument.city,
-              `${monument.yearBuilt} CE`,
-              lang === 'hi' ? `निर्माता: ${monument.builder}` : `By ${monument.builder}`,
-              'UNESCO Site',
-              `${monument.sources.length} ${lang === 'hi' ? 'प्रमाणित स्रोत' : 'Verified Sources'}`,
+              monument.era,
+              monument.style,
+              ...(monument.verified ? [`${monument.sources.length} ${lang === 'hi' ? 'प्रमाणित स्रोत' : 'Verified Sources'}`] : []),
             ].map((chip, index) => <m.span animate={{ opacity: 1, y: 0 }} className="rounded-full border border-[#B5452B]/25 bg-[#FBF6EC] px-3 py-1.5 text-xs font-semibold text-[#5A4E3F]" initial={false} key={chip} transition={{ ...transitions.base, delay: index * .06 }}>{chip}</m.span>)}
           </div>
+          {monument.verified && (
           <InlayFrame>
             <div className="rounded-[11px] bg-[#FBF6EC] p-4">
               <div className="flex items-center gap-3">
@@ -174,6 +174,7 @@ export function MonumentProfile({ id }: Props) {
               {audioError && <p className="mt-3 text-sm text-[#8F3221]" role="alert">{audioError}</p>}
             </div>
           </InlayFrame>
+          )}
           <ManuscriptPanel>
             {apiStory?.body ? (
               <m.section className="mb-8 last:mb-0" initial={false} transition={transitions.base}>
@@ -181,9 +182,11 @@ export function MonumentProfile({ id }: Props) {
                   <DropCap hindi={lang === 'hi'}>{apiStory.body}</DropCap>
                 </p>
               </m.section>
+            ) : !monument.verified ? (
+              <p className="text-[16px] leading-[1.75]" data-testid="story-pending">{lang === 'hi' ? 'इस स्थान की कहानी अभी तैयार नहीं है। हम केवल दो स्वतंत्र स्रोतों से जाँचे गए तथ्य ही प्रकाशित करते हैं।' : 'This story is not ready yet. We only publish facts checked against two independent sources.'}</p>
             ) : (
               monument.sections.map((section, index) => (
-                <m.section className="mb-8 last:mb-0" initial={false} key={section.heading?.en ?? index} transition={{ ...transitions.base, delay: index * .06 }} viewport={{ once: true, amount: .25 }} whileInView={{ opacity: 1, y: 0 }}>
+                <m.section className="mb-8 last:mb-0" initial={false} key={index} transition={{ ...transitions.base, delay: index * .06 }} viewport={{ once: true, amount: .25 }} whileInView={{ opacity: 1, y: 0 }}>
                   <SectionHeading>{section.heading?.[lang]}</SectionHeading>
                   {section.isLegend && <div className="mb-3 inline-block rounded-full border border-[#E8A317] px-3 py-1 text-xs font-semibold text-[#8F3221]">{t.legend}</div>}
                   <p className="text-[16px] leading-[1.75]">{index === 0 ? <DropCap hindi={lang === 'hi'}>{section.text[lang]}</DropCap> : section.text[lang]} {section.source && <button onClick={() => openSource(section.source!)} aria-label={`${t.source} ${section.source}`} className="-my-3 ml-1 inline-flex size-12 items-center justify-center align-middle" type="button"><span className="grid size-6 place-items-center rounded-full bg-[#E8A317] text-xs font-bold text-[#1F1A14]">{section.source}</span></button>}</p>
