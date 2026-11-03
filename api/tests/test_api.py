@@ -3,11 +3,10 @@ import os
 os.environ.setdefault("GEMINI_API_KEY", "test-key")
 
 import pytest
-from fastapi.testclient import TestClient
-from pydantic import ValidationError
-
 from app.config import Settings
 from app.main import app
+from fastapi.testclient import TestClient
+from pydantic import ValidationError
 
 
 @app.get("/api/_boom")

@@ -16,3 +16,4 @@ This directory contains the version-controlled demo package for running Raahein'
 
 1. Uploading any of the 5 demo photos yields an exact SHA-256 hash match and returns the frozen candidate ranking with `source: "demo_cache"`.
 2. Any arbitrary or unknown photo not matching the demo set is processed honestly by the inference engine (or returns `status: "uncertain"` when GPU models are offline). Demo responses are **never** silently served for non-demo uploads.
+

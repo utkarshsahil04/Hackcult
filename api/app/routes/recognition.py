@@ -1,12 +1,14 @@
-"""
-POST /api/recognition/identify
+"""POST /api/recognition/identify and demo photo helpers (Issue #17).
+
 - Accepts a resized photo (multipart/form-data, field name: photo)
 - Per-IP in-memory rate limit: 30 requests / day
 - Max upload size: 6 MB
 - Non-image files rejected with 400
+- Demo photos return deterministic high-confidence cached candidates
 - Uncertain match  → 200 with candidates list (never a 500)
 - Model failure    → 500 in the error envelope (never looks like uncertain)
 """
+
 from __future__ import annotations
 
 import logging
@@ -14,9 +16,10 @@ import time
 from collections import defaultdict
 from typing import Annotated
 
-from fastapi import APIRouter, Depends, Request, UploadFile
+from fastapi import APIRouter, Depends, Request, Response, UploadFile
 from fastapi.responses import JSONResponse
 
+from app.demo_cache import get_demo_cache
 from app.errors import AppError
 from app.ml import Candidate, get_pipeline
 
@@ -29,15 +32,16 @@ router = APIRouter(prefix="/api")
 # Resets per-IP when a new calendar day begins (86 400 s window).
 _rate_store: dict[str, dict] = defaultdict(lambda: {"count": 0, "window_start": time.time()})
 
-_WINDOW = 86_400   # seconds in a day
-_LIMIT  = 30       # requests per window per IP
-_MAX_BYTES = 6 * 1024 * 1024          # 6 MB
-_ALLOWED_PREFIXES = (b"\xff\xd8",     # JPEG
-                     b"\x89PNG",      # PNG
-                     b"GIF8",         # GIF
-                     b"RIFF",         # WEBP (RIFF....WEBP)
-                     b"\x00\x00\x00", # possible MP4/HEIC — rejected below by mime
-                     )
+_WINDOW = 86_400  # seconds in a day
+_LIMIT = 30  # requests per window per IP
+_MAX_BYTES = 6 * 1024 * 1024  # 6 MB
+_ALLOWED_PREFIXES = (
+    b"\xff\xd8",  # JPEG
+    b"\x89PNG",  # PNG
+    b"GIF8",  # GIF
+    b"RIFF",  # WEBP (RIFF....WEBP)
+    b"\x00\x00\x00",  # possible MP4/HEIC — rejected below by mime
+)
 _ALLOWED_MIMES = {"image/jpeg", "image/png", "image/gif", "image/webp"}
 
 
@@ -63,7 +67,7 @@ def _validate_image(file: UploadFile, data: bytes) -> None:
         raise AppError(
             400,
             "UPLOAD_TOO_LARGE",
-            f"Photo exceeds the {_MAX_BYTES // (1024*1024)} MB limit.",
+            f"Photo exceeds the {_MAX_BYTES // (1024 * 1024)} MB limit.",
             "Resize the image to under 1024 px before uploading.",
         )
     # MIME type declared by the client
@@ -111,6 +115,8 @@ async def identify(
                 "Retry shortly. If the problem persists, contact support.",
             )
     except Exception as exc:
+        if isinstance(exc, AppError):
+            raise
         logger.exception("Recognition pipeline error", exc_info=exc)
         raise AppError(
             500,
@@ -119,11 +125,38 @@ async def identify(
             "Retry shortly. If the problem persists, contact support.",
         ) from exc
 
+    content = {
+        "status": result.status,  # "ok" | "uncertain"
+        "candidates": [_candidate_dict(c) for c in result.candidates],
+    }
+    if hasattr(result, "provenance") and result.provenance:
+        content["source"] = result.provenance
+
     # Uncertain is a valid answer, not an error → always 200
     return JSONResponse(
         status_code=200,
-        content={
-            "status": result.status,              # "ok" | "uncertain"
-            "candidates": [_candidate_dict(c) for c in result.candidates],
-        },
+        content=content,
     )
+
+
+@router.get("/recognition/demo-photos")
+def list_demo_photos():
+    """List the 5 pre-cached demo photos available for offline demonstration."""
+    cache = get_demo_cache()
+    return {"photos": cache.list_photos()}
+
+
+@router.get("/recognition/demo-photos/{slug_or_filename}")
+def get_demo_photo(slug_or_filename: str):
+    """Retrieve raw image bytes of an official demo photo."""
+    cache = get_demo_cache()
+    res = cache.get_photo_bytes(slug_or_filename)
+    if not res:
+        raise AppError(
+            404,
+            "DEMO_PHOTO_NOT_FOUND",
+            f"No demo photo found for '{slug_or_filename}'.",
+            "Use one of: taj_mahal.jpg, qutb_minar.jpg, humayuns_tomb.jpg, red_fort.jpg, agra_fort.jpg.",
+        )
+    data, media_type = res
+    return Response(content=data, media_type=media_type)
