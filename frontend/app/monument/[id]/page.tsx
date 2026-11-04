@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { MonumentProfile } from '@/components/monument/profile'
 import { findMonument, monuments } from '@/lib/catalog'
+import { jsonLd, monumentMetadata, monumentSchema } from '@/lib/seo'
 
 type Props = { params: Promise<{ id: string }> }
 
@@ -10,7 +11,17 @@ export function generateStaticParams() { return monuments.map((monument) => ({ i
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const monument = findMonument((await params).id)
-  return monument ? { title: `${monument.name.en} | Raahein`, description: `Read the sourced story of ${monument.name.en} in ${monument.city}.` } : { title: 'Monument not found | Raahein' }
+  return monument ? monumentMetadata(monument) : { title: 'Monument not found' }
 }
 
-export default async function Page({ params }: Props) { const { id } = await params; if (!findMonument(id)) notFound(); return <MonumentProfile id={id} /> }
+export default async function Page({ params }: Props) {
+  const { id } = await params
+  const monument = findMonument(id)
+  if (!monument) notFound()
+  return (
+    <>
+      <script dangerouslySetInnerHTML={{ __html: jsonLd(monumentSchema(monument)) }} type="application/ld+json" />
+      <MonumentProfile id={id} />
+    </>
+  )
+}

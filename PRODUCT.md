@@ -15,10 +15,10 @@ Raahein helps a visitor standing at an Indian monument identify it from a photo 
 - Every main screen supports English and Hindi. Hindi copy must wrap without clipping.
 
 ## Experience constraints
-- No login or sign-up in the visitor flow.
+- No login or sign-up in the visitor flow. My journey works without an account and stays on the device.
 - Identifying a monument requires no typing.
 - Camera and gallery access are the two entry paths.
-- Main navigation contains Scan, Explore, and Plan.
+- Main navigation contains Scan, Explore, Plan, and My journey.
 - Every interactive target is at least 48px and works by keyboard and touch.
 - Visitor photos go directly to recognition and are not retained by the client beyond the active session.
 

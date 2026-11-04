@@ -8,6 +8,7 @@ import { InlayFrame, MonumentArt } from '@/components/heritage'
 import { Toggle, useLang } from '@/components/raahein'
 import { fetchRelated, type ApiRelated } from '@/lib/api'
 import { findMonument, getMonument, nearestMonuments } from '@/lib/catalog'
+import { toggleTour, useTour } from '@/lib/journey'
 import { transitions } from '@/lib/motion'
 
 const GRAPH_NODES = 6
@@ -15,7 +16,7 @@ const GRAPH_NODES = 6
 export function RelatedMonuments({ id }: { id: string }) {
   const monument = getMonument(id)
   const { lang, setLang, t } = useLang()
-  const [added, setAdded] = useState<string[]>([])
+  const added = useTour()
   const [apiRelated, setApiRelated] = useState<ApiRelated | null>(null)
 
   // Only sourced monuments have recorded connections; asking for the others is always a 404.
@@ -35,13 +36,6 @@ export function RelatedMonuments({ id }: { id: string }) {
     const angle = -Math.PI / 2 + (index * 2 * Math.PI) / shown.length
     return { ...item, x: 50 + 38 * Math.cos(angle), y: 50 + 38 * Math.sin(angle) }
   })
-
-  function toggleTour(relatedId: string) {
-    const name = getMonument(relatedId).name[lang]
-    const isAdded = added.includes(relatedId)
-    setAdded((current) => isAdded ? current.filter((item) => item !== relatedId) : [...current, relatedId])
-    window.dispatchEvent(new CustomEvent('raahein-tour', { detail: isAdded ? { remove: relatedId } : { add: { id: relatedId, name } } }))
-  }
 
   return (
     <LazyMotion features={domAnimation}>

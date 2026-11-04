@@ -117,6 +117,7 @@ export async function planTour(params: {
   profile: string
   preset?: string
   interests?: string[]
+  must_visit?: string[]
   max_stops?: number
   preferences?: Record<string, unknown>
 }): Promise<TourPlanResponse | null> {

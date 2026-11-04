@@ -5,7 +5,7 @@ import { ArrowRight, BookOpen, Box, Clock, Compass, MapPin, MapPinned, Route, Sh
 import { LazyMotion, domAnimation, m } from 'framer-motion'
 import { Toggle, useLang } from '@/components/raahein'
 import { RaaheinLogo } from '@/components/RaaheinLogo'
-import { ArchImage, HeritageSimulator, InlayFrame, MonumentArt, Reveal, VineDivider } from '@/components/heritage'
+import { ArchImage, HeritageSimulator, InlayFrame, LotusDivider, Mandala, MonumentArt, Reveal, VineDivider } from '@/components/heritage'
 import { monuments } from '@/lib/catalog'
 
 const verifiedCount = monuments.filter((m) => m.verified).length
@@ -148,7 +148,7 @@ export default function Page() {
     <LazyMotion features={domAnimation}>
       <main className="shell min-h-svh overflow-hidden pb-24 lg:mx-auto lg:max-w-7xl lg:px-8" lang={lang}>
         {/* Mobile Header */}
-        <header className="sticky top-0 z-40 flex items-center justify-between border-b border-[#E8A317]/20 bg-[#EADBC0]/95 px-5 py-2.5 backdrop-blur lg:hidden safe-top">
+        <header className="site-header sticky top-0 z-40 flex items-center justify-between border-b border-[#E8A317]/20 bg-[#EADBC0]/95 px-5 py-2.5 backdrop-blur lg:hidden safe-top">
           <Link className="flex min-h-12 items-center" href="/" aria-label={lang === 'hi' ? 'राहें' : 'Raahein'}>
             <RaaheinLogo className="h-10 w-28" />
           </Link>
@@ -158,20 +158,20 @@ export default function Page() {
         {/* Hero Section */}
         <section className="relative px-5 pb-14 pt-8 lg:grid lg:grid-cols-12 lg:items-center lg:gap-12 lg:px-0 lg:pb-20 lg:pt-16">
           <div className="lg:col-span-5">
-            <span className="inline-flex items-center gap-2 rounded-full border border-[#E8A317] bg-[#FBF6EC]/90 px-4 py-1.5 text-xs font-semibold text-[#8F3221] shadow-sm backdrop-blur">
+            <span className="rise inline-flex items-center gap-2 rounded-full border border-[#E8A317] bg-[#FBF6EC]/90 px-4 py-1.5 text-xs font-semibold text-[#8F3221] shadow-sm backdrop-blur">
               <Sparkles size={14} className="text-[#E8A317] animate-pulse" aria-hidden="true" />
               {lang === 'hi' ? 'भारतीय सांस्कृतिक धरोहर यात्रा' : 'Indian Cultural Heritage Tour'}
             </span>
-            <h1 className="fraunces mt-4 max-w-[360px] text-5xl leading-[.98] sm:text-6xl lg:max-w-none lg:text-7xl">
+            <h1 className="fraunces rise mt-4 max-w-[360px] text-5xl leading-[.98] sm:text-6xl lg:max-w-none lg:text-7xl">
               {copy.heading}
             </h1>
-            <p className="mt-6 max-w-[34rem] text-base leading-7 text-[#5A4E3F] lg:text-lg">
+            <p className="rise mt-6 max-w-[34rem] text-base leading-7 text-[#5A4E3F] lg:text-lg" style={{ animationDelay: '120ms' }}>
               {copy.body}
             </p>
-            <div className="mt-9 flex flex-wrap items-center gap-4">
+            <div className="rise mt-9 flex flex-wrap items-center gap-4" style={{ animationDelay: '220ms' }}>
               <Link
                 href="/identify"
-                className="link-inverse inline-flex min-h-14 items-center gap-3 rounded-full bg-[#B5452B] px-7 font-semibold shadow-[0_10px_24px_rgba(143,50,33,.28)] transition-transform hover:-translate-y-0.5"
+                className="link-inverse primary-action inline-flex min-h-14 items-center gap-3 rounded-full bg-[#B5452B] px-7 font-semibold shadow-[0_10px_24px_rgba(143,50,33,.28)] transition-transform hover:-translate-y-0.5"
               >
                 {copy.begin} <ArrowRight aria-hidden="true" size={18} />
               </Link>
@@ -187,16 +187,7 @@ export default function Page() {
           <div className="relative mt-14 flex min-h-[460px] items-center justify-center lg:col-span-7 lg:mt-0 lg:min-h-[580px]">
             {/* Animated Indian Cultural Mandala Aura */}
             <div className="pointer-events-none absolute -inset-6 sm:-inset-10 flex items-center justify-center overflow-visible" aria-hidden="true">
-              <m.div
-                animate={{ rotate: 360 }}
-                transition={{ duration: 140, repeat: Infinity, ease: 'linear' }}
-                className="absolute size-[350px] sm:size-[440px] lg:size-[560px] rounded-full border-2 border-dashed border-[#E8A317]/55 opacity-75"
-              />
-              <m.div
-                animate={{ rotate: -360 }}
-                transition={{ duration: 200, repeat: Infinity, ease: 'linear' }}
-                className="absolute size-[410px] sm:size-[500px] lg:size-[640px] rounded-full border border-[#B5452B]/35 opacity-60"
-              />
+              <Mandala className="spin-slow absolute size-[370px] text-[#E8A317] opacity-70 sm:size-[460px] lg:size-[620px]" />
               <div className="absolute size-[300px] sm:size-[380px] rounded-full bg-radial from-[#E8A317]/25 via-[#E8A317]/10 to-transparent blur-2xl" />
             </div>
 
@@ -224,6 +215,15 @@ export default function Page() {
           </div>
         </section>
 
+        {/* Monument names ribbon */}
+        <div aria-hidden="true" className="ribbon overflow-hidden py-3 lg:rounded-xl">
+          <div className="marquee-track flex w-max">
+            {[...monuments, ...monuments].map((item, index) => (
+              <span className="fraunces flex shrink-0 items-center gap-5 pr-5 text-lg text-[#FBF6EC]" key={`${item.id}-${index}`}>{item.name[lang]}<span className="text-xs text-[#E8A317]">✦</span></span>
+            ))}
+          </div>
+        </div>
+
         {/* Heritage Metrics Ribbon */}
         <Reveal>
         <section aria-label={lang === 'hi' ? 'धरोहर सांख्यिकी' : 'Heritage Metrics'} className="px-5 py-6 lg:px-0 lg:py-10">
@@ -246,6 +246,8 @@ export default function Page() {
         {/* Interactive Architectural & Solar Simulator */}
         <HeritageSimulator lang={lang} />
 
+        <LotusDivider className="px-5 lg:px-0" />
+
         {/* Curated Corridors */}
         <Reveal>
         <section aria-labelledby="corridors-heading" className="px-5 py-8 lg:px-0 lg:py-14">
@@ -254,14 +256,14 @@ export default function Page() {
               <h2 id="corridors-heading" className="fraunces text-3xl lg:text-4xl">{copy.circuitsHeading}</h2>
               <p className="mt-2 text-sm text-[#5A4E3F] lg:text-base">{copy.circuitsSub}</p>
             </div>
-            <Link href="/plan" className="inline-flex min-h-10 items-center text-sm font-semibold text-[#B5452B] hover:underline">
+            <Link href="/plan" className="inline-flex min-h-12 items-center text-sm font-semibold text-[#B5452B] hover:underline">
               {copy.plan} <ArrowRight size={16} className="ml-1" aria-hidden="true" />
             </Link>
           </div>
 
           <div className="grid gap-6 lg:grid-cols-2">
             {copy.circuits.map((circuit, index) => (
-              <InlayFrame key={index} className="h-full">
+              <InlayFrame key={index} className="lift-card h-full">
                 <div className="flex h-full flex-col justify-between rounded-[10px] bg-[#FBF6EC] p-6">
                   <div>
                     <div className="flex items-center justify-between gap-2">
@@ -284,11 +286,11 @@ export default function Page() {
                   </div>
                   <div className="mt-6 pt-4 border-t border-[#E8A317]/20 flex items-center justify-between">
                     <span className="text-xs text-[#5A4E3F] flex items-center gap-1.5">
-                      <Clock size={14} aria-hidden="true" /> ~6 hours curated tour
+                      <Clock size={14} aria-hidden="true" /> {lang === 'hi' ? 'लगभग 6 घंटे का मार्ग' : 'About 6 hours'}
                     </span>
                     <Link
                       href={circuit.href}
-                      className="inline-flex min-h-10 items-center text-xs font-semibold text-[#B5452B] hover:text-[#8F3221]"
+                      className="inline-flex min-h-12 items-center text-xs font-semibold text-[#B5452B] hover:text-[#8F3221]"
                     >
                       {lang === 'hi' ? 'मार्ग देखें' : 'View itinerary'} <ArrowRight size={14} className="ml-1" aria-hidden="true" />
                     </Link>
@@ -300,6 +302,8 @@ export default function Page() {
         </section>
         </Reveal>
 
+        <LotusDivider className="px-5 lg:px-0" />
+
         {/* How It Works */}
         <Reveal>
         <section aria-labelledby="how-heading" className="px-5 py-8 lg:px-0 lg:py-16">
@@ -310,7 +314,7 @@ export default function Page() {
           <ol className="grid gap-4 lg:grid-cols-3 lg:gap-20">
             {copy.steps.map(([title, body, tag], index) => (
               <li className="relative flex min-w-0 items-stretch" key={title}>
-                <InlayFrame className="h-full w-full">
+                <InlayFrame className="lift-card h-full w-full">
                   <div className="flex h-full min-h-44 flex-col justify-between rounded-[10px] bg-[#FBF6EC] p-5">
                     <div>
                       <div className="flex items-center justify-between">
@@ -335,6 +339,8 @@ export default function Page() {
         </section>
         </Reveal>
 
+        <LotusDivider className="px-5 lg:px-0" />
+
         {/* Monuments Showcase */}
         <Reveal>
         <section aria-labelledby="monuments-heading" className="px-5 py-8 lg:px-0 lg:py-14">
@@ -353,7 +359,7 @@ export default function Page() {
               <Link
                 href={`/monument/${item.id}`}
                 key={item.id}
-                className="w-72 shrink-0 snap-start rounded-2xl focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#E8A317]"
+                className="lift-card group w-72 shrink-0 snap-start rounded-2xl focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#E8A317]"
               >
                 <InlayFrame className="h-full">
                   <div className="flex h-full flex-col justify-between rounded-[10px] bg-[#FBF6EC] p-3">

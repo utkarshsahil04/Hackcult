@@ -22,6 +22,7 @@ function RouteContent() {
   const preset = params.get('preset') || undefined
   const city = params.get('city') || 'Delhi'
   const interests = params.get('interests') || ''
+  const must = params.get('must') || ''
   const modeLabel = mode === 'auto' ? t.auto : t.walk
   const [planData, setPlanData] = useState<TourPlanResponse | null>(null)
   const [status, setStatus] = useState<'loading' | 'ready' | 'error'>('loading')
@@ -43,6 +44,7 @@ function RouteContent() {
       preset,
       max_stops: maxStops,
       interests: interests ? interests.split(',') : [],
+      must_visit: must ? must.split(',') : [],
       preferences: { city },
     }).then((plan) => {
       if (!live) return
@@ -50,7 +52,7 @@ function RouteContent() {
       setStatus(plan ? 'ready' : 'error')
     })
     return () => { live = false }
-  }, [hours, mode, preset, maxStops, interests, city])
+  }, [hours, mode, preset, maxStops, interests, city, must])
 
   const impossible = planData !== null && !planData.is_feasible
   const stops = (planData?.is_feasible ? planData.itinerary.stops : []).filter((s) => findMonument(s.monument_slug)).map((s) => {
@@ -108,7 +110,7 @@ function RouteContent() {
                         <span className="grid size-8 shrink-0 place-items-center rounded-full bg-[#B5452B] text-sm text-white">{index + 1}</span>
                         <div>
                           <Link className="font-semibold underline-offset-4 hover:underline" href={`/monument/${id}`}>{monument.name[lang]}</Link>
-                          <div className="text-sm text-[#5A4E3F]">{time} · {duration} min visit</div>
+                          <div className="text-sm text-[#5A4E3F]">{time} · {duration} {lang === 'hi' ? 'मिनट का पड़ाव' : 'min visit'}</div>
                           <div className="mt-0.5 text-xs text-[#8F3221]">{monument.era}{monument.verified ? '' : lang === 'hi' ? ' · कहानी शीघ्र' : ' · Story pending'}</div>
                           <button
                             type="button"
