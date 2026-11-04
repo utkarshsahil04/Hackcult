@@ -103,7 +103,7 @@ async def identify(
     ip = request.client.host if request.client else "unknown"
     _check_rate_limit(ip)
 
-    data = await photo.read()
+    data = await photo.read(_MAX_BYTES + 1)  # one byte over is enough to reject it
     _validate_image(photo, data)
 
     try:

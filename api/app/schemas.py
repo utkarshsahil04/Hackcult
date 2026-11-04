@@ -86,6 +86,7 @@ class RouteLineResponse(BaseModel):
 class TourPlanRequest(BaseModel):
     query: str | None = Field(
         default=None,
+        max_length=500,
         description="Natural language trip description or visitor preferences (e.g. '3 hour tour in Delhi starting at Red Fort')",
     )
     start_monument: str | None = Field(
@@ -126,6 +127,7 @@ class TourPlanRequest(BaseModel):
     time_limit_seconds: int = Field(
         default=5,
         ge=1,
+        le=10,
         description="OR-Tools solver computation time limit in seconds",
     )
 
