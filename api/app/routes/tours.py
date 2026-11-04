@@ -18,11 +18,14 @@ from app.planner.models import (
     PlannerError,
     SolverError,
 )
+from app.planner.route_line import route_line
 from app.planner.solver import solve_itinerary
 from app.planner.validator import validate_itinerary
 from app.schemas import (
     ItineraryOut,
     PlanMetricsOut,
+    RouteLineRequest,
+    RouteLineResponse,
     StopOut,
     TourPlanRequest,
     TourPlanResponse,
@@ -83,6 +86,23 @@ def _metrics(itinerary: Itinerary, cfg, optimum, priorities: dict[str, int]) -> 
         is_optimal=optimal,
         preset=cfg.preset,
     )
+
+
+@router.post("/route-line", response_model=RouteLineResponse)
+def get_route_line(
+    payload: RouteLineRequest,
+    conn: Annotated[sqlite3.Connection, Depends(get_db)],
+) -> RouteLineResponse:
+    """Return the shape of a planned route. Only real monuments are accepted, so this can't be used to proxy OSRM."""
+    cap = resolve_config().max_stops_allowed
+    if not 2 <= len(payload.stops) <= cap or len(set(payload.stops)) != len(payload.stops):
+        raise AppError(400, "VALIDATION_ERROR", f"A route line needs 2 to {cap} different stops.", "Send the stops of a plan in order.")
+    marks = ",".join("?" * len(payload.stops))
+    found = {r["slug"]: (r["latitude"], r["longitude"]) for r in conn.execute(f"SELECT slug, latitude, longitude FROM monuments WHERE slug IN ({marks})", payload.stops)}
+    unknown = [s for s in payload.stops if s not in found]
+    if unknown:
+        raise AppError(400, "VALIDATION_ERROR", f"Unknown monuments: {', '.join(unknown)}.", "Use monument slugs from the plan.")
+    return RouteLineResponse(**route_line(payload.profile, [found[s] for s in payload.stops]))
 
 
 @router.post("/plan", response_model=TourPlanResponse)
@@ -172,10 +192,12 @@ def plan_tour(
             hint="Ensure precomputed matrices are available.",
         ) from exc
 
-    matrix = restrict_legs(matrix, cfg.max_leg_min)
-    city = str(preferences.get("city") or "").strip().lower()
-    pool = [r["slug"] for r in rows if not city or r["city"].lower() == city]
     must = set(combined_must_visit)
+    # A place the visitor names is theirs to choose: the pace's leg limit and the city filter only guide what we add.
+    if not must:
+        matrix = restrict_legs(matrix, cfg.max_leg_min)
+    city = str(preferences.get("city") or "").strip().lower()
+    pool = [r["slug"] for r in rows if not city or r["city"].lower() == city or r["slug"] in must or r["slug"] == start_monument]
 
     def optimum(start: str | None):
         return best_plan(matrix, time_budget_minutes, cfg.max_stops, visit_durations, pool,
@@ -186,13 +208,19 @@ def plan_tour(
         start_monument = found[1][0] if found else pool[0]
         combined_must_visit = [s for s in combined_must_visit if s != start_monument]
 
+    # At 5 stops OR-Tools alone sometimes settles for fewer stops or a slower route within its time limit.
+    # The exact search is near-instant, so it chooses the stops and OR-Tools builds the itinerary from them.
+    exact = optimum(start_monument) if not return_to_start else None
+    chosen = exact[1] if exact else None
+
     # 3. Solve itinerary using OR-Tools
     try:
         itinerary = solve_itinerary(
             start_monument=start_monument,
             time_budget_minutes=time_budget_minutes,
             matrix=matrix,
-            must_visit=combined_must_visit,
+            must_visit=[s for s in chosen if s != start_monument] if chosen else combined_must_visit,
+            candidate_slugs=chosen,
             preferences=preferences,
             return_to_start=return_to_start,
             max_stops=cfg.max_stops,
@@ -276,7 +304,7 @@ def plan_tour(
             parsed_preferences=parsed_dict,
         )
 
-    metrics = _metrics(itinerary, cfg, optimum(start_monument) if not return_to_start else None, priorities)
+    metrics = _metrics(itinerary, cfg, exact, priorities)
 
     # 7. Generate natural language explanation for already-validated itinerary
     explanation = gemini.explain_itinerary(itinerary)
