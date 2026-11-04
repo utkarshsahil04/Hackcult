@@ -1,5 +1,5 @@
 {
-  "hard_max_stops": 3,
+  "hard_max_stops": 5,
   "default_preset": "standard",
   "visit_minutes": {
     "default": 60,
@@ -15,8 +15,8 @@
     }
   },
   "presets": {
-    "relaxed":  {"label": "Relaxed",  "max_stops": 2, "max_leg_min": 30, "visit_scale": 1.25},
-    "standard": {"label": "Standard", "max_stops": 3, "max_leg_min": 45, "visit_scale": 1.0},
-    "quick":    {"label": "Quick",    "max_stops": 3, "max_leg_min": 30, "visit_scale": 0.6}
+    "relaxed":  {"label": "Relaxed",  "max_stops": 3, "max_leg_min": 30, "visit_scale": 1.25},
+    "standard": {"label": "Standard", "max_stops": 4, "max_leg_min": 45, "visit_scale": 1.0},
+    "quick":    {"label": "Quick",    "max_stops": 5, "max_leg_min": 30, "visit_scale": 0.6}
   }
 }
