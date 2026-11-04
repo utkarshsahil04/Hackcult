@@ -327,3 +327,10 @@ def test_a_chosen_place_outside_the_city_and_leg_limit_is_still_planned(client):
     body = r.json()
     assert r.status_code == 200 and body["is_validated"] is True
     assert {"fatehpur-sikri", "taj-mahal"} <= {s["monument_slug"] for s in body["itinerary"]["stops"]}
+
+
+@pytest.mark.parametrize("extra", [{"time_limit_seconds": 11}, {"query": "x" * 501}])
+def test_plan_rejects_requests_that_could_tie_up_the_server_or_gemini(client, extra):
+    r = client.post("/api/tours/plan", json={"time_budget_minutes": 240, **extra})
+    assert r.status_code == 400
+    assert r.json()["error"]["code"] == "VALIDATION_ERROR"
