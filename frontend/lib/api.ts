@@ -111,6 +111,12 @@ export type TourPlanResponse = {
   metrics?: { stop_count: number; max_stops: number; budget_utilisation: number; travel_share: number; slack_min: number; is_optimal: boolean | null; preset: string } | null
 }
 
+export type RouteLineResponse = { source: 'roads' | 'straight'; legs: number[][][] }
+
+export async function fetchRouteLine(stops: string[], profile: string): Promise<RouteLineResponse | null> {
+  return apiFetch<RouteLineResponse>('/api/tours/route-line', { method: 'POST', body: JSON.stringify({ stops, profile }) }).catch(() => null)
+}
+
 export async function planTour(params: {
   start_monument?: string
   time_budget_minutes: number
