@@ -55,10 +55,13 @@ def evaluate(city: str | None = "Delhi") -> dict:
             for budget in BUDGETS:
                 for start in pool:
                     t0 = time.perf_counter()
-                    it = solve_itinerary(start, budget, matrix, candidate_slugs=pool, max_stops=cfg.max_stops,
+                    # The same two steps as the API: exact search chooses the stops, OR-Tools builds the itinerary.
+                    oracle = best_plan(matrix, budget, cfg.max_stops, visit, pool, start=start)
+                    chosen = oracle[1] if oracle else pool
+                    it = solve_itinerary(start, budget, matrix, candidate_slugs=chosen, max_stops=cfg.max_stops,
+                                         must_visit=[s for s in chosen if s != start] if oracle else None,
                                          visit_durations=visit, time_limit_seconds=1)
                     ms = (time.perf_counter() - t0) * 1000
-                    oracle = best_plan(matrix, budget, cfg.max_stops, visit, pool, start=start)
                     verdict = validate_itinerary(it, matrix=matrix, time_budget_minutes=budget, visit_durations=visit) if it.is_feasible else None
                     runs.append({
                         "profile": profile, "preset": preset, "budget": budget, "start": start,
