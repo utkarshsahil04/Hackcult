@@ -29,3 +29,7 @@
 [aria-pressed]{transition:background-color var(--motion-fast) ease,border-color var(--motion-fast) ease,color var(--motion-fast) ease}
 @media (prefers-reduced-motion:no-preference){@supports (animation-timeline:view()){.reveal{animation:rise linear backwards;animation-timeline:view();animation-range:entry 0% entry 30%}}}
 @media (pointer:coarse){.footer-link{min-height:48px}}
+.route-flow{animation:route-flow 1s linear infinite}@keyframes route-flow{to{stroke-dashoffset:-16}}
+.route-traveller{border-radius:50%;background:#E8A317;border:3px solid #FBF6EC;box-shadow:0 2px 8px rgba(31,26,20,.45)}
+.dome-pin-small span{width:20px;height:20px;background:#FBF6EC;border:2px solid #B5452B;cursor:pointer;transition:transform var(--motion-fast) ease}.dome-pin-small span:empty::after{background:#B5452B;width:6px;height:6px}.dome-pin-small:hover span{transform:scale(1.25)}
+@media (min-width:1024px){.plan-layout{max-width:none;padding-inline:0}}

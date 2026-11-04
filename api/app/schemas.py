@@ -73,6 +73,16 @@ class PlaceOut(BaseModel):
 # --- Tour Planning Schemas (Issue #10) ---
 
 
+class RouteLineRequest(BaseModel):
+    stops: list[str] = Field(description="Monument slugs in visiting order")
+    profile: Literal["driving-car", "foot-walking"] = "driving-car"
+
+
+class RouteLineResponse(BaseModel):
+    source: Literal["roads", "straight"]
+    legs: list[list[list[float]]] = Field(description="One [latitude, longitude] line per leg")
+
+
 class TourPlanRequest(BaseModel):
     query: str | None = Field(
         default=None,

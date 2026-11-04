@@ -1,7 +1,7 @@
 """Configurable plan architecture: presets + overrides resolve to one immutable PlanConfig.
 
 Add a preset or retune visit times by editing data/plan_presets.json; no code change needed.
-The hard stop cap (3) lives in the same file and can never be exceeded by a request.
+The hard stop cap (5) lives in the same file and can never be exceeded by a request.
 """
 
 from __future__ import annotations
@@ -32,6 +32,10 @@ class PlanConfig:
     max_stops: int
     max_leg_min: float
     visit_scale: float
+
+    @property
+    def max_stops_allowed(self) -> int:
+        return _raw()["hard_max_stops"]
 
     def visit_minutes(self, slug: str, listed: bool = False) -> float:
         v = _raw()["visit_minutes"]

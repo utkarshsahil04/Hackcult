@@ -252,12 +252,12 @@ def test_plan_tour_unknown_monument_slug(client):
     assert "eiffel-tower" in body["error"]["message"]
 
 
-def test_plan_never_exceeds_three_stops_even_when_asked_for_more(client):
+def test_plan_never_exceeds_five_stops_even_when_asked_for_more(client):
     r = client.post("/api/tours/plan", json={"time_budget_minutes": 600, "max_stops": 9, "preferences": {"city": "Delhi"}})
     body = r.json()
     assert r.status_code == 200 and body["is_validated"] is True
-    assert len(body["itinerary"]["stops"]) <= 3
-    assert body["metrics"]["max_stops"] == 3
+    assert len(body["itinerary"]["stops"]) == 5
+    assert body["metrics"]["max_stops"] == 5
 
 
 def test_plan_without_start_picks_one_and_is_optimal(client):
@@ -269,7 +269,7 @@ def test_plan_without_start_picks_one_and_is_optimal(client):
 
 def test_plan_preset_and_interests_are_configurable(client):
     quick = client.post("/api/tours/plan", json={"time_budget_minutes": 300, "preset": "relaxed", "preferences": {"city": "Delhi"}}).json()
-    assert len(quick["itinerary"]["stops"]) <= 2
+    assert len(quick["itinerary"]["stops"]) <= 3
     gardens = client.post("/api/tours/plan", json={"time_budget_minutes": 300, "interests": ["garden"], "preferences": {"city": "Delhi"}}).json()
     assert any(s["monument_slug"] in ("lodhi-gardens", "sunder-nursery", "humayuns-tomb") for s in gardens["itinerary"]["stops"])
 
@@ -281,3 +281,49 @@ def test_plan_unknown_preset_is_a_400(client):
 def test_plan_accepts_new_delhi_sites(client):
     r = client.post("/api/tours/plan", json={"start_monument": "india-gate", "time_budget_minutes": 180})
     assert r.status_code == 200 and r.json()["itinerary"]["stops"][0]["monument_slug"] == "india-gate"
+
+
+def test_route_line_returns_a_line_for_each_leg(client):
+    with patch("urllib.request.urlopen", side_effect=OSError("offline")):
+        r = client.post("/api/tours/route-line", json={"stops": ["red-fort", "india-gate", "humayuns-tomb"], "profile": "foot-walking"})
+    body = r.json()
+    assert r.status_code == 200 and body["source"] == "straight"
+    assert len(body["legs"]) == 2
+    assert body["legs"][0][-1] == body["legs"][1][0]
+
+
+@pytest.mark.parametrize("stops", [["red-fort"], ["red-fort", "not-a-monument"], ["red-fort", "red-fort"], [f"s{i}" for i in range(6)]])
+def test_route_line_rejects_bad_stops_without_calling_out(client, stops):
+    with patch("urllib.request.urlopen") as opened:
+        r = client.post("/api/tours/route-line", json={"stops": stops})
+    assert r.status_code == 400
+    assert r.json()["error"]["code"] == "VALIDATION_ERROR"
+    opened.assert_not_called()
+
+
+@pytest.mark.parametrize(("start", "budget"), [("india-gate", 300), ("purana-qila", 300), ("purana-qila", 420), ("abdul-rahim-khan-i-khana-tomb", 600)])
+def test_five_stop_plans_match_the_exact_optimum(client, start, budget):
+    """OR-Tools alone planned fewer stops or a slower route for these walking days."""
+    r = client.post("/api/tours/plan", json={
+        "start_monument": start, "time_budget_minutes": budget, "preset": "standard", "max_stops": 5,
+        "profile": "foot-walking", "preferences": {"city": "Delhi"}, "time_limit_seconds": 1,
+    })
+    body = r.json()
+    assert r.status_code == 200 and body["is_validated"] is True
+    assert body["metrics"]["is_optimal"] is True
+    assert len(body["itinerary"]["stops"]) == 5
+
+
+def test_chosen_monuments_are_all_in_the_five_stop_plan(client):
+    must = ["red-fort", "humayuns-tomb", "lodhi-gardens", "india-gate", "jantar-mantar"]
+    r = client.post("/api/tours/plan", json={"time_budget_minutes": 600, "preset": "quick", "max_stops": 5, "must_visit": must, "preferences": {"city": "Delhi"}, "time_limit_seconds": 1})
+    body = r.json()
+    assert r.status_code == 200 and body["is_validated"] is True
+    assert {s["monument_slug"] for s in body["itinerary"]["stops"]} == set(must)
+
+
+def test_a_chosen_place_outside_the_city_and_leg_limit_is_still_planned(client):
+    r = client.post("/api/tours/plan", json={"time_budget_minutes": 600, "preset": "quick", "max_stops": 3, "must_visit": ["fatehpur-sikri", "taj-mahal"], "preferences": {"city": "Agra"}, "time_limit_seconds": 1})
+    body = r.json()
+    assert r.status_code == 200 and body["is_validated"] is True
+    assert {"fatehpur-sikri", "taj-mahal"} <= {s["monument_slug"] for s in body["itinerary"]["stops"]}

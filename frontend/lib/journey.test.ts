@@ -39,9 +39,9 @@ describe('journey data', () => {
     expect(journeyStats(visits(20)).level.en).toBe('Virasat Rakshak')
   })
 
-  it('plans at most 3 stops and picks the region from the first', () => {
-    const params = new URL(tourPlanHref(['taj-mahal', 'agra-fort', 'akbars-tomb', 'itimad-ud-daulah']), 'http://x').searchParams
-    expect(params.get('must')).toBe('taj-mahal,agra-fort,akbars-tomb')
+  it('plans at most 5 stops and picks the region from the first', () => {
+    const params = new URL(tourPlanHref(['taj-mahal', 'agra-fort', 'akbars-tomb', 'itimad-ud-daulah', 'fatehpur-sikri', 'red-fort']), 'http://x').searchParams
+    expect(params.get('must')).toBe('taj-mahal,agra-fort,akbars-tomb,itimad-ud-daulah,fatehpur-sikri')
     expect(params.get('city')).toBe('Agra')
   })
 })

@@ -86,11 +86,16 @@ export function toggleTour(id: string) {
   tourStore.write(tour.includes(id) ? tour.filter((stop) => stop !== id) : [...tour, id])
 }
 
-/** A plan holds at most 3 stops, and only stops in one region can share a day. */
+/** Matches hard_max_stops in backend/app/planner/data/plan_presets.json. */
+export const MAX_STOPS = 5
+
+export const regionOf = (m: { lat: number }) => m.lat < 28 ? 'Agra' : 'Delhi'
+
+/** Only stops in one region can share a day. */
 export function tourPlanHref(tour: string[]) {
-  const stops = tour.slice(0, 3)
+  const stops = tour.slice(0, MAX_STOPS)
   const first = stops[0] ? findMonument(stops[0]) : undefined
-  return `/plan/route?${new URLSearchParams({ hours: '8', mode: 'auto', must: stops.join(','), city: first && first.lat < 28 ? 'Agra' : 'Delhi' })}`
+  return `/plan/route?${new URLSearchParams({ hours: '8', mode: 'auto', stops: String(MAX_STOPS), must: stops.join(','), city: first ? regionOf(first) : 'Delhi' })}`
 }
 
 export const LEVELS = [

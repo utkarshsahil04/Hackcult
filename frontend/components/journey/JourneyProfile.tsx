@@ -6,21 +6,21 @@ import Map from '@/components/map'
 import { InlayFrame, LotusDivider, MonumentArt } from '@/components/heritage'
 import { useLang } from '@/components/raahein'
 import { getMonument, monuments } from '@/lib/catalog'
-import { clearJourney, journeyStats, setJourneyName, setVisitDate, toggleTour, toggleVisit, tourPlanHref, today, useJourney, useTour } from '@/lib/journey'
+import { clearJourney, journeyStats, MAX_STOPS, setJourneyName, setVisitDate, toggleTour, toggleVisit, tourPlanHref, today, useJourney, useTour } from '@/lib/journey'
 
 const copy = {
   en: {
     title: 'My journey', name: 'Your name', device: 'Saved only on this device, with no account. Clearing your browser data removes it.',
     places: 'Monuments', of: 'of', cities: 'Cities', km: 'km between them', eras: 'Eras', map: 'Your path so far', visits: 'Where you have been', visited: 'Visited on', remove: 'Remove',
     emptyTitle: 'Your road starts here', empty: 'Open any monument and choose “I’ve been here”. Your path, places and distance will appear on this page.', browse: 'Browse monuments',
-    next: 'Closest to your last stop', tour: 'Your tour', tourEmpty: 'Add monuments to your tour from their pages, then build a day around them.', planIt: 'Plan these stops', tourLimit: 'A day plan holds up to 3 stops, so the first 3 will be used.',
+    next: 'Closest to your last stop', tour: 'Your tour', tourEmpty: 'Add monuments to your tour from their pages, then build a day around them.', planIt: 'Plan these stops', tourLimit: 'A day plan holds up to 5 stops, so the first 5 will be used.',
     clear: 'Clear my journey', confirm: 'Remove your name and all your visits from this device? This can’t be undone.',
   },
   hi: {
     title: 'मेरी यात्रा', name: 'आपका नाम', device: 'बिना खाते के, केवल इसी उपकरण पर सहेजा गया। ब्राउज़र डेटा हटाने पर यह भी हट जाएगा।',
     places: 'स्मारक', of: 'में से', cities: 'शहर', km: 'किमी की दूरी', eras: 'काल', map: 'अब तक की राह', visits: 'जहां आप गए', visited: 'जाने की तिथि', remove: 'हटाएं',
     emptyTitle: 'आपकी राह यहीं से शुरू होती है', empty: 'कोई भी स्मारक खोलें और “मैं यहां गया/गई हूं” चुनें। आपकी राह, स्थान और दूरी इस पृष्ठ पर दिखेंगे।', browse: 'स्मारक देखें',
-    next: 'आपके पिछले पड़ाव के सबसे पास', tour: 'आपका टूर', tourEmpty: 'स्मारकों के पृष्ठों से उन्हें अपने टूर में जोड़ें, फिर उनके साथ अपना दिन बनाएं।', planIt: 'इन पड़ावों की योजना बनाएं', tourLimit: 'एक दिन की योजना में अधिकतम 3 पड़ाव होते हैं, इसलिए पहले 3 लिए जाएंगे।',
+    next: 'आपके पिछले पड़ाव के सबसे पास', tour: 'आपका टूर', tourEmpty: 'स्मारकों के पृष्ठों से उन्हें अपने टूर में जोड़ें, फिर उनके साथ अपना दिन बनाएं।', planIt: 'इन पड़ावों की योजना बनाएं', tourLimit: 'एक दिन की योजना में अधिकतम 5 पड़ाव होते हैं, इसलिए पहले 5 लिए जाएंगे।',
     clear: 'मेरी यात्रा मिटाएं', confirm: 'क्या इस उपकरण से आपका नाम और सभी यात्राएं हटा दें? इसे वापस नहीं लाया जा सकता।',
   },
 }
@@ -130,7 +130,7 @@ export function JourneyProfile() {
                 </li>
               ))}
             </ul>
-            {tour.length > 3 && <p className="mt-2 text-xs text-[#5A4E3F]">{text.tourLimit}</p>}
+            {tour.length > MAX_STOPS && <p className="mt-2 text-xs text-[#5A4E3F]">{text.tourLimit}</p>}
             <Link className="link-inverse primary-action mt-4 inline-flex min-h-12 items-center gap-2 rounded-full bg-[#B5452B] px-6 font-semibold" href={tourPlanHref(tour)}>{text.planIt}<ArrowRight aria-hidden="true" size={16} /></Link>
           </>
         ) : <p className="text-sm leading-6 text-[#5A4E3F]">{text.tourEmpty}</p>}

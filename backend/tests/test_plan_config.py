@@ -26,11 +26,11 @@ def _matrix():
 
 def test_every_preset_resolves_within_the_hard_cap():
     for name in preset_names():
-        assert 1 <= resolve_config(name).max_stops <= 3
+        assert 1 <= resolve_config(name).max_stops <= 5
 
 
-def test_request_cannot_exceed_three_stops():
-    assert resolve_config("standard", max_stops=9).max_stops == 3
+def test_request_cannot_exceed_five_stops():
+    assert resolve_config("standard", max_stops=9).max_stops == 5
     assert resolve_config("standard", max_stops=1).max_stops == 1
 
 
