@@ -181,3 +181,15 @@ test('a five-stop day can be chosen and its route is drawn on the map', async ({
   await expect(page.getByTestId('straight-note')).toBeVisible()
   await expect(page.locator('path.route-flow').first()).toBeAttached()
 })
+
+test('a slow plan explains that the server is waking up', async ({ page }) => {
+  await page.addInitScript(() => localStorage.setItem('raahein-language', 'en'))
+  await page.route('**/api/tours/plan', async (route) => {
+    await new Promise((resolve) => setTimeout(resolve, 6500))
+    await route.fulfill({ contentType: 'application/json', body: JSON.stringify(feasible) })
+  })
+  await page.goto('/plan/route?hours=4')
+  await expect(page.getByTestId('waking')).toContainText('Waking the server', { timeout: 6000 })
+  await expect(page.getByRole('heading', { name: 'Your day, connected' })).toBeVisible()
+  await expect(page.getByTestId('waking')).toHaveCount(0)
+})

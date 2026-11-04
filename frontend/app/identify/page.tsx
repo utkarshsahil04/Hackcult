@@ -11,6 +11,7 @@ import { RaaheinLogo } from '@/components/RaaheinLogo'
 import { Toggle, useLang } from '@/components/raahein'
 import { identify, type IdentifyResult } from '@/lib/api'
 import { monuments, findMonument } from '@/lib/catalog'
+import { useAfter, WAKING_MESSAGE } from '@/lib/hooks'
 import { delays, durations, transitions } from '@/lib/motion'
 
 type IdentifyState = 'scan' | 'match' | 'uncertain' | 'error'
@@ -33,6 +34,7 @@ export default function Identify() {
   const [cameraState, setCameraState] = useState<CameraState>('starting')
   const [photo, setPhoto] = useState('')
   const [busy, setBusy] = useState(false)
+  const waking = useAfter(busy, 5000)
   const [hint, setHint] = useState(0)
   const [selected, setSelected] = useState('')
   const [fileError, setFileError] = useState('')
@@ -221,7 +223,7 @@ export default function Identify() {
             <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/20" />
             <m.div animate={reduced ? undefined : { scale: [1, 1.03, 1] }} transition={{ duration: durations.slow, repeat: reduced ? 0 : Infinity }} className="pointer-events-none absolute inset-8 rounded-[1.5rem] border-2 border-[#E8A317]/80 shadow-[0_12px_34px_rgba(232,163,23,.24)]" />
             <div className="pointer-events-none absolute inset-x-0 top-1/2 h-px bg-[#E8A317]/70" />
-            {(busy || cameraState === 'starting') && <div className="absolute inset-0 grid place-items-center bg-[#1F1A14]/15"><KolamLoader size="sm" /></div>}
+            {(busy || cameraState === 'starting') && <div className="absolute inset-0 grid place-items-center bg-[#1F1A14]/15"><div className="text-center"><KolamLoader size="sm" />{waking && <p className="mx-auto mt-2 max-w-xs rounded-xl bg-[#FBF6EC]/95 px-3 py-2 text-sm text-[#1F1A14]" data-testid="waking">{WAKING_MESSAGE[lang]}</p>}</div></div>}
             <AnimatePresence mode="wait">
               <m.p animate={{ opacity: 1, y: 0 }} className="absolute bottom-7 left-0 right-0 mx-auto w-fit rounded-full bg-[#1F1A14]/80 px-4 py-2 text-center text-sm text-white" exit={{ opacity: 0, y: -5 }} initial={{ opacity: 0, y: 5 }} key={hint} transition={transitions.fast}>{hint ? t.pointTwo : t.pointOne}</m.p>
             </AnimatePresence>
