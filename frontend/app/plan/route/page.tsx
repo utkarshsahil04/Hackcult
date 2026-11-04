@@ -10,6 +10,7 @@ import { KolamLoader, Monument3DViewer, MonumentArt } from '@/components/heritag
 import { useLang } from '@/components/raahein'
 import { fetchRouteLine, planTour, type RouteLineResponse, type TourPlanResponse } from '@/lib/api'
 import { findMonument, getMonument } from '@/lib/catalog'
+import { useAfter, WAKING_MESSAGE } from '@/lib/hooks'
 import { transitions } from '@/lib/motion'
 
 function RouteContent() {
@@ -71,6 +72,7 @@ function RouteContent() {
     }
   }, [planStops, profile])
 
+  const waking = useAfter(status === 'loading', 5000)
   const impossible = planData !== null && !planData.is_feasible
   const stops = (planData?.is_feasible ? planData.itinerary.stops : []).filter((s) => findMonument(s.monument_slug)).map((s) => {
     const start = 9 * 60 + Math.round(s.arrival_time_min)
@@ -82,7 +84,7 @@ function RouteContent() {
   const withParams = (changes: Record<string, string>) => `/plan/route?${new URLSearchParams({ ...Object.fromEntries(params), ...changes })}`
   const hm = (min: number) => { const m = Math.round(min); return m < 60 ? `${m}m` : `${Math.floor(m / 60)}h ${m % 60}m` }
 
-  if (status === 'loading') return <main className="shell grid min-h-svh place-items-center" role="status"><div className="text-center"><KolamLoader /><p className="mt-3 text-sm text-[#5A4E3F]">{lang === 'hi' ? 'आपका रास्ता बन रहा है…' : 'Building your path…'}</p></div></main>
+  if (status === 'loading') return <main className="shell grid min-h-svh place-items-center" role="status"><div className="text-center"><KolamLoader /><p className="mt-3 text-sm text-[#5A4E3F]">{lang === 'hi' ? 'आपका रास्ता बन रहा है…' : 'Building your path…'}</p>{waking && <p className="mx-auto mt-2 max-w-xs px-5 text-sm text-[#5A4E3F]" data-testid="waking">{WAKING_MESSAGE[lang]}</p>}</div></main>
   if (status === 'error') return (
     <main className="shell grid min-h-[70svh] place-items-center px-5" lang={lang}>
       <div className="card max-w-md p-8 text-center" role="alert">

@@ -71,6 +71,7 @@ is for the demo only.
 
 ```
 dev.py      Sets up and runs everything
+deploy/     Hosting setup and a check for a running API
 frontend/   Next.js web app
 api/        FastAPI HTTP application
 backend/    SQLite heritage data, tour planner and data tools
@@ -129,8 +130,44 @@ pnpm -C frontend test:e2e
 | `Port 8000 is already in use` | An old server is still running. Close it and try again. |
 | `identify` returns 500 and health shows `"models":"error"` | Recognition isn't installed, the artifact is missing, or Windows is low on memory. The server log has the exact error. |
 | `identify` returns 405 | It only accepts POST, so it can't be opened in a browser. |
+| A hosted site says it can't reach the API | Check that `FRONTEND_ORIGIN` on Modal exactly matches the Vercel address, with no trailing `/`. |
 | `paging file is too small` in the log | Close other heavy programs, or increase the Windows page file. |
 | `/api/stories/{slug}` returns 404 | Run `python dev.py --stories`. |
+
+## Deployment
+
+This setup is free to run: Vercel hosts the web app, and Modal hosts the API and recognition model together. Modal's container sleeps when idle, so the first visitor after a quiet spell waits for it to wake, up to about a minute.
+
+Deploy the API from a machine that has `backend/data/raahein.db` and `data/artifacts/dataset-v1`, because both are gitignored.
+
+```powershell
+pip install modal
+modal setup
+modal secret create raahein GEMINI_API_KEY=your-key FRONTEND_ORIGIN=http://localhost:3000
+modal deploy deploy/modal_app.py
+```
+
+The last command prints the API's address. Check it with:
+
+```powershell
+.venvScriptspython deploy/smoke_test.py https://your-api-address path	ophoto.jpg
+```
+
+In Vercel, import the repository and set **Root Directory** to `frontend`. Add these environment variables, then deploy:
+
+| Variable | Value |
+|---|---|
+| `NEXT_PUBLIC_API_URL` | The Modal address |
+| `NEXT_PUBLIC_SITE_URL` | The Vercel address |
+
+Finally, allow the Vercel address to call the API, and redeploy:
+
+```powershell
+modal secret create raahein GEMINI_API_KEY=your-key FRONTEND_ORIGIN=https://your-app.vercel.app --force
+modal deploy deploy/modal_app.py
+```
+
+Never add a payment method to the Modal account if it must stay free. Its free monthly credit covers roughly 475 running hours at this size.
 
 ## More documentation
 
