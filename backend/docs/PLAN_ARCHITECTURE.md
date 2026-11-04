@@ -66,7 +66,11 @@ python -m app.db.seed
 python tools/build_matrix.py
 python tools/refresh_places.py
 python tools/export_catalog.py
+python tools/fetch_images.py
 ```
+
+4. Add the site to `SITES` in `backend/tools/fetch_images.py` before running it. It refuses to write unless every monument has a freely licensed photo. Check by eye that the photo shows the right place.
+5. Add a 3D model and its marked parts to `builders` in `frontend/components/heritage/monument-models.ts`. Part descriptions live in `frontend/lib/architecture.ts`. A unit test fails until the new site has both a photo and a model.
 
 A site added this way is **listed**: it can be planned and appears on the map, but its page says the story is pending. It becomes **verified** once `claims.json` has facts backed by two independent publishers.
 

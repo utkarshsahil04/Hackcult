@@ -118,3 +118,40 @@ test('the 3D view shows the model for this monument and explains its parts', asy
   await expect(viewer.getByText('Still water that cools the air')).toBeVisible()
   await expect(page.getByRole('heading', { name: 'Lotus Temple' })).toBeVisible()
 })
+
+test('a visit is saved to the journey and survives a reload', async ({ page }) => {
+  await page.addInitScript(() => localStorage.setItem('raahein-language', 'en'))
+  await page.goto('/profile')
+  await expect(page.getByTestId('journey-empty')).toBeVisible()
+  await page.goto('/monument/red-fort')
+  await page.getByRole('button', { name: 'I’ve been here' }).click()
+  await page.goto('/profile')
+  await expect(page.getByRole('link', { name: 'Red Fort Complex' }).first()).toBeVisible()
+  await page.reload()
+  await expect(page.getByRole('link', { name: 'Red Fort Complex' }).first()).toBeVisible()
+  await expect(page.getByTestId('journey-empty')).toHaveCount(0)
+})
+
+test('tour stops are remembered and sent to the planner', async ({ page }) => {
+  await page.addInitScript(() => localStorage.setItem('raahein-language', 'en'))
+  let body: { must_visit?: string[] } = {}
+  await page.route('**/api/tours/plan', (route) => { body = route.request().postDataJSON(); return route.fulfill({ contentType: 'application/json', body: JSON.stringify(feasible) }) })
+  await page.goto('/monument/red-fort')
+  await page.getByRole('button', { name: 'Add to my tour' }).last().click()
+  await page.reload()
+  await expect(page.getByRole('button', { name: 'Added to your tour' }).last()).toBeVisible()
+  await page.goto('/profile')
+  await page.getByRole('link', { name: 'Plan these stops' }).click()
+  await expect(page.getByRole('heading', { name: 'Your day, connected' })).toBeVisible()
+  expect(body.must_visit).toEqual(['red-fort'])
+})
+
+test('search engines get a sitemap and monument details', async ({ page, request }) => {
+  const sitemap = await (await request.get('/sitemap.xml')).text()
+  expect(sitemap).toContain('/monument/taj-mahal')
+  expect((await request.get('/robots.txt')).status()).toBe(200)
+  await page.goto('/monument/taj-mahal')
+  await expect(page).toHaveTitle(/Taj Mahal, Agra/)
+  const data = JSON.parse(await page.locator('script[type="application/ld+json"]').last().innerText())
+  expect(data['@graph'][0].name).toBe('Taj Mahal')
+})

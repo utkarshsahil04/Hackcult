@@ -2,12 +2,12 @@
 
 import { useCallback, useEffect, useState } from 'react'
 import Link from 'next/link'
-import { Box, CalendarDays, ChevronDown, Compass, Map, ScanLine, Search } from 'lucide-react'
+import { Box, CalendarDays, ChevronDown, Compass, Map, ScanLine, Search, UserRound } from 'lucide-react'
 import { motion } from 'framer-motion'
 import { MonumentArt } from '@/components/heritage'
 import { RaaheinLogo } from '@/components/RaaheinLogo'
 import { strings } from '@/lib/i18n/strings'
-import { monuments, type Lang } from '@/lib/catalog'
+import { eraOf, monuments, type Lang } from '@/lib/catalog'
 import { transitions } from '@/lib/motion'
 
 const LANGUAGE_KEY = 'raahein-language'
@@ -85,11 +85,12 @@ const tabs = [
   { id: 'scan', href: '/identify', icon: ScanLine },
   { id: 'explore', href: '/explore', icon: Compass },
   { id: 'plan', href: '/plan', icon: CalendarDays },
+  { id: 'profile', href: '/profile', icon: UserRound },
 ] as const
 
-export function Tabs({ active }: { active: 'scan' | 'explore' | 'plan' }) {
+export function Tabs({ active }: { active: 'scan' | 'explore' | 'plan' | 'profile' }) {
   const { lang, t } = useLang()
-  const labels = { scan: t.scan, explore: t.explore, plan: t.plan }
+  const labels = { scan: t.scan, explore: t.explore, plan: t.plan, profile: lang === 'hi' ? 'मेरी यात्रा' : 'My journey' }
   return (
     <nav
       aria-label={lang === 'hi' ? 'मुख्य नेविगेशन' : 'Primary navigation'}
@@ -100,10 +101,11 @@ export function Tabs({ active }: { active: 'scan' | 'explore' | 'plan' }) {
         return (
           <Link
             aria-current={current ? 'page' : undefined}
-            className={`flex min-h-12 min-w-20 flex-col items-center justify-center gap-1 rounded-xl text-xs ${current ? 'link-primary' : 'text-[#5A4E3F]'}`}
+            className={`relative flex min-h-12 min-w-0 flex-1 flex-col items-center justify-center gap-1 rounded-xl text-center text-xs leading-tight transition-colors ${current ? 'link-primary font-semibold' : 'text-[#5A4E3F]'}`}
             href={href}
             key={id}
           >
+            {current && <motion.span aria-hidden="true" className="absolute -top-2 h-0.5 w-10 rounded-full bg-[#B5452B]" layoutId="tab-mark" transition={transitions.base} />}
             <Icon aria-hidden="true" size={20} />
             {labels[id]}
           </Link>
@@ -115,7 +117,7 @@ export function Tabs({ active }: { active: 'scan' | 'explore' | 'plan' }) {
 
 function Header({ lang, setLang }: { lang: Lang; setLang: (next: Lang) => void }) {
   return (
-    <header className="sticky top-0 z-40 flex items-center justify-between border-b border-[#E8A317]/20 bg-[#EADBC0]/95 px-5 py-2.5 backdrop-blur lg:hidden safe-top">
+    <header className="site-header sticky top-0 z-40 flex items-center justify-between border-b border-[#E8A317]/20 bg-[#EADBC0]/95 px-5 py-2.5 backdrop-blur lg:hidden safe-top">
       <Link className="flex min-h-12 items-center" href="/" aria-label={lang === 'hi' ? 'राहें' : 'Raahein'}>
         <RaaheinLogo className="h-9 w-24" />
       </Link>
@@ -134,11 +136,11 @@ export function Explore() {
   const [era, setEra] = useState<(typeof eraOptions)[number]>('All')
   const [legendsOnly, setLegendsOnly] = useState(false)
   const copy = lang === 'hi'
-    ? { search: 'खोज', city: 'शहर', era: 'काल', refine: 'स्मारक छांटें', legendOnly: 'केवल किंवदंती वाली कहानियां', empty: 'इन विकल्पों से कोई स्मारक नहीं मिला।', All: t.all, Sultanate: 'सल्तनत', Mughal: 'मुगल', Modern: 'आधुनिक', count: 'स्मारक', model: '3D मॉडल', filters: 'छांटने के विकल्प' }
-    : { search: 'Search', city: 'City', era: 'Era', refine: 'Refine monuments', legendOnly: 'Legend stories only', empty: 'No monuments match these filters.', All: t.all, Sultanate: 'Sultanate', Mughal: 'Mughal', Modern: 'Modern', count: 'monuments', model: '3D model', filters: 'Filters' }
+    ? { search: 'खोज', city: 'शहर', era: 'काल', refine: 'स्मारक छांटें', legendOnly: 'केवल किंवदंती वाली कहानियां', empty: 'इन विकल्पों से कोई स्मारक नहीं मिला।', All: t.all, Sultanate: 'सल्तनत', Mughal: 'मुगल', Modern: 'आधुनिक', count: 'स्मारक', model: '3D मॉडल', filters: 'छांटने के विकल्प', intro: 'दिल्ली और आगरा की धरोहर: तस्वीरें, प्रमाणित कहानियां और 3D मॉडल।' }
+    : { search: 'Search', city: 'City', era: 'Era', refine: 'Refine monuments', legendOnly: 'Legend stories only', empty: 'No monuments match these filters.', All: t.all, Sultanate: 'Sultanate', Mughal: 'Mughal', Modern: 'Modern', count: 'monuments', model: '3D model', filters: 'Filters', intro: 'Heritage across Delhi and Agra, with photos, sourced stories and 3D models.' }
   const cityLabel = (value: (typeof cityOptions)[number]) => value === 'All' ? t.all : value === 'Delhi' ? t.delhi : t.agra
   const data = monuments.filter((monument) => {
-    const monumentEra = /sultanate/i.test(monument.era) ? 'Sultanate' : /mughal/i.test(monument.era) ? 'Mughal' : /2[01](st|th) century/i.test(monument.era) ? 'Modern' : 'Other'
+    const monumentEra = eraOf(monument)
     const region = monument.lat < 28 ? 'Agra' : 'Delhi' // the Agra filter includes Fatehpur Sikri
     return (city === 'All' || region === city)
       && (era === 'All' || monumentEra === era)
@@ -188,7 +190,7 @@ export function Explore() {
   return (
     <main className="shell pb-24 lg:max-w-7xl lg:px-8 lg:pb-12">
       <Header lang={lang} setLang={setLang} />
-      <div className="px-5 lg:grid lg:grid-cols-[260px_minmax(0,1fr)] lg:items-start lg:gap-10 lg:px-0 lg:pt-10">
+      <div className="px-5 pt-6 lg:grid lg:grid-cols-[260px_minmax(0,1fr)] lg:items-start lg:gap-10 lg:px-0 lg:pt-10">
         <aside className="hidden lg:sticky lg:top-24 lg:block lg:h-fit lg:self-start">
           <div className="card max-h-[calc(100vh-7.5rem)] overflow-y-auto space-y-5 p-5">
             <h2 className="fraunces text-2xl">{copy.refine}</h2>
@@ -200,9 +202,9 @@ export function Explore() {
           <div className="flex items-center justify-between">
             <div className="mb-4">
               <h1 className="fraunces text-4xl">{t.explore}</h1>
-              <p className="mt-1 text-sm text-[#5A4E3F]" role="status">{data.length} {copy.count}</p>
+              <p className="mt-1 max-w-xl text-sm text-[#5A4E3F]" role="status">{data.length} {copy.count} · {copy.intro}</p>
             </div>
-            <Link href="/nearby" className="grid size-12 place-items-center rounded-full border border-[#C8B594] bg-[#FBF6EC] transition-colors hover:border-[#B5452B]" aria-label={t.map}>
+            <Link href="/nearby" className="grid size-12 shrink-0 place-items-center rounded-full border border-[#C8B594] bg-[#FBF6EC] transition-colors hover:border-[#B5452B]" aria-label={t.map}>
               <Map aria-hidden="true" size={18} />
             </Link>
           </div>

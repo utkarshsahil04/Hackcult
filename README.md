@@ -54,6 +54,7 @@ is for the demo only.
 - **Connections:** links between monuments through dynasties, rulers, events and styles
 - **Plan your day:** solver-built routes of up to 3 stops, each checked by an independent validator
 - **Nearby:** the closest monuments to you, with distances
+- **My journey:** record the monuments you've visited and see your path, with no account
 
 ## Tech stack
 
@@ -99,6 +100,12 @@ All settings live in `.env` at the repository root, which `dev.py` creates for y
 | `FRONTEND_ORIGIN` | No | Allowed web app origin (default `http://localhost:3000`) |
 | `SQLITE_DB_PATH` | No | Database location, relative to `backend\` |
 
+The web app reads one setting from its host's environment:
+
+| Variable | Required | Purpose |
+|---|---|---|
+| `NEXT_PUBLIC_SITE_URL` | In production | Public address, used for canonical links, the sitemap and sharing previews |
+
 ## Tests
 
 From the repository root:
@@ -127,6 +134,7 @@ pnpm -C frontend test:e2e
 ## More documentation
 
 - [Plan architecture](backend/docs/PLAN_ARCHITECTURE.md): configure plans and add locations
+- [Profile architecture](backend/docs/PROFILE_ARCHITECTURE.md): the plan for accounts, sharing and tour guides
 - [Seed data](backend/app/db/seed_data/README.md): data files and sourcing rules
 - [Recognition pipeline](ml/README.md): architecture, licensed-data workflow and service contract
 

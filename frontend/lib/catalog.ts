@@ -21,6 +21,8 @@ export const monuments: Monument[] = (data as Omit<Monument, 'image'>[])
 export const findMonument = (id: string) => monuments.find((m) => m.id === id)
 export const getMonument = (id: string) => findMonument(id) ?? monuments[0]
 
+export const eraOf = (m: { era: string }) => /sultanate/i.test(m.era) ? 'Sultanate' : /mughal/i.test(m.era) ? 'Mughal' : /2[01](st|th) century/i.test(m.era) ? 'Modern' : 'Other'
+
 export function distanceKm(a: { lat: number; lng: number }, b: { lat: number; lng: number }) {
   const rad = Math.PI / 180
   const h = Math.sin((b.lat - a.lat) * rad / 2) ** 2 + Math.cos(a.lat * rad) * Math.cos(b.lat * rad) * Math.sin((b.lng - a.lng) * rad / 2) ** 2

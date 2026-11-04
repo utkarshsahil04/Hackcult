@@ -3,13 +3,14 @@
 import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import { LazyMotion, domAnimation, m, useReducedMotion } from 'framer-motion'
-import { ArrowLeft, Box, Camera, Check, ChevronDown, ExternalLink, Pause, Play, Plus, X } from 'lucide-react'
+import { ArrowLeft, Box, Camera, Check, ChevronDown, ExternalLink, Footprints, Pause, Play, Plus, X } from 'lucide-react'
 import { DropCap, InlayFrame, ManuscriptPanel, Monument3DViewer, MonumentArt, SectionHeading } from '@/components/heritage'
 import { Toggle, useLang } from '@/components/raahein'
 import { findMonument, getMonument, imageCredits, nearestMonuments } from '@/lib/catalog'
 import { durations, springs, transitions } from '@/lib/motion'
 import { getNarration } from '@/lib/narration'
 import { fetchStory, type ApiStory } from '@/lib/api'
+import { toggleTour as toggleTourStop, toggleVisit, useJourney, useTour } from '@/lib/journey'
 
 type Props = { id: string }
 
@@ -24,7 +25,8 @@ export function MonumentProfile({ id }: Props) {
   const [playing, setPlaying] = useState(false)
   const [source, setSource] = useState<number | null>(null)
   const [sourcesOpen, setSourcesOpen] = useState(false)
-  const [added, setAdded] = useState(false)
+  const added = useTour().includes(monument.id)
+  const visited = useJourney().visits.some((visit) => visit.id === monument.id)
   const [viewMode, setViewMode] = useState<'photo' | '3d'>('photo')
   const reduced = useReducedMotion()
   const audioRef = useRef<HTMLAudioElement | null>(null)
@@ -119,11 +121,7 @@ export function MonumentProfile({ id }: Props) {
     : nearestMonuments(monument, 3).map(({ monument: near, km }) => ({ id: near.id, detail: `${km.toFixed(1)} km` }))
   const viewTab = (mode: 'photo' | '3d') => `flex min-h-12 flex-1 items-center justify-center gap-1.5 rounded-full px-3 text-sm font-semibold transition-all ${viewMode === mode ? 'bg-[#B5452B] text-[#FBF6EC] shadow-xs' : 'text-[#5A4E3F] hover:text-[#1F1A14]'}`
 
-  function toggleTour() {
-    const next = !added
-    setAdded(next)
-    window.dispatchEvent(new CustomEvent('raahein-tour', { detail: next ? { add: { id: monument.id, name: monument.name[lang] } } : { remove: monument.id } }))
-  }
+  const toggleTour = () => toggleTourStop(monument.id)
 
   return (
     <LazyMotion features={domAnimation}>
@@ -169,7 +167,7 @@ export function MonumentProfile({ id }: Props) {
             <button
               aria-pressed={added}
               onClick={toggleTour}
-              className="flex min-h-14 w-full items-center justify-center gap-2 rounded-full bg-[#B5452B] font-semibold text-[#FBF6EC] shadow-md transition-transform hover:-translate-y-0.5 active:scale-95"
+              className="primary-action flex min-h-14 w-full items-center justify-center gap-2 rounded-full bg-[#B5452B] font-semibold text-[#FBF6EC] shadow-md transition-transform hover:-translate-y-0.5 active:scale-95"
               type="button"
             >
               {added ? <><Check aria-hidden="true" size={20} />{t.added}</> : <><Plus aria-hidden="true" size={20} />{t.addTour}</>}
@@ -187,6 +185,7 @@ export function MonumentProfile({ id }: Props) {
               ...(monument.verified ? [`${monument.sources.length} ${lang === 'hi' ? 'प्रमाणित स्रोत' : 'Verified Sources'}`] : []),
             ].map((chip, index) => <m.span animate={{ opacity: 1, y: 0 }} className="rounded-full border border-[#B5452B]/25 bg-[#FBF6EC] px-3 py-1.5 text-xs font-semibold text-[#5A4E3F]" initial={false} key={chip} transition={{ ...transitions.base, delay: index * .06 }}>{chip}</m.span>)}
           </div>
+          <button aria-pressed={visited} className={`inline-flex min-h-12 items-center gap-2 rounded-full border px-5 text-sm font-semibold transition-colors ${visited ? 'border-[#B5452B] bg-[#B5452B] text-[#FBF6EC]' : 'border-[#B5452B]/40 bg-[#FBF6EC] text-[#8F3221] hover:border-[#B5452B]'}`} onClick={() => toggleVisit(monument.id)} type="button">{visited ? <Check aria-hidden="true" size={16} /> : <Footprints aria-hidden="true" size={16} />}{visited ? (lang === 'hi' ? 'आपकी यात्रा में जुड़ा' : 'In your journey') : (lang === 'hi' ? 'मैं यहां गया/गई हूं' : 'I’ve been here')}</button>
           {monument.verified && (
           <InlayFrame>
             <div className="rounded-[11px] bg-[#FBF6EC] p-4">

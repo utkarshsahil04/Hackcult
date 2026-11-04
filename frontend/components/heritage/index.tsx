@@ -6,6 +6,7 @@ import { LazyMotion, domAnimation, m, useReducedMotion, useScroll, useSpring } f
 import { durations, springs, transitions } from '@/lib/motion'
 import { monumentImages } from '@/lib/catalog'
 export { Atmosphere } from './atmosphere'
+export { LotusDivider, Mandala } from './ornaments'
 export { HeritageSimulator } from './HeritageSimulator'
 import dynamic from 'next/dynamic'
 export const Monument3DViewer = dynamic(() => import('./Monument3DViewer').then((mod) => mod.Monument3DViewer), {
@@ -41,6 +42,7 @@ export function Dock({ children }: { children: React.ReactNode }) { return <nav 
 
 export function CaravanRoute({ points }: { points: Array<[number, number]> }) { const d = points.map(([x, y], i) => `${i ? 'L' : 'M'} ${x} ${y}`).join(' '); return <KitMotion><m.svg viewBox="0 0 320 180" className="h-full w-full" aria-label="Tour route"><m.path d={d} fill="none" stroke="#B5452B" strokeWidth="3" strokeDasharray="7 8" animate={{ strokeDashoffset: [0, -60] }} transition={{ duration: durations.intro * 4, repeat: Infinity, ease: 'linear' }} /><path d={d} fill="none" stroke="#B5452B" strokeWidth="8" opacity=".1" />{points.map(([x, y], i) => <m.circle key={`${x}-${y}`} cx={x} cy={y} r="6" fill="#E8A317" initial={{ scale: 0 }} whileInView={{ scale: 1 }} viewport={{ once: true }} transition={{ ...springs.soft, delay: i * durations.fast }} />)}</m.svg></KitMotion> }
 
-export function Reveal({ children, delay = 0, className = '' }: { children: React.ReactNode; delay?: number; className?: string }) { const reduce = useReducedMotion(); return <KitMotion><m.div className={className} initial={{ opacity: 0, y: reduce ? 0 : 28 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-60px' }} transition={{ ...transitions.slow, delay }}>{children}</m.div></KitMotion> }
+// CSS only: the content stays visible to search engines and browsers without JavaScript, and needs no hydration.
+export function Reveal({ children, className = '' }: { children: React.ReactNode; className?: string }) { return <div className={`reveal ${className}`}>{children}</div> }
 
 export function ScrollProgress() { const { scrollYProgress } = useScroll(); const scaleX = useSpring(scrollYProgress, { stiffness: 140, damping: 26 }); return <KitMotion><m.div aria-hidden="true" className="fixed inset-x-0 top-0 z-50 h-0.5 origin-left bg-[#E8A317]" style={{ scaleX }} /></KitMotion> }
