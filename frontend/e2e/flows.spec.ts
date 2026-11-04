@@ -155,3 +155,29 @@ test('search engines get a sitemap and monument details', async ({ page, request
   const data = JSON.parse(await page.locator('script[type="application/ld+json"]').last().innerText())
   expect(data['@graph'][0].name).toBe('Taj Mahal')
 })
+
+test('a five-stop day can be chosen and its route is drawn on the map', async ({ page }) => {
+  await page.addInitScript(() => localStorage.setItem('raahein-language', 'en'))
+  const slugs = ['red-fort', 'india-gate', 'humayuns-tomb', 'lodhi-gardens', 'jantar-mantar']
+  let planBody: { max_stops?: number; must_visit?: string[] } = {}
+  await page.route('**/api/tours/plan', (route) => {
+    planBody = route.request().postDataJSON()
+    return route.fulfill({ contentType: 'application/json', body: JSON.stringify({ ...feasible, itinerary: { ...feasible.itinerary, stops: slugs.map((slug, index) => ({ monument_slug: slug, name: slug, arrival_time_min: index * 60, visit_duration_min: 30, departure_time_min: index * 60 + 30, travel_time_to_next_min: index < 4 ? 12 : null, travel_distance_to_next_m: index < 4 ? 3400 : null })) } }) })
+  })
+  await page.route('**/api/tours/route-line', (route) => route.fulfill({ contentType: 'application/json', body: JSON.stringify({ source: 'straight', legs: [0, 1, 2, 3].map((i) => [[28.6 + i / 100, 77.2], [28.61 + i / 100, 77.21]]) }) }))
+  await page.goto('/plan')
+  await page.getByRole('button', { name: '5', exact: true }).click()
+  await page.getByRole('list').getByRole('button', { name: 'Red Fort Complex' }).click()
+  await expect(page.getByTestId('must-see').getByRole('button')).toHaveCount(1)
+  await expect(page.getByTestId('plan-brief')).toContainText('Up to 5 stops')
+  await page.getByRole('link', { name: 'Build my route' }).click()
+  const timeline = page.getByTestId('route-timeline')
+  await expect(timeline.locator('> li')).toHaveCount(5)
+  expect(planBody.max_stops).toBe(5)
+  expect(planBody.must_visit).toEqual(['red-fort'])
+  const leg = timeline.getByRole('button', { name: /12 min/ }).first()
+  await leg.click()
+  await expect(leg).toHaveAttribute('aria-pressed', 'true')
+  await expect(page.getByTestId('straight-note')).toBeVisible()
+  await expect(page.locator('path.route-flow').first()).toBeAttached()
+})
