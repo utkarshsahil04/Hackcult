@@ -52,7 +52,7 @@ is for the demo only.
 - **Stories:** sourced narratives in English and Hindi, with narration
 - **3D:** explore a monument's architecture through clickable hotspots
 - **Connections:** links between monuments through dynasties, rulers, events and styles
-- **Plan your day:** solver-built routes of up to 3 stops, each checked by an independent validator
+- **Plan your day:** solver-built routes of up to 5 stops, shown on the map, each checked by an independent validator
 - **Nearby:** the closest monuments to you, with distances
 - **My journey:** record the monuments you've visited and see your path, with no account
 
@@ -88,7 +88,8 @@ data/       Ignored images, caches and generated recognition artifacts
 | GET | `/api/monuments/{slug}/related` | Connected monuments |
 | GET | `/api/stories/{slug}` | Generated story |
 | GET | `/api/places/nearby` | Places near a monument |
-| POST | `/api/tours/plan` | Build a day plan |
+| POST | `/api/tours/plan` | Build a day plan of up to 5 stops |
+| POST | `/api/tours/route-line` | Road shape between a plan's stops |
 
 ## Configuration
 
