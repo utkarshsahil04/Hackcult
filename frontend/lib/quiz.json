@@ -1,0 +1,1202 @@
+{
+  "humayuns-tomb": [
+    {
+      "claim": "humayuns-tomb/built-1570-first-garden-tomb",
+      "q": {
+        "en": "In which year was Humayun's Tomb built?",
+        "hi": "हुमायूँ का मकबरा किस वर्ष बना था?"
+      },
+      "options": {
+        "en": [
+          "1556",
+          "1570",
+          "1632",
+          "1648"
+        ],
+        "hi": [
+          "1556",
+          "1570",
+          "1632",
+          "1648"
+        ]
+      },
+      "answer": 1,
+      "explain": {
+        "en": "Humayun's Tomb in Delhi was built in 1570 and is the first garden-tomb on the Indian subcontinent.",
+        "hi": "दिल्ली में हुमायूँ का मकबरा 1570 में बना था और यह भारतीय उपमहाद्वीप का पहला उद्यान-मकबरा है।"
+      }
+    },
+    {
+      "claim": "humayuns-tomb/unesco-inscription-1993",
+      "q": {
+        "en": "When was Humayun's Tomb inscribed on the UNESCO World Heritage List?",
+        "hi": "हुमायूँ का मकबरा यूनेस्को विश्व धरोहर सूची में कब शामिल किया गया?"
+      },
+      "options": {
+        "en": [
+          "1983",
+          "2007",
+          "1993",
+          "1999"
+        ],
+        "hi": [
+          "1983",
+          "2007",
+          "1993",
+          "1999"
+        ]
+      },
+      "answer": 2,
+      "explain": {
+        "en": "Humayun's Tomb was inscribed on the UNESCO World Heritage List in 1993.",
+        "hi": "हुमायूँ का मकबरा 1993 में यूनेस्को विश्व धरोहर सूची में शामिल किया गया।"
+      }
+    },
+    {
+      "claim": "humayuns-tomb/bahadur-shah-refuge-1857",
+      "q": {
+        "en": "During the 1857 Uprising, which Mughal emperor took refuge at Humayun's Tomb?",
+        "hi": "1857 के विद्रोह के दौरान किस मुगल बादशाह ने हुमायूँ के मकबरे में शरण ली?"
+      },
+      "options": {
+        "en": [
+          "Shah Jahan",
+          "Akbar",
+          "Jahangir",
+          "Bahadur Shah Zafar"
+        ],
+        "hi": [
+          "शाहजहाँ",
+          "अकबर",
+          "जहाँगीर",
+          "बहादुर शाह ज़फ़र"
+        ]
+      },
+      "answer": 3,
+      "explain": {
+        "en": "During the 1857 Uprising, the last Mughal Emperor Bahadur Shah Zafar fled his palace at the Red Fort and took refuge at Humayun's Tomb, where he was captured by British forces.",
+        "hi": "1857 के विद्रोह के दौरान अंतिम मुगल बादशाह बहादुर शाह ज़फ़र लाल किले का अपना महल छोड़कर भागे और हुमायूँ के मकबरे में शरण ली, जहाँ उन्हें अंग्रेज़ी सेना ने पकड़ लिया।"
+      }
+    }
+  ],
+  "taj-mahal": [
+    {
+      "claim": "taj-mahal/built-1632-1648-shah-jahan",
+      "q": {
+        "en": "In which year was the Taj Mahal mausoleum completed?",
+        "hi": "ताजमहल का मकबरा किस वर्ष पूरा हुआ?"
+      },
+      "options": {
+        "en": [
+          "1632",
+          "1656",
+          "1570",
+          "1648"
+        ],
+        "hi": [
+          "1632",
+          "1656",
+          "1570",
+          "1648"
+        ]
+      },
+      "answer": 3,
+      "explain": {
+        "en": "The Taj Mahal in Agra was built by the Mughal emperor Shah Jahan in memory of his wife Mumtaz Mahal; construction began in 1632 and the mausoleum was completed in 1648.",
+        "hi": "आगरा का ताजमहल मुगल बादशाह शाहजहाँ ने अपनी पत्नी मुमताज़ महल की याद में बनवाया था; इसका निर्माण 1632 में शुरू हुआ और मकबरा 1648 में पूरा हुआ।"
+      }
+    },
+    {
+      "claim": "taj-mahal/architect-ustad-ahmad-lahori",
+      "q": {
+        "en": "Who was the chief architect of the Taj Mahal complex?",
+        "hi": "ताजमहल परिसर के मुख्य वास्तुकार कौन थे?"
+      },
+      "options": {
+        "en": [
+          "Mirza Ghiyas Beg",
+          "Sawai Jai Singh II",
+          "Ustad Ahmad Lahori",
+          "Sher Shah Suri"
+        ],
+        "hi": [
+          "मिर्ज़ा ग़ियास बेग",
+          "सवाई जय सिंह द्वितीय",
+          "उस्ताद अहमद लाहौरी",
+          "शेर शाह सूरी"
+        ]
+      },
+      "answer": 2,
+      "explain": {
+        "en": "Ustad Ahmad Lahori was the chief architect of the Taj Mahal complex.",
+        "hi": "उस्ताद अहमद लाहौरी ताजमहल परिसर के मुख्य वास्तुकार थे।"
+      }
+    },
+    {
+      "claim": "taj-mahal/marble-mausoleum-indo-islamic-mughal",
+      "q": {
+        "en": "On the bank of which river does the Taj Mahal stand?",
+        "hi": "ताजमहल किस नदी के तट पर बना है?"
+      },
+      "options": {
+        "en": [
+          "Ganga",
+          "Yamuna",
+          "Chambal",
+          "Gomti"
+        ],
+        "hi": [
+          "गंगा",
+          "यमुना",
+          "चंबल",
+          "गोमती"
+        ]
+      },
+      "answer": 1,
+      "explain": {
+        "en": "The Taj Mahal is a white-marble mausoleum in the Indo-Islamic (Mughal) architectural tradition, set in a formal charbagh garden on the bank of the Yamuna River.",
+        "hi": "ताजमहल इंडो-इस्लामी (मुगल) वास्तु परंपरा का सफ़ेद संगमरमर का मकबरा है, जो यमुना नदी के तट पर एक नियमबद्ध चारबाग़ उद्यान में बना है।"
+      }
+    }
+  ],
+  "fatehpur-sikri": [
+    {
+      "claim": "fatehpur-sikri/capital-1571-1585-akbar",
+      "q": {
+        "en": "Fatehpur Sikri was the imperial capital from 1571 until which year?",
+        "hi": "फतेहपुर सीकरी 1571 से किस वर्ष तक साम्राज्य की राजधानी रहा?"
+      },
+      "options": {
+        "en": [
+          "1565",
+          "1585",
+          "1613",
+          "1648"
+        ],
+        "hi": [
+          "1565",
+          "1585",
+          "1613",
+          "1648"
+        ]
+      },
+      "answer": 1,
+      "explain": {
+        "en": "Fatehpur Sikri, the 'City of Victory', was founded by Mughal Emperor Akbar and served as the imperial capital from 1571 until 1585.",
+        "hi": "फतेहपुर सीकरी, यानी 'विजय का नगर', मुगल बादशाह अकबर ने बसाया था और 1571 से 1585 तक यह साम्राज्य की राजधानी रहा।"
+      }
+    },
+    {
+      "claim": "fatehpur-sikri/capital-1571-1585-akbar",
+      "q": {
+        "en": "What does the name 'Fatehpur Sikri' mean?",
+        "hi": "'फतेहपुर सीकरी' नाम का अर्थ क्या है?"
+      },
+      "options": {
+        "en": [
+          "City of Victory",
+          "City of Gardens",
+          "City of Rivers",
+          "City of Stars"
+        ],
+        "hi": [
+          "विजय का नगर",
+          "बाग़ों का नगर",
+          "नदियों का नगर",
+          "तारों का नगर"
+        ]
+      },
+      "answer": 0,
+      "explain": {
+        "en": "Fatehpur Sikri, the 'City of Victory', was founded by Mughal Emperor Akbar and served as the imperial capital from 1571 until 1585.",
+        "hi": "फतेहपुर सीकरी, यानी 'विजय का नगर', मुगल बादशाह अकबर ने बसाया था और 1571 से 1585 तक यह साम्राज्य की राजधानी रहा।"
+      }
+    },
+    {
+      "claim": "fatehpur-sikri/akbar-founder-capital",
+      "q": {
+        "en": "Which Mughal emperor founded Fatehpur Sikri as his new capital?",
+        "hi": "किस मुगल बादशाह ने फतेहपुर सीकरी को अपनी नई राजधानी के रूप में बसाया?"
+      },
+      "options": {
+        "en": [
+          "Humayun",
+          "Shah Jahan",
+          "Akbar",
+          "Jahangir"
+        ],
+        "hi": [
+          "हुमायूँ",
+          "शाहजहाँ",
+          "अकबर",
+          "जहाँगीर"
+        ]
+      },
+      "answer": 2,
+      "explain": {
+        "en": "Emperor Akbar founded Fatehpur Sikri in 1571 to serve as his new imperial capital while maintaining Agra Fort as a principal fortress and base.",
+        "hi": "बादशाह अकबर ने 1571 में फतेहपुर सीकरी को अपनी नई राजधानी के रूप में बसाया, जबकि आगरा किला उनका प्रमुख क़िला और आधार बना रहा।"
+      }
+    }
+  ],
+  "qutb-complex": [
+    {
+      "claim": "qutb-complex/minar-begun-1199-aibak-iltutmish",
+      "q": {
+        "en": "Who began building the Qutb Minar in 1199?",
+        "hi": "1199 में क़ुतुब मीनार का निर्माण किसने शुरू किया?"
+      },
+      "options": {
+        "en": [
+          "Shams-ud-din Iltutmish",
+          "Ghiyas-ud-din Tughlaq",
+          "Sher Shah Suri",
+          "Qutb-ud-din Aibak"
+        ],
+        "hi": [
+          "शम्सुद्दीन इल्तुतमिश",
+          "ग़ियासुद्दीन तुग़लक़",
+          "शेर शाह सूरी",
+          "क़ुतुबुद्दीन ऐबक"
+        ]
+      },
+      "answer": 3,
+      "explain": {
+        "en": "Construction of the Qutb Minar was initiated in 1199 by Qutb-ud-din Aibak and completed by his successor Shams-ud-din Iltutmish.",
+        "hi": "क़ुतुब मीनार का निर्माण 1199 में क़ुतुबुद्दीन ऐबक ने शुरू किया और उनके उत्तराधिकारी शम्सुद्दीन इल्तुतमिश ने इसे पूरा किया।"
+      }
+    },
+    {
+      "claim": "qutb-complex/minar-begun-1199-aibak-iltutmish",
+      "q": {
+        "en": "Who completed the Qutb Minar?",
+        "hi": "क़ुतुब मीनार को किसने पूरा किया?"
+      },
+      "options": {
+        "en": [
+          "Balban",
+          "Shams-ud-din Iltutmish",
+          "Sikandar Lodi",
+          "Ghiyas-ud-din Tughlaq"
+        ],
+        "hi": [
+          "बलबन",
+          "शम्सुद्दीन इल्तुतमिश",
+          "सिकंदर लोदी",
+          "ग़ियासुद्दीन तुग़लक़"
+        ]
+      },
+      "answer": 1,
+      "explain": {
+        "en": "Construction of the Qutb Minar was initiated in 1199 by Qutb-ud-din Aibak and completed by his successor Shams-ud-din Iltutmish.",
+        "hi": "क़ुतुब मीनार का निर्माण 1199 में क़ुतुबुद्दीन ऐबक ने शुरू किया और उनके उत्तराधिकारी शम्सुद्दीन इल्तुतमिश ने इसे पूरा किया।"
+      }
+    },
+    {
+      "claim": "qutb-complex/tallest-masonry-tower-72m",
+      "q": {
+        "en": "How many storeys does the Qutb Minar have?",
+        "hi": "क़ुतुब मीनार में कितनी मंज़िलें हैं?"
+      },
+      "options": {
+        "en": [
+          "Five",
+          "Three",
+          "Four",
+          "Seven"
+        ],
+        "hi": [
+          "पाँच",
+          "तीन",
+          "चार",
+          "सात"
+        ]
+      },
+      "answer": 0,
+      "explain": {
+        "en": "The Qutb Minar is a tapering 72.5-metre red sandstone minaret featuring five distinct storeys, projecting balconies, and angled and fluted carvings.",
+        "hi": "क़ुतुब मीनार लाल बलुआ पत्थर की 72.5 मीटर ऊँची, ऊपर की ओर पतली होती मीनार है, जिसमें पाँच अलग-अलग मंज़िलें, बाहर निकली बालकनियाँ तथा कोणदार और धारीदार नक़्क़ाशी है।"
+      }
+    }
+  ],
+  "red-fort": [
+    {
+      "claim": "red-fort/unesco-inscription-2007",
+      "q": {
+        "en": "When was the Red Fort Complex inscribed on the UNESCO World Heritage List?",
+        "hi": "लाल किला परिसर यूनेस्को विश्व धरोहर सूची में कब शामिल किया गया?"
+      },
+      "options": {
+        "en": [
+          "1983",
+          "1993",
+          "2007",
+          "2017"
+        ],
+        "hi": [
+          "1983",
+          "1993",
+          "2007",
+          "2017"
+        ]
+      },
+      "answer": 2,
+      "explain": {
+        "en": "The Red Fort Complex was inscribed on the UNESCO World Heritage List in 2007.",
+        "hi": "लाल किला परिसर 2007 में यूनेस्को विश्व धरोहर सूची में शामिल किया गया।"
+      }
+    },
+    {
+      "claim": "red-fort/capital-shift-from-agra",
+      "q": {
+        "en": "Shah Jahan moved the imperial capital to the Red Fort in Delhi from where?",
+        "hi": "शाहजहाँ ने साम्राज्य की राजधानी कहाँ से हटाकर दिल्ली के लाल किले में स्थापित की?"
+      },
+      "options": {
+        "en": [
+          "Fatehpur Sikri",
+          "Agra Fort",
+          "Sikandra",
+          "Purana Qila"
+        ],
+        "hi": [
+          "फतेहपुर सीकरी",
+          "आगरा किला",
+          "सिकंदरा",
+          "पुराना क़िला"
+        ]
+      },
+      "answer": 1,
+      "explain": {
+        "en": "Mughal Emperor Shah Jahan shifted the imperial capital from Agra Fort to the newly constructed fortress-city of Shahjahanabad (Red Fort) in Delhi.",
+        "hi": "मुगल बादशाह शाहजहाँ ने साम्राज्य की राजधानी आगरा किले से हटाकर दिल्ली के नए बने क़िला-नगर शाहजहाँनाबाद (लाल किला) में स्थापित की।"
+      }
+    },
+    {
+      "claim": "red-fort/symbol-of-power-since-shah-jahan",
+      "q": {
+        "en": "The Red Fort was built as the palace fort of which city?",
+        "hi": "लाल किला किस नगर के महल-क़िले के रूप में बना?"
+      },
+      "options": {
+        "en": [
+          "Shahjahanabad",
+          "Dinpanah",
+          "Tughlaqabad",
+          "Shergarh"
+        ],
+        "hi": [
+          "शाहजहाँनाबाद",
+          "दीनपनाह",
+          "तुग़लक़ाबाद",
+          "शेरगढ़"
+        ]
+      },
+      "answer": 0,
+      "explain": {
+        "en": "Built under Emperor Shah Jahan as the palace fort of Shahjahanabad, the Red Fort represents the zenith of Mughal creativity and has served as a symbol of power across Indian history.",
+        "hi": "बादशाह शाहजहाँ के शासन में शाहजहाँनाबाद के महल-क़िले के रूप में बना लाल किला मुगल सृजनशीलता का शिखर है और भारतीय इतिहास में सत्ता का प्रतीक रहा है।"
+      }
+    }
+  ],
+  "agra-fort": [
+    {
+      "claim": "agra-fort/unesco-inscription-1983",
+      "q": {
+        "en": "When was Agra Fort inscribed on the UNESCO World Heritage List?",
+        "hi": "आगरा किला यूनेस्को विश्व धरोहर सूची में कब शामिल किया गया?"
+      },
+      "options": {
+        "en": [
+          "2007",
+          "1993",
+          "1999",
+          "1983"
+        ],
+        "hi": [
+          "2007",
+          "1993",
+          "1999",
+          "1983"
+        ]
+      },
+      "answer": 3,
+      "explain": {
+        "en": "Agra Fort was inscribed on the UNESCO World Heritage List in 1983.",
+        "hi": "आगरा किला 1983 में यूनेस्को विश्व धरोहर सूची में शामिल किया गया।"
+      }
+    },
+    {
+      "claim": "agra-fort/imperial-city-within-city",
+      "q": {
+        "en": "From which year did Akbar begin rebuilding Agra Fort?",
+        "hi": "अकबर ने आगरा किले को किस वर्ष से दोबारा बनवाना शुरू किया?"
+      },
+      "options": {
+        "en": [
+          "1556",
+          "1565",
+          "1571",
+          "1613"
+        ],
+        "hi": [
+          "1556",
+          "1565",
+          "1571",
+          "1613"
+        ]
+      },
+      "answer": 1,
+      "explain": {
+        "en": "Agra Fort was rebuilt in red sandstone by Emperor Akbar beginning in 1565 on the bank of the Yamuna River, functioning as an imperial residence and fortress city.",
+        "hi": "आगरा किला बादशाह अकबर ने 1565 से यमुना नदी के तट पर लाल बलुआ पत्थर से दोबारा बनवाना शुरू किया; यह शाही निवास और क़िला-नगर के रूप में काम करता था।"
+      }
+    },
+    {
+      "claim": "agra-fort/imperial-city-within-city",
+      "q": {
+        "en": "Which material did Akbar use to rebuild Agra Fort?",
+        "hi": "अकबर ने आगरा किले को किस पत्थर से दोबारा बनवाया?"
+      },
+      "options": {
+        "en": [
+          "White marble",
+          "Brick",
+          "Red sandstone",
+          "Granite"
+        ],
+        "hi": [
+          "सफ़ेद संगमरमर",
+          "ईंट",
+          "लाल बलुआ पत्थर",
+          "ग्रेनाइट"
+        ]
+      },
+      "answer": 2,
+      "explain": {
+        "en": "Agra Fort was rebuilt in red sandstone by Emperor Akbar beginning in 1565 on the bank of the Yamuna River, functioning as an imperial residence and fortress city.",
+        "hi": "आगरा किला बादशाह अकबर ने 1565 से यमुना नदी के तट पर लाल बलुआ पत्थर से दोबारा बनवाना शुरू किया; यह शाही निवास और क़िला-नगर के रूप में काम करता था।"
+      }
+    }
+  ],
+  "akbars-tomb": [
+    {
+      "claim": "akbars-tomb/akbar-mausoleum-begun",
+      "q": {
+        "en": "Who completed Akbar's Tomb at Sikandra?",
+        "hi": "सिकंदरा में अकबर के मकबरे को किसने पूरा किया?"
+      },
+      "options": {
+        "en": [
+          "Shah Jahan",
+          "Humayun",
+          "Nur Jahan",
+          "Jahangir"
+        ],
+        "hi": [
+          "शाहजहाँ",
+          "हुमायूँ",
+          "नूरजहाँ",
+          "जहाँगीर"
+        ]
+      },
+      "answer": 3,
+      "explain": {
+        "en": "Akbar's Tomb at Sikandra was planned and initiated by Emperor Akbar, the builder of Fatehpur Sikri, and completed by his son Emperor Jahangir.",
+        "hi": "सिकंदरा में अकबर के मकबरे की योजना और शुरुआत फतेहपुर सीकरी के निर्माता बादशाह अकबर ने की थी, और उनके पुत्र बादशाह जहाँगीर ने इसे पूरा किया।"
+      }
+    },
+    {
+      "claim": "akbars-tomb/jahangir-completion-1613",
+      "q": {
+        "en": "Around which year was Akbar's Tomb completed?",
+        "hi": "अकबर का मकबरा लगभग किस वर्ष पूरा हुआ?"
+      },
+      "options": {
+        "en": [
+          "1565",
+          "1585",
+          "1613",
+          "1648"
+        ],
+        "hi": [
+          "1565",
+          "1585",
+          "1613",
+          "1648"
+        ]
+      },
+      "answer": 2,
+      "explain": {
+        "en": "Emperor Jahangir ruled from Agra Fort and supervised the completion of his father Akbar's tiered tomb at Sikandra around 1613.",
+        "hi": "बादशाह जहाँगीर आगरा किले से शासन करते थे और उन्होंने लगभग 1613 में अपने पिता अकबर के सिकंदरा स्थित पाँच-मंज़िला मकबरे को पूरा करवाया।"
+      }
+    },
+    {
+      "claim": "akbars-tomb/south-gate-minarets",
+      "q": {
+        "en": "What did the southern gateway of Akbar's Tomb have first among Mughal buildings?",
+        "hi": "अकबर के मकबरे के दक्षिणी द्वार में ऐसा क्या था जो किसी मुगल इमारत में पहली बार था?"
+      },
+      "options": {
+        "en": [
+          "Four free-standing white marble minarets",
+          "A library with steep steps",
+          "High sloping stone ramparts",
+          "Masonry instruments to measure time"
+        ],
+        "hi": [
+          "सफ़ेद संगमरमर की चार स्वतंत्र मीनारें",
+          "खड़ी सीढ़ियों वाला पुस्तकालय",
+          "ऊँची ढलवाँ पत्थर की प्राचीरें",
+          "समय मापने वाले चिनाई के यंत्र"
+        ]
+      },
+      "answer": 0,
+      "explain": {
+        "en": "The monumental southern gateway of Akbar's Tomb at Sikandra was the first Mughal structure to incorporate four free-standing white marble minarets, establishing an architectural motif later adapted at the four corners of the Taj Mahal plinth.",
+        "hi": "सिकंदरा में अकबर के मकबरे का विशाल दक्षिणी द्वार पहली मुगल इमारत थी जिसमें सफ़ेद संगमरमर की चार स्वतंत्र मीनारें थीं; यह रूपांकन बाद में ताजमहल के चबूतरे के चारों कोनों पर अपनाया गया।"
+      }
+    }
+  ],
+  "itimad-ud-daulah": [
+    {
+      "claim": "itimad-ud-daulah/nur-jahan-commission",
+      "q": {
+        "en": "Who commissioned the Tomb of I'timad-ud-Daulah?",
+        "hi": "एतमादुद्दौला का मकबरा किसने बनवाया?"
+      },
+      "options": {
+        "en": [
+          "Mumtaz Mahal",
+          "Empress Nur Jahan",
+          "Emperor Akbar",
+          "Emperor Shah Jahan"
+        ],
+        "hi": [
+          "मुमताज़ महल",
+          "बेगम नूरजहाँ",
+          "बादशाह अकबर",
+          "बादशाह शाहजहाँ"
+        ]
+      },
+      "answer": 1,
+      "explain": {
+        "en": "The Tomb of I'timad-ud-Daulah was commissioned by Mughal Empress Nur Jahan for her father Mirza Ghiyas Beg between 1622 and 1628.",
+        "hi": "एतमादुद्दौला का मकबरा मुगल बेगम नूरजहाँ ने अपने पिता मिर्ज़ा ग़ियास बेग के लिए 1622 से 1628 के बीच बनवाया था।"
+      }
+    },
+    {
+      "claim": "itimad-ud-daulah/nur-jahan-patronage",
+      "q": {
+        "en": "Nur Jahan built this tomb for her father. What was his name?",
+        "hi": "नूरजहाँ ने यह मकबरा अपने पिता के लिए बनवाया। उनका नाम क्या था?"
+      },
+      "options": {
+        "en": [
+          "Mirza Ghiyas Beg",
+          "Safdarjung",
+          "Ustad Ahmad Lahori",
+          "Sikandar Lodi"
+        ],
+        "hi": [
+          "मिर्ज़ा ग़ियास बेग",
+          "सफ़दरजंग",
+          "उस्ताद अहमद लाहौरी",
+          "सिकंदर लोदी"
+        ]
+      },
+      "answer": 0,
+      "explain": {
+        "en": "The Tomb of I'timad-ud-Daulah was commissioned by Empress Nur Jahan for her father Mirza Ghiyas Beg, who served as chief minister to Emperor Jahangir at Agra Fort.",
+        "hi": "एतमादुद्दौला का मकबरा बेगम नूरजहाँ ने अपने पिता मिर्ज़ा ग़ियास बेग के लिए बनवाया, जो आगरा किले में बादशाह जहाँगीर के मुख्यमंत्री थे।"
+      }
+    },
+    {
+      "claim": "itimad-ud-daulah/pietra-dura-precursor",
+      "q": {
+        "en": "The Tomb of I'timad-ud-Daulah is seen as a stylistic precursor to which monument?",
+        "hi": "एतमादुद्दौला के मकबरे को किस स्मारक की शैली का पूर्ववर्ती माना जाता है?"
+      },
+      "options": {
+        "en": [
+          "Humayun's Tomb",
+          "Safdarjung's Tomb",
+          "Taj Mahal",
+          "Jama Masjid"
+        ],
+        "hi": [
+          "हुमायूँ का मकबरा",
+          "सफ़दरजंग का मकबरा",
+          "ताजमहल",
+          "जामा मस्जिद"
+        ]
+      },
+      "answer": 2,
+      "explain": {
+        "en": "The Tomb of I'timad-ud-Daulah, built entirely of white marble with refined pietra dura inlay, is widely recognized as a stylistic precursor to the Taj Mahal.",
+        "hi": "एतमादुद्दौला का मकबरा पूरी तरह सफ़ेद संगमरमर का है और इसमें बारीक पिएत्रा ड्यूरा जड़ाई है; इसे व्यापक रूप से ताजमहल की शैली का पूर्ववर्ती माना जाता है।"
+      }
+    }
+  ],
+  "jama-masjid": [
+    {
+      "claim": "jama-masjid/shah-jahan-patronage",
+      "q": {
+        "en": "Which Mughal emperor commissioned the Jama Masjid in Delhi?",
+        "hi": "दिल्ली की जामा मस्जिद किस मुगल बादशाह ने बनवाई?"
+      },
+      "options": {
+        "en": [
+          "Akbar",
+          "Shah Jahan",
+          "Jahangir",
+          "Muhammad Shah"
+        ],
+        "hi": [
+          "अकबर",
+          "शाहजहाँ",
+          "जहाँगीर",
+          "मुहम्मद शाह"
+        ]
+      },
+      "answer": 1,
+      "explain": {
+        "en": "Mughal Emperor Shah Jahan commissioned the Jama Masjid between 1650 and 1656 as the grand congregational mosque of his new capital Shahjahanabad, positioned directly opposite the Red Fort.",
+        "hi": "मुगल बादशाह शाहजहाँ ने अपनी नई राजधानी शाहजहाँनाबाद की विशाल जामा मस्जिद 1650 से 1656 के बीच बनवाई, जो लाल किले के ठीक सामने है।"
+      }
+    },
+    {
+      "claim": "jama-masjid/shah-jahan-patronage",
+      "q": {
+        "en": "The Jama Masjid stands directly opposite which monument?",
+        "hi": "जामा मस्जिद किस स्मारक के ठीक सामने है?"
+      },
+      "options": {
+        "en": [
+          "Red Fort",
+          "Purana Qila",
+          "Jantar Mantar",
+          "Humayun's Tomb"
+        ],
+        "hi": [
+          "लाल किला",
+          "पुराना क़िला",
+          "जंतर मंतर",
+          "हुमायूँ का मकबरा"
+        ]
+      },
+      "answer": 0,
+      "explain": {
+        "en": "Mughal Emperor Shah Jahan commissioned the Jama Masjid between 1650 and 1656 as the grand congregational mosque of his new capital Shahjahanabad, positioned directly opposite the Red Fort.",
+        "hi": "मुगल बादशाह शाहजहाँ ने अपनी नई राजधानी शाहजहाँनाबाद की विशाल जामा मस्जिद 1650 से 1656 के बीच बनवाई, जो लाल किले के ठीक सामने है।"
+      }
+    },
+    {
+      "claim": "jama-masjid/red-sandstone-marble-architecture",
+      "q": {
+        "en": "How many worshippers can the courtyard of the Jama Masjid hold?",
+        "hi": "जामा मस्जिद के आँगन में कितने नमाज़ी समा सकते हैं?"
+      },
+      "options": {
+        "en": [
+          "5,000",
+          "10,000",
+          "25,000",
+          "50,000"
+        ],
+        "hi": [
+          "5,000",
+          "10,000",
+          "25,000",
+          "50,000"
+        ]
+      },
+      "answer": 2,
+      "explain": {
+        "en": "The mosque is constructed of red sandstone and white marble, featuring three large domes, two 40-metre-high minarets, and an elevated courtyard holding 25,000 worshippers.",
+        "hi": "यह मस्जिद लाल बलुआ पत्थर और सफ़ेद संगमरमर से बनी है; इसमें तीन बड़े गुंबद, 40 मीटर ऊँची दो मीनारें और एक ऊँचा आँगन है जिसमें 25,000 नमाज़ी समा सकते हैं।"
+      }
+    }
+  ],
+  "safdarjungs-tomb": [
+    {
+      "claim": "safdarjungs-tomb/last-garden-tomb",
+      "q": {
+        "en": "When was Safdarjung's Tomb built?",
+        "hi": "सफ़दरजंग का मकबरा कब बना?"
+      },
+      "options": {
+        "en": [
+          "1570",
+          "1648",
+          "1724",
+          "1753–1754"
+        ],
+        "hi": [
+          "1570",
+          "1648",
+          "1724",
+          "1753–1754"
+        ]
+      },
+      "answer": 3,
+      "explain": {
+        "en": "Safdarjung's Tomb was built in 1753–1754 as the last enclosed garden tomb in Delhi, deliberately designed in the grand charbagh architectural style pioneered by Humayun's Tomb.",
+        "hi": "सफ़दरजंग का मकबरा 1753–1754 में दिल्ली के अंतिम घिरे हुए उद्यान-मकबरे के रूप में बना और जानबूझकर हुमायूँ के मकबरे द्वारा शुरू की गई भव्य चारबाग़ शैली में डिज़ाइन किया गया।"
+      }
+    },
+    {
+      "claim": "safdarjungs-tomb/wazir-mughal-empire",
+      "q": {
+        "en": "What office did Safdarjung hold in the Mughal Empire?",
+        "hi": "मुगल साम्राज्य में सफ़दरजंग किस पद पर थे?"
+      },
+      "options": {
+        "en": [
+          "Grand Vizier (Prime Minister)",
+          "Chief architect",
+          "Court astronomer",
+          "Commander of Agra Fort"
+        ],
+        "hi": [
+          "वज़ीर-ए-आज़म (प्रधानमंत्री)",
+          "मुख्य वास्तुकार",
+          "दरबारी खगोलशास्त्री",
+          "आगरा किले के सेनापति"
+        ]
+      },
+      "answer": 0,
+      "explain": {
+        "en": "Mirza Muqim Abul Mansur Khan (Safdarjung), whose tomb stands in Delhi, served as the Grand Vizier (Prime Minister) of the Mughal Empire under Emperor Ahmad Shah Bahadur based at the Red Fort.",
+        "hi": "मिर्ज़ा मुक़ीम अबुल मंसूर ख़ान (सफ़दरजंग), जिनका मकबरा दिल्ली में है, लाल किले से शासन करने वाले बादशाह अहमद शाह बहादुर के अधीन मुगल साम्राज्य के वज़ीर-ए-आज़म (प्रधानमंत्री) थे।"
+      }
+    },
+    {
+      "claim": "safdarjungs-tomb/last-garden-tomb",
+      "q": {
+        "en": "Safdarjung's Tomb follows the charbagh style pioneered by which monument?",
+        "hi": "सफ़दरजंग का मकबरा किस स्मारक द्वारा शुरू की गई चारबाग़ शैली में बना है?"
+      },
+      "options": {
+        "en": [
+          "Taj Mahal",
+          "Humayun's Tomb",
+          "Jama Masjid",
+          "Red Fort"
+        ],
+        "hi": [
+          "ताजमहल",
+          "हुमायूँ का मकबरा",
+          "जामा मस्जिद",
+          "लाल किला"
+        ]
+      },
+      "answer": 1,
+      "explain": {
+        "en": "Safdarjung's Tomb was built in 1753–1754 as the last enclosed garden tomb in Delhi, deliberately designed in the grand charbagh architectural style pioneered by Humayun's Tomb.",
+        "hi": "सफ़दरजंग का मकबरा 1753–1754 में दिल्ली के अंतिम घिरे हुए उद्यान-मकबरे के रूप में बना और जानबूझकर हुमायूँ के मकबरे द्वारा शुरू की गई भव्य चारबाग़ शैली में डिज़ाइन किया गया।"
+      }
+    }
+  ],
+  "purana-qila": [
+    {
+      "claim": "purana-qila/humayun-dinpanah-death",
+      "q": {
+        "en": "Which capital did Humayun establish at Purana Qila?",
+        "hi": "हुमायूँ ने पुराना क़िला में कौन-सी राजधानी बसाई?"
+      },
+      "options": {
+        "en": [
+          "Shahjahanabad",
+          "Dinpanah",
+          "Tughlaqabad",
+          "Fatehpur Sikri"
+        ],
+        "hi": [
+          "शाहजहाँनाबाद",
+          "दीनपनाह",
+          "तुग़लक़ाबाद",
+          "फतेहपुर सीकरी"
+        ]
+      },
+      "answer": 1,
+      "explain": {
+        "en": "Mughal Emperor Humayun established his capital Dinpanah at Purana Qila and died in 1556 following a fatal fall on the steps of the Sher Mandal library inside the fort, after which he was entombed at nearby Humayun's Tomb.",
+        "hi": "मुगल बादशाह हुमायूँ ने पुराना क़िला में अपनी राजधानी दीनपनाह बसाई और 1556 में क़िले के भीतर शेर मंडल पुस्तकालय की सीढ़ियों से गिरने के बाद उनकी मृत्यु हो गई; इसके बाद उन्हें पास के हुमायूँ के मकबरे में दफ़नाया गया।"
+      }
+    },
+    {
+      "claim": "purana-qila/humayun-dinpanah-death",
+      "q": {
+        "en": "In which year did Humayun die after a fall on the steps of the Sher Mandal library?",
+        "hi": "शेर मंडल पुस्तकालय की सीढ़ियों से गिरने के बाद हुमायूँ की मृत्यु किस वर्ष हुई?"
+      },
+      "options": {
+        "en": [
+          "1571",
+          "1565",
+          "1556",
+          "1540"
+        ],
+        "hi": [
+          "1571",
+          "1565",
+          "1556",
+          "1540"
+        ]
+      },
+      "answer": 2,
+      "explain": {
+        "en": "Mughal Emperor Humayun established his capital Dinpanah at Purana Qila and died in 1556 following a fatal fall on the steps of the Sher Mandal library inside the fort, after which he was entombed at nearby Humayun's Tomb.",
+        "hi": "मुगल बादशाह हुमायूँ ने पुराना क़िला में अपनी राजधानी दीनपनाह बसाई और 1556 में क़िले के भीतर शेर मंडल पुस्तकालय की सीढ़ियों से गिरने के बाद उनकी मृत्यु हो गई; इसके बाद उन्हें पास के हुमायूँ के मकबरे में दफ़नाया गया।"
+      }
+    },
+    {
+      "claim": "purana-qila/sixth-city-delhi",
+      "q": {
+        "en": "Purana Qila was developed as which historical city of Delhi?",
+        "hi": "पुराना क़िला दिल्ली के कौन-से ऐतिहासिक नगर के रूप में विकसित हुआ?"
+      },
+      "options": {
+        "en": [
+          "The sixth",
+          "The third",
+          "The first",
+          "The seventh"
+        ],
+        "hi": [
+          "छठा",
+          "तीसरा",
+          "पहला",
+          "सातवाँ"
+        ]
+      },
+      "answer": 0,
+      "explain": {
+        "en": "Purana Qila was developed as the sixth historical city of Delhi (Dinpanah/Shergarh), succeeding the earlier Sultanate urban centers founded around Qutb Minar.",
+        "hi": "पुराना क़िला दिल्ली के छठे ऐतिहासिक नगर (दीनपनाह/शेरगढ़) के रूप में विकसित हुआ, जो क़ुतुब मीनार के आसपास बसे पहले के सल्तनतकालीन नगरों के बाद आया।"
+      }
+    }
+  ],
+  "tughlaqabad-fort": [
+    {
+      "claim": "tughlaqabad-fort/ghiyasuddin-founder-1321",
+      "q": {
+        "en": "Who founded Tughlaqabad Fort?",
+        "hi": "तुग़लक़ाबाद क़िला किसने बसाया?"
+      },
+      "options": {
+        "en": [
+          "Qutb-ud-din Aibak",
+          "Sher Shah Suri",
+          "Ghiyas-ud-din Tughlaq",
+          "Sikandar Lodi"
+        ],
+        "hi": [
+          "क़ुतुबुद्दीन ऐबक",
+          "शेर शाह सूरी",
+          "ग़ियासुद्दीन तुग़लक़",
+          "सिकंदर लोदी"
+        ]
+      },
+      "answer": 2,
+      "explain": {
+        "en": "Sultan Ghiyas-ud-din Tughlaq founded Tughlaqabad Fort in 1321 as the third city of Delhi, succeeding the early Sultanate administrative center around the Qutb Complex.",
+        "hi": "सुल्तान ग़ियासुद्दीन तुग़लक़ ने 1321 में तुग़लक़ाबाद क़िला दिल्ली के तीसरे नगर के रूप में बसाया, जो क़ुतुब परिसर के आसपास के आरंभिक सल्तनत प्रशासनिक केंद्र के बाद आया।"
+      }
+    },
+    {
+      "claim": "tughlaqabad-fort/ghiyasuddin-founder-1321",
+      "q": {
+        "en": "In which year was Tughlaqabad Fort founded?",
+        "hi": "तुग़लक़ाबाद क़िला किस वर्ष बसाया गया?"
+      },
+      "options": {
+        "en": [
+          "1199",
+          "1321",
+          "1556",
+          "1724"
+        ],
+        "hi": [
+          "1199",
+          "1321",
+          "1556",
+          "1724"
+        ]
+      },
+      "answer": 1,
+      "explain": {
+        "en": "Sultan Ghiyas-ud-din Tughlaq founded Tughlaqabad Fort in 1321 as the third city of Delhi, succeeding the early Sultanate administrative center around the Qutb Complex.",
+        "hi": "सुल्तान ग़ियासुद्दीन तुग़लक़ ने 1321 में तुग़लक़ाबाद क़िला दिल्ली के तीसरे नगर के रूप में बसाया, जो क़ुतुब परिसर के आसपास के आरंभिक सल्तनत प्रशासनिक केंद्र के बाद आया।"
+      }
+    },
+    {
+      "claim": "tughlaqabad-fort/massive-sloping-stone-ramparts",
+      "q": {
+        "en": "An elevated causeway connects Tughlaqabad Fort to what?",
+        "hi": "तुग़लक़ाबाद क़िले को एक ऊँचा रास्ता किससे जोड़ता है?"
+      },
+      "options": {
+        "en": [
+          "The Qutb Minar",
+          "The Yamuna riverbank",
+          "Purana Qila",
+          "Ghiyas-ud-din Tughlaq's fortified tomb"
+        ],
+        "hi": [
+          "क़ुतुब मीनार",
+          "यमुना का तट",
+          "पुराना क़िला",
+          "ग़ियासुद्दीन तुग़लक़ का क़िलाबंद मकबरा"
+        ]
+      },
+      "answer": 3,
+      "explain": {
+        "en": "The fortress is distinguished by its colossal stone bastions, high sloping ramparts, and an elevated causeway connecting to the fortified tomb of Ghiyas-ud-din Tughlaq.",
+        "hi": "यह क़िला अपने विशाल पत्थर के बुर्जों, ऊँची ढलवाँ प्राचीरों और ग़ियासुद्दीन तुग़लक़ के क़िलाबंद मकबरे से जोड़ने वाले ऊँचे रास्ते के लिए जाना जाता है।"
+      }
+    }
+  ],
+  "jantar-mantar": [
+    {
+      "claim": "jantar-mantar/jai-singh-patronage-1724",
+      "q": {
+        "en": "Who built the Jantar Mantar observatory in Delhi?",
+        "hi": "दिल्ली में जंतर मंतर वेधशाला किसने बनवाई?"
+      },
+      "options": {
+        "en": [
+          "Maharaja Sawai Jai Singh II of Jaipur",
+          "Ustad Ahmad Lahori",
+          "Safdarjung",
+          "Ghiyas-ud-din Tughlaq"
+        ],
+        "hi": [
+          "जयपुर के महाराजा सवाई जय सिंह द्वितीय",
+          "उस्ताद अहमद लाहौरी",
+          "सफ़दरजंग",
+          "ग़ियासुद्दीन तुग़लक़"
+        ]
+      },
+      "answer": 0,
+      "explain": {
+        "en": "Maharaja Sawai Jai Singh II of Jaipur constructed the Jantar Mantar observatory in Delhi in 1724 under the imperial commission of Mughal Emperor Muhammad Shah, who ruled from the Red Fort.",
+        "hi": "जयपुर के महाराजा सवाई जय सिंह द्वितीय ने 1724 में लाल किले से शासन करने वाले मुगल बादशाह मुहम्मद शाह के शाही आदेश पर दिल्ली में जंतर मंतर वेधशाला बनवाई।"
+      }
+    },
+    {
+      "claim": "jantar-mantar/jai-singh-patronage-1724",
+      "q": {
+        "en": "In which year was the Jantar Mantar in Delhi built?",
+        "hi": "दिल्ली का जंतर मंतर किस वर्ष बना?"
+      },
+      "options": {
+        "en": [
+          "1650",
+          "1724",
+          "1753",
+          "1321"
+        ],
+        "hi": [
+          "1650",
+          "1724",
+          "1753",
+          "1321"
+        ]
+      },
+      "answer": 1,
+      "explain": {
+        "en": "Maharaja Sawai Jai Singh II of Jaipur constructed the Jantar Mantar observatory in Delhi in 1724 under the imperial commission of Mughal Emperor Muhammad Shah, who ruled from the Red Fort.",
+        "hi": "जयपुर के महाराजा सवाई जय सिंह द्वितीय ने 1724 में लाल किले से शासन करने वाले मुगल बादशाह मुहम्मद शाह के शाही आदेश पर दिल्ली में जंतर मंतर वेधशाला बनवाई।"
+      }
+    },
+    {
+      "claim": "jantar-mantar/masonry-observatory-instruments",
+      "q": {
+        "en": "What were instruments like the Samrat Yantra designed to measure?",
+        "hi": "सम्राट यंत्र जैसे यंत्र क्या मापने के लिए बनाए गए थे?"
+      },
+      "options": {
+        "en": [
+          "Rainfall and wind",
+          "River levels",
+          "Distances on land",
+          "Time and celestial coordinates"
+        ],
+        "hi": [
+          "बारिश और हवा",
+          "नदी का जलस्तर",
+          "ज़मीन पर दूरियाँ",
+          "समय और खगोलीय निर्देशांक"
+        ]
+      },
+      "answer": 3,
+      "explain": {
+        "en": "The open-air observatory comprises massive geometric masonry instruments, including the Samrat Yantra and Jai Prakash, designed to measure time and celestial coordinates.",
+        "hi": "यह खुली वेधशाला विशाल ज्यामितीय चिनाई वाले यंत्रों से बनी है, जिनमें सम्राट यंत्र और जय प्रकाश शामिल हैं; इन्हें समय और खगोलीय निर्देशांक मापने के लिए बनाया गया था।"
+      }
+    }
+  ],
+  "mehrauli-archaeological-park": [
+    {
+      "claim": "mehrauli-archaeological-park/delhi-first-city-precinct",
+      "q": {
+        "en": "Mehrauli Archaeological Park borders which monument complex?",
+        "hi": "महरौली पुरातत्व उद्यान किस स्मारक परिसर से सटा हुआ है?"
+      },
+      "options": {
+        "en": [
+          "Red Fort Complex",
+          "Qutb Complex",
+          "Purana Qila",
+          "Lodhi Gardens"
+        ],
+        "hi": [
+          "लाल किला परिसर",
+          "क़ुतुब परिसर",
+          "पुराना क़िला",
+          "लोधी उद्यान"
+        ]
+      },
+      "answer": 1,
+      "explain": {
+        "en": "Mehrauli Archaeological Park borders the Qutb Complex in Delhi's oldest fortified city area (Lal Kot / Qila Rai Pithora), preserving archaeological remains from the early Sultanate through the Mughal era.",
+        "hi": "महरौली पुरातत्व उद्यान क़ुतुब परिसर से सटा हुआ है और दिल्ली के सबसे पुराने क़िलाबंद नगर क्षेत्र (लाल कोट / क़िला राय पिथौरा) में है; यह आरंभिक सल्तनत से मुगल काल तक के पुरातात्विक अवशेषों को सँजोए है।"
+      }
+    },
+    {
+      "claim": "mehrauli-archaeological-park/delhi-first-city-precinct",
+      "q": {
+        "en": "Mehrauli lies in Delhi's oldest fortified city area. What is it called?",
+        "hi": "महरौली दिल्ली के सबसे पुराने क़िलाबंद नगर क्षेत्र में है। उसका नाम क्या है?"
+      },
+      "options": {
+        "en": [
+          "Shahjahanabad",
+          "Dinpanah",
+          "Lal Kot / Qila Rai Pithora",
+          "Tughlaqabad"
+        ],
+        "hi": [
+          "शाहजहाँनाबाद",
+          "दीनपनाह",
+          "लाल कोट / क़िला राय पिथौरा",
+          "तुग़लक़ाबाद"
+        ]
+      },
+      "answer": 2,
+      "explain": {
+        "en": "Mehrauli Archaeological Park borders the Qutb Complex in Delhi's oldest fortified city area (Lal Kot / Qila Rai Pithora), preserving archaeological remains from the early Sultanate through the Mughal era.",
+        "hi": "महरौली पुरातत्व उद्यान क़ुतुब परिसर से सटा हुआ है और दिल्ली के सबसे पुराने क़िलाबंद नगर क्षेत्र (लाल कोट / क़िला राय पिथौरा) में है; यह आरंभिक सल्तनत से मुगल काल तक के पुरातात्विक अवशेषों को सँजोए है।"
+      }
+    },
+    {
+      "claim": "mehrauli-archaeological-park/sultanate-tombs-evolution",
+      "q": {
+        "en": "Mehrauli's early tomb arches, like those of Balban's Tomb, influenced the tombs seen where?",
+        "hi": "बलबन के मकबरे जैसे महरौली के आरंभिक मेहराबों ने कहाँ के मकबरों को प्रभावित किया?"
+      },
+      "options": {
+        "en": [
+          "Lodhi Gardens",
+          "Jantar Mantar",
+          "Red Fort",
+          "Fatehpur Sikri"
+        ],
+        "hi": [
+          "लोधी उद्यान",
+          "जंतर मंतर",
+          "लाल किला",
+          "फतेहपुर सीकरी"
+        ]
+      },
+      "answer": 0,
+      "explain": {
+        "en": "The tomb architecture of Mehrauli Archaeological Park, including the early arches of Balban's Tomb and Jamali Kamali, directly influenced the development of Sultanate funerary architecture seen in Lodhi Gardens.",
+        "hi": "महरौली पुरातत्व उद्यान की मकबरा वास्तुकला, जिसमें बलबन के मकबरे और जमाली कमाली के आरंभिक मेहराब शामिल हैं, ने लोधी उद्यान में दिखने वाली सल्तनतकालीन समाधि वास्तुकला के विकास को सीधे प्रभावित किया।"
+      }
+    }
+  ],
+  "lodhi-gardens": [
+    {
+      "claim": "lodhi-gardens/sayyid-lodi-sultanate",
+      "q": {
+        "en": "The monuments of Lodhi Gardens were built by rulers of which dynasties?",
+        "hi": "लोधी उद्यान के स्मारक किन वंशों के शासकों ने बनवाए?"
+      },
+      "options": {
+        "en": [
+          "Tughlaq and Mughal",
+          "Sayyid and Lodi",
+          "Mughal and Suri",
+          "Khalji and Tughlaq"
+        ],
+        "hi": [
+          "तुग़लक़ और मुगल",
+          "सैयद और लोदी",
+          "मुगल और सूरी",
+          "ख़िलजी और तुग़लक़"
+        ]
+      },
+      "answer": 1,
+      "explain": {
+        "en": "The monuments of Lodhi Gardens were erected by rulers of the Sayyid and Lodi dynasties, who ruled the Delhi Sultanate in succession to the early dynasties established at Qutb Minar.",
+        "hi": "लोधी उद्यान के स्मारक सैयद और लोदी वंश के शासकों ने बनवाए, जिन्होंने क़ुतुब मीनार में स्थापित आरंभिक वंशों के बाद दिल्ली सल्तनत पर क्रमवार शासन किया।"
+      }
+    },
+    {
+      "claim": "lodhi-gardens/sikandar-lodi-garden-tomb",
+      "q": {
+        "en": "Whose tomb in Lodhi Gardens was an early walled garden tomb in Delhi?",
+        "hi": "लोधी उद्यान में किसका मकबरा दिल्ली का एक आरंभिक दीवार-घिरा उद्यान-मकबरा था?"
+      },
+      "options": {
+        "en": [
+          "Balban",
+          "Safdarjung",
+          "Sikandar Lodi",
+          "Ghiyas-ud-din Tughlaq"
+        ],
+        "hi": [
+          "बलबन",
+          "सफ़दरजंग",
+          "सिकंदर लोदी",
+          "ग़ियासुद्दीन तुग़लक़"
+        ]
+      },
+      "answer": 2,
+      "explain": {
+        "en": "The Tomb of Sikandar Lodi in Lodhi Gardens was an early walled garden tomb in Delhi featuring an octagonal layout and double dome that served as an architectural precursor to Humayun's Tomb.",
+        "hi": "लोधी उद्यान में सिकंदर लोदी का मकबरा दिल्ली का एक आरंभिक दीवार-घिरा उद्यान-मकबरा था, जिसका अष्टकोणीय नक्शा और दोहरा गुंबद हुमायूँ के मकबरे का वास्तुशिल्पीय पूर्ववर्ती बना।"
+      }
+    },
+    {
+      "claim": "lodhi-gardens/sikandar-lodi-garden-tomb",
+      "q": {
+        "en": "The Tomb of Sikandar Lodi was an architectural precursor to which monument?",
+        "hi": "सिकंदर लोदी का मकबरा किस स्मारक का वास्तुशिल्पीय पूर्ववर्ती बना?"
+      },
+      "options": {
+        "en": [
+          "Jama Masjid",
+          "Jantar Mantar",
+          "Agra Fort",
+          "Humayun's Tomb"
+        ],
+        "hi": [
+          "जामा मस्जिद",
+          "जंतर मंतर",
+          "आगरा किला",
+          "हुमायूँ का मकबरा"
+        ]
+      },
+      "answer": 3,
+      "explain": {
+        "en": "The Tomb of Sikandar Lodi in Lodhi Gardens was an early walled garden tomb in Delhi featuring an octagonal layout and double dome that served as an architectural precursor to Humayun's Tomb.",
+        "hi": "लोधी उद्यान में सिकंदर लोदी का मकबरा दिल्ली का एक आरंभिक दीवार-घिरा उद्यान-मकबरा था, जिसका अष्टकोणीय नक्शा और दोहरा गुंबद हुमायूँ के मकबरे का वास्तुशिल्पीय पूर्ववर्ती बना।"
+      }
+    }
+  ]
+}
