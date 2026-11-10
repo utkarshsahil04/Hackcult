@@ -1,4 +1,4 @@
-"""Export the monuments table to frontend/lib/catalog.json, the only monument data the UI bundles.
+"""Export the monuments table to frontend/lib/catalog.json (and their connections to connections.json), the only monument data the UI bundles.
 
 Re-run after `python -m app.db.seed`: python tools/export_catalog.py
 """
@@ -12,7 +12,12 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 DB = ROOT / "backend" / "data" / "raahein.db"
 HI = json.loads((ROOT / "backend/app/db/seed_data/names_hi.json").read_text(encoding="utf-8"))
+SEED = ROOT / "backend/app/db/seed_data"
+# Hindi for every fact and connection note; names and source titles stay as published.
+HI_CLAIMS = json.loads((SEED / "claims_hi.json").read_text(encoding="utf-8"))
+HI_LINKS = json.loads((SEED / "connections_hi.json").read_text(encoding="utf-8"))
 OUT = ROOT / "frontend" / "lib" / "catalog.json"
+LINKS_OUT = OUT.with_name("connections.json")
 HEADINGS = {
     "built": ("Origin", "उत्पत्ति"),
     "style": ("Architecture", "वास्तुकला"),
@@ -37,14 +42,14 @@ def main() -> None:
     out = []
     for m in c.execute("SELECT * FROM monuments ORDER BY id").fetchall():
         claims = c.execute(
-            "SELECT id, claim_type, text, is_legend FROM claims WHERE monument_id = ? ORDER BY position, claim_key",
+            "SELECT id, claim_key, claim_type, text, is_legend FROM claims WHERE monument_id = ? ORDER BY position, claim_key",
             (m["id"],),
         ).fetchall()
         sources: list[dict] = []
         index: dict[str, int] = {}
         sections = []
         for claim in claims:
-            first = None
+            cited: list[int] = []
             for s in c.execute(
                 "SELECT s.url, s.title, s.publisher FROM monument_sources ms JOIN sources s ON s.id = ms.source_id "
                 "WHERE ms.claim_id = ? ORDER BY s.publisher",
@@ -53,13 +58,14 @@ def main() -> None:
                 if s["url"] not in index:
                     sources.append({"title": bi(s["title"]), "publisher": bi(s["publisher"]), "url": s["url"]})
                     index[s["url"]] = len(sources)
-                first = first or index[s["url"]]
+                cited.append(index[s["url"]])
             en, hi = HEADINGS[claim["claim_type"]]
             sections.append({
                 "heading": {"en": en, "hi": hi},
-                "text": bi(claim["text"]),
+                "text": {"en": claim["text"], "hi": HI_CLAIMS.get(f'{m["slug"]}/{claim["claim_key"]}', claim["text"])},
                 "isLegend": bool(claim["is_legend"]),
-                "source": first,
+                "source": cited[0] if cited else None,
+                "cited": cited,  # every source behind the claim, so both publishers show
             })
         related = [r[0] for r in c.execute(
             "SELECT DISTINCT o.slug FROM monument_relationships r JOIN monuments o "
@@ -91,6 +97,24 @@ def main() -> None:
         })
     OUT.write_text(json.dumps(out, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
     print(f"wrote {len(out)} monuments ({sum(x['verified'] for x in out)} verified) to {OUT}")
+
+    # Every connection rests on a claim with two independent publishers, so the graph page can name them.
+    links = [
+        {
+            "from": r["a"], "to": r["b"], "type": r["relation_type"], "note": r["note"],
+            "note_hi": HI_LINKS.get(f'{r["a"]}|{r["b"]}|{r["relation_type"]}', r["note"]),
+            "publishers": [p[0] for p in c.execute(
+                "SELECT DISTINCT s.publisher FROM monument_sources ms JOIN sources s ON s.id = ms.source_id "
+                "WHERE ms.claim_id = ? ORDER BY s.publisher", (r["claim_id"],))],
+        }
+        for r in c.execute(
+            "SELECT a.slug AS a, b.slug AS b, r.relation_type, r.note, r.claim_id FROM monument_relationships r "
+            "JOIN monuments a ON a.id = r.from_monument_id JOIN monuments b ON b.id = r.to_monument_id "
+            "ORDER BY a.slug, b.slug, r.relation_type"
+        )
+    ]
+    LINKS_OUT.write_text(json.dumps(links, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+    print(f"wrote {len(links)} connections to {LINKS_OUT}")
 
 
 if __name__ == "__main__":
