@@ -6,6 +6,12 @@
 Built for **HackCult '26** (Track: Culture & Digital Heritage). Covers 28 sites in Delhi and Agra:
 15 with sourced stories, and 13 that can be planned and mapped while their stories are pending.
 
+**Try it live: [hackcult-drab.vercel.app](https://hackcult-drab.vercel.app/)**
+
+The web app runs on Vercel, and the API and photo recognition run on Modal
+([API health](https://utkarsh-sahil04--raahein-api.us-east.modal.run/api/health)). The API sleeps when idle, so the
+first request after a quiet spell can take up to about a minute.
+
 ## Quick start
 
 You need Python 3.12, Node 22 and pnpm. From the repository root, run:
@@ -150,7 +156,7 @@ modal deploy deploy/modal_app.py
 The last command prints the API's address. Check it with:
 
 ```powershell
-.venvScriptspython deploy/smoke_test.py https://your-api-address path	ophoto.jpg
+.venv\Scripts\python deploy/smoke_test.py https://your-api-address path\to\photo.jpg
 ```
 
 In Vercel, import the repository and set **Root Directory** to `frontend`. Add these environment variables, then deploy:
