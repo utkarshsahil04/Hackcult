@@ -1,0 +1,354 @@
+[
+ {
+  "from": "agra-fort",
+  "to": "akbars-tomb",
+  "type": "capital_relationship",
+  "note": "Sikandra was designated by Akbar as his final resting place along the imperial highway leading from Agra Fort.",
+  "note_hi": "अकबर ने आगरा किले से निकलने वाले शाही राजमार्ग पर सिकंदरा को अपनी अंतिम विश्रामस्थली के रूप में चुना।",
+  "publishers": [
+   "District Administration Agra, Government of Uttar Pradesh",
+   "Encyclopaedia Britannica"
+  ]
+ },
+ {
+  "from": "agra-fort",
+  "to": "fatehpur-sikri",
+  "type": "same_patron",
+  "note": "Both Agra Fort and Fatehpur Sikri were grand architectural projects executed in red sandstone under the direct patronage of Emperor Akbar.",
+  "note_hi": "आगरा किला और फतेहपुर सीकरी, दोनों बादशाह अकबर के सीधे संरक्षण में लाल बलुआ पत्थर से बनी भव्य वास्तु परियोजनाएँ थीं।",
+  "publishers": [
+   "Encyclopaedia Britannica",
+   "UNESCO World Heritage Centre"
+  ]
+ },
+ {
+  "from": "agra-fort",
+  "to": "red-fort",
+  "type": "capital_relationship",
+  "note": "Shah Jahan transferred the principal seat of Mughal imperial power from Agra Fort to the Red Fort in Delhi in 1648.",
+  "note_hi": "शाहजहाँ ने 1648 में मुगल शाही सत्ता का मुख्य केंद्र आगरा किले से दिल्ली के लाल किले में स्थानांतरित किया।",
+  "publishers": [
+   "Encyclopaedia Britannica",
+   "UNESCO World Heritage Centre"
+  ]
+ },
+ {
+  "from": "agra-fort",
+  "to": "taj-mahal",
+  "type": "same_patron",
+  "note": "Both monuments were commissioned and embellished in white marble by the Mughal Emperor Shah Jahan, who spent his final captive years at Agra Fort gazing at the Taj Mahal.",
+  "note_hi": "दोनों स्मारक मुगल बादशाह शाहजहाँ ने बनवाए और सफ़ेद संगमरमर से सजाए; उन्होंने अपने अंतिम बंदी वर्ष आगरा किले में ताजमहल को निहारते हुए बिताए।",
+  "publishers": [
+   "Encyclopaedia Britannica",
+   "UNESCO World Heritage Centre"
+  ]
+ },
+ {
+  "from": "akbars-tomb",
+  "to": "agra-fort",
+  "type": "successor_of",
+  "note": "Jahangir governed from Agra Fort and oversaw the completion of his father Akbar's funerary complex at Sikandra.",
+  "note_hi": "जहाँगीर आगरा किले से शासन करते थे और उन्होंने अपने पिता अकबर के सिकंदरा स्थित समाधि परिसर को पूरा करवाया।",
+  "publishers": [
+   "District Administration Agra, Government of Uttar Pradesh",
+   "Encyclopaedia Britannica"
+  ]
+ },
+ {
+  "from": "akbars-tomb",
+  "to": "fatehpur-sikri",
+  "type": "same_dynasty",
+  "note": "Akbar planned his own mausoleum at Sikandra after having previously founded the imperial city of Fatehpur Sikri.",
+  "note_hi": "फतेहपुर सीकरी जैसा शाही नगर बसाने के बाद अकबर ने सिकंदरा में अपने मकबरे की योजना बनाई।",
+  "publishers": [
+   "District Administration Agra, Government of Uttar Pradesh",
+   "Encyclopaedia Britannica"
+  ]
+ },
+ {
+  "from": "akbars-tomb",
+  "to": "taj-mahal",
+  "type": "architectural_influence",
+  "note": "The four marble minarets rising from the South Gate of Akbar's Tomb at Sikandra directly inspired the four detached minarets of the Taj Mahal.",
+  "note_hi": "सिकंदरा में अकबर के मकबरे के दक्षिणी द्वार से उठती चार संगमरमर की मीनारों ने सीधे ताजमहल की चार अलग खड़ी मीनारों को प्रेरित किया।",
+  "publishers": [
+   "District Administration Agra, Government of Uttar Pradesh",
+   "Encyclopaedia Britannica"
+  ]
+ },
+ {
+  "from": "fatehpur-sikri",
+  "to": "agra-fort",
+  "type": "co_located_world_heritage",
+  "note": "Both are UNESCO World Heritage properties in Agra District displaying Akbar's signature red-sandstone architecture.",
+  "note_hi": "दोनों आगरा ज़िले के यूनेस्को विश्व धरोहर स्थल हैं, जो अकबर की विशिष्ट लाल बलुआ पत्थर वास्तुकला दिखाते हैं।",
+  "publishers": [
+   "Taj Mahal - Department of Tourism",
+   "UNESCO World Heritage Centre"
+  ]
+ },
+ {
+  "from": "fatehpur-sikri",
+  "to": "jama-masjid",
+  "type": "architectural_influence",
+  "note": "The congregational courtyard plan and grand scale of Delhi's Jama Masjid directly reflected the architectural precedent set by the Friday Mosque at Fatehpur Sikri.",
+  "note_hi": "दिल्ली की जामा मस्जिद की जामा आँगन वाली योजना और भव्य पैमाना सीधे फतेहपुर सीकरी की जामा मस्जिद द्वारा स्थापित वास्तु-उदाहरण को दर्शाते हैं।",
+  "publishers": [
+   "Delhi Tourism (delhitourism.gov.in)",
+   "Encyclopaedia Britannica"
+  ]
+ },
+ {
+  "from": "humayuns-tomb",
+  "to": "qutb-complex",
+  "type": "co_located_world_heritage",
+  "note": "Both are UNESCO World Heritage properties in Delhi representing major eras of Indo-Islamic monumental architecture.",
+  "note_hi": "दोनों दिल्ली के यूनेस्को विश्व धरोहर स्थल हैं, जो इंडो-इस्लामी स्मारकीय वास्तुकला के प्रमुख युगों का प्रतिनिधित्व करते हैं।",
+  "publishers": [
+   "Delhi Tourism (delhitourism.gov.in)",
+   "UNESCO World Heritage Centre"
+  ]
+ },
+ {
+  "from": "humayuns-tomb",
+  "to": "red-fort",
+  "type": "co_located_world_heritage",
+  "note": "Both are UNESCO World Heritage properties in Delhi marking the beginning and zenith of Mughal dynastic building in the city.",
+  "note_hi": "दोनों दिल्ली के यूनेस्को विश्व धरोहर स्थल हैं, जो शहर में मुगल राजवंशीय निर्माण की शुरुआत और शिखर को चिह्नित करते हैं।",
+  "publishers": [
+   "Delhi Tourism (delhitourism.gov.in)",
+   "UNESCO World Heritage Centre"
+  ]
+ },
+ {
+  "from": "humayuns-tomb",
+  "to": "safdarjungs-tomb",
+  "type": "architectural_influence",
+  "note": "Safdarjung's Tomb represents the final iteration of the Mughal enclosed garden-tomb tradition that began with Humayun's Tomb two centuries earlier.",
+  "note_hi": "सफ़दरजंग का मकबरा मुगल घिरे हुए उद्यान-मकबरे की उस परंपरा का अंतिम रूप है, जो दो सदी पहले हुमायूँ के मकबरे से शुरू हुई थी।",
+  "publishers": [
+   "Archnet / MIT Documentation Center",
+   "Delhi Tourism (delhitourism.gov.in)"
+  ]
+ },
+ {
+  "from": "humayuns-tomb",
+  "to": "taj-mahal",
+  "type": "architectural_influence",
+  "note": "Humayun's Tomb established the Mughal grand garden-tomb typology with its double dome and symmetrical charbagh that directly served as an architectural precursor to the Taj Mahal.",
+  "note_hi": "हुमायूँ के मकबरे ने अपने दोहरे गुंबद और सममित चारबाग़ के साथ मुगल भव्य उद्यान-मकबरे की परंपरा स्थापित की, जो सीधे ताजमहल की वास्तुशिल्पीय पूर्ववर्ती बनी।",
+  "publishers": [
+   "Aga Khan Trust for Culture (Archnet)",
+   "UNESCO World Heritage Centre"
+  ]
+ },
+ {
+  "from": "itimad-ud-daulah",
+  "to": "agra-fort",
+  "type": "burial_association",
+  "note": "Mirza Ghiyas Beg held court as Wazir under Jahangir at Agra Fort, and his daughter Empress Nur Jahan built his mausoleum across the Yamuna.",
+  "note_hi": "मिर्ज़ा ग़ियास बेग आगरा किले में जहाँगीर के अधीन वज़ीर के रूप में दरबार में रहे, और उनकी बेटी बेगम नूरजहाँ ने यमुना के पार उनका मकबरा बनवाया।",
+  "publishers": [
+   "District Administration Agra, Government of Uttar Pradesh",
+   "Encyclopaedia Britannica"
+  ]
+ },
+ {
+  "from": "itimad-ud-daulah",
+  "to": "akbars-tomb",
+  "type": "same_dynasty",
+  "note": "Both mausoleums were erected in Agra during Jahangir's reign, marking the stylistic evolution from sandstone to pure white marble.",
+  "note_hi": "दोनों मकबरे जहाँगीर के शासनकाल में आगरा में बने और बलुआ पत्थर से शुद्ध सफ़ेद संगमरमर की ओर शैलीगत विकास को दर्शाते हैं।",
+  "publishers": [
+   "District Administration Agra, Government of Uttar Pradesh",
+   "Encyclopaedia Britannica"
+  ]
+ },
+ {
+  "from": "itimad-ud-daulah",
+  "to": "taj-mahal",
+  "type": "architectural_influence",
+  "note": "The delicate white marble masonry and polychrome floral pietra dura of I'timad-ud-Daulah directly anticipated the masterworks of the Taj Mahal.",
+  "note_hi": "एतमादुद्दौला की नाज़ुक सफ़ेद संगमरमर की चिनाई और रंगीन फूलों वाली पिएत्रा ड्यूरा जड़ाई ने सीधे ताजमहल की उत्कृष्ट कृतियों का पूर्वाभास दिया।",
+  "publishers": [
+   "District Administration Agra, Government of Uttar Pradesh",
+   "Encyclopaedia Britannica"
+  ]
+ },
+ {
+  "from": "lodhi-gardens",
+  "to": "humayuns-tomb",
+  "type": "architectural_influence",
+  "note": "Sikandar Lodi's tomb in Lodhi Gardens introduced the octagonal garden-tomb layout and double-dome technology that directly influenced the design of Humayun's Tomb.",
+  "note_hi": "लोधी उद्यान में सिकंदर लोदी के मकबरे ने अष्टकोणीय उद्यान-मकबरे का नक्शा और दोहरे गुंबद की तकनीक दी, जिसने सीधे हुमायूँ के मकबरे के डिज़ाइन को प्रभावित किया।",
+  "publishers": [
+   "Archnet / MIT Documentation Center",
+   "Delhi Tourism (delhitourism.gov.in)"
+  ]
+ },
+ {
+  "from": "lodhi-gardens",
+  "to": "qutb-complex",
+  "type": "same_dynasty",
+  "note": "Lodhi Gardens houses the tombs and mosques of the final ruling dynasties of the Delhi Sultanate, which was founded at the Qutb Complex.",
+  "note_hi": "लोधी उद्यान में दिल्ली सल्तनत के अंतिम शासक वंशों के मकबरे और मस्जिदें हैं; इस सल्तनत की नींव क़ुतुब परिसर में पड़ी थी।",
+  "publishers": [
+   "Delhi Tourism (delhitourism.gov.in)",
+   "Encyclopaedia Britannica"
+  ]
+ },
+ {
+  "from": "lodhi-gardens",
+  "to": "safdarjungs-tomb",
+  "type": "successor_of",
+  "note": "The two garden cemeteries flank opposite sides of Lodhi Road, illustrating the shift from late Sultanate tomb architecture to late Mughal design.",
+  "note_hi": "दोनों उद्यान-समाधि स्थल लोधी रोड के आमने-सामने के किनारों पर हैं, जो उत्तर सल्तनतकालीन मकबरा वास्तुकला से उत्तर मुगल डिज़ाइन की ओर बदलाव को दिखाते हैं।",
+  "publishers": [
+   "Archnet / MIT Documentation Center",
+   "Delhi Tourism (delhitourism.gov.in)"
+  ]
+ },
+ {
+  "from": "mehrauli-archaeological-park",
+  "to": "lodhi-gardens",
+  "type": "architectural_influence",
+  "note": "The architectural forms developed in Mehrauli directly informed the later Sultanate tomb and dome designs built in Lodhi Gardens.",
+  "note_hi": "महरौली में विकसित वास्तु रूपों ने सीधे बाद में लोधी उद्यान में बने सल्तनतकालीन मकबरे और गुंबद डिज़ाइनों को प्रभावित किया।",
+  "publishers": [
+   "Delhi Tourism (delhitourism.gov.in)",
+   "Indian National Trust for Art and Cultural Heritage (INTACH)"
+  ]
+ },
+ {
+  "from": "purana-qila",
+  "to": "humayuns-tomb",
+  "type": "historical_event",
+  "note": "Humayun resided and died at Purana Qila before his widow commissioned his grand garden tomb nearby in Nizamuddin.",
+  "note_hi": "हुमायूँ पुराना क़िला में रहे और वहीं उनकी मृत्यु हुई, उसके बाद उनकी विधवा ने पास निज़ामुद्दीन में उनका भव्य उद्यान-मकबरा बनवाया।",
+  "publishers": [
+   "Archnet / MIT Documentation Center",
+   "Encyclopaedia Britannica"
+  ]
+ },
+ {
+  "from": "purana-qila",
+  "to": "lodhi-gardens",
+  "type": "successor_of",
+  "note": "The rise of Sher Shah Suri and Humayun at Purana Qila marked the political replacement of the Lodi dynasty interred at Lodhi Gardens.",
+  "note_hi": "पुराना क़िला में शेर शाह सूरी और हुमायूँ का उभार लोधी उद्यान में दफ़न लोदी वंश के राजनीतिक अंत का प्रतीक था।",
+  "publishers": [
+   "Archnet / MIT Documentation Center",
+   "Encyclopaedia Britannica"
+  ]
+ },
+ {
+  "from": "purana-qila",
+  "to": "qutb-complex",
+  "type": "successor_of",
+  "note": "Purana Qila represents Delhi's sixth historic city, continuing the sequence of capitals begun by Qutb-ud-din Aibak at Qutb Minar.",
+  "note_hi": "पुराना क़िला दिल्ली का छठा ऐतिहासिक नगर है, जो क़ुतुबुद्दीन ऐबक द्वारा क़ुतुब मीनार में शुरू हुई राजधानियों की श्रृंखला को आगे बढ़ाता है।",
+  "publishers": [
+   "Delhi Tourism (delhitourism.gov.in)",
+   "Encyclopaedia Britannica"
+  ]
+ },
+ {
+  "from": "qutb-complex",
+  "to": "mehrauli-archaeological-park",
+  "type": "historical_event",
+  "note": "Both complexes form a contiguous historic precinct in Mehrauli representing the earliest seat of the Delhi Sultanate.",
+  "note_hi": "दोनों परिसर महरौली में एक सटे हुए ऐतिहासिक क्षेत्र का हिस्सा हैं, जो दिल्ली सल्तनत की सबसे पहली राजधानी का प्रतिनिधित्व करता है।",
+  "publishers": [
+   "Delhi Tourism (delhitourism.gov.in)",
+   "Indian National Trust for Art and Cultural Heritage (INTACH)"
+  ]
+ },
+ {
+  "from": "qutb-complex",
+  "to": "red-fort",
+  "type": "co_located_world_heritage",
+  "note": "Both are UNESCO World Heritage properties in Delhi reflecting centuries of Islamic dynastic governance.",
+  "note_hi": "दोनों दिल्ली के यूनेस्को विश्व धरोहर स्थल हैं, जो सदियों के इस्लामी राजवंशीय शासन को दर्शाते हैं।",
+  "publishers": [
+   "Delhi Tourism (delhitourism.gov.in)",
+   "UNESCO World Heritage Centre"
+  ]
+ },
+ {
+  "from": "qutb-complex",
+  "to": "tughlaqabad-fort",
+  "type": "successor_of",
+  "note": "Tughlaqabad Fort was built as the third historical city of Delhi, moving the sultanate capital eastward from the first city at Qutb/Mehrauli.",
+  "note_hi": "तुग़लक़ाबाद क़िला दिल्ली के तीसरे ऐतिहासिक नगर के रूप में बना, जिसने सल्तनत की राजधानी को क़ुतुब/महरौली के पहले नगर से पूर्व की ओर हटाया।",
+  "publishers": [
+   "Delhi Tourism (delhitourism.gov.in)",
+   "Encyclopaedia Britannica"
+  ]
+ },
+ {
+  "from": "red-fort",
+  "to": "humayuns-tomb",
+  "type": "historical_event",
+  "note": "Humayun's Tomb was the site where Emperor Bahadur Shah Zafar surrendered to the British after fleeing the Red Fort in 1857.",
+  "note_hi": "1857 में लाल किले से भागने के बाद बादशाह बहादुर शाह ज़फ़र ने हुमायूँ के मकबरे पर ही अंग्रेज़ों के सामने आत्मसमर्पण किया।",
+  "publishers": [
+   "Delhi Tourism (delhitourism.gov.in)",
+   "Encyclopaedia Britannica"
+  ]
+ },
+ {
+  "from": "red-fort",
+  "to": "jama-masjid",
+  "type": "same_patron",
+  "note": "Shah Jahan commissioned both the Red Fort palace and the Jama Masjid as complementary civic and religious keystones of Shahjahanabad.",
+  "note_hi": "शाहजहाँ ने लाल किले के महल और जामा मस्जिद, दोनों को शाहजहाँनाबाद के पूरक नागरिक और धार्मिक आधार-स्तंभों के रूप में बनवाया।",
+  "publishers": [
+   "Delhi Tourism (delhitourism.gov.in)",
+   "Encyclopaedia Britannica"
+  ]
+ },
+ {
+  "from": "red-fort",
+  "to": "jantar-mantar",
+  "type": "historical_event",
+  "note": "Maharaja Jai Singh II built the masonry observatory in Delhi upon the instruction of Mughal Emperor Muhammad Shah who resided at the Red Fort.",
+  "note_hi": "महाराजा जय सिंह द्वितीय ने लाल किले में रहने वाले मुगल बादशाह मुहम्मद शाह के निर्देश पर दिल्ली में चिनाई की वेधशाला बनवाई।",
+  "publishers": [
+   "Archnet / MIT Documentation Center",
+   "Delhi Tourism (delhitourism.gov.in)"
+  ]
+ },
+ {
+  "from": "red-fort",
+  "to": "safdarjungs-tomb",
+  "type": "same_dynasty",
+  "note": "Safdarjung exercised executive power as prime minister of the Mughal Empire from the court at the Red Fort.",
+  "note_hi": "सफ़दरजंग ने लाल किले के दरबार से मुगल साम्राज्य के प्रधानमंत्री के रूप में कार्यकारी सत्ता चलाई।",
+  "publishers": [
+   "Delhi Tourism (delhitourism.gov.in)",
+   "Encyclopaedia Britannica"
+  ]
+ },
+ {
+  "from": "taj-mahal",
+  "to": "agra-fort",
+  "type": "co_located_world_heritage",
+  "note": "Both are UNESCO World Heritage properties situated along the banks of the Yamuna River in Agra.",
+  "note_hi": "दोनों आगरा में यमुना नदी के किनारे स्थित यूनेस्को विश्व धरोहर स्थल हैं।",
+  "publishers": [
+   "Taj Mahal - Department of Tourism",
+   "UNESCO World Heritage Centre"
+  ]
+ },
+ {
+  "from": "taj-mahal",
+  "to": "fatehpur-sikri",
+  "type": "co_located_world_heritage",
+  "note": "Both are UNESCO World Heritage properties in Agra District, situated within the Taj Trapezium Zone.",
+  "note_hi": "दोनों आगरा ज़िले के यूनेस्को विश्व धरोहर स्थल हैं और ताज ट्रैपेज़ियम क्षेत्र के भीतर स्थित हैं।",
+  "publishers": [
+   "Taj Mahal - Department of Tourism",
+   "UNESCO World Heritage Centre"
+  ]
+ }
+]
