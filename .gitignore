@@ -44,6 +44,16 @@ redis_data/
 # graphify knowledge graph of the repo (rebuild with `graphify update .`)
 graphify-out/
 
+# Impeccable design tool installs: one 58-file copy per editor, reinstall locally instead of committing
+.cursor/skills/impeccable/
+.gemini/skills/impeccable/
+.github/skills/impeccable/
+.cursor/agents/impeccable-*
+.github/agents/impeccable-*
+.cursor/hooks.json
+.github/hooks/impeccable.json
+.gemini/settings.json
+
 # Demo images (materialized locally from cached_responses.json, not tracked)
 demo/images/*.jpg
 demo/images/*.jpeg
