@@ -9,7 +9,7 @@ import { DesktopIdentify } from '@/components/identify/DesktopIdentify'
 import { KolamLoader, MonumentArt } from '@/components/heritage'
 import { RaaheinLogo } from '@/components/RaaheinLogo'
 import { Toggle, useLang } from '@/components/raahein'
-import { identify, type IdentifyResult } from '@/lib/api'
+import { identify, warmUp, type IdentifyResult } from '@/lib/api'
 import { monuments, findMonument } from '@/lib/catalog'
 import { useAfter, WAKING_MESSAGE } from '@/lib/hooks'
 import { delays, durations, transitions } from '@/lib/motion'
@@ -40,6 +40,8 @@ export default function Identify() {
   const [fileError, setFileError] = useState('')
   const [matchedMonument, setMatchedMonument] = useState(monuments[0])
   const [candidates, setCandidates] = useState(monuments.slice(0, 3))
+
+  useEffect(warmUp, [])
 
   useEffect(() => {
     if (reduced) return
