@@ -41,6 +41,9 @@ postgres_data/
 redis_data/
 *.log
 
+# graphify knowledge graph of the repo (rebuild with `graphify update .`)
+graphify-out/
+
 # Demo images (materialized locally from cached_responses.json, not tracked)
 demo/images/*.jpg
 demo/images/*.jpeg
