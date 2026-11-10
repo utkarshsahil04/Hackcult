@@ -30,6 +30,9 @@ jobs:
       - name: Frontend typecheck, lint, unit tests, build
         if: ${{ hashFiles('frontend/pnpm-lock.yaml') != '' }}
         working-directory: frontend
+        # Baked into the build so pages call the API; e2e tests stub those calls, nothing listens here.
+        env:
+          NEXT_PUBLIC_API_URL: http://localhost:8000
         run: |
           pnpm install --frozen-lockfile
           pnpm run typecheck

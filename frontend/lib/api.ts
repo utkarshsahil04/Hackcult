@@ -25,6 +25,11 @@ export type IdentifyResult =
   | { status: 'uncertain'; candidates: Array<{ slug: string; name: string; score: number }> }
   | { status: 'error' }
 
+/** Wakes a sleeping server, so the first photo isn't also the first request. Only the scan page calls it: pinging everywhere would keep the server awake and spend the free credit. */
+export function warmUp() {
+  if (BASE) fetch(`${BASE}/api/health`).catch(() => {})
+}
+
 export async function identify(file: File): Promise<IdentifyResult> {
   if (!file.type.startsWith('image/') || file.size === 0 || file.size > 6 * 1024 * 1024) {
     throw new Error('Invalid image')

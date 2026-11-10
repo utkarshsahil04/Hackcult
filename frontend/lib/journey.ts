@@ -98,6 +98,21 @@ export function tourPlanHref(tour: string[]) {
   return `/plan/route?${new URLSearchParams({ hours: '8', mode: 'auto', stops: String(MAX_STOPS), must: stops.join(','), city: first ? regionOf(first) : 'Delhi' })}`
 }
 
+/** Replaces the whole tour, used when saving a shared one. */
+export const setTour = (stops: string[]) => tourStore.write(parseTour(stops).slice(0, MAX_STOPS))
+
+export function tourShareHref(stops: string[], name?: string) {
+  const params = new URLSearchParams({ stops: stops.slice(0, MAX_STOPS).join(',') })
+  if (name?.trim()) params.set('name', name.trim().slice(0, 60))
+  return `/tour?${params}`
+}
+
+/** Shared links come from anyone, so keep only known ids and a short plain-text name. */
+export const parseSharedTour = (stops: string | null, name: string | null) => ({
+  stops: parseTour((stops ?? '').split(',').map((id) => id.trim())).slice(0, MAX_STOPS),
+  name: (name ?? '').trim().slice(0, 60),
+})
+
 export const LEVELS = [
   { min: 20, en: 'Virasat Rakshak', hi: 'विरासत रक्षक', noteEn: 'Guardian of heritage', noteHi: 'धरोहर के रक्षक' },
   { min: 10, en: 'Ghumakkad', hi: 'घुमक्कड़', noteEn: 'Seasoned wanderer', noteHi: 'अनुभवी यात्री' },

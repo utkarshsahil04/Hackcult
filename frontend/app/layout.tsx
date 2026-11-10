@@ -19,4 +19,4 @@ export const metadata: Metadata = {
   twitter: { card: 'summary_large_image', title: HOME_TITLE, description: SITE_DESCRIPTION, images: [imageCredits['taj-mahal'].url] },
 }
 export const viewport: Viewport = { themeColor: '#EADBC0', colorScheme: 'light' }
-export default function RootLayout({ children }: { children: React.ReactNode }) { return <html lang="en"><body className={`${fraunces.variable} ${inter.variable} ${devanagari.variable}`}><script dangerouslySetInnerHTML={{ __html: jsonLd(siteSchema) }} type="application/ld+json" /><Atmosphere /><AppShell>{children}</AppShell></body></html> }
+export default function RootLayout({ children }: { children: React.ReactNode }) { return <html lang="en" suppressHydrationWarning><body className={`${fraunces.variable} ${inter.variable} ${devanagari.variable}`}><script dangerouslySetInnerHTML={{ __html: jsonLd(siteSchema) }} type="application/ld+json" /><Atmosphere /><AppShell>{children}</AppShell></body></html> }

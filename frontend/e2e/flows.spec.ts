@@ -96,6 +96,39 @@ test('a listed site says its story is pending instead of inventing one', async (
   await expect(page.getByTestId('story-pending')).toBeVisible()
 })
 
+test('facts show two sources each and legends stay apart from them', async ({ page }) => {
+  await page.addInitScript(() => localStorage.setItem('raahein-language', 'en'))
+  await page.goto('/monument/fatehpur-sikri')
+  const facts = page.getByTestId('facts')
+  await expect(facts).toBeVisible()
+  await expect(facts.locator('li').first().getByRole('button', { name: /^Source \d+$/ })).toHaveCount(2)
+  await expect(page.getByTestId('legends').locator('li')).not.toHaveCount(0)
+  await expect(facts.getByText('Legend', { exact: true })).toHaveCount(0)
+})
+
+test('Hindi mode shows the facts and connection notes in Hindi', async ({ page }) => {
+  await page.addInitScript(() => localStorage.setItem('raahein-language', 'hi'))
+  await page.goto('/monument/taj-mahal')
+  await expect(page.getByTestId('facts')).toContainText('यूनेस्को विश्व धरोहर सूची')
+  await expect(page.getByTestId('facts')).not.toContainText('UNESCO World Heritage List')
+  await page.goto('/connections')
+  await page.getByRole('button', { name: 'ताजमहल' }).click()
+  await expect(page.getByTestId('connection-list')).toContainText('आगरा')
+  await expect(page.getByTestId('connection-list')).not.toContainText('Both are UNESCO')
+})
+
+test('choosing a monument in the network lists its sourced connections', async ({ page }) => {
+  await page.addInitScript(() => localStorage.setItem('raahein-language', 'en'))
+  await page.goto('/connections')
+  await expect(page.getByTestId('connection-network').getByRole('button')).toHaveCount(15)
+  await page.getByRole('button', { name: "Humayun's Tomb" }).click()
+  const list = page.getByTestId('connection-list')
+  await expect(list.getByRole('link', { name: 'Taj Mahal' })).toBeVisible()
+  await expect(list.getByText(/Sources: .+ · .+/).first()).toBeVisible()
+  await page.getByRole('button', { name: "Humayun's Tomb" }).click()
+  await expect(page.getByTestId('connection-legend')).toBeVisible()
+})
+
 test('a listed site asks the API for nothing it does not have', async ({ page }) => {
   await page.addInitScript(() => localStorage.setItem('raahein-language', 'en'))
   const missing: string[] = []

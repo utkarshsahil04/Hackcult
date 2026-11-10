@@ -3,7 +3,7 @@ import images from './images.json'
 
 export type Lang = 'en' | 'hi'
 type Text = { en: string; hi: string }
-export type StoryParagraph = { heading?: Text; text: Text; isLegend?: boolean; source?: number | null }
+export type StoryParagraph = { heading?: Text; text: Text; isLegend?: boolean; source?: number | null; cited?: number[] }
 export type Source = { title: Text; publisher: Text; url?: string }
 export type Monument = { id: string; name: Text; city: string; era: string; style: string; location: string; verified: boolean; summary: Text; image: string; sections: StoryParagraph[]; sources: Source[]; related: string[]; lat: number; lng: number }
 export type ImageCredit = { url: string; page: string; artist: string; licence: string }

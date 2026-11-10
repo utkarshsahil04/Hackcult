@@ -4,12 +4,14 @@ import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import { LazyMotion, domAnimation, m, useReducedMotion } from 'framer-motion'
 import { ArrowLeft, Box, Camera, Check, ChevronDown, ExternalLink, Footprints, Pause, Play, Plus, X } from 'lucide-react'
-import { DropCap, InlayFrame, ManuscriptPanel, Monument3DViewer, MonumentArt, SectionHeading } from '@/components/heritage'
+import { DropCap, InlayFrame, ManuscriptPanel, Monument3DViewer, MonumentArt } from '@/components/heritage'
 import { Toggle, useLang } from '@/components/raahein'
 import { findMonument, getMonument, imageCredits, nearestMonuments } from '@/lib/catalog'
 import { durations, springs, transitions } from '@/lib/motion'
 import { getNarration } from '@/lib/narration'
 import { fetchStory, type ApiStory } from '@/lib/api'
+import { ShareButton } from './share-card'
+import { MonumentQuiz } from './quiz'
 import { toggleTour as toggleTourStop, toggleVisit, useJourney, useTour } from '@/lib/journey'
 
 type Props = { id: string }
@@ -18,6 +20,8 @@ export function MonumentProfile({ id }: Props) {
   const monument = getMonument(id)
   const { lang, setLang, t } = useLang()
   const [apiStory, setApiStory] = useState<ApiStory | null>(null)
+  const [tier, setTier] = useState<'quick' | 'story' | 'scholar'>('story')
+  const [academic, setAcademic] = useState<ApiStory | null>(null)
   const [scrolled, setScrolled] = useState(false)
   const [scrollProgress, setScrollProgress] = useState(0)
   const [audioProgress, setAudioProgress] = useState(0)
@@ -47,6 +51,10 @@ export function MonumentProfile({ id }: Props) {
   useEffect(() => {
     if (monument.verified) fetchStory(id, lang).then(setApiStory).catch(() => {})
   }, [id, lang, monument.verified])
+
+  useEffect(() => {
+    if (monument.verified && tier === 'scholar') fetchStory(id, lang, 'academic').then(setAcademic).catch(() => {})
+  }, [id, lang, monument.verified, tier])
 
   useEffect(() => {
     if (!source) return
@@ -81,7 +89,7 @@ export function MonumentProfile({ id }: Props) {
         setPlaying(false)
         return
       }
-      const utterance = new SpeechSynthesisUtterance(apiStory?.body ?? monument.sections.map((section) => section.text[lang]).join(' '))
+      const utterance = new SpeechSynthesisUtterance(storyText || monument.sections.map((section) => section.text[lang]).join(' '))
       utterance.voice = narration.voice
       utterance.onend = () => setPlaying(false)
       utterance.onerror = () => { setPlaying(false); setAudioError(lang === 'hi' ? 'आवाज़ उपलब्ध नहीं है।' : 'Narration is unavailable right now.') }
@@ -114,6 +122,10 @@ export function MonumentProfile({ id }: Props) {
   }
 
   const credit = imageCredits[monument.id]
+  // Each tier falls back to whatever text exists so the panel is never empty.
+  const summary = monument.summary[lang]
+  const storyText = (tier === 'quick' ? summary : tier === 'scholar' && academic?.language === lang ? academic.body : undefined) || apiStory?.body || summary
+  const tierTab = (value: typeof tier) => `flex min-h-12 flex-1 items-center justify-center rounded-full px-3 text-sm font-semibold transition-all ${tier === value ? 'bg-[#B5452B] text-[#FBF6EC] shadow-xs' : 'text-[#5A4E3F] hover:text-[#1F1A14]'}`
   // Sites with no sourced connections yet show their closest neighbours instead of an empty section.
   const connected = [...new Set(monument.related)].filter((slug) => findMonument(slug))
   const relatedCards = connected.length
@@ -185,7 +197,10 @@ export function MonumentProfile({ id }: Props) {
               ...(monument.verified ? [`${monument.sources.length} ${lang === 'hi' ? 'प्रमाणित स्रोत' : 'Verified Sources'}`] : []),
             ].map((chip, index) => <m.span animate={{ opacity: 1, y: 0 }} className="rounded-full border border-[#B5452B]/25 bg-[#FBF6EC] px-3 py-1.5 text-xs font-semibold text-[#5A4E3F]" initial={false} key={chip} transition={{ ...transitions.base, delay: index * .06 }}>{chip}</m.span>)}
           </div>
+          <div className="flex flex-wrap gap-2">
           <button aria-pressed={visited} className={`inline-flex min-h-12 items-center gap-2 rounded-full border px-5 text-sm font-semibold transition-colors ${visited ? 'border-[#B5452B] bg-[#B5452B] text-[#FBF6EC]' : 'border-[#B5452B]/40 bg-[#FBF6EC] text-[#8F3221] hover:border-[#B5452B]'}`} onClick={() => toggleVisit(monument.id)} type="button">{visited ? <Check aria-hidden="true" size={16} /> : <Footprints aria-hidden="true" size={16} />}{visited ? (lang === 'hi' ? 'आपकी यात्रा में जुड़ा' : 'In your journey') : (lang === 'hi' ? 'मैं यहां गया/गई हूं' : 'I’ve been here')}</button>
+          {monument.verified && <ShareButton lang={lang} monument={monument} />}
+          </div>
           {monument.verified && (
           <InlayFrame>
             <div className="rounded-[11px] bg-[#FBF6EC] p-4">
@@ -202,28 +217,53 @@ export function MonumentProfile({ id }: Props) {
             </div>
           </InlayFrame>
           )}
+          {monument.verified && (
+          <div aria-label={lang === 'hi' ? 'कहानी की लंबाई' : 'Story length'} className="flex items-center gap-1.5 rounded-full border border-[#E8A317]/40 bg-[#FBF6EC] p-1 shadow-xs" role="group">
+            {([['quick', 'झलक', 'Quick'], ['story', 'कहानी', 'Story'], ['scholar', 'विस्तार', 'Scholar']] as const).map(([value, hi, en]) => (
+              <button aria-pressed={tier === value} className={tierTab(value)} key={value} onClick={() => setTier(value)} type="button">{lang === 'hi' ? hi : en}</button>
+            ))}
+          </div>
+          )}
+          {(storyText || !monument.verified) && (
           <ManuscriptPanel>
-            {apiStory?.body ? (
+            {monument.verified ? (
               <m.section className="mb-8 last:mb-0" initial={false} transition={transitions.base}>
                 <p className="text-[16px] leading-[1.75]">
-                  <DropCap hindi={lang === 'hi'}>{apiStory.body}</DropCap>
+                  <DropCap hindi={lang === 'hi'}>{storyText}</DropCap>
                 </p>
               </m.section>
-            ) : !monument.verified ? (
+            ) : (
               <div data-testid="story-pending">
                 <p className="text-[16px] leading-[1.75]">{lang === 'hi' ? 'इस स्थान की कहानी अभी तैयार नहीं है। हम केवल दो स्वतंत्र स्रोतों से जाँचे गए तथ्य ही प्रकाशित करते हैं।' : 'This story is not ready yet. We only publish facts checked against two independent sources.'}</p>
                 <button className="mt-4 inline-flex min-h-12 items-center gap-2 rounded-full border border-[#B5452B]/40 px-5 text-sm font-semibold text-[#8F3221] transition-colors hover:border-[#B5452B] hover:bg-[#EADBC0]/50" onClick={() => { setViewMode('3d'); window.scrollTo({ top: 0, behavior: reduced ? 'auto' : 'smooth' }) }} type="button"><Box aria-hidden="true" size={16} />{lang === 'hi' ? 'इस इमारत को 3D में देखें' : 'Explore the building in 3D'}</button>
               </div>
-            ) : (
-              monument.sections.map((section, index) => (
-                <m.section className="mb-8 last:mb-0" initial={false} key={index} transition={{ ...transitions.base, delay: index * .06 }} viewport={{ once: true, amount: .25 }} whileInView={{ opacity: 1, y: 0 }}>
-                  <SectionHeading>{section.heading?.[lang]}</SectionHeading>
-                  {section.isLegend && <div className="mb-3 inline-block rounded-full border border-[#E8A317] px-3 py-1 text-xs font-semibold text-[#8F3221]">{t.legend}</div>}
-                  <p className="text-[16px] leading-[1.75]">{index === 0 ? <DropCap hindi={lang === 'hi'}>{section.text[lang]}</DropCap> : section.text[lang]} {section.source && <button onClick={() => openSource(section.source!)} aria-label={`${t.source} ${section.source}`} className="-my-3 ml-1 inline-flex size-12 items-center justify-center align-middle" type="button"><span className="grid size-6 place-items-center rounded-full bg-[#E8A317] text-xs font-bold text-[#1F1A14]">{section.source}</span></button>}</p>
-                </m.section>
-              ))
             )}
           </ManuscriptPanel>
+          )}
+          {/* The story is generated text, so the facts it rests on stay visible beside their sources. */}
+          {[false, true].map((legends) => {
+            const group = monument.sections.filter((section) => Boolean(section.isLegend) === legends)
+            if (!monument.verified || !group.length) return null
+            return (
+              <section data-testid={legends ? 'legends' : 'facts'} key={String(legends)}>
+                <h2 className="fraunces text-2xl">{legends ? (lang === 'hi' ? 'कहानियां और किंवदंतियां' : 'Stories and legends') : (lang === 'hi' ? 'प्रमाणित तथ्य' : 'Sourced facts')}</h2>
+                {legends && <p className="mt-1 text-sm text-[#5A4E3F]">{lang === 'hi' ? 'ये लोक-कथाएं हैं, प्रमाणित इतिहास नहीं। इनके साक्ष्य सीमित हैं।' : 'These are popular stories, not established history. The evidence is limited.'}</p>}
+                <ul className="mt-3 space-y-3">
+                  {group.map((section, index) => (
+                    <li className={`rounded-xl border p-4 text-[15px] leading-[1.7] ${legends ? 'border-dashed border-[#E8A317] bg-[#FBF6EC]/60' : 'border-[#B5452B]/15 bg-[#FBF6EC]'}`} key={index}>
+                      {legends && <span className="mb-2 inline-block rounded-full border border-[#E8A317] px-3 py-1 text-xs font-semibold text-[#8F3221]">{t.legend}</span>}
+                      <span className="block text-xs font-semibold uppercase tracking-wide text-[#8F3221]">{section.heading?.[lang]}</span>
+                      {section.text[lang]}
+                      {(section.cited ?? (section.source ? [section.source] : [])).map((number) => (
+                        <button aria-label={`${t.source} ${number}`} className="-my-3 ml-1 inline-flex size-12 items-center justify-center align-middle" key={number} onClick={() => openSource(number)} type="button"><span className="grid size-6 place-items-center rounded-full bg-[#E8A317] text-xs font-bold text-[#1F1A14]">{number}</span></button>
+                      ))}
+                    </li>
+                  ))}
+                </ul>
+              </section>
+            )
+          })}
+          {monument.verified && <MonumentQuiz id={monument.id} key={monument.id} />}
           {monument.sources.length > 0 && (
           <div>
             <button aria-controls="profile-sources" aria-expanded={sourcesOpen} onClick={() => setSourcesOpen((open) => !open)} className="fraunces flex min-h-12 w-full items-center justify-between border-b border-[#B5452B]/20 py-3 text-left text-xl" type="button"><span>{t.sources}</span><ChevronDown aria-hidden="true" className={sourcesOpen ? 'rotate-180 transition-transform' : 'transition-transform'} /></button>
@@ -258,6 +298,7 @@ export function MonumentProfile({ id }: Props) {
               <p className="text-sm text-[#B5452B]">{t.source} {source}</p>
               <h2 className="mt-2 pr-14 fraunces text-2xl" id="source-dialog-title">{monument.sources[source - 1]?.title[lang]}</h2>
               <p className="mt-1 text-[#5A4E3F]">{monument.sources[source - 1]?.publisher[lang]}</p>
+              {monument.sources[source - 1]?.url && <a className="link-primary mt-4 inline-flex min-h-12 items-center gap-1 underline" href={monument.sources[source - 1].url} rel="noreferrer" target="_blank">{lang === 'hi' ? 'स्रोत खोलें' : 'Open the source'}<ExternalLink aria-hidden="true" size={14} /></a>}
             </m.div>
           </div>
         )}

@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { monuments } from './catalog'
-import { journeyStats, parseJourney, parseTour, tourPlanHref } from './journey'
+import { MAX_STOPS, journeyStats, parseJourney, parseSharedTour, parseTour, tourPlanHref, tourShareHref } from './journey'
 import { jsonLd, monumentDescription, monumentSchema } from './seo'
 
 describe('journey data', () => {
@@ -43,6 +43,20 @@ describe('journey data', () => {
     const params = new URL(tourPlanHref(['taj-mahal', 'agra-fort', 'akbars-tomb', 'itimad-ud-daulah', 'fatehpur-sikri', 'red-fort']), 'http://x').searchParams
     expect(params.get('must')).toBe('taj-mahal,agra-fort,akbars-tomb,itimad-ud-daulah,fatehpur-sikri')
     expect(params.get('city')).toBe('Agra')
+  })
+
+  it('keeps only known, unique shared stops up to the cap, with a short name', () => {
+    expect(parseSharedTour(' taj-mahal ,nope,red-fort,taj-mahal', '  Weekend  ')).toEqual({ stops: ['taj-mahal', 'red-fort'], name: 'Weekend' })
+    expect(parseSharedTour(monuments.map((m) => m.id).join(','), 'x'.repeat(99))).toMatchObject({ stops: monuments.slice(0, MAX_STOPS).map((m) => m.id), name: 'x'.repeat(60) })
+    expect(parseSharedTour(null, null)).toEqual({ stops: [], name: '' })
+  })
+
+  it('round trips a share link', () => {
+    const href = tourShareHref(['red-fort', 'qutb-complex'], 'Delhi & more?')
+    const params = new URL(href, 'http://x').searchParams
+    expect(href.startsWith('/tour?')).toBe(true)
+    expect(parseSharedTour(params.get('stops'), params.get('name'))).toEqual({ stops: ['red-fort', 'qutb-complex'], name: 'Delhi & more?' })
+    expect(tourShareHref(['red-fort'])).toBe('/tour?stops=red-fort')
   })
 })
 

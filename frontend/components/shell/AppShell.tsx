@@ -4,13 +4,13 @@ import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { AnimatePresence, motion } from 'framer-motion'
-import { ArrowRight, CalendarDays, Compass, ScanLine, UserRound, X } from 'lucide-react'
+import { ArrowRight, CalendarDays, Compass, ScanLine, Share2, UserRound, X } from 'lucide-react'
 import { Tabs, Toggle, useLang } from '@/components/raahein'
 import { RaaheinLogo } from '@/components/RaaheinLogo'
 import { ScrollProgress } from '@/components/heritage'
 import { SiteFooter } from '@/components/shell/SiteFooter'
 import { getMonument } from '@/lib/catalog'
-import { toggleTour, tourPlanHref, useTour } from '@/lib/journey'
+import { toggleTour, tourPlanHref, tourShareHref, useTour } from '@/lib/journey'
 import { transitions } from '@/lib/motion'
 
 const navItems = [
@@ -26,6 +26,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
   const tour = useTour()
   const [scrolled, setScrolled] = useState(false)
   const [tourOpen, setTourOpen] = useState(false)
+  const [shareStatus, setShareStatus] = useState('')
   const labels = { scan: t.scan, explore: t.explore, plan: t.plan, profile: lang === 'hi' ? 'मेरी यात्रा' : 'My journey' }
   const mobileTab = pathname.startsWith('/identify')
     ? 'scan'
@@ -38,6 +39,20 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           : null
   // Full-screen tools have no page end for a footer to sit at.
   const footer = !pathname.startsWith('/identify') && !pathname.startsWith('/nearby') && !pathname.startsWith('/kit')
+
+  async function shareTour() {
+    const url = window.location.origin + tourShareHref(tour)
+    try {
+      if (navigator.share) await navigator.share({ title: lang === 'hi' ? 'राहें पर मेरा टूर' : 'My Raahein tour', url })
+      else {
+        await navigator.clipboard.writeText(url)
+        setShareStatus(lang === 'hi' ? 'लिंक कॉपी हो गया' : 'Link copied')
+        window.setTimeout(() => setShareStatus(''), 2500)
+      }
+    } catch (error) {
+      if ((error as Error).name !== 'AbortError') setShareStatus(lang === 'hi' ? 'लिंक साझा नहीं हो सका' : 'Could not share the link')
+    }
+  }
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12)
@@ -101,10 +116,12 @@ export function AppShell({ children }: { children: React.ReactNode }) {
                     ))}
                   </ul>
                   <Link className="link-inverse primary-action mt-3 flex min-h-12 items-center justify-center gap-2 rounded-full bg-[#B5452B] px-4 text-sm font-semibold" href={tourPlanHref(tour)} onClick={() => setTourOpen(false)}>{lang === 'hi' ? 'इन पड़ावों की योजना बनाएं' : 'Plan these stops'}<ArrowRight aria-hidden="true" size={15} /></Link>
+                  <button className="mt-2 flex min-h-12 w-full items-center justify-center gap-2 rounded-full border border-[#B5452B] px-4 text-sm font-semibold text-[#8F3221]" onClick={shareTour} type="button"><Share2 aria-hidden="true" size={15} />{lang === 'hi' ? 'यह टूर साझा करें' : 'Share this tour'}</button>
                   </>
                 ) : (
                   <p className="mt-3 text-sm text-[#5A4E3F]">{lang === 'hi' ? 'आपका टूर खाली है।' : 'Your tour is empty.'}</p>
                 )}
+                <p aria-live="polite" className="mt-2 text-center text-sm text-[#5A4E3F]" role="status">{shareStatus}</p>
               </motion.div>
             )}
           </AnimatePresence>

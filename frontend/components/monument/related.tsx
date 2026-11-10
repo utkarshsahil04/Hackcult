@@ -46,6 +46,7 @@ export function RelatedMonuments({ id }: { id: string }) {
         </header>
         <Link href={`/monument/${id}`} className="link-primary hidden min-h-12 items-center gap-2 text-sm lg:inline-flex"><ArrowLeft aria-hidden="true" size={18} />{t.back} {monument.name[lang]}</Link>
         <h1 className="fraunces mt-3 break-words text-4xl">{connected.length ? `${t.connected} ${monument.name[lang]}` : `${lang === 'hi' ? `${monument.name.hi} के पास` : `Near ${monument.name.en}`}`}</h1>
+        {connected.length > 0 && <Link className="link-primary mt-2 inline-flex min-h-12 items-center text-sm font-semibold underline-offset-2 hover:underline" href="/connections">{lang === 'hi' ? 'सभी स्मारकों का जाल देखें' : 'See how all the monuments connect'}</Link>}
         {!connected.length && <p className="mt-2 text-sm leading-6 text-[#5A4E3F]">{lang === 'hi' ? 'इस स्मारक के प्रमाणित संबंध अभी दर्ज नहीं हैं, इसलिए सबसे नज़दीकी स्मारक दिखाए गए हैं।' : 'No sourced connections are recorded for this monument yet, so these are the closest monuments.'}</p>}
         <div className="relative mx-auto my-8 aspect-square w-full max-w-md" data-testid="connection-graph">
           <svg viewBox="0 0 100 100" className="absolute inset-0 size-full" aria-hidden="true">

@@ -9,6 +9,7 @@ const routes = [
   '/plan/route?hours=6&mode=walk',
   '/monument/taj-mahal',
   '/monument/taj-mahal/related',
+  '/connections',
   '/kit',
 ]
 
