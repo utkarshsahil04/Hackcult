@@ -6,6 +6,7 @@ import Map from '@/components/map'
 import { InlayFrame, LotusDivider, MonumentArt } from '@/components/heritage'
 import { useLang } from '@/components/raahein'
 import { getMonument, monuments } from '@/lib/catalog'
+import { Passport } from './Passport'
 import { clearJourney, journeyStats, MAX_STOPS, setJourneyName, setVisitDate, toggleTour, toggleVisit, tourPlanHref, today, useJourney, useTour } from '@/lib/journey'
 
 const copy = {
@@ -115,6 +116,8 @@ export function JourneyProfile() {
           )}
         </>
       )}
+
+      <Passport visits={journey.visits} />
 
       <LotusDivider />
 
