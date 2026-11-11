@@ -115,6 +115,7 @@ export default function Digitise() {
             <img alt="" className="max-h-80 w-full rounded-xl border border-[#B5452B]/20 object-contain bg-[#EADBC0]/40" src={preview} />
             <section>
               <h2 className="fraunces text-xl">{t.original}{item.script && <span className="ml-2 text-sm font-normal text-[#5A4E3F]">{item.script}</span>}</h2>
+              <p className="mt-1 text-sm text-[#5A4E3F]">{t.aiNote}</p>
               {item.transcription
                 ? <p className="mt-2 whitespace-pre-wrap rounded-xl border border-[#B5452B]/15 bg-[#FBF6EC] p-4 text-lg leading-8" dir="auto" lang={devanagari ? 'hi' : undefined}>{item.transcription}</p>
                 : <p className="mt-2 text-sm text-[#5A4E3F]">{t.unreadable}</p>}
