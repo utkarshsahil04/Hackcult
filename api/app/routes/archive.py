@@ -66,10 +66,10 @@ Return ONLY a JSON object with exactly these keys:
 {{"script": "<writing system, e.g. Devanagari, Brahmi, Persian, Latin>",
  "language": "<language of the text>",
  "transcription": "<the text exactly as written, in its original script; empty string if you cannot read it. Never guess.>",
- "translation_en": "<English translation of the transcription; empty string if none>",
+ "translation_en": "<English translation of the transcription (required whenever transcription is not empty; say plainly what is unclear)>",
  "suggested_monument": "<one slug from the list, or null if unsure>",
  "claims": [{{"text": "<one factual statement the text supports>", "evidence_quote": "<copied verbatim from transcription or translation_en>"}}]}}
-At most 5 claims. Only state what the text itself says. Valid monument slugs: {slugs}"""
+Give 1 to 5 claims whenever the text is readable. Only state what the text itself says; the quote must appear word for word in translation_en or transcription. Valid monument slugs: {slugs}"""
 
 
 def get_archive_db() -> Iterator[sqlite3.Connection]:
