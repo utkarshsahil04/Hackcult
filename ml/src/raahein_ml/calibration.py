@@ -12,6 +12,8 @@ import numpy as np
 from raahein_ml.config import MODEL_NAMES
 from raahein_ml.schemas import ArtifactError, PredictionTrace
 
+MAX_FUSION_THRESHOLDS = 40
+
 
 @dataclass(frozen=True, slots=True)
 class LabeledTrace:
@@ -37,9 +39,10 @@ class GateMetrics:
 @dataclass(frozen=True, slots=True)
 class SingleModelGate:
     threshold: float
+    margin: float = 0.0  # minimum top1-top2 monument score gap; 0 keeps the old behaviour
 
     def to_dict(self) -> dict[str, float]:
-        return {"threshold": self.threshold}
+        return {"threshold": self.threshold, "margin": self.margin}
 
 
 @dataclass(frozen=True, slots=True)
@@ -100,7 +103,9 @@ def _candidate_thresholds(values: Sequence[float]) -> tuple[float, ...]:
 
 
 def single_accept(trace: PredictionTrace, model_name: str, gate: SingleModelGate) -> bool:
-    return trace.model_rankings[model_name][0].score >= gate.threshold
+    ranking = trace.model_rankings[model_name]
+    gap = ranking[0].score - ranking[1].score if len(ranking) > 1 else 0.0
+    return ranking[0].score >= gate.threshold and gap >= gate.margin
 
 
 def fusion_accept(trace: PredictionTrace, gate: FusionGate) -> bool:
@@ -136,13 +141,24 @@ def calibrate_single_model(
     *,
     maximum_false_acceptance: float,
     allow_empty: bool = False,
+    use_margin: bool = False,
 ) -> tuple[SingleModelGate, GateMetrics, int]:
     allowed = math.floor(maximum_false_acceptance * len(negatives))
     values = [sample.trace.model_rankings[model_name][0].score for sample in known]
     values.extend(trace.model_rankings[model_name][0].score for trace in negatives)
     choices: list[tuple[int, int, float, SingleModelGate, GateMetrics, int]] = []
+    neg_top = [trace.model_rankings[model_name] for trace in negatives]
     for threshold in _candidate_thresholds(values):
-        gate = SingleModelGate(threshold=threshold)
+        # Smallest margin that keeps negatives within the allowance (top1-top2 rejects look-alikes).
+        gaps = sorted(
+            (r[0].score - r[1].score if len(r) > 1 else 0.0
+             for r in neg_top if r[0].score >= threshold),
+            reverse=True,
+        )
+        margin = 0.0
+        if use_margin and len(gaps) > allowed:
+            margin = float(np.nextafter(gaps[allowed], np.inf))
+        gate = SingleModelGate(threshold=threshold, margin=margin)
         negative_accepts = sum(single_accept(trace, model_name, gate) for trace in negatives)
         if negative_accepts > allowed:
             continue
@@ -212,7 +228,12 @@ def calibrate_fusion_gate(
         for threshold in _candidate_thresholds(scores):
             mask = winner_matches & (np.asarray(scores) >= threshold)
             unique_masks.setdefault(mask.tobytes(), (threshold, mask))
-        threshold_masks[name] = list(unique_masks.values())
+        options = list(unique_masks.values())
+        # shortcut: even subsample (product is cubic), raise the cap if gates look coarse.
+        if len(options) > MAX_FUSION_THRESHOLDS:
+            keep = np.linspace(0, len(options) - 1, MAX_FUSION_THRESHOLDS).astype(int)
+            options = [options[i] for i in keep]
+        threshold_masks[name] = options
 
     choice: tuple[tuple[float, ...], FusionGate, GateMetrics, int] | None = None
     support_cache: dict[bytes, tuple[float, GateMetrics, int] | None] = {}
@@ -291,6 +312,7 @@ def calibrate(
     maximum_false_acceptance: float = 0.05,
     minimum_winner_models: int = 2,
     expected_negative_count: int | None = None,
+    single_margin: bool = False,
 ) -> CalibrationResult:
     if not known:
         raise ArtifactError("known calibration set must not be empty")
@@ -313,6 +335,7 @@ def calibrate(
             negatives,
             maximum_false_acceptance=maximum_false_acceptance,
             allow_empty=True,
+            use_margin=single_margin,
         )
         single_gates[name] = gate
         metrics[name] = model_metrics
@@ -364,7 +387,10 @@ def gates_from_metadata(
         if not isinstance(single_raw, dict) or not isinstance(fusion_raw, dict):
             raise TypeError
         single = {
-            name: SingleModelGate(threshold=float(single_raw[name]["threshold"]))
+            name: SingleModelGate(
+                threshold=float(single_raw[name]["threshold"]),
+                margin=float(single_raw[name].get("margin", 0.0)),
+            )
             for name in MODEL_NAMES
         }
         thresholds = fusion_raw["model_thresholds"]
