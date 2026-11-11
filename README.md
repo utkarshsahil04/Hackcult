@@ -48,9 +48,11 @@ it from the `Indian-monuments` dataset, which downloads the models on the first 
 ```
 
 `http://localhost:8000/api/health` shows `"models":"ok"` when it's ready. It uses your NVIDIA GPU if
-you have one, otherwise the CPU. It recognises 5 monuments: Taj Mahal, Humayun's Tomb, Fatehpur
-Sikri, Qutb complex and Mehrauli Archaeological Park. The dataset's licence is unconfirmed, so this
-is for the demo only.
+you have one, otherwise the CPU. It recognises 7 monuments: Taj Mahal, Humayun's Tomb, Fatehpur
+Sikri, Qutb complex, Mehrauli Archaeological Park, India Gate and Lotus Temple. Other monuments
+usually come back "uncertain", but not always: in a 24-photo Wikimedia check of Red Fort, Agra Fort,
+Purana Qila, Jama Masjid and Safdarjung's Tomb, 4 were still wrongly accepted. The dataset's licence
+is unconfirmed, so this is for the demo only.
 
 ## Features
 

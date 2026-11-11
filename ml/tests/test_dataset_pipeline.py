@@ -3,6 +3,7 @@ import json
 import numpy as np
 from PIL import Image
 
+from raahein_ml.calibration import LabeledTrace
 from raahein_ml.config import MODEL_NAMES, MLConfig
 from raahein_ml.dataset_pipeline import (
     CLASS_TO_SLUG,
@@ -117,3 +118,32 @@ def test_fusion_strategy_still_uses_every_model(tmp_path, monkeypatch, cpu_confi
     assert len(loaded) == len(MODEL_NAMES)
     assert found.status == "identified"
     assert found.candidates[0].monument_id == "a"
+
+
+def test_new_targets_are_mapped_and_not_negatives() -> None:
+    assert CLASS_TO_SLUG["lotus_temple"] == "lotus-temple"
+    assert CLASS_TO_SLUG["india gate pics"] == "india-gate"
+    assert not ({"lotus_temple", "india gate pics"} & (NEGATIVE_CALIBRATION | NEGATIVE_TEST))
+    assert NEGATIVE_TEST.isdisjoint(CLASS_TO_SLUG)
+
+
+def test_single_gate_margin_rejects_lookalike_with_high_top1() -> None:
+    from raahein_ml.calibration import SingleModelGate, calibrate_single_model, single_accept
+    from raahein_ml.schemas import PredictionTrace, RankedMonument
+
+    def trace(a: float, b: float, win: str = "x") -> PredictionTrace:
+        other = "y" if win == "x" else "x"
+        return PredictionTrace(
+            model_rankings={"dinov2": (RankedMonument(win, 1, a), RankedMonument(other, 2, b))},
+            fusion_ranking=(),
+        )
+
+    known = [LabeledTrace(trace(0.8, 0.3), "x"), LabeledTrace(trace(0.7, 0.2), "x")]
+    # A look-alike: top1 as high as the real photos, but the runner-up is close behind.
+    negatives = [trace(0.8, 0.75), trace(0.9, 0.85)]
+    gate, metrics, fa = calibrate_single_model(
+        "dinov2", known, negatives, maximum_false_acceptance=0.0, use_margin=True
+    )
+    assert fa == 0 and metrics.correctly_accepted == 2 and gate.margin > 0.05
+    assert not single_accept(negatives[0], "dinov2", gate)
+    assert single_accept(known[0].trace, "dinov2", SingleModelGate(0.5))

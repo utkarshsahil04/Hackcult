@@ -83,7 +83,11 @@ class RecognitionPipeline:
                 self._error = f"{type(exc).__name__}: {exc}"
                 logger.warning("Recognition pipeline models not loaded: %s", exc)
                 raise
-            self._names = {row["slug"]: row["name"] for row in rows}
+            # sites.json holds the non-canonical sites (India Gate, Lotus Temple) the demo also names.
+            sites = json.loads(
+                (config.paths.canonical_monuments.parent / "sites.json").read_text(encoding="utf-8")
+            )
+            self._names = {row["slug"]: row["name"] for row in (*sites, *rows)}
             self._recognizer = recognizer
             self._error = None
             logger.info("Recognition pipeline ready (artifact %s)", recognizer.version)
