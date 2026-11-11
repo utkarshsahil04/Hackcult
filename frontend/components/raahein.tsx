@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { Box, CalendarDays, ChevronDown, Compass, Map, ScanLine, Search, UserRound } from 'lucide-react'
 import { motion } from 'framer-motion'
 import { MonumentArt } from '@/components/heritage'
+import { ArchiveCard } from '@/components/archive/ArchiveCard'
 import { RaaheinLogo } from '@/components/RaaheinLogo'
 import { strings } from '@/lib/i18n/strings'
 import { eraOf, monuments, type Lang } from '@/lib/catalog'
@@ -115,7 +116,7 @@ export function Tabs({ active }: { active: 'scan' | 'explore' | 'plan' | 'profil
   )
 }
 
-function Header({ lang, setLang }: { lang: Lang; setLang: (next: Lang) => void }) {
+export function Header({ lang, setLang }: { lang: Lang; setLang: (next: Lang) => void }) {
   return (
     <header className="site-header sticky top-0 z-40 flex items-center justify-between border-b border-[#E8A317]/20 bg-[#EADBC0]/95 px-5 py-2.5 backdrop-blur lg:hidden safe-top">
       <Link className="flex min-h-12 items-center" href="/" aria-label={lang === 'hi' ? 'राहें' : 'Raahein'}>
@@ -208,6 +209,7 @@ export function Explore() {
               <Map aria-hidden="true" size={18} />
             </Link>
           </div>
+          <ArchiveCard className="mb-4" />
           <div className="card space-y-2 p-4 lg:hidden">
             {searchField('mobile')}
             <details className="group">

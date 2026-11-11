@@ -12,6 +12,7 @@ import { getNarration } from '@/lib/narration'
 import { fetchStory, type ApiStory } from '@/lib/api'
 import { ShareButton } from './share-card'
 import { MonumentQuiz } from './quiz'
+import { ArchiveSection } from './archive-section'
 import { toggleTour as toggleTourStop, toggleVisit, useJourney, useTour } from '@/lib/journey'
 
 type Props = { id: string }
@@ -263,6 +264,7 @@ export function MonumentProfile({ id }: Props) {
               </section>
             )
           })}
+          <ArchiveSection id={monument.id} lang={lang} />
           {monument.verified && <MonumentQuiz id={monument.id} key={monument.id} />}
           {monument.sources.length > 0 && (
           <div>

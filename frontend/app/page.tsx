@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { ArrowRight, BookOpen, Box, Clock, Compass, MapPin, MapPinned, Route, ShieldCheck, Sparkles } from 'lucide-react'
 import { LazyMotion, domAnimation, m } from 'framer-motion'
 import { Toggle, useLang } from '@/components/raahein'
+import { ArchiveCard } from '@/components/archive/ArchiveCard'
 import { RaaheinLogo } from '@/components/RaaheinLogo'
 import { ArchImage, HeritageSimulator, InlayFrame, LotusDivider, Mandala, MonumentArt, Reveal, VineDivider } from '@/components/heritage'
 import { monuments } from '@/lib/catalog'
@@ -247,6 +248,8 @@ export default function Page() {
         <HeritageSimulator lang={lang} />
 
         <LotusDivider className="px-5 lg:px-0" />
+
+        <section className="px-5 py-4 lg:px-0"><ArchiveCard /></section>
 
         {/* Curated Corridors */}
         <Reveal>

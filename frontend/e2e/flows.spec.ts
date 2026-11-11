@@ -226,3 +226,21 @@ test('a slow plan explains that the server is waking up', async ({ page }) => {
   await expect(page.getByRole('heading', { name: 'Your day, connected' })).toBeVisible()
   await expect(page.getByTestId('waking')).toHaveCount(0)
 })
+
+test('digitising a scan shows a draft awaiting review', async ({ page }) => {
+  await page.addInitScript(() => {
+    sessionStorage.setItem('raahein-intro', '1')
+    localStorage.setItem('raahein-language', 'en')
+  })
+  const item = { id: 1, monument_slug: 'qutb-complex', rights: 'public-domain', source_note: null, script: 'Brahmi', language: 'Prakrit', transcription: 'DEVANAMPIYA PIYADASI', translation_en: 'King Piyadasi says', status: 'draft', image_url: '/api/archive/items/1/image', claims: [{ id: 7, text: 'The edict is by King Piyadasi.', evidence_quote: 'King Piyadasi says', status: 'draft' }] }
+  await page.route('**/api/archive/digitise', (route) => route.fulfill({ contentType: 'application/json', body: JSON.stringify(item) }))
+  await page.route('**/api/archive/items/1/image', (route) => route.fulfill({ contentType: 'image/png', body: png }))
+  await page.goto('/digitise')
+  await page.locator('input[type="file"]').setInputFiles({ name: 'scan.png', mimeType: 'image/png', buffer: png })
+  await page.getByLabel('Who may share this photo?').selectOption('public-domain')
+  await page.getByRole('button', { name: 'Digitise', exact: true }).click()
+  await expect(page.getByText('Draft: waiting for review')).toBeVisible()
+  await expect(page.getByText('DEVANAMPIYA PIYADASI')).toBeVisible()
+  await expect(page.getByText('The edict is by King Piyadasi.')).toBeVisible()
+  await expect(page.getByText('Evidence:')).toBeVisible()
+})
