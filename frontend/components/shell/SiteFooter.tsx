@@ -14,7 +14,7 @@ const inAgra = (lat: number) => lat < 28
 export function SiteFooter() {
   const { lang } = useLang()
   const text = copy[lang]
-  const links = [['/identify', text.scan], ['/explore', text.all], ['/plan', text.plan], ['/nearby', text.nearby], ['/connections', lang === 'hi' ? 'स्मारकों का जाल' : 'Monument network'], ['/profile', text.journey]]
+  const links = [['/identify', text.scan], ['/explore', text.all], ['/plan', text.plan], ['/nearby', text.nearby], ['/connections', lang === 'hi' ? 'स्मारकों का जाल' : 'Monument network'], ['/digitise', lang === 'hi' ? 'अभिलेख डिजिटल करें' : 'Digitise an archive'], ['/profile', text.journey]]
   const list = (title: string, agra: boolean) => (
     <div>
       <h2 className="fraunces text-lg text-[#E8A317]">{title}</h2>
