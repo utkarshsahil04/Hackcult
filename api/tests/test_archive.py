@@ -190,3 +190,20 @@ def test_rejected_claims_never_shown(env):
     )
     assert r.status_code == 200
     assert client.get("/api/monuments/taj-mahal/archive").json()["items"] == []
+
+
+def test_public_views_show_only_approved_claims_and_hide_earlier_uploaders_notes(env):
+    client, _ = env
+    item = _post(client, source_note="My grandmother's photo").json()
+    # a second uploader sending the same image learns nothing the image itself does not show
+    again = _post(client).json()
+    assert again["id"] == item["id"] and again["source_note"] is None
+    # the reviewer decides on no claim, so the unlisted one counts as rejected
+    url = f"/api/archive/items/{item['id']}/review"
+    assert client.post(url, json={"claims": []}, headers={"X-Review-Token": "secret"}).status_code == 200
+    public = client.get(f"/api/archive/items/{item['id']}").json()
+    assert public["status"] == "reviewed" and public["claims"] == []
+    listed = client.get("/api/archive/items?status=reviewed").json()["items"]
+    assert listed[0]["claims"] == []
+    seen = client.get(f"/api/archive/items/{item['id']}", headers={"X-Review-Token": "secret"}).json()
+    assert [c["status"] for c in seen["claims"]] == ["rejected"]

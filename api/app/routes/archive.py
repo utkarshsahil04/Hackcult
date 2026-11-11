@@ -216,8 +216,12 @@ async def digitise(
 
     digest = hashlib.sha256(jpeg).hexdigest()
     existing = conn.execute("SELECT * FROM archive_items WHERE sha256 = ?", (digest,)).fetchone()
-    if existing:
-        return _item_out(conn, existing)
+    if existing:  # the same image was sent before: share only what that image alone reveals
+        reviewed = existing["status"] == "reviewed"
+        out = _item_out(conn, existing, approved_only=reviewed)
+        if not reviewed:
+            out["source_note"] = None  # the earlier uploader's own words are not this uploader's to see
+        return out
 
     slugs = [r["slug"] for r in mon.execute("SELECT slug FROM monuments ORDER BY slug")]
     try:
@@ -265,7 +269,8 @@ def list_items(
     monument: str | None = None,
     x_review_token: Annotated[str | None, Header()] = None,
 ):
-    if status != "reviewed" and not _is_reviewer(x_review_token):
+    reviewer = _is_reviewer(x_review_token)
+    if status != "reviewed" and not reviewer:
         raise AppError(401, "UNAUTHORIZED", "Drafts are visible to reviewers only.", "Ask for status=reviewed.")
     q, args = "SELECT * FROM archive_items WHERE 1=1", []
     if status:
@@ -275,12 +280,13 @@ def list_items(
         q += " AND monument_slug = ?"
         args.append(monument)
     rows = conn.execute(q + " ORDER BY id DESC LIMIT 100", args).fetchall()
-    return {"items": [_item_out(conn, r) for r in rows]}
+    return {"items": [_item_out(conn, r, approved_only=not reviewer) for r in rows]}
 
 
 @router.get("/archive/items/{item_id}")
 def get_item(item_id: int, conn: Arch, x_review_token: Annotated[str | None, Header()] = None):
-    return _item_out(conn, _visible_item(conn, item_id, x_review_token))
+    row = _visible_item(conn, item_id, x_review_token)
+    return _item_out(conn, row, approved_only=not _is_reviewer(x_review_token))
 
 
 @router.get("/archive/items/{item_id}/image")
@@ -327,6 +333,11 @@ def review(
             "reviewed_at = strftime('%Y-%m-%dT%H:%M:%SZ','now') WHERE id = ?",
             ("approved" if approved else "rejected", c.text.strip() if c.text and approved else None, c.id),
         )
+    conn.execute(  # a claim the reviewer did not decide on is not approved
+        "UPDATE archive_claims SET status = 'rejected', reviewed_at = strftime('%Y-%m-%dT%H:%M:%SZ','now') "
+        "WHERE item_id = ? AND status = 'draft'",
+        (item_id,),
+    )
     conn.execute(
         "UPDATE archive_items SET status = 'reviewed', monument_slug = COALESCE(?, monument_slug) WHERE id = ?",
         (body.monument_slug, item_id),
