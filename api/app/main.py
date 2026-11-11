@@ -5,6 +5,7 @@ from fastapi import FastAPI
 from fastapi.concurrency import run_in_threadpool
 from fastapi.middleware.cors import CORSMiddleware
 
+from app.body_limit import BodyLimitMiddleware
 from app.config import get_settings
 from app.errors import register_error_handlers
 from app.ml import get_pipeline
@@ -33,6 +34,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+app.add_middleware(BodyLimitMiddleware)
 register_error_handlers(app)
 app.include_router(health.router)
 app.include_router(monuments.router)
