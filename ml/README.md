@@ -44,14 +44,23 @@ cd api && python -m uvicorn app.main:app --port 8000   # run from the project ve
 The build writes `data/artifacts/dataset-v1/` (gitignored). `GET /api/health` reports
 `models: ok` once the API has loaded it; a missing artifact is a 500 on identify, never "uncertain".
 
-Coverage is limited by the dataset: 5 of the 15 canonical monuments can be recognized
-(`taj-mahal`, `humayuns-tomb`, `fatehpur-sikri`, `qutb-complex`, `mehrauli-archaeological-park`).
-The other 10 have no reference images. Photos of any other monument return "uncertain".
+Coverage is limited by the dataset: 7 monuments can be recognized (`taj-mahal`, `humayuns-tomb`,
+`fatehpur-sikri`, `qutb-complex`, `mehrauli-archaeological-park`, `india-gate`, `lotus-temple`). The
+last two are not in the 15 canonical monuments; the API takes their display names from `sites.json`.
+Other monuments should return "uncertain", but look-alikes can still be accepted (see below).
 
-Held-out results (236 positives, 96 non-target monuments; test images within pHash distance 6 of
-a gallery image are dropped): DINOv2 is the calibrated active strategy with 100% top-1, 97%
-coverage and 2.1% false acceptance. Fusion scored the same top-1 on this set. The test split
-comes from the same dataset as the gallery, so expect lower accuracy on fresh phone photos.
+Calibration targets 2% OOD false acceptance on 200 negatives from 10 other monument folders, and the
+single-model gate also requires a top1-top2 score margin. The 4 negative folders in the held-out test
+(charminar, hawa mahal, mysore palace, victoria memorial) are never used for calibration.
+
+Held-out results (281 positives, 80 non-target photos; test images within pHash distance 6 of a
+gallery image are dropped): DINOv2 is the calibrated active strategy with 100% top-1, 96.4% coverage
+and 0% false acceptance (2% target; fusion 1.3%). The test split comes from the same dataset as the
+gallery, so this is optimistic. A separate check on 39 credited Wikimedia Commons photos (never used
+for tuning; rerun with `python ml/scripts/spot_check.py --manifest <dir>/manifest.json --artifact
+data/artifacts/dataset-v1`) gives: out-of-set monuments wrongly accepted 4 of 24 (was 20 of 24 before
+this change; Red Fort 1/5, Agra Fort 0/5, Purana Qila 1/5, Jama Masjid 1/5, Safdarjung 1/4); the 15
+target photos: 12 correct, 2 wrong (Humayun's Tomb detail shots read as Mehrauli), 1 uncertain.
 
 ## What Was Created
 
