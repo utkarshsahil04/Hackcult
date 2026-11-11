@@ -4,7 +4,7 @@ import { useState } from 'react'
 import Link from 'next/link'
 import { Camera, FileText } from 'lucide-react'
 import { Header, useLang } from '@/components/raahein'
-import { copy, digitise, imageSrc, RIGHTS, SAMPLES, type ArchiveItem, type Rights } from '@/lib/archive'
+import { copy, digitise, RIGHTS, SAMPLES, type ArchiveItem, type Rights } from '@/lib/archive'
 import { monuments } from '@/lib/catalog'
 
 const MAX_BYTES = 6 * 1024 * 1024
@@ -19,6 +19,7 @@ export default function Digitise() {
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState('')
   const [item, setItem] = useState<ArchiveItem | null>(null)
+  const [preview, setPreview] = useState('') // drafts are private on the server, so show the uploader their own file
 
   async function run(photo: Blob, r: Rights | '', slug: string, name?: string) {
     if (busy) return
@@ -29,6 +30,7 @@ export default function Digitise() {
     setBusy(true)
     try {
       setItem(await digitise(photo, r, slug, name))
+      setPreview((old) => { if (old) URL.revokeObjectURL(old); return URL.createObjectURL(photo) })
     } catch {
       setError(t.errFail)
     } finally {
@@ -110,7 +112,7 @@ export default function Digitise() {
           <article className="mt-6 space-y-5" data-testid="digitise-result">
             <span className="inline-block rounded-full border border-dashed border-[#E8A317] bg-[#FBF6EC] px-3 py-1 text-sm font-semibold text-[#8F3221]">{t.draft}</span>
             {/* eslint-disable-next-line @next/next/no-img-element -- served by the API, not the Next.js optimizer */}
-            <img alt="" className="max-h-80 w-full rounded-xl border border-[#B5452B]/20 object-contain bg-[#EADBC0]/40" src={imageSrc(item)} />
+            <img alt="" className="max-h-80 w-full rounded-xl border border-[#B5452B]/20 object-contain bg-[#EADBC0]/40" src={preview} />
             <section>
               <h2 className="fraunces text-xl">{t.original}{item.script && <span className="ml-2 text-sm font-normal text-[#5A4E3F]">{item.script}</span>}</h2>
               {item.transcription

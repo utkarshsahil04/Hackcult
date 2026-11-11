@@ -121,6 +121,19 @@ def _get_item(conn: sqlite3.Connection, item_id: int) -> sqlite3.Row:
     return row
 
 
+def _is_reviewer(token: str | None) -> bool:
+    expected = get_settings().review_token
+    return bool(expected and token and hmac.compare_digest(token.encode(), expected.encode()))
+
+
+def _visible_item(conn: sqlite3.Connection, item_id: int, token: str | None) -> sqlite3.Row:
+    """Drafts are unreviewed public uploads, so only a reviewer may see them; to anyone else they do not exist."""
+    row = _get_item(conn, item_id)
+    if row["status"] != "reviewed" and not _is_reviewer(token):
+        raise AppError(404, "ARCHIVE_ITEM_NOT_FOUND", "No archive item with that id.", "Check the id.")
+    return row
+
+
 def _slug_exists(mon: sqlite3.Connection, slug: str) -> bool:
     return mon.execute("SELECT 1 FROM monuments WHERE slug = ?", (slug,)).fetchone() is not None
 
@@ -246,7 +259,14 @@ async def digitise(
 
 
 @router.get("/archive/items")
-def list_items(conn: Arch, status: Literal["draft", "reviewed"] | None = None, monument: str | None = None):
+def list_items(
+    conn: Arch,
+    status: Literal["draft", "reviewed"] | None = None,
+    monument: str | None = None,
+    x_review_token: Annotated[str | None, Header()] = None,
+):
+    if status != "reviewed" and not _is_reviewer(x_review_token):
+        raise AppError(401, "UNAUTHORIZED", "Drafts are visible to reviewers only.", "Ask for status=reviewed.")
     q, args = "SELECT * FROM archive_items WHERE 1=1", []
     if status:
         q += " AND status = ?"
@@ -259,15 +279,15 @@ def list_items(conn: Arch, status: Literal["draft", "reviewed"] | None = None, m
 
 
 @router.get("/archive/items/{item_id}")
-def get_item(item_id: int, conn: Arch):
-    return _item_out(conn, _get_item(conn, item_id))
+def get_item(item_id: int, conn: Arch, x_review_token: Annotated[str | None, Header()] = None):
+    return _item_out(conn, _visible_item(conn, item_id, x_review_token))
 
 
 @router.get("/archive/items/{item_id}/image")
-def get_image(item_id: int, conn: Arch):
-    return Response(
-        _get_item(conn, item_id)["image"], media_type="image/jpeg", headers={"Cache-Control": "public, max-age=86400"}
-    )
+def get_image(item_id: int, conn: Arch, x_review_token: Annotated[str | None, Header()] = None):
+    row = _visible_item(conn, item_id, x_review_token)
+    cache = "public, max-age=86400" if row["status"] == "reviewed" else "private, no-store"
+    return Response(row["image"], media_type="image/jpeg", headers={"Cache-Control": cache})
 
 
 class ClaimDecision(BaseModel):
@@ -292,7 +312,7 @@ def review(
     expected = get_settings().review_token
     if not expected:
         raise AppError(403, "FORBIDDEN", "Review is not enabled", "Set REVIEW_TOKEN on the server.")
-    if not x_review_token or not hmac.compare_digest(x_review_token.encode(), expected.encode()):
+    if not _is_reviewer(x_review_token):
         raise AppError(401, "UNAUTHORIZED", "Missing or wrong review token.", "Send the X-Review-Token header.")
     _get_item(conn, item_id)
     if body.monument_slug and not _slug_exists(mon, body.monument_slug):

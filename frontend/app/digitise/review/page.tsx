@@ -1,9 +1,9 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { Header, useLang } from '@/components/raahein'
-import { copy, imageSrc, listDrafts, reviewItem, type ArchiveItem } from '@/lib/archive'
+import { copy, draftImageUrl, listDrafts, reviewItem, type ArchiveItem } from '@/lib/archive'
 import { monuments } from '@/lib/catalog'
 
 const TOKEN_KEY = 'raahein-review-token'
@@ -18,6 +18,12 @@ type Edit = { approve: boolean; text: string }
 
 function ReviewCard({ item, token, onDone }: { item: ArchiveItem; token: string; onDone: (id: number) => void }) {
   const { lang } = useLang()
+  const [src, setSrc] = useState('')
+  useEffect(() => {
+    let url = ''
+    draftImageUrl(item, token).then((u) => setSrc((url = u))).catch(() => setSrc(''))
+    return () => { if (url) URL.revokeObjectURL(url) }
+  }, [item, token])
   const t = copy[lang]
   const [edits, setEdits] = useState<Record<number, Edit>>(() => Object.fromEntries(item.claims.map((c) => [c.id, { approve: false, text: c.text }])))
   const [slug, setSlug] = useState(item.monument_slug ?? '')
@@ -42,7 +48,7 @@ function ReviewCard({ item, token, onDone }: { item: ArchiveItem; token: string;
   return (
     <li className="card space-y-4 p-4" data-testid="review-item">
       {/* eslint-disable-next-line @next/next/no-img-element -- served by the API, not the Next.js optimizer */}
-      <img alt="" className="max-h-60 w-full rounded-lg object-contain bg-[#EADBC0]/40" src={imageSrc(item)} />
+      {src && <img alt="" className="max-h-60 w-full rounded-lg object-contain bg-[#EADBC0]/40" src={src} />}
       {item.transcription && <p className="whitespace-pre-wrap text-base leading-7" dir="auto">{item.transcription}</p>}
       {item.translation_en && <p className="text-sm leading-6 text-[#5A4E3F]" lang="en">{item.translation_en}</p>}
       <ul className="space-y-3">
@@ -82,7 +88,7 @@ export default function ReviewPage() {
   async function load() {
     try { sessionStorage.setItem(TOKEN_KEY, token) } catch { /* the token just stays in memory */ }
     setError('')
-    try { setItems(await listDrafts()) } catch { setError(t.rFail) }
+    try { setItems(await listDrafts(token)) } catch (e) { setError((e as { status?: number }).status === 401 ? t.rBad : t.rFail) }
   }
 
   return (

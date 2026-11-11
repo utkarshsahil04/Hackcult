@@ -113,7 +113,9 @@ def test_evidence_filter_drops_invented_claims(env):
     assert body["status"] == "draft"
     assert [c["text"] for c in body["claims"]] == ["An edict by Piyadasi."]
     assert body["monument_slug"] == "qutb-complex"  # valid suggestion is kept as a draft guess
-    assert client.get(body["image_url"]).headers["content-type"] == "image/jpeg"
+    assert client.get(body["image_url"]).status_code == 404  # a draft scan is not public
+    seen = client.get(body["image_url"], headers={"X-Review-Token": "secret"})
+    assert seen.headers["content-type"] == "image/jpeg" and seen.headers["cache-control"] == "private, no-store"
 
 
 def test_invalid_suggested_slug_is_dropped(env):
@@ -134,7 +136,19 @@ def test_gemini_failure_is_503(env):
     fake.fail = True
     r = _post(client)
     assert r.status_code == 503 and r.json()["error"]["code"] == "UPSTREAM_UNAVAILABLE"
-    assert client.get("/api/archive/items").json()["items"] == []
+    assert client.get("/api/archive/items", headers={"X-Review-Token": "secret"}).json()["items"] == []
+
+
+def test_drafts_are_hidden_from_everyone_but_reviewers(env):
+    client, _ = env
+    item = _post(client).json()
+    assert client.get("/api/archive/items?status=draft").status_code == 401
+    assert client.get("/api/archive/items").status_code == 401
+    assert client.get("/api/archive/items?status=reviewed").json()["items"] == []
+    assert client.get(f"/api/archive/items/{item['id']}").status_code == 404
+    assert client.get(f"/api/archive/items/{item['id']}", headers={"X-Review-Token": "nope"}).status_code == 404
+    drafts = client.get("/api/archive/items?status=draft", headers={"X-Review-Token": "secret"}).json()["items"]
+    assert [d["id"] for d in drafts] == [item["id"]]
 
 
 def test_rate_limit(env):

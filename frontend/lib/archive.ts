@@ -32,7 +32,17 @@ export function digitise(photo: Blob, rights: Rights, monument: string, name = '
   return call<ArchiveItem>('/api/archive/digitise', { method: 'POST', body })
 }
 
-export const listDrafts = () => call<{ items: ArchiveItem[] }>('/api/archive/items?status=draft').then((r) => r.items)
+const reviewer = (token: string) => ({ headers: { 'X-Review-Token': token } })
+
+export const listDrafts = (token: string) =>
+  call<{ items: ArchiveItem[] }>('/api/archive/items?status=draft', reviewer(token)).then((r) => r.items)
+
+/** Draft scans are private, and an <img> cannot send the token, so the review page fetches them as blobs. */
+export async function draftImageUrl(item: ArchiveItem, token: string) {
+  const res = await fetch(imageSrc(item), reviewer(token))
+  if (!res.ok) throw new Error(`HTTP ${res.status}`)
+  return URL.createObjectURL(await res.blob())
+}
 
 export const reviewItem = (id: number, token: string, claims: Array<{ id: number; decision: 'approve' | 'reject'; text?: string }>, monument_slug?: string) =>
   call<ArchiveItem>(`/api/archive/items/${id}/review`, {
