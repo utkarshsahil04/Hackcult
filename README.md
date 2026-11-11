@@ -149,9 +149,11 @@ Deploy the API from a machine that has `backend/data/raahein.db` and `data/artif
 ```powershell
 pip install modal
 modal setup
-modal secret create raahein GEMINI_API_KEY=your-key FRONTEND_ORIGIN=http://localhost:3000
+modal secret create raahein GEMINI_API_KEY=your-key FRONTEND_ORIGIN=http://localhost:3000 REVIEW_TOKEN=a-long-random-string
 modal deploy deploy/modal_app.py
 ```
+
+`REVIEW_TOKEN` unlocks the archive review page (`/digitise/review`); leave it out and review stays off. Digitised scans are stored on the `raahein-archive` Modal volume.
 
 The last command prints the API's address. Check it with:
 
@@ -169,7 +171,7 @@ In Vercel, import the repository and set **Root Directory** to `frontend`. Add t
 Finally, allow the Vercel address to call the API, and redeploy:
 
 ```powershell
-modal secret create raahein GEMINI_API_KEY=your-key FRONTEND_ORIGIN=https://your-app.vercel.app --force
+modal secret create raahein GEMINI_API_KEY=your-key FRONTEND_ORIGIN=https://your-app.vercel.app REVIEW_TOKEN=a-long-random-string --force
 modal deploy deploy/modal_app.py
 ```
 

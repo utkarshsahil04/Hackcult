@@ -22,6 +22,8 @@ class Settings(BaseSettings):
     frontend_origin: str = "http://localhost:3000"
     database_url: str | None = None
     sqlite_db_path: str | None = None
+    archive_db_path: str | None = None  # writable; raahein.db ships read-only
+    review_token: str = ""  # empty disables archive review
     llm_primary_model: str = "gemini-3.5-flash-lite"
     redis_url: str | None = None
     demo_mode: bool = False

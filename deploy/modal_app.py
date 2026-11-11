@@ -47,7 +47,7 @@ image = (
     .add_local_dir(ROOT / "ml", f"{REMOTE_ROOT}/ml", copy=True, ignore=SKIP)
     .add_local_dir(ROOT / "data" / "artifacts" / "dataset-v1", f"{REMOTE_ROOT}/data/artifacts/dataset-v1", copy=True)
     .run_commands(f"pip install --no-deps -e {REMOTE_ROOT}/ml")
-    .env({"HF_HOME": "/root/huggingface", "RAAHEIN_ML_DEVICE": "cpu", "RAAHEIN_ML_ALLOW_CPU": "true"})
+    .env({"HF_HOME": "/root/huggingface", "RAAHEIN_ML_DEVICE": "cpu", "RAAHEIN_ML_ALLOW_CPU": "true", "ARCHIVE_DB_PATH": "/data/archive/archive.db"})
     .workdir(f"{REMOTE_ROOT}/api")
 )
 
@@ -55,7 +55,8 @@ app = modal.App("raahein", image=image)
 
 
 @app.function(
-    secrets=[modal.Secret.from_name("raahein")],  # GEMINI_API_KEY and FRONTEND_ORIGIN
+    secrets=[modal.Secret.from_name("raahein")],  # GEMINI_API_KEY, FRONTEND_ORIGIN and REVIEW_TOKEN
+    volumes={"/data/archive": modal.Volume.from_name("raahein-archive", create_if_missing=True)},  # archive.db survives restarts
     cpu=1.0,
     memory=2048,  # the API and model use about 0.9 GB
     max_containers=1,  # keeps the rate limit counts in one place and spending predictable

@@ -8,7 +8,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from app.config import get_settings
 from app.errors import register_error_handlers
 from app.ml import get_pipeline
-from app.routes import health, monuments, places, recognition, stories, tours
+from app.routes import archive, health, monuments, places, recognition, stories, tours
 
 settings = get_settings()  # fails fast at startup if env is invalid
 
@@ -40,3 +40,4 @@ app.include_router(places.router)
 app.include_router(recognition.router)
 app.include_router(tours.router)
 app.include_router(stories.router)
+app.include_router(archive.router)

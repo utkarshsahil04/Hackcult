@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import base64
 import json
 import logging
 import os
@@ -135,6 +136,35 @@ class GeminiService:
             if not parts or "text" not in parts[0]:
                 raise RuntimeError("Gemini API returned no text in candidate.")
             return parts[0]["text"].strip()
+        finally:
+            if self._client is None:
+                client.close()
+
+    def describe_image(self, image: bytes, mime: str, prompt: str, model: str, timeout: float = 60.0) -> str:
+        """Send one image inline with a prompt and return the JSON text. Raises RuntimeError on failure."""
+        if not self.api_key or self.api_key in ("test-key", "placeholder", "your-api-key"):
+            raise RuntimeError("Gemini API key is unconfigured or dummy.")
+        payload = {
+            "contents": [{"parts": [
+                {"inline_data": {"mime_type": mime, "data": base64.b64encode(image).decode()}},
+                {"text": prompt},
+            ]}],
+            "generationConfig": {"temperature": 0.1, "maxOutputTokens": 4000, "responseMimeType": "application/json"},
+        }
+        client = self._client or httpx.Client(timeout=timeout)
+        try:
+            resp = client.post(
+                f"{GEMINI_BASE_URL}/{model}:generateContent", json=payload, headers={"x-goog-api-key": self.api_key}
+            )
+            if resp.status_code != 200:
+                raise RuntimeError(f"Gemini API returned status {resp.status_code}")
+            parts = (resp.json().get("candidates") or [{}])[0].get("content", {}).get("parts") or []
+            text = "".join(p.get("text", "") for p in parts if not p.get("thought"))
+            if not text.strip():
+                raise RuntimeError("Gemini API returned no text.")
+            return text.strip()
+        except httpx.HTTPError as exc:
+            raise RuntimeError(f"Gemini request failed: {type(exc).__name__}") from exc
         finally:
             if self._client is None:
                 client.close()
