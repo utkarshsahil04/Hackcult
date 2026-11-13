@@ -1664,6 +1664,22 @@
      2,
      3
     ]
+   },
+   {
+    "heading": {
+     "en": "History",
+     "hi": "इतिहास"
+    },
+    "text": {
+     "en": "The Delhi observatory is one of several Jantar Mantars that Jai Singh II built in India.",
+     "hi": "दिल्ली की वेधशाला जयसिंह द्वितीय द्वारा भारत में बनवाए गए कई जंतर मंतरों में से एक है।"
+    },
+    "isLegend": false,
+    "source": 4,
+    "cited": [
+     4,
+     5
+    ]
    }
   ],
   "sources": [
@@ -1699,6 +1715,28 @@
      "hi": "Encyclopaedia Britannica"
     },
     "url": "https://www.britannica.com/topic/Jantar-Mantar"
+   },
+   {
+    "title": {
+     "en": "Jantar Mantar",
+     "hi": "Jantar Mantar"
+    },
+    "publisher": {
+     "en": "Delhi Tourism (delhitourism.gov.in)",
+     "hi": "Delhi Tourism (delhitourism.gov.in)"
+    },
+    "url": "https://delhitourism.gov.in/tourist_place/jantar_mantar.html"
+   },
+   {
+    "title": {
+     "en": "Jaipur: History and Architecture",
+     "hi": "Jaipur: History and Architecture"
+    },
+    "publisher": {
+     "en": "Sahapedia",
+     "hi": "Sahapedia"
+    },
+    "url": "https://www.sahapedia.org/jaipur-history-and-architecture"
    }
   ],
   "related": [
@@ -1754,6 +1792,38 @@
      1,
      2
     ]
+   },
+   {
+    "heading": {
+     "en": "Origin",
+     "hi": "उत्पत्ति"
+    },
+    "text": {
+     "en": "The park's monuments include Balban's Tomb, the Jamali Kamali mosque and tomb, and Rajon ki Baoli.",
+     "hi": "पार्क के स्मारकों में बलबन का मकबरा, जमाली-कमाली मस्जिद और मकबरा, तथा राजों की बावली शामिल हैं।"
+    },
+    "isLegend": false,
+    "source": 3,
+    "cited": [
+     3,
+     4
+    ]
+   },
+   {
+    "heading": {
+     "en": "History",
+     "hi": "इतिहास"
+    },
+    "text": {
+     "en": "Lal Kot at Mehrauli was built by the Tomar rulers in the 11th century.",
+     "hi": "महरौली का लाल कोट 11वीं सदी में तोमर शासकों ने बनवाया था।"
+    },
+    "isLegend": false,
+    "source": 4,
+    "cited": [
+     4,
+     5
+    ]
    }
   ],
   "sources": [
@@ -1778,6 +1848,39 @@
      "hi": "Indian National Trust for Art and Cultural Heritage (INTACH)"
     },
     "url": "https://intach.org/chapters/delhi/mehrauli-park.html"
+   },
+   {
+    "title": {
+     "en": "Delhi Tourism Two Day Itinerary",
+     "hi": "Delhi Tourism Two Day Itinerary"
+    },
+    "publisher": {
+     "en": "Delhi Tourism (delhitourism.gov.in)",
+     "hi": "Delhi Tourism (delhitourism.gov.in)"
+    },
+    "url": "https://delhitourism.gov.in/itinerary/two_day_itinerary.html"
+   },
+   {
+    "title": {
+     "en": "Mehrauli Archaeological Park",
+     "hi": "Mehrauli Archaeological Park"
+    },
+    "publisher": {
+     "en": "Incredible India (Ministry of Tourism, Government of India)",
+     "hi": "Incredible India (Ministry of Tourism, Government of India)"
+    },
+    "url": "https://www.incredibleindia.gov.in/en/delhi/delhi/mehrauli-archaeological-park"
+   },
+   {
+    "title": {
+     "en": "Mehrauli Archaeological Park",
+     "hi": "Mehrauli Archaeological Park"
+    },
+    "publisher": {
+     "en": "Sahapedia",
+     "hi": "Sahapedia"
+    },
+    "url": "https://www.sahapedia.org/mehrauli-archaeological-park"
    }
   ],
   "related": [
@@ -1834,6 +1937,22 @@
      3,
      1
     ]
+   },
+   {
+    "heading": {
+     "en": "History",
+     "hi": "इतिहास"
+    },
+    "text": {
+     "en": "Lodhi Gardens was formerly called Lady Willingdon Park.",
+     "hi": "लोधी गार्डन को पहले लेडी विलिंग्डन पार्क कहा जाता था।"
+    },
+    "isLegend": false,
+    "source": 4,
+    "cited": [
+     4,
+     5
+    ]
    }
   ],
   "sources": [
@@ -1869,6 +1988,28 @@
      "hi": "Archnet / MIT Documentation Center"
     },
     "url": "https://www.archnet.org/sites/3909"
+   },
+   {
+    "title": {
+     "en": "Lodi Tomb",
+     "hi": "Lodi Tomb"
+    },
+    "publisher": {
+     "en": "Delhi Tourism (delhitourism.gov.in)",
+     "hi": "Delhi Tourism (delhitourism.gov.in)"
+    },
+    "url": "https://delhitourism.gov.in/tourist_place/lodi_tomb.html"
+   },
+   {
+    "title": {
+     "en": "Lodhi Garden- A Green Oasis in the Heart of Delhi",
+     "hi": "Lodhi Garden- A Green Oasis in the Heart of Delhi"
+    },
+    "publisher": {
+     "en": "Incredible India (Ministry of Tourism, Government of India)",
+     "hi": "Incredible India (Ministry of Tourism, Government of India)"
+    },
+    "url": "https://www.incredibleindia.gov.in/en/delhi/delhi/lodhi-garden"
    }
   ],
   "related": [
@@ -1891,13 +2032,96 @@
   "era": "20th century (memorial, 1931)",
   "style": "War memorial (Lutyens)",
   "location": "India Gate, Shahjahan Road, Pandara Park, Central Vista, New Delhi",
-  "verified": false,
+  "verified": true,
   "summary": {
-   "en": "",
-   "hi": ""
+   "en": "As you stand here looking up at the imposing 42-metre-high sandstone archway, resembling an Arc-de-Triomphe on a low base of red Bharatpur stone, you are gazing upon a monumental tribute designed by Edwin Lutyens. Notice the inscriptions MCMXIV and MCMXIX on its sides, which mark the historical chapter this structure addresses.",
+   "hi": "राहेन (Raahein) पर आपका स्वागत है! जैसे ही आप यहाँ खड़े होते हैं, आपके सामने 42 मीटर ऊँचा बलुआ पत्थर का भव्य मेहराब खड़ा है।"
   },
-  "sections": [],
-  "sources": [],
+  "sections": [
+   {
+    "heading": {
+     "en": "Origin",
+     "hi": "उत्पत्ति"
+    },
+    "text": {
+     "en": "India Gate in Delhi was designed by Edwin Lutyens; its foundation stone was laid in 1921 by the Duke of Connaught and it was dedicated in 1931 by Viceroy Lord Irwin.",
+     "hi": "दिल्ली का इंडिया गेट एडविन लुटियंस ने डिज़ाइन किया था; इसकी आधारशिला 1921 में ड्यूक ऑफ़ कनॉट ने रखी और 1931 में वायसराय लॉर्ड इरविन ने इसे राष्ट्र को समर्पित किया।"
+    },
+    "isLegend": false,
+    "source": 1,
+    "cited": [
+     1,
+     2
+    ]
+   },
+   {
+    "heading": {
+     "en": "History",
+     "hi": "इतिहास"
+    },
+    "text": {
+     "en": "India Gate is a war memorial to the roughly 70,000 Indian soldiers who died in the First World War.",
+     "hi": "इंडिया गेट प्रथम विश्व युद्ध में मारे गए लगभग 70,000 भारतीय सैनिकों का युद्ध स्मारक है।"
+    },
+    "isLegend": false,
+    "source": 1,
+    "cited": [
+     1,
+     2
+    ]
+   },
+   {
+    "heading": {
+     "en": "Architecture",
+     "hi": "वास्तुकला"
+    },
+    "text": {
+     "en": "India Gate is an arch 42 metres high.",
+     "hi": "इंडिया गेट 42 मीटर ऊँचा मेहराब है।"
+    },
+    "isLegend": false,
+    "source": 3,
+    "cited": [
+     3,
+     2
+    ]
+   }
+  ],
+  "sources": [
+   {
+    "title": {
+     "en": "India Gate",
+     "hi": "India Gate"
+    },
+    "publisher": {
+     "en": "Delhi Tourism (delhitourism.gov.in)",
+     "hi": "Delhi Tourism (delhitourism.gov.in)"
+    },
+    "url": "https://delhitourism.gov.in/tourist_place/india_gate.html"
+   },
+   {
+    "title": {
+     "en": "India Gate",
+     "hi": "India Gate"
+    },
+    "publisher": {
+     "en": "Incredible India (Ministry of Tourism, Government of India)",
+     "hi": "Incredible India (Ministry of Tourism, Government of India)"
+    },
+    "url": "https://www.incredibleindia.gov.in/en/delhi/delhi/india-gate"
+   },
+   {
+    "title": {
+     "en": "India Gate",
+     "hi": "India Gate"
+    },
+    "publisher": {
+     "en": "District Administration New Delhi, Government of NCT of Delhi",
+     "hi": "District Administration New Delhi, Government of NCT of Delhi"
+    },
+    "url": "https://dmnewdelhi.delhi.gov.in/tourist-place/india-gate"
+   }
+  ],
   "related": [],
   "lat": 28.61293,
   "lng": 77.22949
@@ -1912,13 +2136,80 @@
   "era": "20th century (1986)",
   "style": "Expressionist / Bahá'í House of Worship",
   "location": "Lotus Temple, Lotus Temple Road, Govindpuri, Okhla, Central",
-  "verified": false,
+  "verified": true,
   "summary": {
-   "en": "",
-   "hi": ""
+   "en": "As you stand here looking at the striking Lotus Temple, you are gazing upon a Baha'i House of Worship in Delhi that was designed by the architect Fariborz Sahba and dedicated to public worship in 1986. Take a moment to admire the architectural marvel before you.",
+   "hi": "जब आप दिल्ली में इस बहाई उपासना गृह के सामने खड़े होते हैं, तो इसकी भव्यता आपको मंत्रमुग्ध कर देती है। इस अनूठे स्मारक को वास्तुकार फरीबरज़ सहबा (Fariborz Sahba) द्वारा डिज़ाइन किया गया था और इसे 1986 में सार्वजनिक उपासना के लिए समर्पित किया गया था।"
   },
-  "sections": [],
-  "sources": [],
+  "sections": [
+   {
+    "heading": {
+     "en": "Origin",
+     "hi": "उत्पत्ति"
+    },
+    "text": {
+     "en": "The Lotus Temple, a Baha'i House of Worship in Delhi, was designed by the architect Fariborz Sahba and dedicated to public worship in 1986.",
+     "hi": "दिल्ली का लोटस टेम्पल, एक बहाई उपासना मंदिर, वास्तुकार फ़रीबोर्ज़ साहबा ने डिज़ाइन किया था और 1986 में सार्वजनिक उपासना के लिए समर्पित किया गया।"
+    },
+    "isLegend": false,
+    "source": 1,
+    "cited": [
+     1,
+     2
+    ]
+   },
+   {
+    "heading": {
+     "en": "Architecture",
+     "hi": "वास्तुकला"
+    },
+    "text": {
+     "en": "The Lotus Temple has 27 free-standing marble petals arranged in clusters of three around a central hall with nine entrances.",
+     "hi": "लोटस टेम्पल में संगमरमर की 27 स्वतंत्र पंखुड़ियाँ हैं, जो तीन-तीन के समूहों में एक केंद्रीय सभागार के चारों ओर बनी हैं, जिसमें नौ प्रवेश-द्वार हैं।"
+    },
+    "isLegend": false,
+    "source": 2,
+    "cited": [
+     2,
+     3
+    ]
+   }
+  ],
+  "sources": [
+   {
+    "title": {
+     "en": "Baha'i Temple in India continues to receive awards and recognitions",
+     "hi": "Baha'i Temple in India continues to receive awards and recognitions"
+    },
+    "publisher": {
+     "en": "Baha'i World News Service",
+     "hi": "Baha'i World News Service"
+    },
+    "url": "https://news.bahai.org/story/89/"
+   },
+   {
+    "title": {
+     "en": "Lotus Temple",
+     "hi": "Lotus Temple"
+    },
+    "publisher": {
+     "en": "Incredible India (Ministry of Tourism, Government of India)",
+     "hi": "Incredible India (Ministry of Tourism, Government of India)"
+    },
+    "url": "https://www.incredibleindia.gov.in/en/delhi/delhi/lotus-temple"
+   },
+   {
+    "title": {
+     "en": "Baha'i Temple, New Delhi (project page)",
+     "hi": "Baha'i Temple, New Delhi (project page)"
+    },
+    "publisher": {
+     "en": "Larsen & Toubro (L&T Construction)",
+     "hi": "Larsen & Toubro (L&T Construction)"
+    },
+    "url": "https://www.lntecc.com/projects/unique-structures/baha-i-temple/"
+   }
+  ],
   "related": [],
   "lat": 28.55336,
   "lng": 77.25861
@@ -1933,13 +2224,101 @@
   "era": "Delhi Sultanate (14th century)",
   "style": "Tughlaq-era tank, madrasa and tombs",
   "location": "Siri Fort Auditorium, August Kranti Marg, Hauz Khas, South",
-  "verified": false,
+  "verified": true,
   "summary": {
-   "en": "",
-   "hi": ""
+   "en": "As you stand here at the Hauz Khas Complex, look out over the large water tank that was built in the reign of Alauddin Khalji in the early 1300s to supply water to the new city of Siri, and was first called Hauz-i-Alai. In the 1350s, Firoz Shah restored its water supply and re-excavated the silted tank while clearing the inlet channels, after which the tank became known as Hauz Khas, the royal tank.",
+   "hi": "जब आप हौज़ खास कॉम्प्लेक्स में खड़े हैं, तो आपके सामने यह विशाल पानी का टैंक है, जिसे अलाउद्दीन खिलजी के शासनकाल में बनवाया गया था और पहले इसे 'हौज़-इ-अलाई' कहा जाता था। 1350 के दशक में फिरोज़ शाह ने इस सिल्ट से भरे टैंक को फिर से खुदवाया, इसके इनलेट चैनलों को साफ किया, और इसका जल स्तर बहाल किया, जिसके बाद यह 'हौज़ खास' यानी शाही टैंक के रूप में जाना जाने लगा।"
   },
-  "sections": [],
-  "sources": [],
+  "sections": [
+   {
+    "heading": {
+     "en": "Origin",
+     "hi": "उत्पत्ति"
+    },
+    "text": {
+     "en": "The large water tank at Hauz Khas was built in the reign of Alauddin Khalji and was first called Hauz-i-Alai.",
+     "hi": "हौज़ ख़ास का विशाल जलाशय अलाउद्दीन ख़िलजी के शासनकाल में बना था और इसे पहले हौज़-ए-अलाई कहा जाता था।"
+    },
+    "isLegend": false,
+    "source": 1,
+    "cited": [
+     1,
+     2
+    ]
+   },
+   {
+    "heading": {
+     "en": "History",
+     "hi": "इतिहास"
+    },
+    "text": {
+     "en": "Firoz Shah Tughlaq restored the silted-up tank, after which it became known as Hauz Khas, the 'royal tank'.",
+     "hi": "फ़िरोज़ शाह तुग़लक़ ने गाद से भरे जलाशय का जीर्णोद्धार कराया, जिसके बाद यह हौज़ ख़ास, यानी 'शाही जलाशय', कहलाया।"
+    },
+    "isLegend": false,
+    "source": 1,
+    "cited": [
+     1,
+     2
+    ]
+   },
+   {
+    "heading": {
+     "en": "Origin",
+     "hi": "उत्पत्ति"
+    },
+    "text": {
+     "en": "Firoz Shah Tughlaq founded a madrasa, a college of Islamic learning, on the edge of the tank in the 1350s.",
+     "hi": "फ़िरोज़ शाह तुग़लक़ ने 1350 के दशक में जलाशय के किनारे एक मदरसा, यानी इस्लामी शिक्षा का महाविद्यालय, स्थापित किया।"
+    },
+    "isLegend": false,
+    "source": 1,
+    "cited": [
+     1,
+     2
+    ]
+   },
+   {
+    "heading": {
+     "en": "Architecture",
+     "hi": "वास्तुकला"
+    },
+    "text": {
+     "en": "The madrasa is an L-shaped building along the tank, and Firoz Shah's tomb stands where its two wings meet.",
+     "hi": "मदरसा जलाशय के किनारे एल-आकार की इमारत है, और फ़िरोज़ शाह का मक़बरा इसकी दोनों भुजाओं के संगम पर स्थित है।"
+    },
+    "isLegend": false,
+    "source": 1,
+    "cited": [
+     1,
+     2
+    ]
+   }
+  ],
+  "sources": [
+   {
+    "title": {
+     "en": "Madrasa-e-Firoz Shahi",
+     "hi": "Madrasa-e-Firoz Shahi"
+    },
+    "publisher": {
+     "en": "Google Arts & Culture",
+     "hi": "Google Arts & Culture"
+    },
+    "url": "https://artsandculture.google.com/exhibit/QRXJIPZO"
+   },
+   {
+    "title": {
+     "en": "Hauz Khas Walk",
+     "hi": "Hauz Khas Walk"
+    },
+    "publisher": {
+     "en": "Government of NCT of Delhi (srdc.delhi.gov.in)",
+     "hi": "Government of NCT of Delhi (srdc.delhi.gov.in)"
+    },
+    "url": "https://srdc.delhi.gov.in/en/srdc/hauz-khas-walk"
+   }
+  ],
   "related": [],
   "lat": 28.55296,
   "lng": 77.21316
@@ -1954,13 +2333,85 @@
   "era": "Medieval stepwell",
   "style": "Stepwell (baoli)",
   "location": "Agrasen ki Baoli, Hailey Road, Connaught Place, New Delhi",
-  "verified": false,
+  "verified": true,
   "summary": {
-   "en": "",
-   "hi": ""
+   "en": "As you stand here at Agrasen ki Baoli, a protected monument under the Archaeological Survey of India, you are looking at a magnificent stepwell in Delhi measuring 60 metres long and 15 metres wide. Notice how its architectural floor plan features more than 100 steps across four distinct levels, narrowing gracefully as the stair descends toward the deep well shaft.",
+   "hi": "जैसे ही आप दिल्ली में अग्रसेन की बाओली के इस ऐतिहासिक स्थल पर खड़े होते हैं, आप एक अनोखी सीढ़ीदार संरचना के सामने होते हैं जो 60 मीटर लंबी और 15 मीटर चौड़ी है। इसके चार स्तरों पर सौ से अधिक सीढ़ियाँ हैं, जो नीचे की ओर एक कुएँ के शाफ्ट तक जाती हैं और जैसे-जैसे सीढ़ी नीचे जाती है, यह संकरी होती जाती है।"
   },
-  "sections": [],
-  "sources": [],
+  "sections": [
+   {
+    "heading": {
+     "en": "Architecture",
+     "hi": "वास्तुकला"
+    },
+    "text": {
+     "en": "Agrasen ki Baoli is a stepwell in Delhi with a staircase of more than 100 steps.",
+     "hi": "अग्रसेन की बावली दिल्ली की एक बावली है, जिसमें 100 से अधिक सीढ़ियाँ हैं।"
+    },
+    "isLegend": false,
+    "source": 1,
+    "cited": [
+     1,
+     2
+    ]
+   },
+   {
+    "heading": {
+     "en": "Recognition",
+     "hi": "मान्यता"
+    },
+    "text": {
+     "en": "Agrasen ki Baoli is a protected monument.",
+     "hi": "अग्रसेन की बावली एक संरक्षित स्मारक है।"
+    },
+    "isLegend": false,
+    "source": 1,
+    "cited": [
+     1,
+     2
+    ]
+   },
+   {
+    "heading": {
+     "en": "Legend",
+     "hi": "किंवदंती"
+    },
+    "text": {
+     "en": "According to local tradition the stepwell was built by King Agrasen, the legendary ancestor of the Agrawal community, but its true builder and origin are not documented.",
+     "hi": "स्थानीय परंपरा के अनुसार यह बावली अग्रवाल समुदाय के पौराणिक पूर्वज राजा अग्रसेन ने बनवाई थी, किंतु इसके वास्तविक निर्माता और उत्पत्ति का कोई प्रमाण नहीं है।"
+    },
+    "isLegend": true,
+    "source": 1,
+    "cited": [
+     1,
+     2
+    ]
+   }
+  ],
+  "sources": [
+   {
+    "title": {
+     "en": "Agrasen Ki Baoli",
+     "hi": "Agrasen Ki Baoli"
+    },
+    "publisher": {
+     "en": "Incredible India (Ministry of Tourism, Government of India)",
+     "hi": "Incredible India (Ministry of Tourism, Government of India)"
+    },
+    "url": "https://www.incredibleindia.gov.in/en/delhi/delhi/agrasen-ki-baoli"
+   },
+   {
+    "title": {
+     "en": "Step back in time into 'Ugrasen ki baoli'",
+     "hi": "Step back in time into 'Ugrasen ki baoli'"
+    },
+    "publisher": {
+     "en": "India Water Portal",
+     "hi": "India Water Portal"
+    },
+    "url": "https://www.indiawaterportal.org/drinking-water/step-back-time-ugrasen-ki-baoli"
+   }
+  ],
   "related": [],
   "lat": 28.62602,
   "lng": 77.22501
@@ -1975,13 +2426,69 @@
   "era": "Delhi Sultanate (14th century)",
   "style": "Tughlaq fortified palace complex",
   "location": "Arun Jaitley Stadium, Central",
-  "verified": false,
+  "verified": true,
   "summary": {
-   "en": "",
-   "hi": ""
+   "en": "As you stand here at Feroz Shah Kotla, you are looking at the palace-citadel of Sultan Firoz Shah Tughlaq. This striking ruin formed the core of his new imperial city, Firozabad.",
+   "hi": "जैसे ही आप फ़िरोज़ शाह कोटला के खंडहरों में खड़े होते हैं, आप सुल्तान फ़िरोज़ शाह तुगलक के उस विशाल पैलेस-सिटाडेल (राजमहल-दुर्ग) को महसूस कर रहे हैं, जो उनकी नई राजधानी फ़िरोज़ाबाद का मुख्य केंद्र हुआ करता था। गौर से देखिए, यहाँ परिसर में स्थापित वह प्राचीन स्तंभ है जिसे तीसरी शताब्दी ईसा पूर्व में सम्राट अशोक ने टोपरा कलाँ में लगवाया था।"
   },
-  "sections": [],
-  "sources": [],
+  "sections": [
+   {
+    "heading": {
+     "en": "Origin",
+     "hi": "उत्पत्ति"
+    },
+    "text": {
+     "en": "Feroz Shah Kotla was the palace-citadel of Sultan Firoz Shah Tughlaq and the core of his new city, Firozabad.",
+     "hi": "फ़िरोज़ शाह कोटला सुल्तान फ़िरोज़ शाह तुग़लक़ का महल-दुर्ग था और उनके नए शहर फ़िरोज़ाबाद का केंद्र था।"
+    },
+    "isLegend": false,
+    "source": 1,
+    "cited": [
+     1,
+     2
+    ]
+   },
+   {
+    "heading": {
+     "en": "History",
+     "hi": "इतिहास"
+    },
+    "text": {
+     "en": "Firoz Shah Tughlaq had an Ashokan pillar, originally raised at Topra in the 3rd century BCE, brought to Delhi and erected at the Kotla.",
+     "hi": "फ़िरोज़ शाह तुग़लक़ ने तीसरी सदी ईसा पूर्व में टोपरा में स्थापित अशोक स्तंभ को दिल्ली मँगवाकर कोटला में खड़ा करवाया।"
+    },
+    "isLegend": false,
+    "source": 1,
+    "cited": [
+     1,
+     2
+    ]
+   }
+  ],
+  "sources": [
+   {
+    "title": {
+     "en": "Firoz Shah Kotla and the Ashokan pillar",
+     "hi": "Firoz Shah Kotla and the Ashokan pillar"
+    },
+    "publisher": {
+     "en": "Google Arts & Culture",
+     "hi": "Google Arts & Culture"
+    },
+    "url": "https://artsandculture.google.com/story/IQVRRevlyR4A8A"
+   },
+   {
+    "title": {
+     "en": "Delhi's Ashoka Connection",
+     "hi": "Delhi's Ashoka Connection"
+    },
+    "publisher": {
+     "en": "Live History India",
+     "hi": "Live History India"
+    },
+    "url": "https://livehistoryindia.com/story/snapshort-histories/delhis-ashoka-connects"
+   }
+  ],
   "related": [],
   "lat": 28.6377,
   "lng": 77.24311
@@ -1996,13 +2503,112 @@
   "era": "20th century (1929)",
   "style": "Lutyens' Delhi / Indo-colonial",
   "location": "Rashtrapati Bhavan, Kartavya Path, Central Secretariat, Raisina Hill, New Delhi",
-  "verified": false,
+  "verified": true,
   "summary": {
-   "en": "",
-   "hi": ""
+   "en": "As you stand before Rashtrapati Bhavan, you are looking at a magnificent synthesis of Western and Eastern architectural styles, constructed from red sandstone and adorned with traditional chattris, jaalis, and chujas. Originally built as the Viceroy's House, this monumental structure was designed by Edwin Lutyens, while Herbert Baker designed the nearby Secretariat buildings.",
+   "hi": "जैसे ही आप यहाँ खड़े होते हैं, आप राष्ट्रपति भवन को देखते हैं, जिसे मूल रूप से वायसराय हाउस के रूप में बनाया गया था। इस भव्य इमारत को वास्तुकार एडविन लुटियंस ने डिज़ाइन किया था, जबकि हर्बर्ट बेकर ने पास की सचिवालय इमारतों पर काम किया था।"
   },
-  "sections": [],
-  "sources": [],
+  "sections": [
+   {
+    "heading": {
+     "en": "Origin",
+     "hi": "उत्पत्ति"
+    },
+    "text": {
+     "en": "Rashtrapati Bhavan was built as the Viceroy's House and was designed by Edwin Lutyens.",
+     "hi": "राष्ट्रपति भवन वायसराय हाउस के रूप में बनाया गया था और इसे एडविन लुटियंस ने डिज़ाइन किया था।"
+    },
+    "isLegend": false,
+    "source": 1,
+    "cited": [
+     1,
+     2
+    ]
+   },
+   {
+    "heading": {
+     "en": "History",
+     "hi": "इतिहास"
+    },
+    "text": {
+     "en": "The Viceroy's House was completed in 1929.",
+     "hi": "वायसराय हाउस 1929 में पूरा हुआ।"
+    },
+    "isLegend": false,
+    "source": 3,
+    "cited": [
+     3,
+     2
+    ]
+   },
+   {
+    "heading": {
+     "en": "Architecture",
+     "hi": "वास्तुकला"
+    },
+    "text": {
+     "en": "The building combines Western classical architecture with Indian elements.",
+     "hi": "इस इमारत में पश्चिमी शास्त्रीय वास्तुकला को भारतीय तत्वों के साथ जोड़ा गया है।"
+    },
+    "isLegend": false,
+    "source": 3,
+    "cited": [
+     3,
+     2
+    ]
+   },
+   {
+    "heading": {
+     "en": "History",
+     "hi": "इतिहास"
+    },
+    "text": {
+     "en": "In 1950 the Viceroy's House was renamed Rashtrapati Bhavan, the President's House.",
+     "hi": "1950 में वायसराय हाउस का नाम बदलकर राष्ट्रपति भवन रखा गया।"
+    },
+    "isLegend": false,
+    "source": 3,
+    "cited": [
+     3,
+     1
+    ]
+   }
+  ],
+  "sources": [
+   {
+    "title": {
+     "en": "Rashtrapati Bhavan, New Delhi",
+     "hi": "Rashtrapati Bhavan, New Delhi"
+    },
+    "publisher": {
+     "en": "Royal Institute of British Architects (RIBA)",
+     "hi": "Royal Institute of British Architects (RIBA)"
+    },
+    "url": "https://www.riba.org/explore-architecture/inside-the-riba-collections/rashtrapati-bhavan-new-delhi"
+   },
+   {
+    "title": {
+     "en": "Viceroy's House (Rashtrapati Bhavan), by Edwin Lutyens",
+     "hi": "Viceroy's House (Rashtrapati Bhavan), by Edwin Lutyens"
+    },
+    "publisher": {
+     "en": "The Victorian Web",
+     "hi": "The Victorian Web"
+    },
+    "url": "https://www.victorianweb.org/art/architecture/lutyens/10.html"
+   },
+   {
+    "title": {
+     "en": "Rashtrapati Bhavan - History and Facts",
+     "hi": "Rashtrapati Bhavan - History and Facts"
+    },
+    "publisher": {
+     "en": "History Hit",
+     "hi": "History Hit"
+    },
+    "url": "https://www.historyhit.com/locations/rashtrapati-bhavan/"
+   }
+  ],
   "related": [],
   "lat": 28.61436,
   "lng": 77.19959
@@ -2017,13 +2623,108 @@
   "era": "Mughal era garden precinct",
   "style": "Mughal garden and tombs",
   "location": "Sunder Nursery, Central",
-  "verified": false,
+  "verified": true,
   "summary": {
-   "en": "",
-   "hi": ""
+   "en": "As you stand here at Sunder Nursery, you are surrounded by a 90-acre park dotted with historical monuments. This 16th-century heritage park lies right beside the Humayun's Tomb complex.",
+   "hi": "जैसे ही आप सुंदर नर्सरी में खड़े होते हैं, आप एक ऐसे स्थान पर हैं जो 16वीं शताब्दी की विरासत और प्रकृति का एक अद्भुत संगम है। यह स्थल हुमायूं मकबरे के परिसर के पास स्थित एक 16th-century heritage park है।"
   },
-  "sections": [],
-  "sources": [],
+  "sections": [
+   {
+    "heading": {
+     "en": "Origin",
+     "hi": "उत्पत्ति"
+    },
+    "text": {
+     "en": "Sunder Nursery began in the early 20th century as a plant nursery for the new capital, New Delhi.",
+     "hi": "सुंदर नर्सरी की शुरुआत बीसवीं सदी के आरंभ में नई राजधानी नई दिल्ली के लिए पौधशाला के रूप में हुई थी।"
+    },
+    "isLegend": false,
+    "source": 1,
+    "cited": [
+     1,
+     2
+    ]
+   },
+   {
+    "heading": {
+     "en": "Architecture",
+     "hi": "वास्तुकला"
+    },
+    "text": {
+     "en": "Sunder Nursery lies beside Humayun's Tomb and contains 16th-century monuments.",
+     "hi": "सुंदर नर्सरी हुमायूँ के मकबरे के पास स्थित है और इसमें सोलहवीं सदी के स्मारक हैं।"
+    },
+    "isLegend": false,
+    "source": 1,
+    "cited": [
+     1,
+     3
+    ]
+   },
+   {
+    "heading": {
+     "en": "History",
+     "hi": "इतिहास"
+    },
+    "text": {
+     "en": "The Aga Khan Trust for Culture spent about a decade restoring Sunder Nursery as a 90-acre public park.",
+     "hi": "आग़ा ख़ान ट्रस्ट फ़ॉर कल्चर ने लगभग एक दशक में सुंदर नर्सरी को 90 एकड़ के सार्वजनिक उद्यान के रूप में पुनर्स्थापित किया।"
+    },
+    "isLegend": false,
+    "source": 4,
+    "cited": [
+     4,
+     1,
+     3
+    ]
+   }
+  ],
+  "sources": [
+   {
+    "title": {
+     "en": "Delhi's 'lost' Mughal garden reopens as public park",
+     "hi": "Delhi's 'lost' Mughal garden reopens as public park"
+    },
+    "publisher": {
+     "en": "Gulf News",
+     "hi": "Gulf News"
+    },
+    "url": "https://gulfnews.com/amp/story/world%2Fasia%2Findia%2Fdelhis-lost-mughal-garden-reopens-as-public-park-1.2177247"
+   },
+   {
+    "title": {
+     "en": "About Us - Sunder Nursery",
+     "hi": "About Us - Sunder Nursery"
+    },
+    "publisher": {
+     "en": "Sunder Nursery (sundernursery.org)",
+     "hi": "Sunder Nursery (sundernursery.org)"
+    },
+    "url": "https://sundernursery.org/about-us.php"
+   },
+   {
+    "title": {
+     "en": "Mughal-era ruins, heritage park: architect, author trace journey of Delhi's Sunder Nursery",
+     "hi": "Mughal-era ruins, heritage park: architect, author trace journey of Delhi's Sunder Nursery"
+    },
+    "publisher": {
+     "en": "ThePrint",
+     "hi": "ThePrint"
+    },
+    "url": "https://theprint.in/feature/around-town/mughal-era-ruins-heritage-park-architect-author-trace-journey-delhis-sunder-nursery/2571926"
+   },
+   {
+    "title": {
+     "en": "Sunder Nursery gives Delhi a beautifully restored green space",
+     "hi": "Sunder Nursery gives Delhi a beautifully restored green space"
+    },
+    "publisher": {
+     "en": "Aga Khan Development Network (AKDN)",
+     "hi": "Aga Khan Development Network (AKDN)"
+    },
+    "url": "https://the.akdn/en/resources-media/whats-new/in-the-media/sunder-nursery-gives-delhi-beautifully-restored-green-space-%E2%80%93-and-template-heritage"
+   }
+  ],
   "related": [],
   "lat": 28.59691,
   "lng": 77.24702
@@ -2035,16 +2736,110 @@
    "hi": "अब्दुर रहीम ख़ान-ए-ख़ाना का मकबरा"
   },
   "city": "Delhi",
-  "era": "Mughal (17th century)",
+  "era": "Mughal (1598)",
   "style": "Mughal tomb",
   "location": "Tomb of Abdul Rahim Khan-i-Khanan, Rahim Khan Road, Nizamuddin East, Central",
-  "verified": false,
+  "verified": true,
   "summary": {
-   "en": "",
-   "hi": ""
+   "en": "As you stand here in Nizamuddin, Delhi, you are looking at a magnificent mausoleum built in 1598 by Abdur Rahim Khan-i-Khanan for his beloved wife, Mah Banu. Notice how the structure follows the grand design of the nearby Humayun's Tomb.",
+   "hi": "जब आप दिल्ली के निजामuddin में अब्दुल रहीम खान-ए-खाना के इस मकबरे के सामने खड़े होते हैं, तो आप इतिहास की एक भव्य कृति को देख रहे हैं। इस मकबरे का निर्माण खुद रहीम ने 1598 में अपनी पत्नी माह बानो के लिए करवाया था, और बाद में निधन के बाद रहीम को भी इसी मकबरे में दफनाया गया।"
   },
-  "sections": [],
-  "sources": [],
+  "sections": [
+   {
+    "heading": {
+     "en": "Origin",
+     "hi": "उत्पत्ति"
+    },
+    "text": {
+     "en": "The tomb in Nizamuddin, Delhi was built in 1598 by Abdur Rahim Khan-i-Khanan for his wife Mah Banu; Rahim was later buried there too.",
+     "hi": "दिल्ली के निज़ामुद्दीन में स्थित यह मकबरा 1598 में अब्दुर्रहीम ख़ान-ए-ख़ानाँ ने अपनी पत्नी माह बानो के लिए बनवाया था; बाद में रहीम को भी यहीं दफ़नाया गया।"
+    },
+    "isLegend": false,
+    "source": 1,
+    "cited": [
+     1,
+     2
+    ]
+   },
+   {
+    "heading": {
+     "en": "Architecture",
+     "hi": "वास्तुकला"
+    },
+    "text": {
+     "en": "The tomb follows the design of the nearby Humayun's Tomb.",
+     "hi": "यह मकबरा पास के हुमायूँ के मकबरे के नक्शे का अनुसरण करता है।"
+    },
+    "isLegend": false,
+    "source": 1,
+    "cited": [
+     1,
+     3
+    ]
+   },
+   {
+    "heading": {
+     "en": "History",
+     "hi": "इतिहास"
+    },
+    "text": {
+     "en": "A six-year conservation of the tomb by the Aga Khan Trust for Culture, begun in 2014, was completed in December 2020.",
+     "hi": "आग़ा ख़ान ट्रस्ट फ़ॉर कल्चर द्वारा 2014 में शुरू किया गया मकबरे का छह वर्षीय संरक्षण कार्य दिसंबर 2020 में पूरा हुआ।"
+    },
+    "isLegend": false,
+    "source": 1,
+    "cited": [
+     1,
+     4
+    ]
+   }
+  ],
+  "sources": [
+   {
+    "title": {
+     "en": "AKTC completes conservation works on Abdur Rahim Khan-i-Khanan's Mausoleum in Delhi",
+     "hi": "AKTC completes conservation works on Abdur Rahim Khan-i-Khanan's Mausoleum in Delhi"
+    },
+    "publisher": {
+     "en": "Aga Khan Development Network",
+     "hi": "Aga Khan Development Network"
+    },
+    "url": "https://the.akdn/en/resources-media/whats-new/news-release/aktc-completes-conservation-works-abdur-rahim-khan-i-khanans-mausoleum-delhi"
+   },
+   {
+    "title": {
+     "en": "Abdur Rahim Khan-i-Khanan",
+     "hi": "Abdur Rahim Khan-i-Khanan"
+    },
+    "publisher": {
+     "en": "Chronicle India",
+     "hi": "Chronicle India"
+    },
+    "url": "https://chronicleindia.in/online-magazine/csc-english-february-2021/4821a384698ab602cb4a3d2a6947f9f0"
+   },
+   {
+    "title": {
+     "en": "Tomb of Khan-i-Khanan",
+     "hi": "Tomb of Khan-i-Khanan"
+    },
+    "publisher": {
+     "en": "The Week",
+     "hi": "The Week"
+    },
+    "url": "https://www.theweek.in/webworld/features/society/tomb-of-khan-i-khanan.html"
+   },
+   {
+    "title": {
+     "en": "Abdur Rahim Khan-i-Khanan's Mausoleum: a project on heritage conservation",
+     "hi": "Abdur Rahim Khan-i-Khanan's Mausoleum: a project on heritage conservation"
+    },
+    "publisher": {
+     "en": "InterGlobe Foundation",
+     "hi": "InterGlobe Foundation"
+    },
+    "url": "https://www.interglobe.com/csr/abdur-rahim-khan-i-khanans-mausoleum-a-project-on-heritage-conservation"
+   }
+  ],
   "related": [],
   "lat": 28.58806,
   "lng": 77.24802
@@ -2059,13 +2854,53 @@
   "era": "Delhi Sultanate (14th century)",
   "style": "Tughlaq-era mosque",
   "location": "Khirki Masjid, Path to Khirki Masjid, Khirki, South",
-  "verified": false,
+  "verified": true,
   "summary": {
-   "en": "",
-   "hi": ""
+   "en": "As you stand here at Khirki Masjid in Delhi, you are experiencing a remarkable mosque of the Tughlaq period, built in the reign of Sultan Firoz Shah Tughlaq. Look around the vast structure that surrounds you; historical accounts and interviews refer to the mosque built by Firoz Shah Tughlaq in Khirki as large enough for a huge congregation.",
+   "hi": "As you stand here at Khirki Masjid in Delhi, you are looking at a magnificent mosque built during the Tughlaq period in the reign of Sultan Firoz Shah Tughlaq. As you take in the impressive structure around you, imagine the historical moments that unfolded here."
   },
-  "sections": [],
-  "sources": [],
+  "sections": [
+   {
+    "heading": {
+     "en": "Origin",
+     "hi": "उत्पत्ति"
+    },
+    "text": {
+     "en": "Khirki Masjid in Delhi is a mosque of the Tughlaq period, built in the reign of Sultan Firoz Shah Tughlaq.",
+     "hi": "दिल्ली की खिड़की मस्जिद तुग़लक़ काल की मस्जिद है, जो सुल्तान फ़िरोज़ शाह तुग़लक़ के शासनकाल में बनी थी।"
+    },
+    "isLegend": false,
+    "source": 1,
+    "cited": [
+     1,
+     2
+    ]
+   }
+  ],
+  "sources": [
+   {
+    "title": {
+     "en": "Eight Cities of Delhi - Firozabad",
+     "hi": "Eight Cities of Delhi - Firozabad"
+    },
+    "publisher": {
+     "en": "Delhi Tourism (delhitourism.gov.in)",
+     "hi": "Delhi Tourism (delhitourism.gov.in)"
+    },
+    "url": "https://delhitourism.gov.in/aboutus/firozabad.html"
+   },
+   {
+    "title": {
+     "en": "'The first Tughlaq Capital': Interview with Nalini Thakur",
+     "hi": "'The first Tughlaq Capital': Interview with Nalini Thakur"
+    },
+    "publisher": {
+     "en": "Sahapedia",
+     "hi": "Sahapedia"
+    },
+    "url": "https://www.sahapedia.org/the-first-tughlaq-capital-interview-nalini-thakur"
+   }
+  ],
   "related": [],
   "lat": 28.53146,
   "lng": 77.21975
@@ -2080,13 +2915,96 @@
   "era": "Delhi Sultanate (14th century)",
   "style": "Sufi shrine",
   "location": "Nizamuddin Dargah, Lodhi Road, Central",
-  "verified": false,
+  "verified": true,
   "summary": {
-   "en": "",
-   "hi": ""
+   "en": "As you stand here at the Nizamuddin Dargah in Delhi, you are visiting the 14th-century shrine and tomb of the famous Sufi saint Hazrat Nizamuddin Auliya, around which the surrounding neighborhood grew. This saint's dargah soon emerged as a major pilgrimage centre in the heart of modern Delhi.",
+   "hi": "जैसे ही आप दिल्ली के हज़रत निज़ामुद्दीन दरगाह में खड़े होते हैं, आप चौदहवीं शताब्दी के उस प्रसिद्ध सूफी संत हज़रत निज़ामुद्दीन औलिया के मजार और तीर्थस्थल पर हैं, जिनके नाम पर यह पूरा इलाका बसा है। इस दरगाह परिसर के भीतर आपको अमीर खुसरो, राजकुमारी जहाँआरा और मुहम्मद शाह रंगीला के मकबरे भी देखने को मिलते हैं।"
   },
-  "sections": [],
-  "sources": [],
+  "sections": [
+   {
+    "heading": {
+     "en": "Origin",
+     "hi": "उत्पत्ति"
+    },
+    "text": {
+     "en": "The Nizamuddin Dargah in Delhi is the shrine and tomb of the Sufi saint Nizamuddin Auliya.",
+     "hi": "दिल्ली की निज़ामुद्दीन दरगाह सूफ़ी संत निज़ामुद्दीन औलिया की दरगाह और मकबरा है।"
+    },
+    "isLegend": false,
+    "source": 1,
+    "cited": [
+     1,
+     2
+    ]
+   },
+   {
+    "heading": {
+     "en": "History",
+     "hi": "इतिहास"
+    },
+    "text": {
+     "en": "The dargah complex also holds the tombs of the poet Amir Khusrau and of Princess Jahanara Begum.",
+     "hi": "दरगाह परिसर में कवि अमीर ख़ुसरो और शहज़ादी जहाँआरा बेगम के मकबरे भी हैं।"
+    },
+    "isLegend": false,
+    "source": 1,
+    "cited": [
+     1,
+     2
+    ]
+   },
+   {
+    "heading": {
+     "en": "Recognition",
+     "hi": "मान्यता"
+    },
+    "text": {
+     "en": "The dargah is a major centre of pilgrimage.",
+     "hi": "यह दरगाह एक प्रमुख तीर्थ-केंद्र है।"
+    },
+    "isLegend": false,
+    "source": 2,
+    "cited": [
+     2,
+     3
+    ]
+   }
+  ],
+  "sources": [
+   {
+    "title": {
+     "en": "Sair-e-Nizamuddin, Nizamuddin Urban Renewal Initiative",
+     "hi": "Sair-e-Nizamuddin, Nizamuddin Urban Renewal Initiative"
+    },
+    "publisher": {
+     "en": "Aga Khan Trust for Culture (Nizamuddin Urban Renewal Initiative)",
+     "hi": "Aga Khan Trust for Culture (Nizamuddin Urban Renewal Initiative)"
+    },
+    "url": "https://www.nizamuddinrenewal.org/livelihoods/sair-e-nizamuddin.php"
+   },
+   {
+    "title": {
+     "en": "Religious places In Delhi",
+     "hi": "Religious places In Delhi"
+    },
+    "publisher": {
+     "en": "Delhi Tourism (delhitourism.gov.in)",
+     "hi": "Delhi Tourism (delhitourism.gov.in)"
+    },
+    "url": "https://delhitourism.gov.in/tourist_place/spritual_delhi.html"
+   },
+   {
+    "title": {
+     "en": "Hazrat-i-Dehli: The Making of the Chishti Sufi Centre and the Stronghold of Islam",
+     "hi": "Hazrat-i-Dehli: The Making of the Chishti Sufi Centre and the Stronghold of Islam"
+    },
+    "publisher": {
+     "en": "Sahapedia",
+     "hi": "Sahapedia"
+    },
+    "url": "https://www.sahapedia.org/hazrat-i-dehli-the-making-of-the-chishti-sufi-centre-and-the-stronghold-of-islam"
+   }
+  ],
   "related": [],
   "lat": 28.59138,
   "lng": 77.24198
@@ -2101,13 +3019,96 @@
   "era": "20th century (1948)",
   "style": "Memorial",
   "location": "Raj Ghat, Central",
-  "verified": false,
+  "verified": true,
   "summary": {
-   "en": "",
-   "hi": ""
+   "en": "As you stand here by the bank of the Yamuna, you are looking at Raj Ghat, the memorial to Mahatma Gandhi. A simple square platform of black marble marks the exact place where he was cremated on 31 January 1948, just one day after his assassination.",
+   "hi": "जैसे ही आप यमुना नदी के तट पर यहाँ खड़े होते हैं, आप महात्मा गांधी के स्मारक, राजघाट पर हैं। ठीक उसी स्थान पर जहाँ 31 जनवरी 1948 को उनकी हत्या के एक दिन बाद उनका अंतिम संस्कार किया गया था, काले संगमरमर का एक साधारण वर्गाकार चबूतरा सुशोभित है।"
   },
-  "sections": [],
-  "sources": [],
+  "sections": [
+   {
+    "heading": {
+     "en": "Origin",
+     "hi": "उत्पत्ति"
+    },
+    "text": {
+     "en": "Raj Ghat on the bank of the Yamuna is the memorial to Mahatma Gandhi; a simple platform of black marble marks the place where he was cremated.",
+     "hi": "यमुना तट पर स्थित राज घाट महात्मा गांधी का स्मारक है; काले संगमरमर का एक सादा चबूतरा उस स्थान को चिह्नित करता है जहाँ उनका अंतिम संस्कार हुआ था।"
+    },
+    "isLegend": false,
+    "source": 1,
+    "cited": [
+     1,
+     2
+    ]
+   },
+   {
+    "heading": {
+     "en": "History",
+     "hi": "इतिहास"
+    },
+    "text": {
+     "en": "Mahatma Gandhi was cremated at Raj Ghat on 31 January 1948, the day after his assassination.",
+     "hi": "महात्मा गांधी का अंतिम संस्कार उनकी हत्या के अगले दिन, 31 जनवरी 1948 को राज घाट पर हुआ।"
+    },
+    "isLegend": false,
+    "source": 3,
+    "cited": [
+     3,
+     2
+    ]
+   },
+   {
+    "heading": {
+     "en": "Architecture",
+     "hi": "वास्तुकला"
+    },
+    "text": {
+     "en": "The memorial is deliberately plain, with unadorned black marble lines and an eternal flame burning beside it.",
+     "hi": "यह स्मारक जानबूझकर सादा रखा गया है, जिसमें काले संगमरमर की अलंकरण-रहित रेखाएँ हैं और पास में एक अखंड ज्योति जलती रहती है।"
+    },
+    "isLegend": false,
+    "source": 3,
+    "cited": [
+     3,
+     2
+    ]
+   }
+  ],
+  "sources": [
+   {
+    "title": {
+     "en": "City Sight Seeing Tours",
+     "hi": "City Sight Seeing Tours"
+    },
+    "publisher": {
+     "en": "Delhi Tourism (delhitourism.gov.in)",
+     "hi": "Delhi Tourism (delhitourism.gov.in)"
+    },
+    "url": "https://delhitourism.gov.in/tour_packages/city_sight.html"
+   },
+   {
+    "title": {
+     "en": "About Us, Rajghat Samadhi Committee",
+     "hi": "About Us, Rajghat Samadhi Committee"
+    },
+    "publisher": {
+     "en": "Rajghat Samadhi Committee, Government of India",
+     "hi": "Rajghat Samadhi Committee, Government of India"
+    },
+    "url": "https://www.rajghat.gov.in/about-us"
+   },
+   {
+    "title": {
+     "en": "Pay homage at Raj Ghat in Delhi",
+     "hi": "Pay homage at Raj Ghat in Delhi"
+    },
+    "publisher": {
+     "en": "Incredible India (Ministry of Tourism, Government of India)",
+     "hi": "Incredible India (Ministry of Tourism, Government of India)"
+    },
+    "url": "https://www.incredibleindia.gov.in/en/delhi/delhi/raj-ghat"
+   }
+  ],
   "related": [],
   "lat": 28.64415,
   "lng": 77.24984
@@ -2122,13 +3123,107 @@
   "era": "21st century (2005)",
   "style": "Neo-traditional Hindu temple",
   "location": "Swaminarayan's Akshardham Temple, NH24 Bypass, Mayur Vihar, Shahdara South",
-  "verified": false,
+  "verified": true,
   "summary": {
-   "en": "",
-   "hi": ""
+   "en": "As you stand here at Swaminarayan Akshardham in Delhi, look around you. This magnificent complex was built in five years by the BAPS Swaminarayan Sanstha under Pramukh Swami Maharaj and was inaugurated on 6 November 2005.",
+   "hi": "जैसे ही आप दिल्ली के स्वामीनारायण अक्षरधाम मंदिर के सामने खड़े होते हैं, आप दुनिया के सबसे बड़े व्यापक हिंदू मंदिर (Guinness World Records के अनुसार) को देख रहे हैं, जिसका कुल क्षेत्रफल 8,021.43 वर्ग मीटर है। इस भव्य परिसर का निर्माण बीएपीएस स्वामीनारायण संस्था (BAPS Swaminarayan Sanstha) द्वारा प्रमुख स्वामी महाराज के मार्गदर्शन में पांच वर्षों में किया गया था और इसका उद्घाटन 6 नवंबर 2005 को हुआ था।"
   },
-  "sections": [],
-  "sources": [],
+  "sections": [
+   {
+    "heading": {
+     "en": "Origin",
+     "hi": "उत्पत्ति"
+    },
+    "text": {
+     "en": "Swaminarayan Akshardham in Delhi was built by the BAPS Swaminarayan Sanstha and inaugurated on 6 November 2005.",
+     "hi": "दिल्ली का स्वामिनारायण अक्षरधाम बी.ए.पी.एस. स्वामिनारायण संस्था द्वारा बनवाया गया और 6 नवंबर 2005 को उसका उद्घाटन हुआ।"
+    },
+    "isLegend": false,
+    "source": 1,
+    "cited": [
+     1,
+     2
+    ]
+   },
+   {
+    "heading": {
+     "en": "Architecture",
+     "hi": "वास्तुकला"
+    },
+    "text": {
+     "en": "The mandir follows traditional Hindu temple architecture guided by the shastras, with 234 carved pillars, 9 domes and 20 quadrangled spires.",
+     "hi": "मंदिर शास्त्रों से निर्देशित पारंपरिक हिंदू मंदिर स्थापत्य का अनुसरण करता है, जिसमें 234 नक्काशीदार स्तंभ, 9 गुंबद और 20 चतुष्कोणीय शिखर हैं।"
+    },
+    "isLegend": false,
+    "source": 3,
+    "cited": [
+     3,
+     4
+    ]
+   },
+   {
+    "heading": {
+     "en": "Recognition",
+     "hi": "मान्यता"
+    },
+    "text": {
+     "en": "Guinness World Records recognises Swaminarayan Akshardham in Delhi as the world's largest Hindu temple.",
+     "hi": "गिनीज़ वर्ल्ड रिकॉर्ड्स दिल्ली के स्वामिनारायण अक्षरधाम को दुनिया का सबसे बड़ा हिंदू मंदिर मानता है।"
+    },
+    "isLegend": false,
+    "source": 1,
+    "cited": [
+     1,
+     2
+    ]
+   }
+  ],
+  "sources": [
+   {
+    "title": {
+     "en": "Akshardham Temple",
+     "hi": "Akshardham Temple"
+    },
+    "publisher": {
+     "en": "Delhi Tourism (delhitourism.gov.in)",
+     "hi": "Delhi Tourism (delhitourism.gov.in)"
+    },
+    "url": "https://delhitourism.gov.in/tourist_place/akshardham_temple.html"
+   },
+   {
+    "title": {
+     "en": "Largest Hindu temple",
+     "hi": "Largest Hindu temple"
+    },
+    "publisher": {
+     "en": "Guinness World Records",
+     "hi": "Guinness World Records"
+    },
+    "url": "https://www.guinnessworldrecords.com/world-records/largest-hindu-temple"
+   },
+   {
+    "title": {
+     "en": "Mandir, Swaminarayan Akshardham",
+     "hi": "Mandir, Swaminarayan Akshardham"
+    },
+    "publisher": {
+     "en": "BAPS Swaminarayan Akshardham",
+     "hi": "BAPS Swaminarayan Akshardham"
+    },
+    "url": "https://akshardham.com/explore/Mandir/"
+   },
+   {
+    "title": {
+     "en": "Akshardham Temple in Delhi",
+     "hi": "Akshardham Temple in Delhi"
+    },
+    "publisher": {
+     "en": "Incredible India (Ministry of Tourism, Government of India)",
+     "hi": "Incredible India (Ministry of Tourism, Government of India)"
+    },
+    "url": "https://www.incredibleindia.gov.in/en/delhi/delhi/akshardham-temple"
+   }
+  ],
   "related": [],
   "lat": 28.61252,
   "lng": 77.27732
@@ -2143,13 +3238,69 @@
   "era": "Mughal (1650)",
   "style": "Mughal mosque",
   "location": "Fatehpuri Masjid, Katra Bariyan, Naya Bazaar, Sadar Bazar, Old Delhi, City & Sadar",
-  "verified": false,
+  "verified": true,
   "summary": {
-   "en": "",
-   "hi": ""
+   "en": "As you stand here at Fatehpuri Masjid in Chandni Chowk, look around at the striking red sandstone architecture. This grand mosque was built in 1650 by Fatehpuri Begum, one of Shah Jahan's wives, and is proudly named after her.",
+   "hi": "जब आप चाँदनी चौक में फतेhpuri मस्जिद के सामने खड़े होते हैं, तो आप मुगल काल के इतिहास को अपने सामने पाते हैं। इस विशाल लाल बलुआ पत्थर की मस्जिद का निर्माण 1650 में शाहजहाँ की पत्नियों में से एक, फतेhpuri बेगम ने करवाया था और उन्हीं के नाम पर इसका नाम रखा गया है।"
   },
-  "sections": [],
-  "sources": [],
+  "sections": [
+   {
+    "heading": {
+     "en": "Origin",
+     "hi": "उत्पत्ति"
+    },
+    "text": {
+     "en": "Fatehpuri Masjid in Chandni Chowk was built in 1650 by Fatehpuri Begum, one of Shah Jahan's wives.",
+     "hi": "चाँदनी चौक की फ़तेहपुरी मस्जिद 1650 में शाहजहाँ की बेगमों में से एक, फ़तेहपुरी बेगम ने बनवाई थी।"
+    },
+    "isLegend": false,
+    "source": 1,
+    "cited": [
+     1,
+     2
+    ]
+   },
+   {
+    "heading": {
+     "en": "Architecture",
+     "hi": "वास्तुकला"
+    },
+    "text": {
+     "en": "The mosque is built of red sandstone with a single dome and flanking minarets, and its prayer hall has seven arches, the central one the tallest.",
+     "hi": "मस्जिद लाल बलुआ पत्थर से बनी है, जिसमें एक गुंबद और दोनों ओर मीनारें हैं; इसके नमाज़ हॉल में सात मेहराब हैं, जिनमें बीच वाला सबसे ऊँचा है।"
+    },
+    "isLegend": false,
+    "source": 1,
+    "cited": [
+     1,
+     2
+    ]
+   }
+  ],
+  "sources": [
+   {
+    "title": {
+     "en": "History, Masjid Fatehpuri",
+     "hi": "History, Masjid Fatehpuri"
+    },
+    "publisher": {
+     "en": "Masjid Fatehpuri (official website)",
+     "hi": "Masjid Fatehpuri (official website)"
+    },
+    "url": "https://masjidfatehpuri.in/history/"
+   },
+   {
+    "title": {
+     "en": "Heritage of Delhi, 1600-1700",
+     "hi": "Heritage of Delhi, 1600-1700"
+    },
+    "publisher": {
+     "en": "Shahjahanabad Redevelopment Corporation, Government of NCT of Delhi",
+     "hi": "Shahjahanabad Redevelopment Corporation, Government of NCT of Delhi"
+    },
+    "url": "https://srdc.delhi.gov.in/en/srdc/1600-1700"
+   }
+  ],
   "related": [],
   "lat": 28.65673,
   "lng": 77.22226

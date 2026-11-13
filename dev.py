@@ -158,7 +158,7 @@ def main() -> int:
         install_recognition()
     install_frontend(pnpm)
     run(VENV_PY, "-m", "app.db.seed", cwd=BACKEND)
-    if args.stories:  # story-pending sites always report [FAIL], so don't stop on its exit code
+    if args.stories:  # one failed story should not stop the app from starting
         run(VENV_PY, "-m", "scripts.generate_stories", cwd=API, check=False)
     return serve(pnpm)
 

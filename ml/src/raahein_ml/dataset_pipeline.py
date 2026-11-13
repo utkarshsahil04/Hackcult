@@ -45,6 +45,7 @@ IMAGE_SUFFIXES = {".jpg", ".jpeg", ".jfif", ".png", ".webp"}
 NEAR_DUPLICATE_DISTANCE = 6
 CALIBRATION_FRACTION = 0.15
 NEGATIVES_PER_CLASS = 20
+MIN_EXTRA_IMAGES = 10  # fewer cannot be split into gallery / calibration / test sensibly
 # Stricter than models.yaml (0.05, locked for the licensed pipeline): a wrong answer is worse.
 MAX_OOD_FALSE_ACCEPT = 0.02
 
@@ -123,8 +124,12 @@ def _load(path: Path) -> Image.Image | None:
         return None
 
 
-def _plan_roles(dataset: Path, seed: int = 7) -> list[dict]:
-    """Assign each usable image a role: gallery / calib / test / calib_neg / test_neg."""
+def _plan_roles(dataset: Path, seed: int = 7, extra: Path | None = None) -> list[dict]:
+    """Assign each usable image a role: gallery / calib / test / calib_neg / test_neg.
+
+    `extra` holds one folder per canonical slug; it is split with the same calibration share
+    and an equally sized test share, since it has no train/test folders of its own.
+    """
     rng = random.Random(seed)
     rows = _scan(dataset)
     plan: list[dict] = []
@@ -152,6 +157,20 @@ def _plan_roles(dataset: Path, seed: int = 7) -> list[dict]:
             {"path": p, "role": role, "slug": None, "key": key}
             for p in paths[:NEGATIVES_PER_CLASS]
         )
+    # After the negatives, so the dataset-only plan stays identical when extra is absent.
+    for folder in sorted(f for f in extra.iterdir() if f.is_dir()) if extra else []:
+        paths = [p for p in sorted(folder.iterdir()) if p.suffix.lower() in IMAGE_SUFFIXES]
+        if len(paths) < MIN_EXTRA_IMAGES:
+            print(f"skip extra {folder.name}: {len(paths)} images (< {MIN_EXTRA_IMAGES})",
+                  file=sys.stderr)
+            continue
+        rng.shuffle(paths)
+        held_out = max(3, int(len(paths) * CALIBRATION_FRACTION))
+        for index, path in enumerate(paths):
+            role = ("calib" if index < held_out
+                    else "test" if index < 2 * held_out else "gallery")
+            key = f"extra/{folder.name}"
+            plan.append({"path": path, "role": role, "slug": folder.name, "key": key})
     return plan
 
 
@@ -181,9 +200,10 @@ def _strategy_report(traces: list[LabeledTrace], negatives: list[PredictionTrace
     }
 
 
-def build(dataset: Path, config: MLConfig, out: Path | None = None) -> Path:
+def build(dataset: Path, config: MLConfig, out: Path | None = None,
+          extra: Path | None = None) -> Path:
     started = time.time()
-    plan = _plan_roles(dataset)
+    plan = _plan_roles(dataset, extra=extra)
     images: list[Image.Image] = []
     kept: list[dict] = []
     for item in plan:
@@ -341,9 +361,10 @@ def main() -> None:
     sub = parser.add_subparsers(dest="command", required=True)
     build_parser = sub.add_parser("build", help="embed the dataset, calibrate, write the artifact")
     build_parser.add_argument("--dataset", required=True, type=Path, help="dir with train/ test/")
+    build_parser.add_argument("--extra", type=Path, help="dir of <slug>/ photo folders to add")
     args = parser.parse_args()
     if args.command == "build":
-        build(args.dataset, load_config())
+        build(args.dataset, load_config(), extra=args.extra)
 
 
 if __name__ == "__main__":

@@ -90,10 +90,12 @@ test('a failed plan shows an error, never an invented route', async ({ page }) =
   await expect(page.getByRole('heading', { name: 'We could not build your plan' })).toBeVisible()
 })
 
-test('a listed site says its story is pending instead of inventing one', async ({ page }) => {
+// Every listed site now has sourced facts, so none is left to show the story-pending notice.
+test('a listed site that gained sources shows its facts, not a pending notice', async ({ page }) => {
   await page.addInitScript(() => localStorage.setItem('raahein-language', 'en'))
   await page.goto('/monument/india-gate')
-  await expect(page.getByTestId('story-pending')).toBeVisible()
+  await expect(page.getByTestId('facts')).toBeVisible()
+  await expect(page.getByTestId('story-pending')).toHaveCount(0)
 })
 
 test('facts show two sources each and legends stay apart from them', async ({ page }) => {

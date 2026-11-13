@@ -958,5 +958,729 @@
         "note": "Identifies Sikandar Lodi's tomb as an important architectural precursor to Mughal garden tombs."
       }
     ]
+  },
+  {
+    "monument": "abdul-rahim-khan-i-khana-tomb",
+    "key": "built-1598-for-mah-banu",
+    "type": "built",
+    "position": 1,
+    "is_legend": false,
+    "text": "The tomb in Nizamuddin, Delhi was built in 1598 by Abdur Rahim Khan-i-Khanan for his wife Mah Banu; Rahim was later buried there too.",
+    "sources": [
+      {
+        "source": "akdn-rahim-tomb-conservation-2020",
+        "note": "States that Rahim built the mausoleum in AD 1598 for his wife Mah Banu and was himself buried there after his death."
+      },
+      {
+        "source": "chronicleindia-rahim-tomb",
+        "note": "Says it was built by Rahim in 1598 for his wife Mah Banu and that Rahim was buried in the same mausoleum."
+      }
+    ]
+  },
+  {
+    "monument": "abdul-rahim-khan-i-khana-tomb",
+    "key": "humayun-tomb-style",
+    "type": "style",
+    "position": 2,
+    "is_legend": false,
+    "text": "The tomb follows the design of the nearby Humayun's Tomb.",
+    "sources": [
+      {
+        "source": "akdn-rahim-tomb-conservation-2020",
+        "note": "Says the mausoleum follows the design of Humayun's Tomb."
+      },
+      {
+        "source": "theweek-rahim-tomb",
+        "note": "Describes it as built in the style of the nearby Humayun's Tomb."
+      }
+    ]
+  },
+  {
+    "monument": "abdul-rahim-khan-i-khana-tomb",
+    "key": "conservation-2014-2020",
+    "type": "event",
+    "position": 3,
+    "is_legend": false,
+    "text": "A six-year conservation of the tomb by the Aga Khan Trust for Culture, begun in 2014, was completed in December 2020.",
+    "sources": [
+      {
+        "source": "akdn-rahim-tomb-conservation-2020",
+        "note": "Reports conservation begun in 2014 and completed on 17 December 2020 after six years of work with the ASI."
+      },
+      {
+        "source": "interglobe-rahim-tomb",
+        "note": "Says InterGlobe Foundation partnered with AKTC in 2014 and the tomb opened to the public on 17 December 2020 after six years of restoration."
+      }
+    ]
+  },
+  {
+    "monument": "agrasen-ki-baoli",
+    "key": "style-stepwell-over-100-steps",
+    "type": "style",
+    "position": 1,
+    "is_legend": false,
+    "text": "Agrasen ki Baoli is a stepwell in Delhi with a staircase of more than 100 steps.",
+    "sources": [
+      {
+        "source": "incredibleindia-agrasen-baoli",
+        "note": "Describes a stepwell 60 metres long and 15 metres wide with 108 steps leading down."
+      },
+      {
+        "source": "indiawaterportal-ugrasen-baoli",
+        "note": "Describes more than 100 steps across four levels, narrowing as the stair descends to a well shaft."
+      }
+    ]
+  },
+  {
+    "monument": "agrasen-ki-baoli",
+    "key": "protected-monument",
+    "type": "recognition",
+    "position": 2,
+    "is_legend": false,
+    "text": "Agrasen ki Baoli is a protected monument.",
+    "sources": [
+      {
+        "source": "incredibleindia-agrasen-baoli",
+        "note": "Calls it a protected monument under the Archaeological Survey of India."
+      },
+      {
+        "source": "indiawaterportal-ugrasen-baoli",
+        "note": "Calls it a protected monument, crediting its floor plan to the Archaeological Survey of India."
+      }
+    ]
+  },
+  {
+    "monument": "agrasen-ki-baoli",
+    "key": "legend-king-agrasen",
+    "type": "tradition",
+    "position": 3,
+    "is_legend": true,
+    "text": "According to local tradition the stepwell was built by King Agrasen, the legendary ancestor of the Agrawal community, but its true builder and origin are not documented.",
+    "sources": [
+      {
+        "source": "incredibleindia-agrasen-baoli",
+        "note": "Says local lore attributes its creation to King Agrasen and that its exact origins remain shrouded in mystery."
+      },
+      {
+        "source": "indiawaterportal-ugrasen-baoli",
+        "note": "Reports the tradition crediting Maharaj Ugrasen, regarded as an ancestor of the Agrawals, with building it."
+      }
+    ]
+  },
+  {
+    "monument": "akshardham-delhi",
+    "key": "inaugurated-2005-baps",
+    "type": "built",
+    "position": 1,
+    "is_legend": false,
+    "text": "Swaminarayan Akshardham in Delhi was built by the BAPS Swaminarayan Sanstha and inaugurated on 6 November 2005.",
+    "sources": [
+      {
+        "source": "delhitourism-akshardham",
+        "note": "Says the complex was inaugurated on 6 November 2005 and built in five years by BAPS under Pramukh Swami Maharaj."
+      },
+      {
+        "source": "guinness-largest-hindu-temple",
+        "note": "Lists BAPS Swaminarayan Akshardham as inaugurated on 6 November 2005."
+      }
+    ]
+  },
+  {
+    "monument": "akshardham-delhi",
+    "key": "traditional-hindu-architecture",
+    "type": "style",
+    "position": 2,
+    "is_legend": false,
+    "text": "The mandir follows traditional Hindu temple architecture guided by the shastras, with 234 carved pillars, 9 domes and 20 quadrangled spires.",
+    "sources": [
+      {
+        "source": "incredibleindia-akshardham-delhi",
+        "note": "Says the design follows Vastu Shastra and lists 234 carved pillars, 9 ornate domes and 20 quadrangle spires."
+      },
+      {
+        "source": "akshardham-com-mandir",
+        "note": "Describes traditional Hindu architecture guided by the shilpa shastras, with 234 carved pillars, 9 domes and 20 quadrangled spires."
+      }
+    ]
+  },
+  {
+    "monument": "akshardham-delhi",
+    "key": "guinness-largest-hindu-temple",
+    "type": "recognition",
+    "position": 3,
+    "is_legend": false,
+    "text": "Guinness World Records recognises Swaminarayan Akshardham in Delhi as the world's largest Hindu temple.",
+    "sources": [
+      {
+        "source": "guinness-largest-hindu-temple",
+        "note": "Gives the record as largest Hindu temple with a total area of 8,021.43 m2."
+      },
+      {
+        "source": "delhitourism-akshardham",
+        "note": "Describes the complex as the World's Largest Comprehensive Hindu Temple per Guinness World Records."
+      }
+    ]
+  },
+  {
+    "monument": "fatehpuri-masjid",
+    "key": "built-1650-fatehpuri-begum",
+    "type": "built",
+    "position": 1,
+    "is_legend": false,
+    "text": "Fatehpuri Masjid in Chandni Chowk was built in 1650 by Fatehpuri Begum, one of Shah Jahan's wives.",
+    "sources": [
+      {
+        "source": "srdc-delhi-1600-1700-fatehpuri",
+        "note": "Says the mosque was built in 1650 by Fatehpuri Begum, one of Shah Jahan's wives, and is named after her."
+      },
+      {
+        "source": "masjidfatehpuri-history",
+        "note": "States the mosque was built in 1650 by Fatehpuri Begum, one of Shah Jahan's wives."
+      }
+    ]
+  },
+  {
+    "monument": "fatehpuri-masjid",
+    "key": "red-sandstone-single-dome",
+    "type": "style",
+    "position": 2,
+    "is_legend": false,
+    "text": "The mosque is built of red sandstone with a single dome and flanking minarets, and its prayer hall has seven arches, the central one the tallest.",
+    "sources": [
+      {
+        "source": "srdc-delhi-1600-1700-fatehpuri",
+        "note": "Describes red sandstone, a single dome, towering minarets and a prayer hall of seven arches with the tallest in the centre."
+      },
+      {
+        "source": "masjidfatehpuri-history",
+        "note": "Describes a large red sandstone mosque with a single dome, seven prayer-hall arches (central highest) and flanking minarets."
+      }
+    ]
+  },
+  {
+    "monument": "feroz-shah-kotla",
+    "key": "firozabad-citadel",
+    "type": "built",
+    "position": 1,
+    "is_legend": false,
+    "text": "Feroz Shah Kotla was the palace-citadel of Sultan Firoz Shah Tughlaq and the core of his new city, Firozabad.",
+    "sources": [
+      {
+        "source": "livehistoryindia-delhi-ashoka",
+        "note": "Calls the ruins the Kotla or palace-citadel of Sultan Firuz Shah Tughlaq, in his new city of Firuzabad."
+      },
+      {
+        "source": "gac-feroz-shah-kotla",
+        "note": "Says Firozabad was established by Firoz Shah Tughlaq as an imperial capital and that the Kotla was its core."
+      }
+    ]
+  },
+  {
+    "monument": "feroz-shah-kotla",
+    "key": "ashokan-pillar",
+    "type": "event",
+    "position": 2,
+    "is_legend": false,
+    "text": "Firoz Shah Tughlaq had an Ashokan pillar, originally raised at Topra in the 3rd century BCE, brought to Delhi and erected at the Kotla.",
+    "sources": [
+      {
+        "source": "livehistoryindia-delhi-ashoka",
+        "note": "Says Ashoka erected the pillar at Topra Kalan (273-236 BCE) and Firuz Shah had it transported to Delhi."
+      },
+      {
+        "source": "gac-feroz-shah-kotla",
+        "note": "Says the pillar was set up at Topra by the 3rd-century BCE emperor Ashoka and brought to Delhi and erected at the Kotla."
+      }
+    ]
+  },
+  {
+    "monument": "hauz-khas-complex",
+    "key": "tank-alauddin-khilji",
+    "type": "built",
+    "position": 1,
+    "is_legend": false,
+    "text": "The large water tank at Hauz Khas was built in the reign of Alauddin Khalji and was first called Hauz-i-Alai.",
+    "sources": [
+      {
+        "source": "srdc-hauz-khas",
+        "note": "Says the tank was built in Alauddin Khilji's reign (1296-1316) to supply water to the new city of Siri and was first named Hauz-i-Alai."
+      },
+      {
+        "source": "gac-hauz-khas",
+        "note": "Says the tank, originally Hauz-e-Alai, was built in the reign of Alauddin Khalji in the early 1300s."
+      }
+    ]
+  },
+  {
+    "monument": "hauz-khas-complex",
+    "key": "firoz-shah-restored-tank",
+    "type": "event",
+    "position": 2,
+    "is_legend": false,
+    "text": "Firoz Shah Tughlaq restored the silted-up tank, after which it became known as Hauz Khas, the 'royal tank'.",
+    "sources": [
+      {
+        "source": "srdc-hauz-khas",
+        "note": "Says Firoz Shah re-excavated the silted tank and cleared the inlet channels, and that Hauz Khas means 'royal tank'."
+      },
+      {
+        "source": "gac-hauz-khas",
+        "note": "Says Firoz Shah restored its water supply in the 1350s and the tank became known as Hauz Khas, the royal tank."
+      }
+    ]
+  },
+  {
+    "monument": "hauz-khas-complex",
+    "key": "madrasa-firoz-shah",
+    "type": "built",
+    "position": 3,
+    "is_legend": false,
+    "text": "Firoz Shah Tughlaq founded a madrasa, a college of Islamic learning, on the edge of the tank in the 1350s.",
+    "sources": [
+      {
+        "source": "srdc-hauz-khas",
+        "note": "Says the madrasa was founded in 1352 and was one of the leading institutions of Islamic learning in the Delhi Sultanate."
+      },
+      {
+        "source": "gac-hauz-khas",
+        "note": "Says Firoz Shah built the Madrasa-e-Firuz Shahi by the tank as a higher-education institution endowed by the emperor."
+      }
+    ]
+  },
+  {
+    "monument": "hauz-khas-complex",
+    "key": "tomb-l-shaped-complex",
+    "type": "style",
+    "position": 4,
+    "is_legend": false,
+    "text": "The madrasa is an L-shaped building along the tank, and Firoz Shah's tomb stands where its two wings meet.",
+    "sources": [
+      {
+        "source": "srdc-hauz-khas",
+        "note": "Says the L-shaped complex overlooks the tank and Firoz Shah's tomb pivots the two wings."
+      },
+      {
+        "source": "gac-hauz-khas",
+        "note": "Says he had his tomb built in the 1350s with the madrasa, at the junction of its two wings; he died in 1388."
+      }
+    ]
+  },
+  {
+    "monument": "india-gate",
+    "key": "built-1921-1931-lutyens",
+    "type": "built",
+    "position": 1,
+    "is_legend": false,
+    "text": "India Gate in Delhi was designed by Edwin Lutyens; its foundation stone was laid in 1921 by the Duke of Connaught and it was dedicated in 1931 by Viceroy Lord Irwin.",
+    "sources": [
+      {
+        "source": "delhitourism-india-gate",
+        "note": "Says Lutyens designed it, the Duke of Connaught laid the foundation stone in 1921, and Viceroy Lord Irwin dedicated it about ten years later."
+      },
+      {
+        "source": "incredibleindia-india-gate",
+        "note": "Says it was designed by Sir Edwin Lutyens, begun in 1921 with the Duke of Connaught's foundation stone, and dedicated by Lord Irwin in 1931."
+      }
+    ]
+  },
+  {
+    "monument": "india-gate",
+    "key": "commemorates-70000-soldiers",
+    "type": "event",
+    "position": 2,
+    "is_legend": false,
+    "text": "India Gate is a war memorial to the roughly 70,000 Indian soldiers who died in the First World War.",
+    "sources": [
+      {
+        "source": "delhitourism-india-gate",
+        "note": "Describes it as honouring the 70,000 Indian soldiers who lost their lives fighting for the British Army in the First World War."
+      },
+      {
+        "source": "incredibleindia-india-gate",
+        "note": "Describes the memorial to 70,000 Indian soldiers who died in the First World War and the Third Anglo-Afghan War, with MCMXIV and MCMXIX inscribed on its sides."
+      }
+    ]
+  },
+  {
+    "monument": "india-gate",
+    "key": "style-arch-42m",
+    "type": "style",
+    "position": 3,
+    "is_legend": false,
+    "text": "India Gate is an arch 42 metres high.",
+    "sources": [
+      {
+        "source": "incredibleindia-india-gate",
+        "note": "Calls it a 42-metre-high archway of sandstone."
+      },
+      {
+        "source": "dmnewdelhi-india-gate",
+        "note": "Describes an Arc-de-Triomphe-like arch on a low base of red Bharatpur stone, 42 m high."
+      }
+    ]
+  },
+  {
+    "monument": "jantar-mantar",
+    "key": "one-of-several-observatories",
+    "type": "event",
+    "position": 3,
+    "is_legend": false,
+    "text": "The Delhi observatory is one of several Jantar Mantars that Jai Singh II built in India.",
+    "sources": [
+      {
+        "source": "delhitourism-jantar-mantar-html",
+        "note": "Says Maharaja Jai Singh of Jaipur, who built this observatory, also built observatories in Ujjain, Varanasi and Mathura."
+      },
+      {
+        "source": "sahapedia-jaipur-history-jantar",
+        "note": "Says Jai Singh II had five Jantar Mantar complexes built in India, the largest being the one in Jaipur."
+      }
+    ]
+  },
+  {
+    "monument": "khirki-masjid",
+    "key": "tughlaq-era-firoz-shah",
+    "type": "built",
+    "position": 1,
+    "is_legend": false,
+    "text": "Khirki Masjid in Delhi is a mosque of the Tughlaq period, built in the reign of Sultan Firoz Shah Tughlaq.",
+    "sources": [
+      {
+        "source": "delhitourism-firozabad-khirki",
+        "note": "Credits Firoze Shah Tughlaq with building Khirki Masjid."
+      },
+      {
+        "source": "sahapedia-first-tughlaq-capital-khirki",
+        "note": "Interview refers to the mosque built by Firoz Shah Tughlaq in Khirki as large enough for a huge congregation."
+      }
+    ]
+  },
+  {
+    "monument": "lodhi-gardens",
+    "key": "formerly-lady-willingdon-park",
+    "type": "event",
+    "position": 3,
+    "is_legend": false,
+    "text": "Lodhi Gardens was formerly called Lady Willingdon Park.",
+    "sources": [
+      {
+        "source": "incredibleindia-lodhi-garden",
+        "note": "Says Lady Willingdon redesigned the area in 1936 as Lady Willingdon Park, renamed Lodhi Garden in 1947."
+      },
+      {
+        "source": "delhitourism-lodi-tomb-html",
+        "note": "Calls the old Lady Willington Park, now known as Lodhi Garden, dotted with Sayyid and Lodhi period monuments."
+      }
+    ]
+  },
+  {
+    "monument": "lotus-temple",
+    "key": "built-1986-sahba",
+    "type": "built",
+    "position": 1,
+    "is_legend": false,
+    "text": "The Lotus Temple, a Baha'i House of Worship in Delhi, was designed by the architect Fariborz Sahba and dedicated to public worship in 1986.",
+    "sources": [
+      {
+        "source": "incredibleindia-lotus-temple",
+        "note": "Says it was designed by Iranian-Canadian architect Fariborz Sahba and opened to the public for worship in December 1986."
+      },
+      {
+        "source": "bahai-news-lotus-temple",
+        "note": "Names Fariborz Sahba as the architect and says the House of Worship was dedicated to public worship in 1986."
+      }
+    ]
+  },
+  {
+    "monument": "lotus-temple",
+    "key": "style-27-petals",
+    "type": "style",
+    "position": 2,
+    "is_legend": false,
+    "text": "The Lotus Temple has 27 free-standing marble petals arranged in clusters of three around a central hall with nine entrances.",
+    "sources": [
+      {
+        "source": "incredibleindia-lotus-temple",
+        "note": "Describes 27 free-standing marble petals in clusters of three, nine doors to a central hall, and nine surrounding pools."
+      },
+      {
+        "source": "lnt-bahai-temple",
+        "note": "Describes 27 free-standing marble-clad petals, groups of three forming nine sides, with nine entrances leading to the central hall."
+      }
+    ]
+  },
+  {
+    "monument": "mehrauli-archaeological-park",
+    "key": "balban-jamali-kamali-rajon-ki-baoli",
+    "type": "built",
+    "position": 3,
+    "is_legend": false,
+    "text": "The park's monuments include Balban's Tomb, the Jamali Kamali mosque and tomb, and Rajon ki Baoli.",
+    "sources": [
+      {
+        "source": "incredibleindia-mehrauli-park",
+        "note": "Lists Balban's tomb (c. 1287), the Jamali Kamali mosque and tomb (1526-1535) and Rajon Ki Baoli (16th century) among its monuments."
+      },
+      {
+        "source": "delhitourism-two-day-itinerary-mehrauli",
+        "note": "Names the Jamali Kamali mosque, Rajon ki Baoli and Balban's tomb among the park's attractions."
+      }
+    ]
+  },
+  {
+    "monument": "mehrauli-archaeological-park",
+    "key": "lal-kot-tomar-11th-century",
+    "type": "event",
+    "position": 4,
+    "is_legend": false,
+    "text": "Lal Kot at Mehrauli was built by the Tomar rulers in the 11th century.",
+    "sources": [
+      {
+        "source": "incredibleindia-mehrauli-park",
+        "note": "Says Lal Kot was built by the Tomar Rajputs in 1060 AD and is the oldest surviving fort in Delhi."
+      },
+      {
+        "source": "sahapedia-mehrauli-park",
+        "note": "Says Lal Kot was constructed by Anang Pal Tomar in the 11th century and later became Qila Rai Pithora under the Chauhans."
+      }
+    ]
+  },
+  {
+    "monument": "nizamuddin-dargah",
+    "key": "shrine-of-nizamuddin-auliya",
+    "type": "built",
+    "position": 1,
+    "is_legend": false,
+    "text": "The Nizamuddin Dargah in Delhi is the shrine and tomb of the Sufi saint Nizamuddin Auliya.",
+    "sources": [
+      {
+        "source": "delhitourism-spritual-nizamuddin",
+        "note": "Describes the Nizam-ud-Din shrine as the tomb of the famous Sufi saint Hazrat Nizam-ud-Din Auliya."
+      },
+      {
+        "source": "aktc-nizamuddin-sair",
+        "note": "Refers to the 14th century dargah of the Sufi saint Hazrat Nizamuddin Auliya around which the neighbourhood grew."
+      }
+    ]
+  },
+  {
+    "monument": "nizamuddin-dargah",
+    "key": "tombs-khusrau-jahanara",
+    "type": "event",
+    "position": 2,
+    "is_legend": false,
+    "text": "The dargah complex also holds the tombs of the poet Amir Khusrau and of Princess Jahanara Begum.",
+    "sources": [
+      {
+        "source": "delhitourism-spritual-nizamuddin",
+        "note": "Says the shrine grounds include the tombs of Amir Khusrau and Princess Jahanara."
+      },
+      {
+        "source": "aktc-nizamuddin-sair",
+        "note": "Lists the tombs of Amir Khusrau, Muhammad Shah Rangila and Jahanara Begum within the dargah complex."
+      }
+    ]
+  },
+  {
+    "monument": "nizamuddin-dargah",
+    "key": "pilgrimage-centre",
+    "type": "recognition",
+    "position": 3,
+    "is_legend": false,
+    "text": "The dargah is a major centre of pilgrimage.",
+    "sources": [
+      {
+        "source": "sahapedia-hazrat-i-dehli-nizamuddin",
+        "note": "Says the saint's dargah soon emerged as a major pilgrimage centre in the heart of modern Delhi."
+      },
+      {
+        "source": "delhitourism-spritual-nizamuddin",
+        "note": "Says a fair draws pilgrims from across India twice a year on the death anniversaries of Nizam-ud-Din Auliya and Amir Khusrau."
+      }
+    ]
+  },
+  {
+    "monument": "raj-ghat",
+    "key": "black-marble-platform-cremation-site",
+    "type": "built",
+    "position": 1,
+    "is_legend": false,
+    "text": "Raj Ghat on the bank of the Yamuna is the memorial to Mahatma Gandhi; a simple platform of black marble marks the place where he was cremated.",
+    "sources": [
+      {
+        "source": "delhitourism-city-sight-raj-ghat",
+        "note": "States the simple square platform of black marble marks the place where Mahatma Gandhi was cremated."
+      },
+      {
+        "source": "rajghat-gov-about-us",
+        "note": "Says Gandhi was cremated on the banks of the Yamuna and the memorial is a black marble platform."
+      }
+    ]
+  },
+  {
+    "monument": "raj-ghat",
+    "key": "cremation-31-january-1948",
+    "type": "event",
+    "position": 2,
+    "is_legend": false,
+    "text": "Mahatma Gandhi was cremated at Raj Ghat on 31 January 1948, the day after his assassination.",
+    "sources": [
+      {
+        "source": "rajghat-gov-about-us",
+        "note": "Gives 31 January 1948 as the date of cremation, a day after his martyrdom."
+      },
+      {
+        "source": "incredibleindia-raj-ghat",
+        "note": "Says the memorial marks Gandhi's last rites held on 31 January 1948, one day after he was assassinated."
+      }
+    ]
+  },
+  {
+    "monument": "raj-ghat",
+    "key": "plain-memorial-eternal-flame",
+    "type": "style",
+    "position": 3,
+    "is_legend": false,
+    "text": "The memorial is deliberately plain, with unadorned black marble lines and an eternal flame burning beside it.",
+    "sources": [
+      {
+        "source": "rajghat-gov-about-us",
+        "note": "Describes an open black marble platform whose simplicity reflects Gandhi's, with an eternal flame burning on one side."
+      },
+      {
+        "source": "incredibleindia-raj-ghat",
+        "note": "Describes unadorned lines in black marble among gardens, with an eternal flame commemorating Gandhi."
+      }
+    ]
+  },
+  {
+    "monument": "rashtrapati-bhavan",
+    "key": "designed-lutyens-viceroys-house",
+    "type": "built",
+    "position": 1,
+    "is_legend": false,
+    "text": "Rashtrapati Bhavan was built as the Viceroy's House and was designed by Edwin Lutyens.",
+    "sources": [
+      {
+        "source": "riba-rashtrapati-bhavan",
+        "note": "Says Lutyens designed the Viceroy's House, with Herbert Baker working on the Secretariat buildings."
+      },
+      {
+        "source": "victorianweb-rashtrapati-bhavan",
+        "note": "Names Edwin Lutyens as the architect, with Herbert Baker designing the nearby Secretariats."
+      }
+    ]
+  },
+  {
+    "monument": "rashtrapati-bhavan",
+    "key": "completed-1929",
+    "type": "event",
+    "position": 2,
+    "is_legend": false,
+    "text": "The Viceroy's House was completed in 1929.",
+    "sources": [
+      {
+        "source": "historyhit-rashtrapati-bhavan",
+        "note": "Says the house took nearly twenty years and was finally finished in 1929."
+      },
+      {
+        "source": "victorianweb-rashtrapati-bhavan",
+        "note": "Gives 23 December 1929 as the day the Viceroy and Lady Irwin moved in."
+      }
+    ]
+  },
+  {
+    "monument": "rashtrapati-bhavan",
+    "key": "style-east-west-synthesis",
+    "type": "style",
+    "position": 3,
+    "is_legend": false,
+    "text": "The building combines Western classical architecture with Indian elements.",
+    "sources": [
+      {
+        "source": "victorianweb-rashtrapati-bhavan",
+        "note": "Calls it a synthesis of Western and Eastern styles, with red sandstone, chattris, jaalis and chujas."
+      },
+      {
+        "source": "historyhit-rashtrapati-bhavan",
+        "note": "Says it was inspired by Indian architecture but mostly based on classical architectural ideals."
+      }
+    ]
+  },
+  {
+    "monument": "rashtrapati-bhavan",
+    "key": "renamed-1950",
+    "type": "event",
+    "position": 4,
+    "is_legend": false,
+    "text": "In 1950 the Viceroy's House was renamed Rashtrapati Bhavan, the President's House.",
+    "sources": [
+      {
+        "source": "riba-rashtrapati-bhavan",
+        "note": "States that in 1950 the Viceroy's House was renamed Rashtrapati Bhavan."
+      },
+      {
+        "source": "historyhit-rashtrapati-bhavan",
+        "note": "Says Rajendra Prasad, the first President, changed the name when he took office in 1950."
+      }
+    ]
+  },
+  {
+    "monument": "sunder-nursery",
+    "key": "nursery-early-20th-century",
+    "type": "built",
+    "position": 1,
+    "is_legend": false,
+    "text": "Sunder Nursery began in the early 20th century as a plant nursery for the new capital, New Delhi.",
+    "sources": [
+      {
+        "source": "sundernursery-about",
+        "note": "Says it was set up by the British in 1913, when imperial Delhi was being planned and built."
+      },
+      {
+        "source": "gulfnews-sunder-nursery",
+        "note": "Says that in the early 20th century the site was used to grow trees and flowers for New Delhi."
+      }
+    ]
+  },
+  {
+    "monument": "sunder-nursery",
+    "key": "beside-humayuns-tomb-16th-century-monuments",
+    "type": "style",
+    "position": 2,
+    "is_legend": false,
+    "text": "Sunder Nursery lies beside Humayun's Tomb and contains 16th-century monuments.",
+    "sources": [
+      {
+        "source": "theprint-sunder-nursery",
+        "note": "Describes it as a 16th-century heritage park next to Humayun's Tomb."
+      },
+      {
+        "source": "gulfnews-sunder-nursery",
+        "note": "Says the restoration covered its 16th-century monuments, beside the Humayun's Tomb complex."
+      }
+    ]
+  },
+  {
+    "monument": "sunder-nursery",
+    "key": "aktc-restoration",
+    "type": "event",
+    "position": 3,
+    "is_legend": false,
+    "text": "The Aga Khan Trust for Culture spent about a decade restoring Sunder Nursery as a 90-acre public park.",
+    "sources": [
+      {
+        "source": "theprint-sunder-nursery",
+        "note": "Reports the Aga Khan Trust for Culture signed a restoration agreement with the ASI, MCD and CPWD."
+      },
+      {
+        "source": "akdn-sunder-nursery-media",
+        "note": "Says a decade of work produced a 90-acre park dotted with historical monuments."
+      },
+      {
+        "source": "gulfnews-sunder-nursery",
+        "note": "Says the Trust restored the garden over the past decade; the garden covers 90 acres."
+      }
+    ]
   }
 ]
