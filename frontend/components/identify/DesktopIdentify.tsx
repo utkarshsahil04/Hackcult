@@ -1,6 +1,6 @@
 'use client'
 
-import { useRef, useState } from 'react'
+import { useRef, useState, useSyncExternalStore } from 'react'
 import { Upload } from 'lucide-react'
 import { QRCodeSVG } from 'qrcode.react'
 import { m } from 'framer-motion'
@@ -31,6 +31,8 @@ const copy = {
 
 export function DesktopIdentify({ state, lang, onUpload }: { state: string; lang: Lang; onUpload: (file: File) => void }) {
   const [dragging, setDragging] = useState(false)
+  // the QR must open this deployment, whatever its domain; empty on the server
+  const origin = useSyncExternalStore(() => () => {}, () => window.location.origin, () => '')
   const input = useRef<HTMLInputElement>(null)
   const t = copy[lang]
   if (state !== 'scan') return null
@@ -68,7 +70,7 @@ export function DesktopIdentify({ state, lang, onUpload }: { state: string; lang
           <div className="bg-[#FBF6EC] p-10 text-center">
             <h2 className="fraunces text-3xl">{t.phone}</h2>
             <div className="mx-auto my-8 flex size-56 items-center justify-center rounded-2xl bg-white p-4">
-              <QRCodeSVG value="https://raahein.app/identify" size={184} includeMargin />
+              {origin && <QRCodeSVG value={`${origin}/identify`} size={184} includeMargin />}
             </div>
             <ol className="space-y-4 text-left">
               {t.steps.map((step, index) => (
