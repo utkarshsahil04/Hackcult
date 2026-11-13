@@ -397,5 +397,313 @@
     "title": "Mehrauli Archaeological Park Preservation and Heritage Trail",
     "publisher": "Indian National Trust for Art and Cultural Heritage (INTACH)",
     "source_type": "other"
+  },
+  {
+    "key": "akdn-rahim-tomb-conservation-2020",
+    "url": "https://the.akdn/en/resources-media/whats-new/news-release/aktc-completes-conservation-works-abdur-rahim-khan-i-khanans-mausoleum-delhi",
+    "title": "AKTC completes conservation works on Abdur Rahim Khan-i-Khanan's Mausoleum in Delhi",
+    "publisher": "Aga Khan Development Network",
+    "source_type": "other"
+  },
+  {
+    "key": "chronicleindia-rahim-tomb",
+    "url": "https://chronicleindia.in/online-magazine/csc-english-february-2021/4821a384698ab602cb4a3d2a6947f9f0",
+    "title": "Abdur Rahim Khan-i-Khanan",
+    "publisher": "Chronicle India",
+    "source_type": "news"
+  },
+  {
+    "key": "theweek-rahim-tomb",
+    "url": "https://www.theweek.in/webworld/features/society/tomb-of-khan-i-khanan.html",
+    "title": "Tomb of Khan-i-Khanan",
+    "publisher": "The Week",
+    "source_type": "news"
+  },
+  {
+    "key": "interglobe-rahim-tomb",
+    "url": "https://www.interglobe.com/csr/abdur-rahim-khan-i-khanans-mausoleum-a-project-on-heritage-conservation",
+    "title": "Abdur Rahim Khan-i-Khanan's Mausoleum: a project on heritage conservation",
+    "publisher": "InterGlobe Foundation",
+    "source_type": "other"
+  },
+  {
+    "key": "incredibleindia-agrasen-baoli",
+    "url": "https://www.incredibleindia.gov.in/en/delhi/delhi/agrasen-ki-baoli",
+    "title": "Agrasen Ki Baoli",
+    "publisher": "Incredible India (Ministry of Tourism, Government of India)",
+    "source_type": "government"
+  },
+  {
+    "key": "indiawaterportal-ugrasen-baoli",
+    "url": "https://www.indiawaterportal.org/drinking-water/step-back-time-ugrasen-ki-baoli",
+    "title": "Step back in time into 'Ugrasen ki baoli'",
+    "publisher": "India Water Portal",
+    "source_type": "other"
+  },
+  {
+    "key": "delhitourism-akshardham",
+    "url": "https://delhitourism.gov.in/tourist_place/akshardham_temple.html",
+    "title": "Akshardham Temple",
+    "publisher": "Delhi Tourism (delhitourism.gov.in)",
+    "source_type": "government"
+  },
+  {
+    "key": "guinness-largest-hindu-temple",
+    "url": "https://www.guinnessworldrecords.com/world-records/largest-hindu-temple",
+    "title": "Largest Hindu temple",
+    "publisher": "Guinness World Records",
+    "source_type": "other"
+  },
+  {
+    "key": "incredibleindia-akshardham-delhi",
+    "url": "https://www.incredibleindia.gov.in/en/delhi/delhi/akshardham-temple",
+    "title": "Akshardham Temple in Delhi",
+    "publisher": "Incredible India (Ministry of Tourism, Government of India)",
+    "source_type": "government"
+  },
+  {
+    "key": "akshardham-com-mandir",
+    "url": "https://akshardham.com/explore/Mandir/",
+    "title": "Mandir, Swaminarayan Akshardham",
+    "publisher": "BAPS Swaminarayan Akshardham",
+    "source_type": "other"
+  },
+  {
+    "key": "srdc-delhi-1600-1700-fatehpuri",
+    "url": "https://srdc.delhi.gov.in/en/srdc/1600-1700",
+    "title": "Heritage of Delhi, 1600-1700",
+    "publisher": "Shahjahanabad Redevelopment Corporation, Government of NCT of Delhi",
+    "source_type": "government"
+  },
+  {
+    "key": "masjidfatehpuri-history",
+    "url": "https://masjidfatehpuri.in/history/",
+    "title": "History, Masjid Fatehpuri",
+    "publisher": "Masjid Fatehpuri (official website)",
+    "source_type": "other"
+  },
+  {
+    "key": "livehistoryindia-delhi-ashoka",
+    "url": "https://livehistoryindia.com/story/snapshort-histories/delhis-ashoka-connects",
+    "title": "Delhi's Ashoka Connection",
+    "publisher": "Live History India",
+    "source_type": "other"
+  },
+  {
+    "key": "gac-feroz-shah-kotla",
+    "url": "https://artsandculture.google.com/story/IQVRRevlyR4A8A",
+    "title": "Firoz Shah Kotla and the Ashokan pillar",
+    "publisher": "Google Arts & Culture",
+    "source_type": "other"
+  },
+  {
+    "key": "srdc-hauz-khas",
+    "url": "https://srdc.delhi.gov.in/en/srdc/hauz-khas-walk",
+    "title": "Hauz Khas Walk",
+    "publisher": "Government of NCT of Delhi (srdc.delhi.gov.in)",
+    "source_type": "government"
+  },
+  {
+    "key": "gac-hauz-khas",
+    "url": "https://artsandculture.google.com/exhibit/QRXJIPZO",
+    "title": "Madrasa-e-Firoz Shahi",
+    "publisher": "Google Arts & Culture",
+    "source_type": "other"
+  },
+  {
+    "key": "delhitourism-india-gate",
+    "url": "https://delhitourism.gov.in/tourist_place/india_gate.html",
+    "title": "India Gate",
+    "publisher": "Delhi Tourism (delhitourism.gov.in)",
+    "source_type": "government"
+  },
+  {
+    "key": "incredibleindia-india-gate",
+    "url": "https://www.incredibleindia.gov.in/en/delhi/delhi/india-gate",
+    "title": "India Gate",
+    "publisher": "Incredible India (Ministry of Tourism, Government of India)",
+    "source_type": "government"
+  },
+  {
+    "key": "dmnewdelhi-india-gate",
+    "url": "https://dmnewdelhi.delhi.gov.in/tourist-place/india-gate",
+    "title": "India Gate",
+    "publisher": "District Administration New Delhi, Government of NCT of Delhi",
+    "source_type": "government"
+  },
+  {
+    "key": "delhitourism-jantar-mantar-html",
+    "url": "https://delhitourism.gov.in/tourist_place/jantar_mantar.html",
+    "title": "Jantar Mantar",
+    "publisher": "Delhi Tourism (delhitourism.gov.in)",
+    "source_type": "government"
+  },
+  {
+    "key": "sahapedia-jaipur-history-jantar",
+    "url": "https://www.sahapedia.org/jaipur-history-and-architecture",
+    "title": "Jaipur: History and Architecture",
+    "publisher": "Sahapedia",
+    "source_type": "other"
+  },
+  {
+    "key": "delhitourism-firozabad-khirki",
+    "url": "https://delhitourism.gov.in/aboutus/firozabad.html",
+    "title": "Eight Cities of Delhi - Firozabad",
+    "publisher": "Delhi Tourism (delhitourism.gov.in)",
+    "source_type": "government"
+  },
+  {
+    "key": "sahapedia-first-tughlaq-capital-khirki",
+    "url": "https://www.sahapedia.org/the-first-tughlaq-capital-interview-nalini-thakur",
+    "title": "'The first Tughlaq Capital': Interview with Nalini Thakur",
+    "publisher": "Sahapedia",
+    "source_type": "other"
+  },
+  {
+    "key": "incredibleindia-lodhi-garden",
+    "url": "https://www.incredibleindia.gov.in/en/delhi/delhi/lodhi-garden",
+    "title": "Lodhi Garden- A Green Oasis in the Heart of Delhi",
+    "publisher": "Incredible India (Ministry of Tourism, Government of India)",
+    "source_type": "government"
+  },
+  {
+    "key": "delhitourism-lodi-tomb-html",
+    "url": "https://delhitourism.gov.in/tourist_place/lodi_tomb.html",
+    "title": "Lodi Tomb",
+    "publisher": "Delhi Tourism (delhitourism.gov.in)",
+    "source_type": "government"
+  },
+  {
+    "key": "incredibleindia-lotus-temple",
+    "url": "https://www.incredibleindia.gov.in/en/delhi/delhi/lotus-temple",
+    "title": "Lotus Temple",
+    "publisher": "Incredible India (Ministry of Tourism, Government of India)",
+    "source_type": "government"
+  },
+  {
+    "key": "bahai-news-lotus-temple",
+    "url": "https://news.bahai.org/story/89/",
+    "title": "Baha'i Temple in India continues to receive awards and recognitions",
+    "publisher": "Baha'i World News Service",
+    "source_type": "other"
+  },
+  {
+    "key": "lnt-bahai-temple",
+    "url": "https://www.lntecc.com/projects/unique-structures/baha-i-temple/",
+    "title": "Baha'i Temple, New Delhi (project page)",
+    "publisher": "Larsen & Toubro (L&T Construction)",
+    "source_type": "other"
+  },
+  {
+    "key": "incredibleindia-mehrauli-park",
+    "url": "https://www.incredibleindia.gov.in/en/delhi/delhi/mehrauli-archaeological-park",
+    "title": "Mehrauli Archaeological Park",
+    "publisher": "Incredible India (Ministry of Tourism, Government of India)",
+    "source_type": "government"
+  },
+  {
+    "key": "delhitourism-two-day-itinerary-mehrauli",
+    "url": "https://delhitourism.gov.in/itinerary/two_day_itinerary.html",
+    "title": "Delhi Tourism Two Day Itinerary",
+    "publisher": "Delhi Tourism (delhitourism.gov.in)",
+    "source_type": "government"
+  },
+  {
+    "key": "sahapedia-mehrauli-park",
+    "url": "https://www.sahapedia.org/mehrauli-archaeological-park",
+    "title": "Mehrauli Archaeological Park",
+    "publisher": "Sahapedia",
+    "source_type": "other"
+  },
+  {
+    "key": "delhitourism-spritual-nizamuddin",
+    "url": "https://delhitourism.gov.in/tourist_place/spritual_delhi.html",
+    "title": "Religious places In Delhi",
+    "publisher": "Delhi Tourism (delhitourism.gov.in)",
+    "source_type": "government"
+  },
+  {
+    "key": "aktc-nizamuddin-sair",
+    "url": "https://www.nizamuddinrenewal.org/livelihoods/sair-e-nizamuddin.php",
+    "title": "Sair-e-Nizamuddin, Nizamuddin Urban Renewal Initiative",
+    "publisher": "Aga Khan Trust for Culture (Nizamuddin Urban Renewal Initiative)",
+    "source_type": "other"
+  },
+  {
+    "key": "sahapedia-hazrat-i-dehli-nizamuddin",
+    "url": "https://www.sahapedia.org/hazrat-i-dehli-the-making-of-the-chishti-sufi-centre-and-the-stronghold-of-islam",
+    "title": "Hazrat-i-Dehli: The Making of the Chishti Sufi Centre and the Stronghold of Islam",
+    "publisher": "Sahapedia",
+    "source_type": "other"
+  },
+  {
+    "key": "rajghat-gov-about-us",
+    "url": "https://www.rajghat.gov.in/about-us",
+    "title": "About Us, Rajghat Samadhi Committee",
+    "publisher": "Rajghat Samadhi Committee, Government of India",
+    "source_type": "government"
+  },
+  {
+    "key": "incredibleindia-raj-ghat",
+    "url": "https://www.incredibleindia.gov.in/en/delhi/delhi/raj-ghat",
+    "title": "Pay homage at Raj Ghat in Delhi",
+    "publisher": "Incredible India (Ministry of Tourism, Government of India)",
+    "source_type": "government"
+  },
+  {
+    "key": "delhitourism-city-sight-raj-ghat",
+    "url": "https://delhitourism.gov.in/tour_packages/city_sight.html",
+    "title": "City Sight Seeing Tours",
+    "publisher": "Delhi Tourism (delhitourism.gov.in)",
+    "source_type": "government"
+  },
+  {
+    "key": "riba-rashtrapati-bhavan",
+    "url": "https://www.riba.org/explore-architecture/inside-the-riba-collections/rashtrapati-bhavan-new-delhi",
+    "title": "Rashtrapati Bhavan, New Delhi",
+    "publisher": "Royal Institute of British Architects (RIBA)",
+    "source_type": "other"
+  },
+  {
+    "key": "victorianweb-rashtrapati-bhavan",
+    "url": "https://www.victorianweb.org/art/architecture/lutyens/10.html",
+    "title": "Viceroy's House (Rashtrapati Bhavan), by Edwin Lutyens",
+    "publisher": "The Victorian Web",
+    "source_type": "other"
+  },
+  {
+    "key": "historyhit-rashtrapati-bhavan",
+    "url": "https://www.historyhit.com/locations/rashtrapati-bhavan/",
+    "title": "Rashtrapati Bhavan - History and Facts",
+    "publisher": "History Hit",
+    "source_type": "other"
+  },
+  {
+    "key": "sundernursery-about",
+    "url": "https://sundernursery.org/about-us.php",
+    "title": "About Us - Sunder Nursery",
+    "publisher": "Sunder Nursery (sundernursery.org)",
+    "source_type": "other"
+  },
+  {
+    "key": "gulfnews-sunder-nursery",
+    "url": "https://gulfnews.com/amp/story/world%2Fasia%2Findia%2Fdelhis-lost-mughal-garden-reopens-as-public-park-1.2177247",
+    "title": "Delhi's 'lost' Mughal garden reopens as public park",
+    "publisher": "Gulf News",
+    "source_type": "news"
+  },
+  {
+    "key": "theprint-sunder-nursery",
+    "url": "https://theprint.in/feature/around-town/mughal-era-ruins-heritage-park-architect-author-trace-journey-delhis-sunder-nursery/2571926",
+    "title": "Mughal-era ruins, heritage park: architect, author trace journey of Delhi's Sunder Nursery",
+    "publisher": "ThePrint",
+    "source_type": "news"
+  },
+  {
+    "key": "akdn-sunder-nursery-media",
+    "url": "https://the.akdn/en/resources-media/whats-new/in-the-media/sunder-nursery-gives-delhi-beautifully-restored-green-space-%E2%80%93-and-template-heritage",
+    "title": "Sunder Nursery gives Delhi a beautifully restored green space",
+    "publisher": "Aga Khan Development Network (AKDN)",
+    "source_type": "other"
   }
 ]

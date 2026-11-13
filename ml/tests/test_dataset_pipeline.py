@@ -47,6 +47,22 @@ def test_roles_never_mix_classes_or_leak_test_into_gallery(tmp_path) -> None:
     assert NEGATIVE_CALIBRATION.isdisjoint(CLASS_TO_SLUG)
 
 
+def test_extra_folders_are_split_and_small_ones_skipped(tmp_path) -> None:
+    _write(tmp_path / "ds" / "train" / "tajmahal", 10)
+    _write(tmp_path / "ds" / "test" / "tajmahal", 2)
+    _write(tmp_path / "extra" / "red-fort", 20)
+    _write(tmp_path / "extra" / "tiny", 3)
+    _write(tmp_path / "extra" / "taj-mahal", 12)
+    (tmp_path / "extra" / "credits.json").write_text("{}")
+
+    plan = _plan_roles(tmp_path / "ds", extra=tmp_path / "extra")
+    count = lambda slug, role: sum(i["slug"] == slug and i["role"] == role for i in plan)  # noqa: E731
+    assert [count("red-fort", r) for r in ("calib", "test", "gallery")] == [3, 3, 14]
+    assert not any(i["slug"] == "tiny" for i in plan)
+    assert count("taj-mahal", "gallery") > 8  # extra photos join the dataset class
+    assert plan[: len(_plan_roles(tmp_path / "ds"))] == _plan_roles(tmp_path / "ds")
+
+
 def test_trace_ranks_the_matching_monument_first(cpu_config: MLConfig) -> None:
     rng = np.random.default_rng(0)
     labels = ["a"] * 3 + ["b"] * 3

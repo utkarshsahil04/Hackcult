@@ -81,8 +81,8 @@ def load_dataset(data_dir: Path | None = None) -> dict[str, list[dict[str, Any]]
 
 
 def _merge_listed_sites(base: Path, dataset: dict[str, list[dict[str, Any]]]) -> None:
-    """Add real OSM-located sites (sites.json) as listed monuments: plannable, but with no
-    claims, so the API shows them as "story pending" instead of inventing history."""
+    """Add real OSM-located sites (sites.json) as listed monuments: plannable even with no
+    claims, when the API shows them as "story pending" instead of inventing history."""
     path = base / "sites.json"
     if not path.is_file():
         return

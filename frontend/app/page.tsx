@@ -10,6 +10,8 @@ import { ArchImage, HeritageSimulator, InlayFrame, LotusDivider, Mandala, Monume
 import { monuments } from '@/lib/catalog'
 
 const verifiedCount = monuments.filter((m) => m.verified).length
+const allVerified = verifiedCount === monuments.length
+const featured = monuments.filter((m) => m.verified).slice(0, 8)
 import { transitions } from '@/lib/motion'
 
 const homeCopy = {
@@ -25,7 +27,7 @@ const homeCopy = {
     plan: 'Plan a day',
     metrics: [
       { value: `${monuments.length} Sites`, label: 'Delhi & Agra', desc: 'Real locations with routed travel times' },
-      { value: `${verifiedCount} Stories`, label: 'Sourced histories', desc: 'Other sites show as story pending' },
+      { value: `${verifiedCount} Stories`, label: 'Sourced histories', desc: allVerified ? 'Every site has a sourced story' : 'Other sites show as story pending' },
       { value: 'Bilingual', label: 'Audio & text', desc: 'Stories in English and Hindi' },
       { value: '2 Publishers', label: 'Per historical fact', desc: 'Every fact needs two independent sources' },
     ],
@@ -53,7 +55,7 @@ const homeCopy = {
     monumentsSub: 'Every monument holds a documented history and living legend.',
     readStory: 'Read manuscript',
     moreHeading: 'More heritage sites near Delhi',
-    moreSub: 'Explore each building in 3D while its sourced story is being prepared.',
+    moreSub: 'Explore each building in 3D.',
     inThreeD: 'Explore in 3D',
     steps: [
       [
@@ -85,7 +87,7 @@ const homeCopy = {
     plan: 'दिन बनाएं',
     metrics: [
       { value: `${monuments.length} धरोहरें`, label: 'दिल्ली व आगरा', desc: 'वास्तविक स्थान और यात्रा समय' },
-      { value: `${verifiedCount} कहानियां`, label: 'प्रमाणित इतिहास', desc: 'बाकी स्थानों की कहानी शीघ्र आएगी' },
+      { value: `${verifiedCount} कहानियां`, label: 'प्रमाणित इतिहास', desc: allVerified ? 'हर स्थान की प्रमाणित कहानी उपलब्ध है' : 'बाकी स्थानों की कहानी शीघ्र आएगी' },
       { value: 'द्विभाषी', label: 'ऑडियो व लिपि', desc: 'हिंदी और अंग्रेज़ी में कहानियां' },
       { value: '2 प्रकाशक', label: 'हर ऐतिहासिक तथ्य पर', desc: 'हर तथ्य के लिए दो स्वतंत्र स्रोत' },
     ],
@@ -113,7 +115,7 @@ const homeCopy = {
     monumentsSub: 'हर इमारत में दर्ज इतिहास और लोक कथाएं मौजूद हैं।',
     readStory: 'पांडुलिपि पढ़ें',
     moreHeading: 'दिल्ली के पास और धरोहर स्थल',
-    moreSub: 'जब तक प्रमाणित कहानी तैयार हो रही है, हर इमारत को 3D में देखें।',
+    moreSub: 'हर इमारत को 3D में देखें।',
     inThreeD: '3D में देखें',
     steps: [
       [
@@ -358,7 +360,7 @@ export default function Page() {
           </div>
 
           <div className="flex snap-x gap-5 overflow-x-auto pb-4">
-            {monuments.filter((m) => m.verified).slice(0, 8).map((item) => (
+            {featured.map((item) => (
               <Link
                 href={`/monument/${item.id}`}
                 key={item.id}
@@ -399,13 +401,13 @@ export default function Page() {
         </section>
         </Reveal>
 
-        {/* Sites whose stories are still being sourced */}
+        {/* Every site not featured above, sourced or still pending */}
         <Reveal>
         <section aria-labelledby="more-sites-heading" className="px-5 py-8 lg:px-0 lg:py-10">
           <h2 id="more-sites-heading" className="fraunces text-2xl lg:text-3xl">{copy.moreHeading}</h2>
           <p className="mt-2 text-sm text-[#5A4E3F]">{copy.moreSub}</p>
           <div className="mt-5 flex snap-x gap-4 overflow-x-auto pb-4">
-            {monuments.filter((m) => !m.verified).map((item) => (
+            {monuments.filter((m) => !featured.includes(m)).map((item) => (
               <Link
                 href={`/monument/${item.id}`}
                 key={item.id}

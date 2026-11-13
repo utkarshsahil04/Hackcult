@@ -3,8 +3,8 @@
 > Photograph a monument. Discover its story, explore it in 3D, and follow the
 > historical threads that connect it to other places in India.
 
-Built for **HackCult '26** (Track: Culture & Digital Heritage). Covers 28 sites in Delhi and Agra:
-15 with sourced stories, and 13 that can be planned and mapped while their stories are pending.
+Built for **HackCult '26** (Track: Culture & Digital Heritage). Covers 28 sites in Delhi and Agra,
+every one with sourced facts and a story.
 
 **Try it live: [hackcult-drab.vercel.app](https://hackcult-drab.vercel.app/)**
 
@@ -37,8 +37,7 @@ Add these once, when you want them:
 | `python dev.py --stories` | Generates stories with Gemini. Without them, `/api/stories/{slug}` returns a 404. |
 | `python dev.py --recognition` | Installs photo recognition (a large download). |
 
-**Stories** take at least 8 minutes because of free-tier rate limits. The 13 story-pending sites have
-no sourced claims, so they report `[FAIL]`. That's expected.
+**Stories** take at least 15 minutes because of free-tier rate limits.
 
 **Recognition** also needs the artifact in `data\artifacts\dataset-v1`. If you don't have one, build
 it from the `Indian-monuments` dataset, which downloads the models on the first run:
@@ -82,7 +81,7 @@ is unconfirmed, so this is for the demo only.
 | Recognition, held-out photos | 100% right when it answers, answers 96.4%, 0 of 80 other-monument photos accepted | `data/artifacts/dataset-v1/report.json`; test photos share a dataset with the reference gallery |
 | Recognition, fresh Wikimedia photos | 12 of 15 right, 1 "not sure", 2 wrong; 4 of 24 photos of other monuments wrongly accepted | `ml/scripts/spot_check.py` on 39 credited photos never used for tuning |
 | Day plans | 100% of 690 Delhi scenarios pass the independent validator, within 0.01 min of the exact optimum | `backend/tools/evaluate_planner.py`, see [Plan architecture](backend/docs/PLAN_ARCHITECTURE.md) |
-| Sources | 54 claims from 70 sources: 51 cite two or more publishers, 3 are labelled legends | the seed data checks in `backend/app/db/seed.py` |
+| Sources | 94 claims from 114 sources: 90 cite two or more publishers, 4 are labelled legends | the seed data checks in `backend/app/db/seed.py` |
 | Digitising | One real end-to-end run (Iron Pillar inscription); old scripts are often misread, which is why a curator reviews every claim | manual run, no accuracy benchmark yet |
 
 ## Tech stack

@@ -26,10 +26,8 @@ test('story length tiers switch between visitor and scholar text', async ({ page
   await expect(page.getByTestId('facts')).toBeVisible()
 })
 
-test('share button shows only on verified monuments', async ({ page }) => {
+// No unverified site is left in the catalog to check that the button stays hidden there.
+test('share button shows on verified monuments', async ({ page }) => {
   await openMonument(page, 'taj-mahal')
   await expect(page.getByRole('button', { name: 'Share' })).toBeVisible()
-  await page.goto('/monument/india-gate')
-  await expect(page.getByTestId('story-pending')).toBeVisible()
-  await expect(page.getByRole('button', { name: 'Share' })).toHaveCount(0)
 })

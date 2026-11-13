@@ -41,6 +41,9 @@ python -m raahein_ml.dataset_pipeline build --dataset <path>/Indian-monuments/im
 cd api && python -m uvicorn app.main:app --port 8000   # run from the project venv
 ```
 
+Add `--extra <dir>` to learn more monuments: one folder per canonical slug (e.g. `red-fort/`) of
+photos, split with the same gallery / calibration / test shares; folders with under 10 images are skipped.
+
 The build writes `data/artifacts/dataset-v1/` (gitignored). `GET /api/health` reports
 `models: ok` once the API has loaded it; a missing artifact is a 500 on identify, never "uncertain".
 

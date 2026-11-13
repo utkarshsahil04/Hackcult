@@ -45,7 +45,9 @@ def dup(items, k, what):
 
 dup(mon, "slug", "monument slug")
 dup(src, "key", "source key")
-mslugs = {m["slug"] for m in mon}
+# listed sites (sites.json) can carry claims too; seed.py merges them in the same way
+sites = load("sites") if (d / "sites.json").is_file() else []
+mslugs = {m["slug"] for m in mon} | {s["slug"] for s in sites}
 skeys = {s["key"]: s for s in src}
 for s in src:
     if any(b in s["url"].lower() or b in s["publisher"].lower() for b in BANNED):

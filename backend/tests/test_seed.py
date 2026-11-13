@@ -23,9 +23,9 @@ def test_required_tables_are_queryable_and_monuments_seeded(db):
     assert db.execute("SELECT COUNT(*) FROM monuments").fetchone()[0] >= 1
 
 
-def test_exactly_15_verified_monuments_plus_listed_sites(db):
+def test_at_least_15_verified_monuments(db):
     verified = db.execute("SELECT COUNT(DISTINCT monument_id) FROM claims WHERE is_legend = 0").fetchone()[0]
-    assert verified == TARGET_MONUMENTS
+    assert verified >= TARGET_MONUMENTS  # listed sites count once they gain sourced claims
     assert db.execute("SELECT COUNT(*) FROM monuments").fetchone()[0] >= TARGET_MONUMENTS
 
 
@@ -76,7 +76,7 @@ def test_descriptions_contain_only_sourced_claims(db):
             "SELECT text FROM claims WHERE monument_id = ? AND is_legend = 0 "
             "AND claim_type IN ('built','style','recognition','event') ORDER BY position, claim_key", (m["id"],))]
         assert m["description"] == " ".join(texts)
-        assert m["description"] or not texts  # listed sites have no claims yet
+        assert m["description"] or not texts  # a listed site may have no claims yet
 
 
 def test_monument_metadata_is_complete(db):
