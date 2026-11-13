@@ -48,9 +48,11 @@ it from the `Indian-monuments` dataset, which downloads the models on the first 
 ```
 
 `http://localhost:8000/api/health` shows `"models":"ok"` when it's ready. It uses your NVIDIA GPU if
-you have one, otherwise the CPU. It recognises 5 monuments: Taj Mahal, Humayun's Tomb, Fatehpur
-Sikri, Qutb complex and Mehrauli Archaeological Park. The dataset's licence is unconfirmed, so this
-is for the demo only.
+you have one, otherwise the CPU. It recognises 7 monuments: Taj Mahal, Humayun's Tomb, Fatehpur
+Sikri, Qutb complex, Mehrauli Archaeological Park, India Gate and Lotus Temple. Other monuments
+usually come back "uncertain", but not always: in a 24-photo Wikimedia check of Red Fort, Agra Fort,
+Purana Qila, Jama Masjid and Safdarjung's Tomb, 4 were still wrongly accepted. The dataset's licence
+is unconfirmed, so this is for the demo only.
 
 ## Features
 
@@ -61,6 +63,27 @@ is for the demo only.
 - **Plan your day:** solver-built routes of up to 5 stops, shown on the map, each checked by an independent validator
 - **Nearby:** the closest monuments to you, with distances
 - **My journey:** record the monuments you've visited and see your path, with no account
+- **Digitise an archive:** photograph an inscription, plaque or manuscript; Gemini reads it into draft
+  claims, each quoting its evidence, and a curator approves them before they appear on the monument
+
+### How it covers the problem statement (HC26-CULT01)
+
+| Asks for | Raahein |
+|---|---|
+| Preservation | `/digitise` turns scans into transcriptions, translations and draft claims, stored with their rights |
+| Verification | Every published fact cites its sources; digitised claims need a curator's approval first |
+| Discovery | Photo recognition, search and filters across 28 sites, connections between monuments, English and Hindi |
+| Immersion | A 3D model with explained parts for every site, a live map and solver-built routes on real roads |
+
+## Measured results
+
+| What | Result | How it was measured |
+|---|---|---|
+| Recognition, held-out photos | 100% right when it answers, answers 96.4%, 0 of 80 other-monument photos accepted | `data/artifacts/dataset-v1/report.json`; test photos share a dataset with the reference gallery |
+| Recognition, fresh Wikimedia photos | 12 of 15 right, 1 "not sure", 2 wrong; 4 of 24 photos of other monuments wrongly accepted | `ml/scripts/spot_check.py` on 39 credited photos never used for tuning |
+| Day plans | 100% of 690 Delhi scenarios pass the independent validator, within 0.01 min of the exact optimum | `backend/tools/evaluate_planner.py`, see [Plan architecture](backend/docs/PLAN_ARCHITECTURE.md) |
+| Sources | 54 claims from 70 sources: 51 cite two or more publishers, 3 are labelled legends | the seed data checks in `backend/app/db/seed.py` |
+| Digitising | One real end-to-end run (Iron Pillar inscription); old scripts are often misread, which is why a curator reviews every claim | manual run, no accuracy benchmark yet |
 
 ## Tech stack
 
@@ -97,6 +120,10 @@ data/       Ignored images, caches and generated recognition artifacts
 | GET | `/api/places/nearby` | Places near a monument |
 | POST | `/api/tours/plan` | Build a day plan of up to 5 stops |
 | POST | `/api/tours/route-line` | Road shape between a plan's stops |
+| POST | `/api/archive/digitise` | Read a scan into a draft (multipart `photo` and `rights`, 20 a day per IP) |
+| GET | `/api/archive/items` | Reviewed items; drafts need the `X-Review-Token` header |
+| POST | `/api/archive/items/{id}/review` | Approve, edit or reject a draft's claims (`X-Review-Token`) |
+| GET | `/api/monuments/{slug}/archive` | A monument's reviewed archive items and approved claims |
 
 ## Configuration
 

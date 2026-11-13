@@ -13,6 +13,7 @@ _DEFAULTS = {
     403: ("FORBIDDEN", "You are not allowed to do this.", "Use an account with access."),
     404: ("NOT_FOUND", "Resource not found.", "Check the path and id."),
     405: ("METHOD_NOT_ALLOWED", "Method not allowed.", "Check the HTTP method."),
+    413: ("PAYLOAD_TOO_LARGE", "The upload is too large.", "Send a photo under 6 MB."),
     429: ("RATE_LIMITED", "Too many requests.", "Wait and retry after the Retry-After period."),
     500: ("INTERNAL_ERROR", "Something went wrong on our side.", "Retry shortly."),
     502: ("UPSTREAM_UNAVAILABLE", "An upstream service failed.", "Retry shortly."),
